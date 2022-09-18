@@ -1,0 +1,165 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.refree-number-container{
+    display: block;
+    width: 60px;
+    height: 60px;
+    position: relative;
+    border: none;
+    border-radius: 20px;
+}
+
+.refree-number-container p{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 1.125rem;
+    font-weight: 500;
+    pointer-events: none;
+}
+
+.refree-number-btn{
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    border-radius: 5px !important;
+    appearance: none;
+    background-color : #E5E5E5;
+    cursor: pointer;
+}
+
+
+.refree-btns-container{
+    display: grid;
+    /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; */
+    grid-template-columns: repeat(10,1fr);
+    gap: 30px 0;
+    height: 500px;
+    overflow-y: scroll;
+    padding: 20px;
+    border: 2px solid #d9deed;
+
+    width: 100%;
+    margin: auto;
+    place-items: center;
+    border-radius: 15px;
+
+}
+
+.check{
+    background-color: blueviolet;
+    color: white;
+}
+.refree-customer-infos-inputs-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.refree-customer-name-phno-input-container{
+    width: 500px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 1px 1px 10px 1px rgba(135,135,135,0.75);
+    -webkit-box-shadow: 1px 1px 10px 1px rgba(135,135,135,0.75);
+    -moz-box-shadow: 1px 1px 10px 1px rgba(135,135,135,0.75);
+    padding: 20px;
+    margin-left: 100px;
+}
+
+.refree-customer-name-input-container, .refree-customer-phno-input-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.refree-customer-name-input-container input, .refree-customer-phno-input-container input{
+    height: 40px;
+    width:300px;
+    border-radius: 5px;
+    border: 3px solid #d9deed;
+}
+
+.refree-customer-name-phno-submit-btn{
+    padding: 5px 20px;
+    border-radius: 5px;
+    background-color: #ff5b5b;
+    border: none;
+    color: white;
+    font-weight: 600;
+    display: block;
+    margin: auto;
+}
+
+.refree-customer-number-amount-container{
+    width: 500px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 1px 1px 10px 1px rgba(135,135,135,0.75);
+    -webkit-box-shadow: 1px 1px 10px 1px rgba(135,135,135,0.75);
+    -moz-box-shadow: 1px 1px 10px 1px rgba(135,135,135,0.75);
+    padding: 20px;
+    margin-right: 100px;
+}
+.refree-customer-number-input-container, .refree-customer-amount-input-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.refree-customer-number-input-container input{
+    height: 40px;
+    width:300px;
+    border-radius: 5px;
+    border: 3px solid #d9deed;
+}
+
+.refree-customer-amount-input{
+    display: flex;
+    align-items: center;
+
+}
+
+.refree-customer-amount-input button{
+    height: 40px;
+    width: 40px;
+    border: none;
+}
+
+.refree-customer-amount-input button:nth-child(1){
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.refree-customer-amount-input button:nth-child(3){
+    /* border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px; */
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.refree-customer-amount-input input{
+    height: 40px;
+    border: 3px solid #d9deed;
+    width:200px;
+}
+
+.refree-customer-number-amount-submit-btn{
+    padding: 5px 20px;
+    border-radius: 5px;
+    background-color: #ff5b5b;
+    border: none;
+    color: white;
+    font-weight: 600;
+    display: block;
+    margin: auto;
+}

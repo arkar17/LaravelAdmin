@@ -1,0 +1,94 @@
+.agent-requests-parent-container{
+    margin-top: 30px;
+}
+
+.agent-request-container{
+    padding: 20px;
+    border-top: 1px solid #D9D9D9;
+    margin-top: 10px;
+}
+
+.agent-requests-labels-container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.agent-requests-labels-container h2:nth-child(1){
+    margin-left: 15px;
+}
+.agent-requests-labels-container h2:nth-child(2){
+    margin-left: 80px;
+}
+.agent-requests-labels-container h2:nth-child(3){
+    margin-left: 95px;
+}
+.agent-requests-labels-container h2:nth-child(4){
+    margin-left: 90px;
+}
+/* .agent-requests-labels-container h2:nth-child(5){
+    margin-left: 90px;
+} */
+
+.agent-request-rows-container{
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.agent-request-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background-color: #E5E5E5;
+}
+
+.agent-request-row:nth-child(2n){
+    background-color: #F6F6F6;
+}
+
+.agent-request-row p:nth-child(1){
+    width: 10px;
+}
+.agent-request-row p:nth-child(2){
+    width: 90px;
+}
+.agent-request-row p:nth-child(3){
+    width: 100px;
+}
+.agent-request-row p:nth-child(4){
+    width: 400px;
+}
+
+.agent-request-row button{
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+.agent-request-accept-btn{
+    background-color: #016B01;
+}
+
+.agent-request-decline-btn{
+    background-color: #EA3A36;
+}
+
+.agent-request-row .fa-check{
+    font-size: 16px;
+    color: white;
+    padding: 15px 17px;
+    border-radius: 50%;
+    background-color: #016B01;
+    cursor: pointer;
+}
+
+.agent-request-row .fa-xmark{
+    font-size: 16px;
+    color: white;
+    padding: 15px 18px;
+    border-radius: 50%;
+    background-color: #EA3A36;
+    cursor: pointer;
+}

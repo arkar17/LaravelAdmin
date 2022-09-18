@@ -1,0 +1,217 @@
+.create-referee-parent-container{
+    width: 100%;
+    /* background-color: var(--primary-color); */
+    margin-top: 50px;
+}
+
+.create-referee-container{
+    width: 100%;
+    border: 1px solid #E5E5E5;
+    border-radius: 5px;
+    padding: 30px;
+    padding-right: 70px;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    /* grid-template-rows: 1fr 1fr; */
+}
+
+.form-group {
+    /* padding: 1em;
+    margin: 1em; */
+  }
+  
+  .form-group>label {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+  
+  .form-group img {
+    position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translateX( -50% ) translateY( -50% );
+         -moz-transform: translateX( -50% ) translateY( -50% );
+          -ms-transform: translateX( -50% ) translateY( -50% );
+           -o-transform: translateX( -50% ) translateY( -50% );
+              transform: translateX( -50% ) translateY( -50% );
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+  }
+  
+  input[type="file"] {
+    outline: 0;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  
+  .label {
+    width: 200px;
+    height: 200px;
+    /* border: 2px dashed grey; */
+    border-radius: 50%;
+    display: block;
+    /* padding: 1.2em; */
+    transition: border 300ms ease;
+    cursor: pointer;
+    text-align: center;
+    background-color: #E5E5E5;
+  }
+  .label i {
+    display: block;
+    font-size: 42px;
+    padding-bottom: 16px;
+    /* margin-bottom: 30px; */
+  }
+  
+  .label i,
+  .label span {
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+
+  .label span{
+    transform: translate(-50%,100%);
+  }
+  
+  .label i,
+  .label .title {
+    color: grey;
+    transition: 200ms color;
+  }
+  /* .label:hover {
+    border: 2px solid black;
+  } */
+  .label:hover i,
+  .label:hover .title {
+    color: black;
+  }
+
+.create-referee-inputs-parent-container{
+    margin-left: 35px;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: space-between; */
+}
+
+.create-referee-inputs-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.create-referee-name-container input, .create-referee-phno-container input{
+    padding: 10px 0 10px 10px;
+    font-size: 16px;
+    border: 2px solid #D9DEED;
+    border-radius: 5px;
+    width: 350px;
+}
+
+.create-referee-pw-container input, .create-referee-confirmpw-container input{
+    padding: 10px 0 10px 10px;
+    font-size: 16px;
+    border: 2px solid #D9DEED;
+    border-radius: 5px;
+    width: 350px;
+}
+
+.create-refree-inputs-btns-container{
+    display: flex;
+
+}
+
+.create-refree-inputs-btns-container button:nth-child(1){
+    padding: 9px;
+    color: white;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+}
+
+.create-refree-inputs-btns-container button:nth-child(2){
+    padding: 7px 9px;
+    /* color: white; */
+    background-color: transparent;
+    border: 2px solid #3C3C3C;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.referee-list-container{
+    width: 100%;
+    border: 1px solid #E5E5E5;
+    border-radius: 5px;
+    padding: 30px;
+   
+}
+
+.referee-list-labels-container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 17px;
+}
+
+.referee-list-labels-container h2:nth-child(1){
+    margin-left: 5px;
+}
+.referee-list-labels-container h2:nth-child(2){
+    margin-left: 190px;
+}
+.referee-list-labels-container h2:nth-child(3){
+    margin-left: 190px;
+}
+.referee-list-labels-container h2:nth-child(4){
+    margin-left: 170px;
+}
+.referee-list-labels-container h2:nth-child(5){
+    margin-left: 220px;
+}
+
+.referee-list-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #E5E5E5;
+    padding: 12px 10px;
+}
+
+.referee-list-row:nth-child(2n){
+    background-color: #F6F6F6;
+}
+
+.referee-list-row p:nth-child(1){
+    width: 10px;
+}
+.referee-list-row p:nth-child(2){
+    width: 80px;
+}
+.referee-list-row p:nth-child(3){
+    width: 100px;
+}
+.referee-list-row p:nth-child(4){
+    width: 90px;
+}
+
+.referee-list-row-actions-container{
+    display: flex;
+    align-items: center;
+}
+
+.referee-list-row-actions-container i{
+    cursor: pointer;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.referee-list-row-icon{
+    cursor: pointer;
+    font-size: 22px;
+}

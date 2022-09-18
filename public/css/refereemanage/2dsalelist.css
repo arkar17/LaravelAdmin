@@ -1,0 +1,201 @@
+.twod-sale-list-parent-container{
+    margin-top: 30px;
+}
+
+.twod-sale-list-filters-container{
+    display: flex;
+    align-items: flex-end;
+    padding-top: 30px;
+    border-top: 2px solid #D9D9D9;
+    justify-content: space-between;
+}
+
+.twod-sale-list-filter-refereename-container p, .twod-sale-list-filters-agentname-container p{
+    font-size: 18px;
+    color: #676974;
+    margin-bottom: 8px;
+}
+
+.twod-sale-list-filter-refereename-container input, .twod-sale-list-filters-agentname-container input{
+    width: 200px;
+    height: 40px;
+    border: 2px solid #D9DEED;
+    border-radius: 5px;
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+.twod-sale-list-filters-agentname-container{
+    /* margin-left: 10px; */
+}
+
+input[type="date"]{
+    height: 40px;
+    padding: 10px;
+    border: 2px solid #D9DEED;
+    /* border: none; */
+    border-radius: 5px;
+    /* padding-left: 10px; */
+    cursor: pointer;
+    position: relative;
+    font-size: 16px;
+    width: 230px;
+}
+
+input[type="date"]:not(.has-value):before{
+    color: #978C98;
+    content: attr(placeholder);
+    padding-right: 10px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator{
+    font-size: 18px;
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
+
+  /* ::-webkit-datetime-edit-year-field:not([aria-valuenow]),
+::-webkit-datetime-edit-month-field:not([aria-valuenow]),
+::-webkit-datetime-edit-day-field:not([aria-valuenow]) {
+    color: transparent;
+} */
+
+input[value="0000-00-00"]::-webkit-datetime-edit {
+    color: transparent;
+}
+
+.twod-sale-list-filters-date-parent-container{
+    /* margin-left: 10px; */
+}
+
+.twod-sale-list-filters-date-parent-container p{
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #676974;
+}
+
+.twod-sale-list-filters-round-container p{
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #676974;
+}
+
+.twod-sale-list-filters-round-container select{
+    /* margin-left: 10px; */
+    height: 40px;
+    width: 150px;
+    border: 2px solid #D9DEED;
+    border-radius: 5px;
+    font-size: 16px;
+    /* padding-left: 10px; */
+}
+
+.twod-sale-list-filters-btn{
+    display: flex;
+    align-items: center;
+    /* al-content: baseline; */
+    height: 40px;
+    padding: 0 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #055BB6;
+    color: white;
+}
+
+.twod-sale-list-filter-icon{
+    margin-right: 5px;
+}
+
+.twod-sale-list-details-parent-container{
+    padding: 15px 40px;
+    border: 2px solid #E5E5E5;
+    border-radius: 5px;
+    margin-top: 30px;
+}
+
+.twod-sale-list-details-labels-container{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.twod-sale-list-details-labels-container p{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.twod-sale-list-details-labels-container p:nth-child(1){
+    margin-left: 10px;
+}
+.twod-sale-list-details-labels-container p:nth-child(2){
+    margin-left: 160px;
+}
+.twod-sale-list-details-labels-container p:nth-child(3){
+    margin-left: 170px;
+}
+.twod-sale-list-details-labels-container p:nth-child(4){
+    margin-left: 140px;
+}
+.twod-sale-list-details-labels-container p:nth-child(5){
+    margin-left: 140px;
+}
+
+.twod-sale-details-rows-container{
+    height: 290px;
+    overflow-y: scroll;
+}
+
+.twod-sale-details-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background-color: #E5E5E5;
+}
+
+.twod-sale-details-row:nth-child(2n){
+    background-color: #F6F6F6;
+}
+
+.twod-sale-details-row p:nth-child(1){
+    width: 10px;
+}
+.twod-sale-details-row p:nth-child(2){
+    width: 100px;
+}
+.twod-sale-details-row p:nth-child(3){
+    width: 100px;
+}
+.twod-sale-details-row p:nth-child(4){
+    width: 30px;
+}
+.twod-sale-details-row p:nth-child(5){
+    width: 80px;
+}
+
+.twod-sale-export-btn{
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #055BB6;
+    color: white;
+    text-decoration: none;
+    /* float: right; */
+}
+
+.lonepyine-sale-export-btn{
+    margin-top: 20px;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #055BB6;
+    color: white;
+    text-decoration: none;
+}

@@ -1,0 +1,49 @@
+.role-view-detail-parent-container{
+    margin-top: 30px;
+}
+
+.role-view-detail-container{
+    padding-top: 30px;
+    border-top: 2px solid #D9D9D9;
+}
+
+.role-view-detail-attributes-container{
+
+}
+
+.role-view-detail-attribute{
+    display: flex;
+    align-items: center;
+}
+
+.role-view-detail-attribute p:nth-child(2){
+    margin-left: 10px;
+}
+
+.role-view-detail-attribute:not(:last-child){
+    margin-bottom:20px;
+}
+
+.role-view-detail-permissions-parent-container > p{
+    margin-bottom: 20px;
+}
+
+.role-view-detail-permissions-container p{
+    padding: 2px 13px;
+    color: white;
+    border-radius: 5px;
+    background-color: #676974;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.role-view-detail-container a{
+    padding: 8px;
+    font-size: 18px;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    color: white;
+    margin-top: 70px;
+}

@@ -1,0 +1,79 @@
+.winningresult-form{
+    margin-bottom: 30px;
+}
+
+.winningresult-form input{
+    height : 45px;
+    font-size: 16px;
+    width:150px;
+    border: 1px solid #D9D9D9;
+    border-radius: 5px;
+}
+
+.winningresult-select{
+    height : 45px;
+    border-radius: 5px;
+    font-size: 16px;
+
+}
+
+.winners-header{
+    margin-bottom: 20px;
+}
+
+.winningresult-form button{
+    height : 45px;
+    font-size: 16px;
+    border: none;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    color: white;
+    padding: 0 20px;
+}
+
+.winning-table-parent-container{
+    width: 100%;
+    text-align: center;
+    border: none;
+}
+
+.table-body-container{
+    display: block;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.table-body-container th{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.winning-table-parent-container td, .winning-table-parent-container th{
+    padding: 20px 0;
+    border: none;
+}
+
+.winning-table-parent-container tr{
+    display: table;
+    width: 100%;
+}
+
+.table-row{
+    background-color: #E5E5E5;
+    border: none;
+    font-size: 16px;
+}
+
+.table-row:nth-child(2n){
+    background-color: #F6F6F6;
+}
+
+tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;/* even columns width , fix width of table too*/
+}
+
+.table-lables{
+    background-color: none;
+}

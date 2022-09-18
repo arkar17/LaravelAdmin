@@ -1,0 +1,250 @@
+.cashinout-parent-container{
+    margin-top: 30px;
+}
+
+.cashinout-categories-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cashinout-category {
+    padding: 16px 10px;
+    color: #909090;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.cashinout-category-active{
+    color: black;
+    font-weight: 600;
+    border-bottom: 3px solid var(--primary-color);
+}
+
+#cash_out{
+    margin-left: 20px;
+}
+
+.cashin-parent-container, .cashout-parent-container{
+    display: none;
+}
+
+.appear{
+    display: block;
+}
+
+.cashin-agent-inputs-parent-container{
+    padding: 40px 20px;
+    border: 2px solid #E5E5E5;
+    border-radius: 5px;
+    width: 900px;
+    margin: auto;
+}
+
+.cashin-agent-name-ph-coin-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cashin-agent-name-container p{
+    font-size: 18px;
+    color: #676974;
+    margin-bottom: 10px;
+}
+
+.cashin-agent-name-container input{
+    height: 40px;
+    border-radius: 5px;
+    width: 240px;
+    border: 2px solid #D9DEED;
+    font-size: 16px;
+    padding-left: 10px;
+}
+.cashin-agent-phno-container p{
+    font-size: 18px;
+    color: #676974;
+    margin-bottom: 10px;
+}
+
+.cashin-agent-phno-container input{
+    height: 40px;
+    border-radius: 5px;
+    width: 240px;
+    border: 2px solid #D9DEED;
+    font-size: 16px;
+    padding-left: 10px;
+}
+.cashin-agent-coin-container p{
+    font-size: 18px;
+    color: #676974;
+    margin-bottom: 10px;
+}
+
+.cashin-agent-coin-container input{
+    height: 40px;
+    border-radius: 5px;
+    width: 240px;
+    border: 2px solid #D9DEED;
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+.cashin-status-payment-remaining-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+.cashin-agent-status-container p{
+    font-size: 18px;
+    color: #676974;
+    margin-bottom: 10px;
+}
+
+.cashin-agent-status-container select{
+    height: 40px;
+    border-radius: 5px;
+    width: 240px;
+    border: 2px solid #D9DEED;
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+.cashin-agent-payment-container p{
+    font-size: 18px;
+    color: #676974;
+    margin-bottom: 10px;
+}
+
+.cashin-agent-payment-container input{
+    height: 40px;
+    border-radius: 5px;
+    width: 240px;
+    border: 2px solid #D9DEED;
+    font-size: 16px;
+    padding-left: 10px;
+}
+.cashin-agent-remaining-container p{
+    font-size: 18px;
+    color: #676974;
+    margin-bottom: 10px;
+}
+
+.cashin-agent-remaining-container input{
+    height: 40px;
+    border-radius: 5px;
+    width: 240px;
+    border: 2px solid #D9DEED;
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+.cashin-btn-container{
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cashin-confirm-btn{
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: var(--primary-color);
+}
+
+.cashin-cancel-btn{
+    padding: 6px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    margin-left: 20px;
+}
+
+.cashin-list-parent-container{
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid #D9D9D9;
+}
+
+.cashin-list-parent-container h1{
+    margin-bottom: 30px;
+}
+
+.cashin-list-container{
+    padding-top: 20px;
+    border-top: 2px solid #D9D9D9;
+}
+
+.cashin-list-lables-container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.cashin-list-lables-container p{
+    font-weight: 600;
+}
+
+.cashin-list-lables-container p:nth-child(1){
+    margin-left: 15px;
+}
+.cashin-list-lables-container p:nth-child(2){
+    margin-left: 100px;
+}
+.cashin-list-lables-container p:nth-child(3){
+    margin-left: 150px;
+}
+.cashin-list-lables-container p:nth-child(4){
+    margin-left: 130px;
+}
+.cashin-list-lables-container p:nth-child(5){
+    margin-left: 160px;
+}
+.cashin-list-lables-container p:nth-child(6){
+    margin-left: 160px;
+}
+.cashin-list-lables-container p:nth-child(7){
+    margin-left: 90px;
+}
+
+.cashin-list-rows-container{
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.cashin-list-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #E5E5E5;
+}
+
+.cashin-list-row:nth-child(2n){
+    background-color: #F6F6F6;
+}
+
+.cashin-list-row p:nth-child(1){
+    width: 15px;
+}
+.cashin-list-row p:nth-child(2){
+    width: 80px;
+}
+.cashin-list-row p:nth-child(3){
+    width: 120px;
+}
+.cashin-list-row p:nth-child(4){
+    width: 100px;
+}
+.cashin-list-row p:nth-child(5){
+    width: 80px;
+}
+.cashin-list-row p:nth-child(6){
+    width: 100px;
+}
+.cashin-list-row p:nth-child(7){
+    width: 80px;
+}

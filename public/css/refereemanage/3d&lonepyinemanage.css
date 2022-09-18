@@ -1,0 +1,294 @@
+.threed-manage-parent-container{
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+
+.threed-manage-rate-parent-container{
+    display: flex;
+    align-items: center;
+}
+
+.threed-manage-current-rate{
+    height: 60px;
+    width: 200px;
+    border: 2px solid #978C98;
+    display: grid;
+    place-items: center;
+    border-radius: 5px;
+}
+
+.threed-manage-rate-insert-container{
+    display: flex;
+    align-items: center;
+    height: 60px;
+    width: 315px;
+    padding-left: 20px;
+    border: 2px solid #978C98;
+    border-right: none;
+    border-radius: 5px;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin-left: 20px;
+
+}
+
+.threed-manage-rate-insert-container form{
+    /* margin-right: 20px; */
+    display: flex;
+    align-items: center;
+}
+
+.threed-manage-rate-insert-container input{
+    width:90px;
+    height: 30px;
+    border: 2px solid #D9DEED;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.threed-manage-rate-insert-container button{
+    height: 60px;
+    border: none;
+    background-color: var(--primary-color);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    /* margin: 0; */
+    padding: 0 30px;
+    color: white;
+    /* display: inline-block; */
+}
+
+.lonepyine-manage-header-container{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.lonepyine-manage-search-container{
+    height: 40px;
+    width: 280px;
+    position: relative;
+}
+
+.lonepyine-manage-search-container .lonepyine-manage-search-icon{
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #676974;
+}
+
+.lonepyine-manage-search-container input{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    border: 2px solid #D9D9D9;
+    padding-left: 50px;
+}
+
+.lonepyine-manage-numbers-parent-container{
+    /* padding-top: 24px; */
+    border-top: 2px solid #D9DEED;
+    /* border-radius: 5px; */
+    /* display: grid;
+    grid-template-columns: 65% 35%; */
+}
+
+.lonepyine-manage-labels-container{
+    display: grid;
+    grid-template-columns: 65% 35%;
+}
+
+.lonepyine-manage-labels-container p{
+    font-weight: 600;
+}
+
+.lonepyine-manage-numbers-labels-left-container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-top: 30px;
+}
+
+.lonepyine-manage-numbers-labels-left-container p:nth-child(1){
+    margin-left: 10px;
+}
+.lonepyine-manage-numbers-labels-left-container p:nth-child(2){
+    margin-left: 30px;
+}
+.lonepyine-manage-numbers-labels-left-container p:nth-child(3){
+    margin-left: 80px;
+}
+.lonepyine-manage-numbers-labels-left-container p:nth-child(4){
+    margin-left: 120px;
+}
+
+.lonepyine-manage-numbers-labels-right-container{
+    display: flex;
+    align-items: flex-end;
+    /* margin-bottom: 10px; */
+    /* border-left: 2px solid #D9D9D9; */
+}
+
+.lonepyine-manage-numbers-labels-right-container p{
+    margin-bottom: 10px;
+}
+
+.lonepyine-manage-numbers-labels-right-container p:nth-child(1){
+    margin-left: 80px;
+}
+.lonepyine-manage-numbers-labels-right-container p:nth-child(2){
+    margin-left: 170px;
+}
+
+.lonepyine-manage-numbers-rows-container{
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.lonepyine-manage-numbers-row{
+    /* display: flex; */
+    /* align-items: center; */
+    display: grid;
+    grid-template-columns: 65% 35%;
+    /* padding: 17px 0; */
+    background-color: #E5E5E5;
+}
+
+.lonepyine-manage-numbers-row:nth-child(2n){
+    background-color: #F6F6F6;
+}
+
+.lonepyine-manage-numbers-attributes{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 20px;
+}
+
+.lonepyine-manage-numbers-attributes span{
+    font-size: 20px;
+}
+
+.lonepyine-manage-numbers-attributes p:nth-child(1){
+    width: 40px;
+}
+.lonepyine-manage-numbers-attributes p:nth-child(2){
+    width: 40px;
+}
+.lonepyine-manage-numbers-attributes p:nth-child(3){
+    width: 80px;
+}
+.lonepyine-manage-numbers-attributes p:nth-child(4){
+    width: 80px;
+}
+
+.lonepyine-manage-numbers-inputs-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-left: 2px solid #D9D9D9;
+}
+
+.lonepyine-manage-numbers-inputs-container input{
+    height: 40px;
+    width: 130px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.lonepyine-manage-inserts-parent-container{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.lonepyine-manage-rate-insert-container{
+    display: flex;
+    align-items: center;
+    height: 60px;
+    width: 315px;
+    padding-left: 20px;
+    border: 2px solid #978C98;
+    border-right: none;
+    border-radius: 5px;
+    justify-content: space-between;
+    box-sizing: border-box;
+
+}
+
+.lonepyine-manage-rate-insert-container input{
+    width:90px;
+    height: 30px;
+    border: 2px solid #D9DEED;
+    border-radius: 5px;
+}
+
+.lonepyine-manage-rate-insert-container button{
+    height: 60px;
+    border: none;
+    background-color: var(--primary-color);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    /* margin: 0; */
+    padding: 0 30px;
+    color: white;
+    /* display: inline-block; */
+}
+.lonepyine-manage-max-insert-container{
+    display: flex;
+    align-items: center;
+    height: 60px;
+    width: 380px;
+    padding-left: 20px;
+    border: 2px solid #978C98;
+    border-right: none;
+    border-radius: 5px;
+    justify-content: space-between;
+    box-sizing: border-box;
+
+}
+
+.lonepyine-manage-max-insert-container input{
+    width:90px;
+    height: 30px;
+    border: 2px solid #D9DEED;
+    border-radius: 5px;
+}
+
+.lonepyine-manage-max-insert-container button{
+    height: 60px;
+    border: none;
+    background-color: var(--primary-color);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    /* margin: 0; */
+    padding: 0 30px;
+    color: white;
+    /* display: inline-block; */
+}
+
+.lonepyine-manage-inserts-btns-container button{
+    height: 60px;
+    padding: 0 20px;
+    border-radius: 5px;
+}
+
+.lonepyine-manage-confirm-btn{
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.lonepyine-manage-cancel-btn{
+    height: 56px;
+    border: 2px solid black;
+    background-color: white;
+
+}

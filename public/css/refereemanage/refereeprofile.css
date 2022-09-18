@@ -1,0 +1,229 @@
+.referee-profile-parent-container{
+    margin-top: 30px;
+}
+
+.referee-profile-filters-container{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.referee-profile-filters-container input[type="date"]{
+    height: 45px;
+    padding: 10px;
+    border: 1px solid #D9DEED;
+    /* border: none; */
+    border-radius: 5px;
+    /* padding-left: 10px; */
+    cursor: pointer;
+    position: relative;
+    font-size: 16px;
+    width: 230px;
+}
+
+input[type="date"]:not(.has-value):before{
+    color: #978C98;
+    content: attr(placeholder);
+    padding-right: 10px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator{
+    font-size: 18px;
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
+
+  /* ::-webkit-datetime-edit-year-field:not([aria-valuenow]),
+::-webkit-datetime-edit-month-field:not([aria-valuenow]),
+::-webkit-datetime-edit-day-field:not([aria-valuenow]) {
+    color: transparent;
+} */
+
+input[value="0000-00-00"]::-webkit-datetime-edit {
+    color: transparent; 
+}
+
+#referee-profile-filter-todate{
+    margin-left: 10px;
+}
+
+.referee-data-filter-btn-icon{
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.referee-profile-filter-btn{
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border: none;
+    background-color: #055BB6;
+    border-radius: 5px;
+    color: white;
+    margin-left: 30px;
+}
+
+.referee-profile-details-parent-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    margin-top: 20px;
+}
+
+.referee-profile-details-container{
+    padding: 35px 32px;
+    border: 2px solid #E5E5E5;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.referee-profile-img-container{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.referee-profile-img-container img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.referee-profile-attributes-container{
+    margin-left: 50px;
+}
+
+.referee-profile-attribute p{
+    color: var(--text-color-light);
+}
+
+.referee-profile-attribute:not(:last-child){
+    margin-bottom: 12px;
+}
+
+.referee-profile-chart-container{
+    width: 100%;
+    height: 100%;
+    /* background-color: var(--text-color-light); */
+    border: 2px solid #E5E5E5;
+    border-radius: 5px;
+}
+
+.referee-profile-agent-list-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.referee-profile-agent-list-filter{
+    width: 280px;
+    height: 40px;
+    position: relative;
+}
+
+.referee-profile-agent-list-filter input{
+    width: 100%;
+    height: 100%;
+    padding: 7px 18px 7px 40px;
+    border-radius: 5px;
+    font-size: 16px;
+    border: 2px solid #D9D9D9;
+}
+
+.referee-profile-agent-list-icon{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    font-size: 20px;
+}
+
+.referee-profile-agent-list-container{
+    padding: 30px;
+    border: 2px solid #E5E5E5;
+    border-radius: 5px;
+}
+
+.referee-profile-agent-list-labels-container{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.referee-profile-agent-list-labels-container h2:nth-child(1){
+    margin-left: 20px;
+}
+.referee-profile-agent-list-labels-container h2:nth-child(2){
+    margin-left: 170px;
+}
+.referee-profile-agent-list-labels-container h2:nth-child(3){
+    margin-left: 200px;
+}
+.referee-profile-agent-list-labels-container h2:nth-child(4){
+    margin-left: 140px;
+}
+
+.referee-profile-agent-list-rows-container{
+
+}
+
+.referee-profile-agent-list-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 25px;
+    background-color: #E5E5E5;
+}
+
+.referee-profile-agent-list-row p:nth-child(1){
+    width: 10px;
+    
+}
+.referee-profile-agent-list-row p:nth-child(2){
+    width: 90px;
+
+}
+.referee-profile-agent-list-row p:nth-child(3){
+    width: 90px;
+
+}
+.referee-profile-agent-list-row p:nth-child(4){
+    width: 80px;
+
+}
+
+.referee-profile-agent-list-row:nth-child(2n){
+    background-color: #F6F6F6;
+}
+
+.referee-profile-agent-list-row a{
+    font-size: 16px;
+    color: white;
+    padding: 10px 12px;
+    border: none;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    /* width: 150px; */
+}
+
+.referee-profile-agent-list-row a p{
+    white-space: nowrap;
+}
+
+.referee-profile-agent-list-btn{
+    margin-right: 5px;
+    font-size: 20px;
+}

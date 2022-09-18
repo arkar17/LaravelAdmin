@@ -1,0 +1,423 @@
+.daily-sale-book-parent-container{
+    margin-top: 30px;
+}
+
+.daily-sale-book-headers-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.daily-sale-book-categories-container{
+    display: flex;
+    align-items: center;
+}
+
+.daily-sale-book-categories-container p{
+    font-size: 18px;
+    padding: 9px 30px;
+    cursor: pointer;
+    /* border: 2px solid white; */
+}
+
+.daily-sale-book-categories-active{
+    border: 2px solid #E5E5E5;
+    border-radius: 5px;
+    border-bottom: none;
+}
+
+.daily-sale-book-search-container{
+    height: 40px;
+    width: 280px;
+    position: relative;
+}
+
+.daily-sale-book-search-container input{
+    width: 100%;
+    height: 100%;
+    border: 2px solid #D9D9D9;
+    border-radius: 5px;
+    padding-left: 50px;
+    /* font-size: 18px; */
+}
+
+.daily-sale-book-search-container .daily-sale-book-search-icon{
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #676974;
+}
+
+.daily-sale-book-2d-parent-container, .daily-sale-book-3d-parent-container, .daily-sale-book-lonepyine-parent-container{
+    display: none;
+}
+
+.appear{
+    display: block;
+}
+
+.daily-sale-book-2d-parent-container , .daily-sale-book-3d-parent-container, .daily-sale-book-lonepyine-parent-container{
+    padding-top: 30px;
+    border-top: 2px solid #E5E5E5;
+
+}
+
+.daily-sale-book-labels-container{
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.daily-sale-book-labels-container p:nth-child(1){
+    margin-left: 5px;
+}
+.daily-sale-book-labels-container p:nth-child(2){
+    margin-left: 80px;
+}
+.daily-sale-book-labels-container p:nth-child(3){
+    margin-left: 70px;
+}
+.daily-sale-book-labels-container p:nth-child(4){
+    margin-left: 50px;
+}
+.daily-sale-book-labels-container p:nth-child(5){
+    margin-left: 85px;
+}
+.daily-sale-book-labels-container p:nth-child(6){
+    margin-left: 60px;
+}
+.daily-sale-book-labels-container p:nth-child(7){
+    margin-left: 25px;
+}
+.daily-sale-book-labels-container p:nth-child(8){
+    margin-left: 30px;
+}
+
+.daily-sale-book-rows-container{
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.daily-sale-book-row{
+    padding: 15px 10px;
+    background-color: #E5E5E5;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.daily-sale-book-row:nth-child(2n){
+    background-color: #F6F6F6;
+}
+
+.daily-sale-book-row >  p:nth-child(1){
+    width: 10px;
+}
+.daily-sale-book-row > p:nth-child(2){
+    width: 65px;
+}
+.daily-sale-book-row >  p:nth-child(3){
+    width: 70px;
+}
+.daily-sale-book-row > p:nth-child(4){
+    width: 80px;
+}
+.daily-sale-book-row > p:nth-child(5){
+    width: 50px;
+}
+
+.daily-sale-book-row-numbers{
+    width: 50px;
+}
+
+.daily-sale-book-row-compensations{
+    width: 50px;
+}
+
+.daily-sale-book-row-amounts{
+    width: 80px;
+}
+
+.daily-sale-book-row-numbers p, .daily-sale-book-row-compensations p, .daily-sale-book-row-amounts p{
+    margin-bottom: 20px;
+}
+
+.daily-sale-book-accept-btn, .daily-sale-book-decline-btn, .daily-sale-book-accepted-btn{
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    text-decoration: none;
+}
+
+.daily-sale-book-accept-btn{
+    background-color: #016B01;
+}
+.daily-sale-book-accepted-btn{
+    background-color: gray;
+}
+.daily-sale-book-decline-btn{
+    background-color: #EA3A36;
+    margin-left: 10px;
+}
+
+.daily-sale-book-2dlist-1row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.daily-sale-book-2dlist-2row, .daily-sale-book-2dlist-3row, .daily-sale-book-2dlist-4row,
+.daily-sale-book-2dlist-5row, .daily-sale-book-2dlist-6row, .daily-sale-book-2dlist-7row,
+.daily-sale-book-2dlist-8row, .daily-sale-book-2dlist-9row, .daily-sale-book-2dlist-10row,
+.daily-sale-book-2dlist-11row, .daily-sale-book-2dlist-12row
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.daily-sale-book-2dlist-container{
+    padding: 20px 10px;
+    border: 2px solid #D9DEED;
+    border-radius: 5px;
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.daily-sale-book-2dlist-item-container{
+    padding: 7px 10px;
+    border: 1px solid #D9DEED;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.daily-sale-book-2dlist-item-container > p:nth-child(1){
+    /* padding: 15px 30px; */
+    width: 80px;
+    height: 60px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(180deg, #F6F6F6 0%, #E5E5E5 100%);
+    border-radius: 5px;
+}
+
+.daily-sale-book-2dlist-item-rate, .daily-sale-book-2dlist-item-max, .daily-sale-book-2dlist-item-sale{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+
+.daily-sale-book-2dlist-item-rate p, .daily-sale-book-2dlist-item-max p, .daily-sale-book-2dlist-item-sale p{
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+.daily-sale-book-lonepyinelist-1row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.daily-sale-book-lonepyinelist-2row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.daily-sale-book-lonepyinelist-3row{
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    margin-top: 20px;
+}
+
+.daily-sale-book-lonepyinelist-3row .daily-sale-book-lonepyinelist-item-container:nth-child(1){
+    margin-right: 40px;
+}
+
+
+
+.daily-sale-book-lonepyinelist-parent-container{
+    margin: 60px 0;
+}
+
+.daily-sale-book-lonepyinelist-container{
+    padding: 20px 10px;
+    border: 2px solid #D9DEED;
+    border-radius: 5px;
+    height: 400px;
+    overflow-y: scroll;
+    /* margin-top: 30px; */
+}
+
+.daily-sale-book-lonepyinelist-item-container{
+    padding: 7px 10px;
+    border: 1px solid #D9DEED;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.daily-sale-book-lonepyinelist-item-container > p:nth-child(1){
+    /* padding: 15px 30px; */
+    width: 80px;
+    height: 60px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(180deg, #F6F6F6 0%, #E5E5E5 100%);
+    border-radius: 5px;
+}
+
+.daily-sale-book-lonepyinelist-item-rate, .daily-sale-book-lonepyinelist-item-max, .daily-sale-book-lonepyinelist-item-sale{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+
+.daily-sale-book-lonepyinelist-item-rate p, .daily-sale-book-lonepyinelist-item-max p, .daily-sale-book-lonepyinelist-item-sale p{
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.daily-sale-book-charts-container{
+    display: flex;
+    /* grid-template-columns: 550px 550px; */
+    grid-gap:0 20px ;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 60px;
+}
+
+.daily-sale-book-charts-container div{
+    width: 550px;
+    padding: 20px;
+}
+
+.daily-sale-book-2d-chart-container p, .daily-sale-book-lonepyine-chart-container p{
+    margin-bottom: 20px;
+}
+
+.daily-sale-book-sale-record-parent-container{
+    margin-top: 60px;
+}
+
+.daily-sale-book-sale-record-labels-container{
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    padding-top: 30px;
+    border-top: 2px solid #E5E5E5;
+}
+
+.daily-sale-book-sale-record-labels-container p:nth-child(1){
+    margin-left: 5px;
+}
+.daily-sale-book-sale-record-labels-container p:nth-child(2){
+    margin-left: 90px;
+}
+.daily-sale-book-sale-record-labels-container p:nth-child(3){
+    margin-left: 70px;
+}
+.daily-sale-book-sale-record-labels-container p:nth-child(4){
+    margin-left: 70px;
+}
+.daily-sale-book-sale-record-labels-container p:nth-child(5){
+    margin-left: 100px;
+}
+.daily-sale-book-sale-record-labels-container p:nth-child(6){
+    margin-left: 70px;
+}
+.daily-sale-book-sale-record-labels-container p:nth-child(7){
+    margin-left: 30px;
+}
+.daily-sale-book-sale-record-labels-container p:nth-child(8){
+    margin-left: 60px;
+}
+.daily-sale-book-sale-record-labels-container p:nth-child(9){
+    margin-left: 100px;
+}
+
+.daily-sale-book-sale-record-rows-container{
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.daily-sale-book-sale-record-row{
+    padding: 15px 10px;
+    background-color: #E5E5E5;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.daily-sale-book-sale-record-row:nth-child(2n){
+    background-color: #F6F6F6;
+}
+
+.daily-sale-book-sale-record-row >  p:nth-child(1){
+    width: 20px;
+}
+.daily-sale-book-sale-record-row > p:nth-child(2){
+    width: 100px;
+}
+.daily-sale-book-sale-record-row >  p:nth-child(3){
+    width: 70px;
+}
+.daily-sale-book-sale-record-row > p:nth-child(4){
+    width: 80px;
+}
+.daily-sale-book-sale-record-row > p:nth-child(5){
+    width: 50px;
+}
+
+.daily-sale-book-sale-row-numbers{
+    width: 50px;
+}
+
+.daily-sale-book-sale-row-compensations{
+    width: 50px;
+}
+
+.daily-sale-book-sale-row-amounts{
+    width: 100px;
+}
+
+.daily-sale-book-sale-row-numbers p, .daily-sale-book-sale-row-compensations p, .daily-sale-book-sale-row-amounts p{
+    margin-bottom: 20px;
+}
+
+.daily-sale-book-row-btn-container{
+    display: flex;
+    align-items: center;
+}
+
+.daily-sale-book-3d-current-rate{
+    font-size: 24px;
+    font-weight: 600;
+    padding: 15px 20px;
+    border: 2px solid #978C98;
+    border-radius: 5px;
+    display: inline-block;
+    color: #676974;
+    margin-bottom: 60px;
+}
+
+.daily-sale-book-3d-chart-container{
+   width: 700px;
+   margin: auto;
+   margin-bottom: 60px;
+}
+
+.daily-sale-book-3d-labels-container{
+
+}
