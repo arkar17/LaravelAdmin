@@ -80,6 +80,8 @@ class LoginController extends Controller
             }else{
                 return redirect('/login')->with('message', 'Account Expired');
             }
+        }elseif( $user->hasAnyRole(['phasetwo_admin'])){
+             return redirect()->route('matches-register');
         }else
          return redirect('/login');
     }
