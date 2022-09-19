@@ -4,15 +4,12 @@
     </div>
 
     <div class="side-bar-links-container">
-
+        @hasanyrole('system_admin')
         <a class="side-bar-link" href="{{route('sys-dashboard')}}">
           Dashboard
         </a>
         <a class="side-bar-link" href="/create_user">
             Create User
-        </a>
-        <a class="side-bar-link" href="/matches-register">
-            Create Match
         </a>
         <div class="side-bar-link-dropdown-container">
           <p class="side-bar-link-dropdown-header">
@@ -73,11 +70,17 @@
         <a class="side-bar-link" href="/winningstatus">
             Winning Number
         </a>
+        @endhasanyrole
+        @hasanyrole('phasetwo_admin')
         <a class="side-bar-link" href="/tournament-register">
            Tournament
         </a>
         <a class="side-bar-link" href="/matches-register">
             Match
-        </a>
+         </a>
+         <a class="side-bar-link" href="{{ route('dota.matches') }}">
+            Dota Match
+         </a>
+        @endhasanyrole
     </div>
   </div>

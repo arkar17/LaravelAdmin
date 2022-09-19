@@ -22,12 +22,17 @@ use App\Http\Controllers\SystemAdmin\TwodsController;
 use App\Http\Controllers\PusherNotificationController;
 use App\Http\Controllers\SystemAdmin\ExportController;
 use App\Http\Controllers\SystemAdmin\ProfileController;
+
+use App\Http\Controllers\SystemAdmin\phaseTwo\matches\MatchController;
 use App\Http\Controllers\SystemAdmin\RefereeController;
 use App\Http\Controllers\Referee\ThreeDManageController;
 use App\Http\Controllers\SystemAdmin\PermissionController;
 use App\Http\Controllers\SystemAdmin\RequestlistController;
 use App\Http\Controllers\Referee\RefreeManagementController;
 use App\Http\Controllers\SystemAdmin\OperationStaffController;
+
+//phaseTwo
+use App\Http\Controllers\SystemAdmin\phaseTwo\team\TeamRegisterController;
 use App\Http\Controllers\SystemAdmin\phaseTwo\MatchesController;
 use App\Http\Controllers\SystemAdmin\phaseTwo\TournamentController;
 
@@ -220,7 +225,9 @@ Route::group(['middleware' => 'role:referee'], function(){
     Route::get(' create_user', [UserController::class, 'create_user']);
     Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
     Route::post('add_winningstatus',[HomeController::class, 'winningstatus'])->name('add_winningstatus');
+});
 
+    Route::group(['middleware' => 'role:phasetwo_admin'], function(){
     //Tournament
     Route::get('tournament-register', [TournamentController::class, 'tournamentRegister'])->name('tournament-register');
     Route::post('tournament-store', [TournamentController::class, 'tournamentStore'])->name('tournament-store');
@@ -228,6 +235,16 @@ Route::group(['middleware' => 'role:referee'], function(){
     //Matches
     Route::get('matches-register', [MatchesController::class, 'MatchesRegister'])->name('matches-register');
     Route::post('matches/store',[MatchesController::class, 'store'])->name('matches.store');
+
+    //phaseTwo
+    Route::get('team_register',[TeamRegisterController::class,'teamRegister'])->name('team_register');
+    Route::post('team_create',[TeamRegisterController::class,'teamCreate'])->name('team_create');
+
+
+    //Phase Two - matches - nc
+    Route::get('/dota-matches', [MatchController::class, 'index'])->name('dota.matches');
+
+
     // Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
     // Route::post('winningstatus',[HomeController::class, 'winningstatus']);
 
