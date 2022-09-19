@@ -5,10 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Match extends Model
+class Matches extends Model
 {
     use HasFactory;
-
     public function tournament()
     {
         return $this->belongsTo(Tournament::class,'tournament_id');
@@ -23,4 +22,5 @@ class Match extends Model
     {
         return $this->belongsTo(User::class,'user_id');
     }
+
 }

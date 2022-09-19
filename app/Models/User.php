@@ -88,6 +88,6 @@ class User extends Authenticatable implements JWTSubject
 
     public function matches()
     {
-        return $this->hasMany(Match::class);
+        return $this->hasMany(Matches::class);
     }
 }
