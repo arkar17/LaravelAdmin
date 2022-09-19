@@ -75,6 +75,6 @@
         </a>
         <a class="side-bar-link" href="/matches-register">
             Match
-         </a>
+        </a>
     </div>
   </div>
