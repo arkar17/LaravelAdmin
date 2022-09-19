@@ -51,8 +51,7 @@
 
                     <div class="create-referee-name-container">
                         <label for="referee-name">Match Type</label>
-                        <input type="text" placeholder="Enter Time " name="name">
-
+                        <input type="text" placeholder="Enter Match Type " name="name">
                     </div>
             </div>
 
