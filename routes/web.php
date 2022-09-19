@@ -223,11 +223,15 @@ Route::group(['middleware' => 'role:referee'], function(){
 
     //Tournament
     Route::get('tournament-register', [TournamentController::class, 'tournamentRegister'])->name('tournament-register');
+    Route::post('tournament-store', [TournamentController::class, 'tournamentStore'])->name('tournament-store');
 
     //Matches
     Route::get('matches-register', [MatchesController::class, 'MatchesRegister'])->name('matches-register');
+<<<<<<< HEAD
     Route::post('matches/store',[MatchesController::class, 'store'])->name('matches.store');
 
+=======
+>>>>>>> d588eea8bfce0772b48908bc33ee1af2f1b97a61
 
     // Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
     // Route::post('winningstatus',[HomeController::class, 'winningstatus']);
