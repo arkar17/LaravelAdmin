@@ -11,28 +11,24 @@
 
         <div class="create-user-parent-container">
             <h1>Create Matches</h1>
-            <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data" class="create-user-container">
+            <form action="{{ route('matches.store') }}" method="POST" enctype="multipart/form-data" class="create-user-container">
                 @csrf
                 <div class="create-referee-inputs-row">
                         <div class="create-referee-role-container">
                             <label>Team One</label>
-                            <select name="role_id">
-                                {{-- @foreach ($roles as $role) --}}
-                                <option value="" >Team One</option>
-                                <option value="" >Team Two</option>
-                                <option value="" >Team Three</option>
-                                {{-- @endforeach --}}
+                            <select  name="team_one_name">
+                                @foreach ($match_register_teams as $match_register_team)
+                                <option value="{{$match_register_team->id}}">{{$match_register_team->name}}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="create-referee-role-container">
                             <label>Team Two</label>
-                            <select name="role_id">
-                                {{-- @foreach ($roles as $role) --}}
-                                <option value="" >Team One</option>
-                                <option value="" >Team Two</option>
-                                <option value="" >Team Three</option>
-                                {{-- @endforeach --}}
+                            <select  name="team_two_name">
+                                @foreach ($match_register_teams as $match_register_team)
+                                <option value="{{$match_register_team->id}}">{{$match_register_team->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                 </div>
@@ -40,29 +36,28 @@
                 <div class="create-referee-inputs-row">
                     <div class="create-referee-role-container">
                         <label>Tournament</label>
-                        <select name="role_id">
-                            {{-- @foreach ($roles as $role) --}}
-                            <option value="" >Team One</option>
-                            <option value="" >Team Two</option>
-                            <option value="" >Team Three</option>
-                            {{-- @endforeach --}}
+                        <select name="tournament_name">
+                            @foreach ($match_register_tournaments as $match_register_tournament)
+                            <option value="{{$match_register_tournament->id}}" >{{$match_register_tournament->name}}</option>
+                            @endforeach
                         </select>
                     </div>
 
                     <div class="create-referee-name-container">
                         <label for="referee-name">Match Type</label>
-                        <input type="text" placeholder="Enter Match Type " name="name">
+                        <input type="text" placeholder="Enter Time " name="match_type">
+
                     </div>
             </div>
 
             <div class="create-referee-inputs-row">
                 <div class="create-referee-date-container">
-                    <label for="avaliable_date">Avaliable Date:</label>
-                    <input type="datetime-local" id="avaliable_date" name="avaliable_date">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date">
                 </div>
                 <div class="create-referee-name-container">
                     <label for="referee-name">Time</label>
-                    <input type="text" placeholder="Enter Time " name="name">
+                    <input type="text" placeholder="Enter Time " name="time">
 
                 </div>
             </div>
