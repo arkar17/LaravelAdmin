@@ -31,6 +31,8 @@ use App\Http\Controllers\SystemAdmin\OperationStaffController;
 
 //phaseTwo
 use App\Http\Controllers\SystemAdmin\phaseTwo\team\TeamRegisterController;
+use App\Http\Controllers\SystemAdmin\phaseTwo\MatchesController;
+use App\Http\Controllers\SystemAdmin\phaseTwo\TournamentController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -222,9 +224,16 @@ Route::group(['middleware' => 'role:referee'], function(){
     Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
     Route::post('add_winningstatus',[HomeController::class, 'winningstatus'])->name('add_winningstatus');
 
+    //Tournament
+    Route::get('tournament-register', [TournamentController::class, 'tournamentRegister'])->name('tournament-register');
+
+    //Matches
+    Route::get('matches-register', [MatchesController::class, 'MatchesRegister'])->name('matches-register');
+
 
     //phaseTwo
     Route::get('team_register',[TeamRegisterController::class,'teamRegister'])->name('team_register');
+    Route::post('team_create',[TeamRegisterController::class,'teamCreate'])->name('team_create');
 
 
     // Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');

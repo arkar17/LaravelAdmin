@@ -68,12 +68,26 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(WinningNumber::class);
     }
 
-
     public function getJWTIdentifier() {
         return $this->getKey();
     }
-    
+
     public function getJWTCustomClaims() {
         return [];
+    }
+
+    public function tournaments()
+    {
+        return $this->hasMany(Tournament::class);
+    }
+
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
+    }
+
+    public function matches()
+    {
+        return $this->hasMany(Matches::class);
     }
 }
