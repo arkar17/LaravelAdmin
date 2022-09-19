@@ -1,33 +1,35 @@
 <?php
 
+use Maatwebsite\Excel\Row;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Referee\TwodController;
-use App\Http\Controllers\CashInCashOutController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Referee\ThreedController;
-use App\Http\Controllers\Referee\LonePyineController;
-use App\Http\Controllers\PusherNotificationController;
-use App\Http\Controllers\Referee\AgentRController;
-use App\Http\Controllers\Referee\ThreeDManageController;
-use App\Http\Controllers\Referee\RefreeManagementController;
+use App\Http\Controllers\Referee\TwodController;
+use App\Http\Controllers\RefereeLoginController;
+use App\Http\Controllers\CashInCashOutController;
 use App\Http\Controllers\WinningResultController;
+use App\Http\Controllers\Referee\AgentRController;
+use App\Http\Controllers\Referee\ThreedController;
+use App\Http\Controllers\SystemAdmin\DataController;
 
 // /Systen Admin///
-use App\Http\Controllers\SystemAdmin\AgentController;
 use App\Http\Controllers\SystemAdmin\HomeController;
-use App\Http\Controllers\SystemAdmin\OperationStaffController;
 use App\Http\Controllers\SystemAdmin\RoleController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\SystemAdmin\PermissionController;
-use App\Http\Controllers\SystemAdmin\RefereeController;
+use App\Http\Controllers\Referee\LonePyineController;
+use App\Http\Controllers\SystemAdmin\AgentController;
 use App\Http\Controllers\SystemAdmin\TwodsController;
-use App\Http\Controllers\SystemAdmin\RequestlistController;
-use App\Http\Controllers\SystemAdmin\DataController;
+use App\Http\Controllers\PusherNotificationController;
 use App\Http\Controllers\SystemAdmin\ExportController;
 use App\Http\Controllers\SystemAdmin\ProfileController;
-use Maatwebsite\Excel\Row;
-use App\Http\Controllers\RefereeLoginController;
+use App\Http\Controllers\SystemAdmin\RefereeController;
+use App\Http\Controllers\Referee\ThreeDManageController;
+use App\Http\Controllers\SystemAdmin\PermissionController;
+use App\Http\Controllers\SystemAdmin\RequestlistController;
+use App\Http\Controllers\Referee\RefreeManagementController;
+use App\Http\Controllers\SystemAdmin\OperationStaffController;
+use App\Http\Controllers\SystemAdmin\phaseTwo\MatchesController;
+use App\Http\Controllers\SystemAdmin\phaseTwo\TournamentController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -218,6 +220,12 @@ Route::group(['middleware' => 'role:referee'], function(){
     Route::get(' create_user', [UserController::class, 'create_user']);
     Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
     Route::post('add_winningstatus',[HomeController::class, 'winningstatus'])->name('add_winningstatus');
+
+    //Tournament
+    Route::get('tournament-register', [TournamentController::class, 'tournamentRegister'])->name('tournament-register');
+
+    //Matches
+    Route::get('matches-register', [MatchesController::class, 'MatchesRegister'])->name('matches-register');
 
 
 
