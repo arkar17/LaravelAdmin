@@ -223,11 +223,10 @@ Route::group(['middleware' => 'role:referee'], function(){
 
     //Tournament
     Route::get('tournament-register', [TournamentController::class, 'tournamentRegister'])->name('tournament-register');
+    Route::post('tournament-store', [TournamentController::class, 'tournamentStore'])->name('tournament-store');
 
     //Matches
     Route::get('matches-register', [MatchesController::class, 'MatchesRegister'])->name('matches-register');
-
-
 
     // Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
     // Route::post('winningstatus',[HomeController::class, 'winningstatus']);

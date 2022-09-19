@@ -70,5 +70,11 @@
         <a class="side-bar-link" href="/winningstatus">
             Winning Number
         </a>
+        <a class="side-bar-link" href="/tournament-register">
+           Tournament
+        </a>
+        <a class="side-bar-link" href="/matches-register">
+            Match
+         </a>
     </div>
   </div>

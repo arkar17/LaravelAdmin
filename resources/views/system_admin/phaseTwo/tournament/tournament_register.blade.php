@@ -11,7 +11,7 @@
 
         <div class="create-user-parent-container">
             <h1>Create Tournament</h1>
-            <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data" class="create-user-container">
+            <form action="{{ route('tournament-store') }}" method="POST" enctype="multipart/form-data" class="create-user-container">
                 @csrf
                 <div class="create-user-inputs-parent-container">
                 <div class="create-user-inputs-row">
