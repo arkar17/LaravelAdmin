@@ -28,6 +28,7 @@ use App\Http\Controllers\SystemAdmin\ExportController;
 use App\Http\Controllers\SystemAdmin\ProfileController;
 use Maatwebsite\Excel\Row;
 use App\Http\Controllers\RefereeLoginController;
+use App\Http\Controllers\SystemAdmin\phaseTwo\matches\MatchController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -219,6 +220,10 @@ Route::group(['middleware' => 'role:referee'], function(){
     Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
     Route::post('add_winningstatus',[HomeController::class, 'winningstatus'])->name('add_winningstatus');
 
+
+
+    //Phase Two - matches - nc
+    Route::get('/dota-matches', [MatchController::class, 'index'])->name('dota.matches');
 
 
     // Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
