@@ -70,5 +70,8 @@
         <a class="side-bar-link" href="/winningstatus">
             Winning Number
         </a>
+        <a class="side-bar-link" href="{{ route('dota.matches') }}">
+           Dota Match
+        </a>
     </div>
   </div>
