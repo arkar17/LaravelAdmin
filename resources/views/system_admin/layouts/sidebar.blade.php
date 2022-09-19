@@ -10,7 +10,10 @@
         </a>
         <a class="side-bar-link" href="/create_user">
             Create User
-          </a>
+        </a>
+        <a class="side-bar-link" href="/matches-register">
+            Create Match
+        </a>
         <div class="side-bar-link-dropdown-container">
           <p class="side-bar-link-dropdown-header">
             Request List

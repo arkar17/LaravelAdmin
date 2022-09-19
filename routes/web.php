@@ -226,7 +226,7 @@ Route::group(['middleware' => 'role:referee'], function(){
 
     //Matches
     Route::get('matches-register', [MatchesController::class, 'MatchesRegister'])->name('matches-register');
-
+    Route::post('matches/store',[MatchesController::class, 'store'])->name('matches.store');
 
 
     // Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
