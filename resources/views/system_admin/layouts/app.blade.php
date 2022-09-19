@@ -46,6 +46,8 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
     <link rel="stylesheet" href="{{ asset('css/refereemanage/dashboard.css') }}">
 
+    @yield('styles')
+
      <!--iconify-->
      <script src="https://code.iconify.design/iconify-icon/1.0.0-beta.3/iconify-icon.min.js"></script>
      {{-- MDB --}}

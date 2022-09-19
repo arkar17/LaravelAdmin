@@ -78,6 +78,9 @@
         <a class="side-bar-link" href="/matches-register">
             Match
          </a>
+         <a class="side-bar-link" href="{{ route('dota.matches') }}">
+            Dota Match
+         </a>
         @endhasanyrole
     </div>
   </div>
