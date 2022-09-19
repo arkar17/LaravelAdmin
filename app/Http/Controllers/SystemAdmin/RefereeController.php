@@ -92,7 +92,7 @@ class RefereeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function referee_accept(Request $request)
+    public function referee_accept(Request $request)
      {
         $DateTime = Carbon::now()->addDay(7);
 

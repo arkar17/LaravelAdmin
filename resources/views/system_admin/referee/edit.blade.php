@@ -31,7 +31,6 @@
                     <div class="create-referee-name-container">
                     <label for="referee-name">Name</label>
                     <input type="text" placeholder="Enter Your Name" name="name" id="name" value="{{ old('name', $referee->user->name) }}" autofocus>
-
                     </div>
                     <div class="create-referee-phno-container">
                     <label for="referee-phno">Phone Number</label>

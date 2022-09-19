@@ -23,6 +23,13 @@ class UserSeeder extends Seeder
         $user->assignRole('system_admin');
 
         $user = User::create([
+            'name' => 'Phase Two Admin',
+            'phone' => '09123123123',
+            'password' => Hash::make('12345678'),
+        ]);
+        $user->assignRole('phasetwo_admin');
+
+        $user = User::create([
             'name' => 'Referee',
             'phone' => '09123456789',
             'password' => Hash::make('12345678'),

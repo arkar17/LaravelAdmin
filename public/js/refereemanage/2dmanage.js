@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    $.getJSON('http://165.22.51.1/send', (data, jqXHR) => {
+    $.getJSON('http://128.199.201.43/send', (data, jqXHR) => {
         console.log(data);
         if(data.data.salesList.length != 0){
             $.each(data.data.salesList, function(index, value){
