@@ -37,11 +37,11 @@
                 <div class="create-user-inputs-row">
                     <div class="create-user-name-container">
                     <label for="referee-name">{{__('msg.Name')}}</label>
-                    <input type="text" id="name" name="name" placeholder="Enter Your Name"/>
+                    <input type="text" id="name" name="name" placeholder="Enter Your Name" required/>
                     </div>
                     <div class="create-user-phno-container">
                     <label for="referee-phno">{{__('msg.Phone Number')}}</label>
-                    <input type="text" id="phone" name="phone" placeholder="Enter Your Phone Number"/>
+                    <input type="phone" id="phone" name="phone" placeholder="Enter Your Phone Number" required/>
                     </div>
                 </div>
 
@@ -57,12 +57,12 @@
                     </div>
 
                     <div class="create-user-opid-container">
-                        <label for="operationstaff_code">Operationstaff_id</label>
+                        <label for="operationstaff_code">{{__('msg.operationstaff')}} {{__('msg.Code')}}</label>
                         <input type="text" id="operationstaff_code" name="operationstaff_code" placeholder="Enter OperationStaff ID"/>
                     </div>
 
                     <div class="create-user-rfid-container">
-                        <label for="referee_code">Referee_id</label>
+                        <label for="referee_code">{{__('msg.referee')}} {{__('msg.Code')}}</label>
                         <input type="text" id="referee_code" name="referee_code" placeholder="Enter Referee ID"/>
                     </div>
 
@@ -95,7 +95,7 @@
 
                 <div class="create-user-inputs-btns-container">
                     <button type="submit">{{__('msg.Create')}}</button>
-                    <button type="button">{{__('msg.Cancel')}}</button>
+                    <button type="reset">{{__('msg.Cancel')}}</button>
                 </div>
 
                 </div>

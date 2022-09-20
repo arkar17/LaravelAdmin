@@ -15,31 +15,28 @@
         <!--main content start-->
             <!--referee profile start-->
             <div class="referee-profile-parent-container">
-                <h1>Data - Guest Data - Guest Profile</h1>
+                <h1>{{__('msg.Data - Guest Data - Guest Profile')}}</h1>
 
             <div class="referee-profile-details-parent-container">
                 <div class="referee-profile-details-container">
-                    <div class="referee-profile-img-container">
+                    {{-- <div class="referee-profile-img-container">
                         <img src="{{asset('storage/image/'.$guest->image)}}" title="Referee Profile" alt=""/>
-                    </div>
+                    </div> --}}
 
                     <div class="referee-profile-attributes-container">
                         <div class="referee-profile-attribute">
-                            <h3>Guest ID</h3>
-                            <p>GT{{$guest->id}}</p>
+                            <h3>{{__('msg.ID')}}</h3>
+                            <p>{{$guest->id}}</p>
                         </div>
                         <div class="referee-profile-attribute">
-                            <h3>Referee Name</h3>
+                            <h3>{{__('msg.Name')}}</h3>
                             <p>{{$guest->name}}</p>
                         </div>
                         <div class="referee-profile-attribute">
-                            <h3>Phone Number</h3>
+                            <h3>{{__('msg.Phone Number')}}</h3>
                             <p>{{$guest->phone}}</p>
                         </div>
                     </div>
-                </div>
-                <div class="referee-profile-chart-container">
-
                 </div>
             </div>
 

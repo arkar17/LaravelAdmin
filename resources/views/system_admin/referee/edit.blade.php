@@ -71,14 +71,14 @@
 
 
                     {{-- </div> --}}
-                    <div class="create-referee-role-container">
+                    {{-- <div class="create-referee-role-container">
                         <label>{{__('msg.role')}}</label>
                         <select name="role_id">
                             @foreach ($roles as $role)
                             <option value="{{ $role->id }}" {{$referee->role_id == $role->id  ? 'selected' : ''}}>{{ $role->name}}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
                 </div>
                 <input type="hidden" name="image" value="{{$referee->image}}">
                 <div class="create-referee-inputs-row">
@@ -100,8 +100,8 @@
                 </div>
 
                 <div class="create-refree-inputs-btns-container">
-                    <button type="submit">{{__('msg.Edit')}}</button>
-                    <button type="button">{{__('msg.Cancel')}}</button>
+                    <button type="submit">{{__('msg.Save')}}</button>
+                    <button type="reset" onclick="javascript:history.back()">{{__('msg.Cancel')}}</button>
                 </div>
 
                 </div>

@@ -73,8 +73,10 @@ class OperationStaffController extends Controller
     public function operationdecline($id)
      {
         $user = User::findOrFail($id);
-        $user->status = '3';//0=null,1=pending,2=accept,3=decline
+        $user->status = '0';//0=null,1=pending,2=accept
         $user->request_type =null;
+        $user->referee_code=null;
+        $user->operationstaff_code=null;
         $user->update();
 
         return redirect()->back()->with('success', 'Operationstaff Decline');

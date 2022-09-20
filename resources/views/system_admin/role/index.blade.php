@@ -27,7 +27,7 @@
 
               <div class="roles-lists-parent-container">
                 <div class="roles-list-labels-container">
-                  <h2>{{__('ID')}}</h2>
+                  <h2>{{__('msg.ID')}}</h2>
                   <h2>{{__('msg.Name')}}</h2>
                   <h2>{{__('msg.Date')}}</h2>
                   <h2>{{__('msg.Action')}}</h2>

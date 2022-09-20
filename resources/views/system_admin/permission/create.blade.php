@@ -8,7 +8,7 @@
       <div class="main-content-parent-container">
         <!-- create permission start-->
         <div class="create-permission-parent-container">
-            <h1>Create Permission</h1>
+            <h1>{{__('msg.Create Permission')}}</h1>
             <div class="create-permission-outer-container">
                 <div class="create-permission-inner-container">
                     <form action="{{ route('permission.store') }}" method="POST">
@@ -21,11 +21,11 @@
                                 <option value="3D">3D</option>
                             </select> --}}
                         </div>
-                    <p>Enter Permission Name:</p>
+                    <p>{{__('msg.Enter Permission Name')}}:</p>
                     <input type="text" name="name"/>
                     <div class="create-permission-btn-container">
-                        <button type="submit">Create</button>
-                        <button type="reset">Cancel</button>
+                        <button type="submit">{{__('msg.Create')}}</button>
+                        <button type="reset" onclick="javascript:history.back()">{{__('msg.Cancel')}}</button>
                     </div>
                     </form>
                 </div>

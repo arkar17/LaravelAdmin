@@ -117,6 +117,23 @@ return[
    'Insert'=>'ထည့်မည်',
    'Confirm'=>'အတည်ပြုမည်',
    'Edit Commession'=>'ကော်မရှင်ပြင်မည်',
+   'Data - Guest Data - Guest Profile'=>'ဧည့်သည်အချက်အလက်-ဧည့်သည်ကိုယ်ရေးရာဇဝင်',
+   'Operation Staff' => 'ဝန်ထမ်း',
+   'Data - Operation Staff Data - Operation Staff Profile'=>'ဝန်ထမ်းအချက်အလက်-ဝန်ထမ်းကိုယ်ရေးရာဇဝင်',
+   'Joined Date'=>' စတင်အသုံးပြုသည့်ရက်စွဲ',
+   'Assingned Permissions'=>'သတ်မှတ်ထားသည့်ခွင့်ပြုချက်များ',
+   'Go Back'=>'နောက်သို့',
+   'Role'=>'လုပ်ပိုင်ခွင့်အဆင့်',
+    'Choose Permission for this role'=>'ခွင့်ပြုချက်များရွေးချယ်ပါ',
+    'Enter Role Name'=>'လုပ်ပိုင်ခွင့်အဆင့်နာမည်',
+    'Save'=>'သိမ်းဆည်းမည်',
+    'Create Permission'=>'ခွင့်ပြုချက်ဖန်တီးမည်',
+    'Enter Permission Name'=>'ခွင့်ပြုချက်နာမည်',
+    'Edit Permission'=>'ခွင့်ပြုချက်ပြင်မည်',
+    'Edit Operation Staff'=>'ဝန်ထမ်းအချက်အလက်ပြင်မည်',
+    'Add Photo'=>'ဓာတ်ပုံထည့်မည်',
+    'Admin Profile'=>'စီမံခန့်ခွဲသူကိုယ်ရေးရာဇဝင်'
+
 ];
 ?>
 

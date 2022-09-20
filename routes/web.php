@@ -222,7 +222,7 @@ Route::group(['middleware' => 'role:referee'], function(){
 
     Route::get('excel/customerdata_export/{id}', [ExportController::class, 'customer_export'])->name('customer.export_excel');
     Route::get('pdf/customerdata_export/{id}', [ExportController::class, 'customer_createPDF'])->name('customer.export_pdf');
-
+    Route::get('/porfile-admin',[HomeController::class, 'adminprofile'])->name('porfile-admin');
     Route::get(' create_user', [UserController::class, 'create_user']);
     Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
     Route::post('add_winningstatus',[HomeController::class, 'winningstatus'])->name('add_winningstatus');

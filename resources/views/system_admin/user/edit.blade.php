@@ -66,8 +66,8 @@
                             </div>
 
                             <div class="pull-right">
-                                <button type="reset" class="btn btn-secondary">Cancel</button>
-                                <button type="submit" class="btn btn-info">Create</button>
+                                <button type="submit">{{__('msg.Save')}}</button>
+                                <button type="reset" onclick="javascript:history.back()">{{__('msg.Cancel')}}</button>
                             </div>
                         </div>
                     </div>

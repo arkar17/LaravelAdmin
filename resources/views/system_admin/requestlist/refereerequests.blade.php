@@ -49,14 +49,14 @@
                 <input type="hidden" name="user_id" value="{{$refereerequest->id}}" >
                 <input type="text" name="operationstaff_code" value="{{$refereerequest->operationstaff_code}}" >
                 <input type="hidden" name="remark" value="{{$refereerequest->remark}}">
-                <p>
+                {{-- <p>
                     <select name="role_id" class="referee-request-role-select">
                         <option value=" ">Assign Role</option>
                         @foreach ($roles as $role)
                         <option value="{{$role->id}}">{{$role->name}}</option>
                         @endforeach
                     </select>
-                </p>
+                </p> --}}
                 <button type="submit" class="referee-request-accept-btn" onclick="return confirm('Are you sure to accept?')">{{__('msg.Accept')}}</button>
                 {{-- <a href="{{route('referee_accept',$refereerequest->id)}}"><button class="referee-request-accept-btn">Accept</button></a> --}}
                 </form>

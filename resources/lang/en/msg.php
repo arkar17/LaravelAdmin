@@ -117,6 +117,22 @@ return[
    'Insert'=>'Insert',
    'Confirm'=>'Confirm',
    'Edit Commession'=>'Edit Commession',
+   'Data - Guest Data - Guest Profile'=>'Data - Guest Data - Guest Profile',
+   'Operation Staff' => 'Operation Staff',
+   'Data - Operation Staff Data - Operation Staff Profile'=>'Data - Operation Staff Data - Operation Staff Profile',
+   'Joined Date'=>' Joined Date',
+   'Assingned Permissions'=>'Assingned Permissions',
+   'Go Back'=>'Go Back',
+   'Role'=>'Role',
+   'Choose Permission for this role'=>'Choose Permission for this role',
+   'Enter Role Name'=>'Enter Role Name',
+   'Save'=>'Save',
+   'Create Permission'=>'Create Permission',
+    'Enter Permission Name'=>'Enter Permission Name',
+    'Edit Permission'=>'Edit Permission',
+    'Edit Operation Staff'=>'Edit Operation Staff',
+    'Add Photo'=>'Add Photo',
+    'Admin Profile'=>'System Admin Profile'
 
 
 ];

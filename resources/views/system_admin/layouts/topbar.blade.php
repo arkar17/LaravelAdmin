@@ -18,8 +18,10 @@
     </form>
 
     <div class="top-bar-username-container">
-        <i class="fa-regular fa-user"></i>
-        <p>{{auth()->user()->name}}</p>
+        <a class="side-bar-link" href="{{route('porfile-admin')}}">
+            <i class="fa-regular fa-user"></i>
+            <p>{{auth()->user()->name}}</p>
+        </a>
     </div>
 
     </div>

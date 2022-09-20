@@ -235,4 +235,9 @@ class HomeController extends Controller
 
         return redirect ()->back()->with('success', 'Winning Status is Updated successfully!');
     }
+
+    public function adminprofile()
+    {
+        return view('system_admin.profile.adminprofile');
+    }
 }
