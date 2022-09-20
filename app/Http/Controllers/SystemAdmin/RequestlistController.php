@@ -39,4 +39,14 @@ class RequestlistController extends Controller
         // dd($operation_staffs->toArray());
         return view('system_admin.requestlist.operationstaffrequests', compact('operationstaffs'));
     }
+
+    public function operationstaffdecline($id)
+    {
+        $operationstaffs = User::findOrFail($id);
+        $operationstaffs->status = '3';//0=pending,1=accept,2=decline
+        $operationstaffs->update();
+
+        $operationstaffs->update();
+        return redirect()->back()->with('success', 'OperationStaff Decline');
+    }
 }

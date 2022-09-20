@@ -49,7 +49,7 @@
                                         <iconify-icon icon="akar-icons:edit" class="permissions-list-row-icon">
                                         </iconify-icon>
                                     </a>
-                                    <a href="{{ route('permission.destroy', $permission->id) }}" class="delete-btn">
+                                    <a href="{{ route('permission.destroy', $permission->id) }}" class="delete-btn" onclick="return confirm('Are you sure you want to delete this ?')">
                                         <iconify-icon icon="fluent:delete-16-regular" class="permissions-list-row-icon">
                                         </iconify-icon>
                                     </a>

@@ -5,11 +5,11 @@ function readURL(input) {
 
     if (input.files && input.files[0]) {
       var reader = new FileReader();
-  
+
       reader.onload = function(e) {
         var $img = $('<img id="blah">');
         $img.attr('src', e.target.result);
-        
+
         $('.form-group>label').find('img').remove();
         $img.appendTo('.form-group>label');
         $img = $(document).find('#blah');
@@ -25,11 +25,11 @@ function readURL(input) {
             });
         }
       }
-  
+
       reader.readAsDataURL(input.files[0]);
     }
   }
-  
+
   $("#imgInp").change(function() {
     readURL(this);
   });

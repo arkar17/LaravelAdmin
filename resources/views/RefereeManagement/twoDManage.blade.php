@@ -31,12 +31,12 @@
           <div class="twod-manage-rate-insert-container">
             <p>{{__('msg.Rate')}}:</p>
             <input id="twod-rate-insert-input" type="number"></p>
-            <button type="button" id="twod-rate-insert-btn">Insert</button>
+            <button type="button" id="twod-rate-insert-btn">{{__('msg.Insert')}}</button>
           </div>
           <div class="twod-manage-max-insert-container">
             <p>{{__('msg.Max Amount')}}:</p>
             <input id="twod-max-insert-input" type="number"></p>
-            <button type="button" id="twod-max-insert-btn">Insert</button>
+            <button type="button" id="twod-max-insert-btn">{{__('msg.Insert')}}</button>
           </div>
 
           <div class="twod-manage-inserts-btns-container">

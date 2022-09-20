@@ -40,7 +40,8 @@
               <div class="referee-request-row">
                 <p>{{$operationstaff->id}}</p>
                 <p>{{$operationstaff->name}}</p>
-                <p>eqwefqewfehfaidbfi</p>
+                <p>{{$operationstaff->phone}}</p>
+                <p>{{$operationstaff->remark}}</p>
                     <a href="{{route('operationaccept',$operationstaff->id)}}"><button class="referee-request-accept-btn">{{__('msg.Accept')}}</button></a>
                     <a href="{{route('operationdecline',$operationstaff->id)}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
               </div>

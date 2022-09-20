@@ -57,10 +57,10 @@
                         @endforeach
                     </select>
                 </p>
-                <button type="submit" class="referee-request-accept-btn">{{__('msg.Accept')}}</button>
+                <button type="submit" class="referee-request-accept-btn" onclick="return confirm('Are you sure to accept?')">{{__('msg.Accept')}}</button>
                 {{-- <a href="{{route('referee_accept',$refereerequest->id)}}"><button class="referee-request-accept-btn">Accept</button></a> --}}
                 </form>
-                <a href="{{route('referee_decline',[$refereerequest->id])}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
+                <a href="{{route('referee_decline',[$refereerequest->id])}}" onclick="return confirm('Are you sure to decline?')"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
               </div>
               @endforeach
             </div>

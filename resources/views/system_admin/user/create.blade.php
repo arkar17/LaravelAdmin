@@ -15,13 +15,13 @@
      alert(data.message);
   });
 </script>
-        @if (Session::has('success'))
+        {{-- @if (Session::has('success'))
         <div class="alert alert-success alert-dismissible fade in">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                     aria-hidden="true">×</span></button>
             <strong>{{ Session::get('success') }}</strong>
         </div>
-        @endif
+        @endif --}}
 
         <div class="create-user-parent-container">
             <h1>{{__('msg.Create User')}}</h1>
@@ -99,6 +99,11 @@
                 </div>
 
                 </div>
+                @if (Session::has('success'))
+                <div id="hide">
+                    <h4 class="main-cash-alert"> {{ Session::get('success') }} <span class="closeBtn">X</span> </h4>
+                </div>
+                @endif
 
             </form>
         </div>

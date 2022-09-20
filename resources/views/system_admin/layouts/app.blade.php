@@ -1,6 +1,24 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <style>
+         .main-cash-alert {
+            color: white;
+            margin-left: 20px;
+            background-color: rgb(12, 94, 12);
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        #hide {
+            margin-top: 10px;
+        }
+        .closeBtn {
+            color: #ddd;
+            cursor: pointer;
+            float: right;
+        }
+    </style>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -91,7 +109,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
+    <script>
+        let hide = document.getElementById("hide");
+            hide.addEventListener("click", function() {
+                hide.style.display = "none";
+            });
+    </script>
     @yield('script')
   </body>
 </html>

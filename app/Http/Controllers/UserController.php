@@ -112,7 +112,8 @@ class UserController extends Controller
 
     public function create_user()
     {
-        $users=User::where('status','=','0')->get();
+        $users=User::where('status','!=','2')
+                    ->get();
                 return view('system_admin.user.create',compact('users'));
     }
 

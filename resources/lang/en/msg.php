@@ -113,7 +113,11 @@ return[
     'Code'=>'Code',
    'Active'=>'Active',
    'Inactive'=>'Inactive',
-   'Avaliable Date'=>'Avaliable Date'
+   'Avaliable Date'=>'Avaliable Date',
+   'Insert'=>'Insert',
+   'Confirm'=>'Confirm',
+   'Edit Commession'=>'Edit Commession',
+
 
 ];
 ?>

@@ -71,7 +71,7 @@
                             <a href="{{route('referee.edit',$referee->id)}}">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </a>
-                            <a href="{{route('referee.destroy',$referee->id)}}">
+                            <a href="{{route('referee.destroy',$referee->id)}}" onclick="return confirm('Are you sure you want to delete this ?')">
                                 <i class="fa-regular fa-trash-can"></i>
                             </a>
                         </div>

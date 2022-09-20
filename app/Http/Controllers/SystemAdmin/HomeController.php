@@ -43,19 +43,6 @@ class HomeController extends Controller
     public function index()
     {
         $users=User::where('status','=','0')->get();
-//         $options = array(
-//             'cluster' => env('PUSHER_APP_CLUSTER'),
-//             'encrypted' => true
-//             );
-//             $pusher = new Pusher(
-//             env('PUSHER_APP_KEY'),
-//             env('PUSHER_APP_SECRET'),
-//             env('PUSHER_APP_ID'),
-//             $options
-//             );
-
-// $data['message'] = 'Hello XpertPhp';
-// $pusher->trigger('notify-channel', 'App\\Events\\Notify', $data);
         return view('system_admin.home',compact('users'));
     }
 
@@ -95,7 +82,7 @@ class HomeController extends Controller
         }
         $winningnumber->round=$round;
 
-        //$winningnumber->save();
+        $winningnumber->save();
 
         if($request->type=='2d'){
             $twodnum=Twod::where('number','=',$request->number)->first();

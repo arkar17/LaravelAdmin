@@ -34,13 +34,13 @@
                         <p>Filter</p>
                     </button>
 
-                    <button class="agent-profile-edit-comission-btn">Edit Commission</button>
+                    <button class="agent-profile-edit-comission-btn">{{__('msg.Edit Commission')}}</button>
 
                     <form action="{{route('agentcommsionupdate',[$agentprofiledata->id])}}" method="post" class="agent-profile-commission-container">
                         @csrf
                         <div class="agent-profile-commission">
                             <input  name="editagentcomssion" id="floatingInput" type="number" placeholder="Edit comssion amount" aria-label="default input example">
-                            <button type="submit">{{__('msg.EDIT')}}</button>
+                            <button type="submit">{{__('msg.Edit')}}</button>
                         </div>
                     </form>
 

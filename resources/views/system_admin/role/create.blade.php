@@ -39,6 +39,11 @@
                         <button type="submit">Create</button>
                         <button type="reset">Cancel</button>
                     </div>
+                    @if (Session::has('success'))
+                    <div id="hide">
+                        <h4 class="main-cash-alert"> {{ Session::get('success') }} <span class="closeBtn">X</span> </h4>
+                    </div>
+                    @endif
                 </form>
             </div>
         </div>

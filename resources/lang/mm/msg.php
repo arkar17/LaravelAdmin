@@ -113,7 +113,10 @@ return[
    'Code'=>'ကုဒ်',
    'Active'=>'ဖွင့်သည်',
    'Inactive'=>'ပိတ်သည်',
-   'Avaliable Date'=>'ခွင့်ပြုရက်'
+   'Avaliable Date'=>'ခွင့်ပြုရက်',
+   'Insert'=>'ထည့်မည်',
+   'Confirm'=>'အတည်ပြုမည်',
+   'Edit Commession'=>'ကော်မရှင်ပြင်မည်',
 ];
 ?>
 
