@@ -13,6 +13,8 @@
       &nbsp;
       &nbsp;
       &nbsp;
+      <a href="locale/en">English</a> |
+      <a href="locale/mm">Myanmar</a>
       {{-- <i class="fa-regular fa-bell"></i> --}}
 
     </form>

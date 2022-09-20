@@ -17,7 +17,7 @@
                 <i class="fa-solid fa-angle-left side-bar-link-drop-down-icon"></i>
               </p>
               <div class="side-bar-link-drop-down">
-                <a class="side-bar-link-drop-down-link" href="{{route('agentRequestListForRefree')}}">Agent</a>
+                <a class="side-bar-link-drop-down-link" href="{{route('agentRequestListForRefree')}}">{{__('msg.Agent')}}</a>
 
               </div>
             </div>
