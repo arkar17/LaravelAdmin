@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Session;
 use App\Models\Referee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -50,6 +50,7 @@ class LoginController extends Controller
 
 
     public function logout(Request $request) {
+        Session::flush();
         Auth::logout();
         return redirect('/login');
     }
@@ -71,15 +72,15 @@ class LoginController extends Controller
             return redirect()->route('sys-dashboard');
 
         }elseif( $user->hasAnyRole(['referee'])){
+            return redirect()->route('refe-dashboard');
+            // $referee=Referee::where('user_id',$user->id)->first();
+            // $r_status=$referee->active_status;
 
-            $referee=Referee::where('user_id',$user->id)->first();
-            $r_status=$referee->active_status;
-
-            if($r_status==1){
-                return redirect()->route('refe-dashboard');
-            }else{
-                return redirect('/login')->with('message', 'Account Expired');
-            }
+            // if($r_status==1){
+            //     return redirect()->route('refe-dashboard');
+            // }else{
+            //     return redirect('/login')->with('message', 'Account Expired');
+            // }
         }elseif( $user->hasAnyRole(['phasetwo_admin'])){
              return redirect()->route('matches-register');
         }else

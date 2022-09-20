@@ -163,6 +163,8 @@ Route::group(['middleware' => 'role:referee'], function(){
 
     Route::get('/announcement',[RefreeManagementController::class,'announcement'])->name('announcement');
 
+    Route::get('/porfile-referee',[RefreeManagementController::class,'refereeProfile'])->name('porfile-referee');
+
     });
     // System Admin//
     Route::group(['middleware' => 'role:system_admin'], function(){

@@ -6,7 +6,18 @@
   <!--daily sale book start-->
   <div class="daily-sale-book-parent-container">
     <h1>Daily Sale Book</h1>
-
+    @if (Session::has('success'))
+        <div class="alert alert-success alert-dismissible fade in" style = "color:green">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+            <strong>{{ Session::get('success') }}</strong>
+        </div>
+    @endif
+    @if (Session::has('declined'))
+        <div class="alert alert-success alert-dismissible fade in" style = "color:red">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+            <strong>{{ Session::get('declined') }}</strong>
+        </div>
+    @endif
     <div class="daily-sale-book-headers-container">
         <div class="daily-sale-book-categories-container">
             <p class="daily-sale-book-category daily-sale-book-categories-active" id="2d_sale_list">2D & Lone Pyine Sale List</p>
@@ -14,10 +25,10 @@
             <p class="daily-sale-book-category" id="3d_sale_list">3D List</p>
 
         </div>
-        <div class="daily-sale-book-search-container">
+        {{-- <div class="daily-sale-book-search-container">
             <iconify-icon icon="akar-icons:search" class="daily-sale-book-search-icon"></iconify-icon>
             <input type="text" placeholder="Search"/>
-        </div>
+        </div> --}}
     </div>
 
     <div class="daily-sale-book-2d-parent-container">
@@ -282,18 +293,8 @@
 @endsection
 
 @section('script')
-<script src="https://js.pusher.com/4.1/pusher.min.js"></script>
 <script>
-    var pusher = new Pusher('{{env("MIX_PUSHER_APP_KEY")}}', {
-        cluster: '{{env("PUSHER_APP_CLUSTER")}}',
-        encrypted: true
-        });
-        var id =  window.userID = {{ auth()->user()->referee->id }};
-        var channel = pusher.subscribe('betlist-channel.'+ id);
-        channel.bind('App\\Events\\NewBetList', function(data) {
-            alert(data);
-        console.log(data);
-        });
+
     $(document).ready(function(){
         var twod_data = @json($twod_salelists);
         console.log(twod_data);

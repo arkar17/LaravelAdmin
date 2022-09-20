@@ -7,10 +7,10 @@
   <div class="twod-manage-parent-container">
     <div class="twod-manage-header-container">
       <h1>2D Manage</h1>
-      <div class="twod-manage-search-container">
+      {{-- <div class="twod-manage-search-container">
         <iconify-icon icon="akar-icons:search" class="twod-manage-search-icon"></iconify-icon>
         <input type="number" placeholder="Search Number"/>
-      </div>
+      </div> --}}
     </div>
 
     <form class="twod-manage-numbers-parent-container">
