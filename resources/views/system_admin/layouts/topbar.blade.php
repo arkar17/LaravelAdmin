@@ -10,8 +10,8 @@
     </div>
 
     <div class="top-bar-right-container">
-        <a href="locale/en">English</a> |
-        <a href="locale/mm">Myanmar</a>
+        <a href={{route('locale','en')}}>English</a> |
+        <a href={{route('locale','mm')}}>Myanmar</a>
     <form action="{{ route('logout') }}" method="POST">
         @csrf
         <button type="submit" class="logout-btn">{{__('msg.logout')}}</button>

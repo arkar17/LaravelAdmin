@@ -18,8 +18,12 @@ class LocalizationMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Session::has('locale')) {
-            App::setLocale(Session::get('locale'));
+        if (Session::has("locale")!=null) {
+            App::setLocale(Session::get("locale"));
+        }
+        else{
+            Session::put("locale","en");
+            App::setLocale(Session::get("locale"));
         }
         return $next($request);
     }

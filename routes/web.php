@@ -42,7 +42,7 @@ use App\Http\Controllers\SystemAdmin\phaseTwo\TournamentController;
 // Route::get('/r',function(){
 //     return view('referee.index');
 // });
-Route::get('locale/{lange}',[HomeController::class, 'lang'])->name('lang');
+Route::get('/locale/{lange}',[HomeController::class, 'lang'])->name('locale');
 
 Auth::routes();
 
