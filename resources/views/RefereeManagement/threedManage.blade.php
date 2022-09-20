@@ -5,21 +5,21 @@
 @section('content')
             <!--3dlonepyine manage start-->
             <div class="threed-manage-parent-container">
-                <h1>3D Manage</h1>
+                <h1>{{__('msg.3D Manage')}}</h1>
                 <div class="threed-manage-rate-parent-container">
 
                         @if($rate == [])
-                            <p class="threed-manage-current-rate">Current Rate : 0</p>
+                            <p class="threed-manage-current-rate">{{__('msg.Current Rate')}} : 0</p>
 
                         @else
                             @foreach($rate as $rat)
-                            <p class="threed-manage-current-rate">Current Rate : {{$rat->compensation}}</p>
+                            <p class="threed-manage-current-rate">{{__('msg.Current Rate')}}  : {{$rat->compensation}}</p>
                             @endforeach
                         @endif
 
 
                     <div class="threed-manage-rate-insert-container">
-                        <p>Rate:</p>
+                        <p>{{__('msg.Rate')}}:</p>
                         <form action="{{route('3D')}}" mehtod = 'post'>
                             @csrf
                             <input id="threed-rate-insert-input" type="number" name="number" />
@@ -31,7 +31,7 @@
 
             <div class="lonepyine-manage-parent-container">
                 <div class="lonepyine-manage-header-container">
-                    <h1>Lone Pyine Manage</h1>
+                    <h1>{{__('msg.Lone Pyine Manage')}}</h1>
                     <div class="lonepyine-manage-search-container">
                       <iconify-icon icon="akar-icons:search" class="lonepyine-manage-search-icon"></iconify-icon>
                       <input type="number" placeholder="Search Number"/>
@@ -41,14 +41,14 @@
                 <form class="lonepyine-manage-numbers-parent-container">
                     <div class="lonepyine-manage-labels-container">
                       <div class="lonepyine-manage-numbers-labels-left-container">
-                        <p>Lone Pyine Number</p>
-                        <p>Current Rate</p>
-                        <p>Current Max Amount</p>
-                        <p>Sale</p>
+                        <p>{{__('msg.Lone Pyine')}} {{__('msg.Number')}}</p>
+                        <p>{{__('msg.Current Rate')}}</p>
+                        <p>{{__('msg.Current Max Amount')}}</p>
+                        <p>{{__('msg.Sale')}}</p>
                       </div>
                       <div class="lonepyine-manage-numbers-labels-right-container">
-                        <p>Rate</p>
-                        <p>Max</p>
+                        <p>{{__('msg.Rate')}}</p>
+                        <p>{{__('mgs.Max')}}</p>
                       </div>
                     </div>
 
@@ -109,19 +109,19 @@
 
                     <div class="lonepyine-manage-inserts-parent-container">
                       <div class="lonepyine-manage-rate-insert-container">
-                        <p>Rate:</p>
+                        <p>{{__('msg.Rate')}}:</p>
                         <input id="lonepyine-rate-insert-input" type="number"/>
                         <button type="button" id="lonepyine-rate-insert-btn">Insert</button>
                       </div>
                       <div class="lonepyine-manage-max-insert-container">
-                        <p>Max Amount:</p>
+                        <p>{{__('msg.Max Amount')}}:</p>
                         <input id="lonepyine-max-insert-input" type="number" />
                         <button type="button" id="lonepyine-max-insert-btn">Insert</button>
                       </div>
 
                       <div class="lonepyine-manage-inserts-btns-container">
-                        <button type="button" class="lonepyine-manage-confirm-btn">Confirm</button>
-                        <button type="button" class="lonepyine-manage-cancel-btn">Cancel</button>
+                        <button type="button" class="lonepyine-manage-confirm-btn">{{__('msg.Confirm')}}</button>
+                        <button type="button" class="lonepyine-manage-cancel-btn">{{__('msg.Cancel')}}</button>
                       </div>
                     </div>
                 </form>

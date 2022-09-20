@@ -17,6 +17,8 @@ use App\Models\WinningNumber;
 use App\Models\Threedsalelist;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {

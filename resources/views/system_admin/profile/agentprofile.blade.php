@@ -15,18 +15,7 @@
         <!--main content start-->
             <!--referee profile start-->
             <div class="agent-profile-parent-container">
-                <h1>Data - Agent Data - Agent Profile</h1>
-
-                <div class="agent-profile-filters-container">
-                    <input id="agent-profile-filter-fromdate" type="date" placeholder="From Date" />
-                    <input id="agent-profile-filter-todate" type="date" placeholder="To Date" />
-
-                    <button class="agent-profile-filter-btn">
-                        <iconify-icon icon="ant-design:search-outlined" class="agent-data-filter-btn-icon"></iconify-icon>
-                        <p>Filter</p>
-                    </button>
-
-                </div>
+                <h1>{{__('msg.Data - Agent Data - Agent Profile')}}</h1>
             <div class="agent-profile-details-parent-container">
                 <div class="agent-profile-details-container">
                     <div class="agent-profile-img-container">
@@ -35,35 +24,35 @@
 
                     <div class="agent-profile-attributes-container">
                         <div class="agent-profile-attribute">
-                            <h3>ID</h3>
+                            <h3>{{__('msg.ID')}}</h3>
                             <p>AG{{$agent->id}}</p>
                         </div>
                         <div class="agent-profile-attribute">
-                            <h3>Agent Name</h3>
+                            <h3>{{__('msg.Agent')}} {{__('msg.Name')}}</h3>
                             <p>{{$agent->name}}</p>
                         </div>
                         <div class="agent-profile-attribute">
-                            <h3>Phone Number</h3>
+                            <h3>{{__('msg.Phone Number')}}</h3>
                             <p>{{$agent->phone}}</p>
                         </div>
                         <div class="agent-profile-attribute">
-                            <h3>Referee Code</h3>
+                            <h3>{{__('msg.referee')}} {{__('msg.Code')}}</h3>
                             <p>{{$agent->referee_code}}</p>
                         </div>
                         <div class="agent-profile-attribute">
-                            <h3>Total Sale Amount</h3>
+                            <h3>{{__('msg.Total Sale Amount')}}</h3>
                             <p>{{$sum}}</p>
                         </div>
                     </div>
                 </div>
                 <div class="agent-profile-chart-container">
-                    <p class="chart-label">Total Sale Amount Of Customers</p>
+                    <p class="chart-label">{{__('msg.Total Sale Amount')}}{{__('msg.Customers')}} </p>
                     <canvas id="cuschart"></canvas>
                 </div>
             </div>
             <div class="agent-profile-customer-list-parent-container">
                 <div class="agent-profile-customer-list-header">
-                    <h1>{{$agent->name}} 's Customer List</h1>
+                    <h1>{{$agent->name}} {{__('msg.Customer List')}}</h1>
 
                     <div class="export-btns-container">
                         <a href="{{route('customer.export_excel',$agent->id)}}">Export excel </a>
@@ -71,37 +60,31 @@
                         <a href="{{route('customer.export_pdf',$agent->id)}}">Export pdf</a>
                     </div>
 
-
-                    <div class="agent-profile-customer-list-filter">
-                        <iconify-icon icon="ant-design:search-outlined" class="agent-profile-customer-list-icon"></iconify-icon>
-                        <input list="agents" name="myBrowser" placeholder="Search By Name"/>
-                        <datalist id="agents">
-                            <option value="Agent 01">
-                            <option value="Agent 02">
-                            <option value="Agent 03">
-                        </datalist>
-                    </div>
                 </div>
 
                 <div class="agent-profile-customer-list-container">
                     <div class="agent-profile-customer-list-labels-container">
-                        <h2>No</h2>
-                        <h2>Name</h2>
-                        <h2>Phone No.</h2>
-                        <h2>Sale Amount</h2>
+                        <h2>{{__('msg.ID')}}</h2>
+                        <h2>{{__('msg.Name')}}</h2>
+                        <h2>{{__('msg.Phone Number')}}</h2>
+                        <h2>{{__('msg.Sale Amount')}}</h2>
                     </div>
                     <?php
                     $i=1;
                     ?>
                     <div class="agent-profile-customer-list-rows-container">
-                        @foreach ($results as $result)
-                        <div class="agent-profile-customer-list-row">
-                            <p>{{$i++}}</p>
-                            <p>{{$result['customer_name']}}</p>
-                            <p>{{$result['customer_phone']}}</p>
-                            <p>{{$result['Amount']}}</p>
-                        </div>
-                        @endforeach
+                        @if ($results == null)
+
+                        @else
+                            @foreach ($results as $result)
+                            <div class="agent-profile-customer-list-row">
+                                <p>{{$i++}}</p>
+                                <p>{{$result['customer_name']}}</p>
+                                <p>{{$result['customer_phone']}}</p>
+                                <p>{{$result['Amount']}}</p>
+                            </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -117,29 +100,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         $(document).ready(function() {
-            var table = $('.table');
-            $(document).on('click', '.delete-btn', function(e) {
-                e.preventDefault();
-                var id = $(this).data('id');
-                swal({
-                        text: "Are you sure you want to delete?",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            $.ajax({
-                                method: "DELETE",
-                                url: `/permission/${id}`
-                            }).done(function(res) {
-                                location.reload();
-                                console.log("deleted");
-                            })
-                        } else {
-                            swal("Your imaginary file is safe!");
-                        }
-                    });
-            });
+
  // BarChart//
 
  var twodata= @json($twocus);

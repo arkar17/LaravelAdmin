@@ -42,15 +42,14 @@ use App\Http\Controllers\SystemAdmin\phaseTwo\TournamentController;
 // Route::get('/r',function(){
 //     return view('referee.index');
 // });
+Route::get('locale/{lange}',[HomeController::class, 'lang'])->name('lang');
 
 Auth::routes();
-
-Route::redirect('/', '/login', 301);
 
 Route::fallback(function() {
     return view('auth.login');
 });
-
+ Route::redirect('/', '/login', 301);
 Route::get('/send',[PusherNotificationController::class, 'notification']);
 
 Route::get('/welcome', fn() => view('welcome'));

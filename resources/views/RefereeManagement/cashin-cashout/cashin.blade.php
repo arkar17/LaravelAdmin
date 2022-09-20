@@ -69,18 +69,18 @@
 @section('content')
 
     <div class="main-cash-container">
-        <h1>Main Cash</h1>
+        <h1>{{__('msg.Main Cash')}}</h1>
         <form action="{{ route('maincash.store') }}" method="POST">
             @csrf
             <div class="add-main-cash">
-                <label for="main_cash" class="mc-label">Add Main Cash</label>
+                <label for="main_cash" class="mc-label">{{__('msg.Add Main Cash')}}</label>
 
                 <input type="number" class="mc-inp" id="main_cash" name="main_cash" placeholder="Enter your amount">
 
 
                 <div class="">
-                    <button type="submit" class="cashin-confirm-btn">Confirm</button>
-                    <button type="reset" class="cashin-cancel-btn">Cancel</button>
+                    <button type="submit" class="cashin-confirm-btn">{{__('msg.Confirm')}}</button>
+                    <button type="reset" class="cashin-cancel-btn">{{__('msg.Cancel')}}</button>
                 </div>
             </div>
         </form>
@@ -89,8 +89,8 @@
     <!--cash in/cash out start-->
     <div class="cashinout-parent-container">
         <div class="cashinout-categories-container">
-            <p class="cashinout-category cashinout-category-active" id="cash_in">Cash In</p>
-            <p class="cashinout-category" id="cash_out">Cash Out</p>
+            <p class="cashinout-category cashinout-category-active" id="cash_in">{{__('msg.Cash In')}}</p>
+            <p class="cashinout-category" id="cash_out">{{__('msg.Cash Out')}}</p>
         </div>
 
 
@@ -100,7 +100,7 @@
                 @csrf
                 <div class="cashin-agent-name-ph-coin-container">
                     <div class="cashin-agent-name-container">
-                        <p>Agent Name</p>
+                        <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
                         <select id="" class="select2 se1" style="width: 240px;" name="agent_id">
                             @foreach ($agents as $agent)
                                 <option value="{{ $agent->id }}" data-id="{{ $agent->id }}">
@@ -109,13 +109,13 @@
                         </select>
                     </div>
                     <div class="cashin-agent-phno-container">
-                        <p>Phone No</p>
+                        <p>{{__('msg.Phone Number')}}</p>
                         <input type="number" placeholder="Enter Agent Phone No" class="inputPhone1" name="phone"
                             disabled />
 
                     </div>
                     <div class="cashin-agent-coin-container">
-                        <p>Coin Amount</p>
+                        <p>{{__('msg.Coin Amount')}}</p>
                         <input type="number" placeholder="Enter Coin Amount"
                             class=" @error('coin_amount')
                             alert-border
@@ -131,15 +131,15 @@
 
                 <div class="cashin-status-payment-remaining-container">
                     <div class="cashin-agent-status-container">
-                        <p>Status</p>
+                        <p>{{__('msg.Status')}}</p>
 
                         <select id="payment-status" name="status">
-                            <option value="1">Fully Paid</option>
-                            <option value="2">Credit</option>
+                            <option value="1">{{__('msg.Fully Paid')}}</option>
+                            <option value="2">{{__('msg.Credit')}}</option>
                         </select>
                     </div>
                     <div class="cashin-agent-payment-container">
-                        <p>Payment</p>
+                        <p>{{__('msg.Payment')}}</p>
                         <input type="number" placeholder="Enter Payment" name="payment"
                             class="@error('payment')
                             alert-border
@@ -151,22 +151,22 @@
                 </div>
 
                 <div class="cashin-btn-container">
-                    <button type="submit" class="cashin-confirm-btn">Confirm</button>
-                    <button type="reset" class="cashin-cancel-btn">Cancel</button>
+                    <button type="submit" class="cashin-confirm-btn">{{__('msg.Confirm')}}</button>
+                    <button type="reset" class="cashin-cancel-btn">{{__('msg.Cancel')}}</button>
                 </div>
 
             </form>
 
             <div class="cashin-list-parent-container">
-                <h1>Cash In List</h1>
+                <h1>{{__('msg.Cash In List')}}</h1>
                 <div class="cashin-list-container">
                     <div class="cashin-list-lables-container">
-                        <p>ID</p>
-                        <p>Agent Name</p>
-                        <p>Phone No</p>
-                        <p>Coin Amount</p>
-                        <p>Status</p>
-                        <p>Payment</p>
+                        <p>{{__('msg.ID')}}</p>
+                        <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
+                        <p>{{__('msg.Phone Number')}}</p>
+                        <p>{{__('msg.Coin Amount')}}</p>
+                        <p>{{__('msg.Status')}}</p>
+                        <p>{{__('msg.Payment')}}</p>
                     </div>
 
                     <div class="cashin-list-rows-container">
@@ -177,9 +177,9 @@
                                 <p>{{ $cashin_cashout->agent->user->phone }}</p>
                                 <p>{{ $cashin_cashout->coin_amount }}</p>
                                 @if ($cashin_cashout->status == 1)
-                                    <p style="color: rgb(107, 153, 37)">Fully Paid</p>
+                                    <p style="color: rgb(107, 153, 37)">{{__('msg.Fully Paid')}}</p>
                                 @else
-                                    <p style="color: red">Credit</p>
+                                    <p style="color: red">{{__('msg.Credit')}}</p>
                                 @endif
 
                                 <p>{{ $cashin_cashout->payment }}</p>
@@ -198,7 +198,7 @@
                 @csrf
                 <div class="cashin-agent-name-ph-coin-container">
                     <div class="cashin-agent-name-container">
-                        <p>Agent Name</p>
+                        <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
                         <select id="" class="select2 se2" style="width: 240px;" name="agent_id">
 
                             @foreach ($agents as $agent)
@@ -208,7 +208,7 @@
                         </select>
                     </div>
                     <div class="cashin-agent-phno-container">
-                        <p>Phone No</p>
+                        <p>{{__('msg.Phone Number')}}</p>
                         <input type="number" placeholder="Enter Agent Phone No"
                             class="inputPhone2 @error('phone')
                         alert-border
@@ -217,7 +217,7 @@
 
                     </div>
                     <div class="cashin-agent-coin-container">
-                        <p>Coin Amount</p>
+                        <p>{{__('msg.Coin Amount')}}</p>
                         <input type="number" placeholder="Enter Coin Amount"
                             class="inputCoinAmount2 @error('coin_amount')
                             alert-border
@@ -233,29 +233,29 @@
 
                 <div class="cashin-status-payment-remaining-container">
                     <div class="cashin-agent-phno-container">
-                        <p>Withdraw</p>
+                        <p>{{__('msg.Withdraw')}}</p>
                         <input type="number" placeholder="Enter Withdraw amount" name="withdraw" />
 
                     </div>
                 </div>
 
                 <div class="cashin-btn-container">
-                    <button type="submit" class="cashin-confirm-btn">Confirm</button>
-                    <button type="reset" class="cashin-cancel-btn">Cancel</button>
+                    <button type="submit" class="cashin-confirm-btn">{{__('msg.Confirm')}}</button>
+                    <button type="reset" class="cashin-cancel-btn">{{__('msg.Cancel')}}</button>
                 </div>
 
             </form>
 
 
             <div class="cashin-list-parent-container">
-                <h1>Cash Out List</h1>
+                <h1>{{__('msg.Cash Out List')}}</h1>
                 <div class="cashin-list-container">
                     <div class="cashin-list-lables-container">
-                        <p>ID</p>
-                        <p>Agent Name</p>
-                        <p>Phone No</p>
-                        <p>Coin Amount</p>
-                        <p>Withdraw Amount</p>
+                        <p>{{__('msg.ID')}}</p>
+                        <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
+                        <p>{{__('msg.Phone Number')}}</p>
+                        <p>{{__('msg.Coin Amount')}}</p>
+                        <p>{{__('msg.Withdraw')}} {{__('msg.Amount')}}</p>
 
                     </div>
 

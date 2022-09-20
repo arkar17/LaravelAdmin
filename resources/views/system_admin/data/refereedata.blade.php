@@ -18,15 +18,15 @@
 
             <!--referee data start-->
             <div class="referee-data-parent-container">
-              <h1>Data - Referee Data</h1>
+              <h1>{{__('msg.Data - Referee Data')}}</h1>
 
               <div class="referee-data-list-parent-container">
                 <div class="referee-data-list-labels-container">
-                  <h2>Referee ID</h2>
-                  <h2>Name</h2>
-                  <h2>Phone No.</h2>
-                  <h2>Operation Staff</h2>
-                  <h2>No. of Agents</h2>
+                  <h2>{{__('msg.Referee ID')}}</h2>
+                  <h2>{{__('msg.Name')}}</h2>
+                  <h2>{{__('msg.Phone Number')}}</h2>
+                  <h2>{{__('operationstaff')}}</h2>
+                  <h2>{{__('msg.No. of Agents')}}</h2>
                   {{-- <h2>Action</h2> --}}
                 </div>
 
@@ -42,7 +42,7 @@
                         <p>{{$referee->agentcount}}</p>
                         <a href="{{route('refreeprofile',$referee->id)}}">
                           <iconify-icon icon="ant-design:exclamation-circle-outlined" class="referee-data-list-viewdetail-btn"></iconify-icon>
-                          View Detail
+                         {{__('msg.View Detail')}}
                         </a >
                     </div>
 

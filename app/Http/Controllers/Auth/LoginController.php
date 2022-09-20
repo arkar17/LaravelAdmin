@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Session;
 use App\Models\Referee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -50,6 +50,7 @@ class LoginController extends Controller
 
 
     public function logout(Request $request) {
+        Session::flush();
         Auth::logout();
         return redirect('/login');
     }

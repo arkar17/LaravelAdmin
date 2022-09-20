@@ -15,18 +15,8 @@
         <!--main content start-->
             <!--referee profile start-->
             <div class="referee-profile-parent-container">
-                <h1>Data - Referee Data - Referee Profile</h1>
+                <h1>{{__('msg.Data - Referee Data - Referee Profile')}}</h1>
 
-                <div class="referee-profile-filters-container">
-                    <input id="referee-profile-filter-fromdate" type="date" placeholder="From Date" />
-                    <input id="referee-profile-filter-todate" type="date" placeholder="To Date" />
-
-                    <button class="referee-profile-filter-btn">
-                        <iconify-icon icon="ant-design:search-outlined" class="referee-data-filter-btn-icon"></iconify-icon>
-                        <p>Filter</p>
-                    </button>
-
-                </div>
             <div class="referee-profile-details-parent-container">
                 <div class="referee-profile-details-container">
                     <div class="referee-profile-img-container">
@@ -35,26 +25,26 @@
 
                     <div class="referee-profile-attributes-container">
                         <div class="referee-profile-attribute">
-                            <h3>Referee ID</h3>
+                            <h3>{{__('msg.referee')}} {{__('msg.ID')}}</h3>
                             <p>{{$referee->referee_code}}</p>
                         </div>
                         <div class="referee-profile-attribute">
-                            <h3>Referee Name</h3>
+                            <h3>{{__('msg.referee')}}{{__('msg.Name')}}</h3>
                             <p>{{$referee->user->name}}</p>
                         </div>
                         <div class="referee-profile-attribute">
-                            <h3>Phone Number</h3>
+                            <h3>{{__('msg.Phone Number')}}</h3>
                             <p>{{$referee->user->phone}}</p>
                         </div>
                         <div class="referee-profile-attribute">
-                            <h3>Total Sale Amount</h3>
+                            <h3>{{__('msg.Total Sale Amount')}}</h3>
                             <p>{{$sum}}</p>
 
                         </div>
                     </div>
                 </div>
                 <div class="referee-profile-chart-container">
-                    <p class="chart-label">Total Sale Amount Of Agents</p>
+                    <p class="chart-label">{{__('msg.Total Sale Amount Of Agents')}}</p>
                     <canvas id="agchart"></canvas>
                 </div>
             </div>
@@ -65,7 +55,7 @@
 
             <div class="referee-profile-agent-list-parent-container">
                 <div class="referee-profile-agent-list-header">
-                    <h1>{{$referee->referee_code}}'s Agent List</h1>
+                    <h1>{{$referee->referee_code}} {{__('msg.Agent List')}}</h1>
                     <div class="referee-profile-agent-list-filter">
                         <iconify-icon icon="ant-design:search-outlined" class="referee-profile-agent-list-icon"></iconify-icon>
                         <input list="agents" name="myBrowser" placeholder="Search By Name"/>
@@ -78,6 +68,13 @@
                 </div>
 
                 <div class="referee-profile-agent-list-rows-container">
+                    <div class="agent-profile-customer-list-labels-container">
+                        <h2>{{__('msg.ID')}}</h2>
+                        <h2>{{__('msg.Name')}}</h2>
+                        <h2>{{__('msg.Phone Number')}}</h2>
+                        <h2>{{__('msg.Sale Amount')}}</h2>
+                        <h2>{{__('msg.Action')}}</h2>
+                    </div>
                     @if ($results == null)
                     @foreach ($agents as $agent)
                     <div class="referee-profile-agent-list-row">
@@ -87,13 +84,21 @@
                         <p>0</p>
                          <a href="{{route('agentprofile',$agent->id)}}">
                             <iconify-icon icon="ant-design:exclamation-circle-outlined" class="referee-profile-agent-list-btn"></iconify-icon>
-                            <p>View Details</p>
+                            <p>{{__('msg.View Detail')}}</p>
                         </a>
                     </div>
                     @endforeach
                         @else
+                        <div class="agent-profile-customer-list-labels-container">
+                        <h2>{{__('msg.ID')}}</h2>
+                        <h2>{{__('msg.Name')}}</h2>
+                        <h2>{{__('msg.Phone Number')}}</h2>
+                        <h2>{{__('msg.Sale Amount')}}</h2>
+                        <h2>{{__('msg.Action')}}</h2>
+                        </div>
                         @foreach ($results as $agent)
                         <div class="referee-profile-agent-list-row">
+
                             <p>{{$agent['id']}}</p>
                             <p>{{{$agent['name']}}}</p>
                             <p>{{{$agent['phone']}}}</p>

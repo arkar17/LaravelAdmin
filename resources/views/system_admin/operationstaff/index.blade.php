@@ -81,14 +81,14 @@
 
         <!--referee list start-->
         <div class="op-list-parent-container">
-          <h1>Operation-Staff List</h1>
+          <h1>{{__('msg.Operation-Staff List')}}</h1>
           <div class="op-list-container">
             <div class="op-list-labels-container">
-              <h2>ID</h2>
-              <h2>Name</h2>
-              <h2>Phone Number</h2>
+              <h2>{{__('msg.ID')}}</h2>
+              <h2>{{__('msg.Name')}}</h2>
+              <h2>{{__('msg.Phone Number')}}</h2>
               {{-- <h2>Image</h2> --}}
-              <h2>Action</h2>
+              <h2>{{__('msg.Action')}}</h2>
 
             </div>
             <div class="op-list-rows-container">

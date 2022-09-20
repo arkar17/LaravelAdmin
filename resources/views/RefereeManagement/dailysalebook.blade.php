@@ -5,13 +5,13 @@
 @section('content')
   <!--daily sale book start-->
   <div class="daily-sale-book-parent-container">
-    <h1>Daily Sale Book</h1>
+    <h1>{{__('msg.Daily Sale Book')}}</h1>
 
     <div class="daily-sale-book-headers-container">
         <div class="daily-sale-book-categories-container">
             <p class="daily-sale-book-category daily-sale-book-categories-active" id="2d_sale_list">2D & Lone Pyine Sale List</p>
             <!-- <p class="daily-sale-book-category" id="lonepyine_sale_list">Lone Pyine List</p> -->
-            <p class="daily-sale-book-category" id="3d_sale_list">3D List</p>
+            <p class="daily-sale-book-category" id="3d_sale_list">{{__('msg.3D List')}}</p>
 
         </div>
         <div class="daily-sale-book-search-container">
@@ -23,7 +23,7 @@
     <div class="daily-sale-book-2d-parent-container">
         <!--2d details start-->
         <div class="daily-sale-book-2dlist-parent-container">
-          <h1>2D</h1>
+          <h1>{{__('msg.2D')}}</h1>
           <div class="daily-sale-book-2dlist-container">
             <div class="daily-sale-book-2dlist-1row"></div>
             <div class="daily-sale-book-2dlist-2row"></div>
@@ -44,7 +44,7 @@
 
         <!--lonepyine start-->
         <div class="daily-sale-book-lonepyinelist-parent-container">
-          <h1>Lone Pyine</h1>
+          <h1>{{__('msg.Lone Pyine')}}</h1>
           <div class="daily-sale-book-lonepyinelist-container">
             <div class="daily-sale-book-lonepyinelist-1row"></div>
             <div class="daily-sale-book-lonepyinelist-2row"></div>
@@ -57,28 +57,28 @@
         <!--charts start-->
         <div class="daily-sale-book-charts-container">
           <div class="daily-sale-book-2d-chart-container" >
-            <p>2D Most Bet Numbers</p>
+            <p>{{__('msg.Most Bet 2D Number')}}</p>
             <canvas id="daily-sale-book-2d-chart"></canvas>
           </div>
           <div class="daily-sale-book-lonepyine-chart-container">
-            <p>Lone Pyine Most Bet Numbers</p>
+            <p>{{__('msg.Most Bet Lone Pyine Number')}}</p>
             <canvas id="daily-sale-book-lonepyine-chart"></canvas>
           </div>
         </div>
         <!--charts end-->
         @if(count($agenttwodsaleList) != 0 ||  count($agentlonepyinesalelist) != 0 )
       <div class="daily-sale-book-sale-record-parent-container">
-          <h1>2D & Lone Pyine Sale Record</h1>
+          <h1>{{__('msg.2D & Lone Pyine Sale Record')}}</h1>
           <div class="daily-sale-book-sale-record-container">
             <div class="daily-sale-book-sale-record-labels-container">
-              <p>ID</p>
+              <p>{{__('msg.ID')}}</p>
               {{-- <p>Date</p> --}}
-              <p>Agent Name</p>
-              <p>Round</p>
-              <p>Type</p>
-              <p>Number</p>
-              <p>Compensation</p>
-              <p>Amount</p>
+              <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
+              <p>{{__('msg.Round')}}</p>
+              <p>{{__('msg.Type')}}</p>
+              <p>{{__('msg.Number')}}</p>
+              <p>{{__('msg.Compensation')}}</p>
+              <p>{{__('msg.Amount')}}</p>
               <p></p>
             </div>
             <div class="daily-sale-book-sale-record-rows-container">
@@ -91,7 +91,7 @@
                                 {{-- <p>{{$agent->date}}</p> --}}
                                 <p>{{$agent->name}}</p>
                                 <p>{{$agent->round}}</p>
-                                <p>2D</p>
+                                <p>{{__('msg.2D')}}</p>
                                 <div class="daily-sale-book-sale-row-numbers">
                                     @for ($i=0; $i<=count($numbergroup[$agent->name])-1; $i++)
                                     <p>{{{ $numbergroup[$agent->name][$i] }}}</p>
@@ -114,11 +114,7 @@
                                     @for ($i=0; $i<=count($idgroup[$agent->name])-1; $i++)
                                    <input type="text" hidden name="id[]" id="" value ="{{{ $idgroup[$agent->name][$i] }}}">
                                     @endfor
-
-
-                                        <button class="daily-sale-book-accept-btn">Accept</button>
-
-
+                                        <button class="daily-sale-book-accept-btn">{{__('msg.Accept')}}</button>
                                 </form>
                                 <form action="{{route('declineTwod')}}" mehtod = 'post'>
                                     @csrf
@@ -126,8 +122,7 @@
                                    <input type="text" hidden name="id[]" id="" value ="{{{ $idgroup[$agent->name][$i] }}}">
                                     @endfor
 
-
-                                        <button class="daily-sale-book-decline-btn">Decline</button>
+                                        <button class="daily-sale-book-decline-btn">{{__('msg.Decline')}}</button>
 
                                 </form>
                             </div>

@@ -26,14 +26,14 @@
         @endif
 
         <div class="referee-requests-parent-container">
-            <h1>Request List - Operation Staff</h1>
+            <h1>{{__('msg.Request List - Operation Staff')}}</h1>
 
             <div class="referee-request-container">
               <div class="referee-requests-labels-container">
-                <h2>ID</h2>
-                <h2>Name</h2>
-                <h2>Phone No.</h2>
-                <h2>Remark</h2>
+                <h2>{{__('msg.ID')}}</h2>
+                <h2>{{__('msg.Name')}}</h2>
+                <h2>{{__('msg.Phone Number')}}</h2>
+                <h2>{{__('msg.Remark')}}</h2>
 
               </div>
               @foreach ($operationstaffs as $operationstaff )
@@ -41,8 +41,8 @@
                 <p>{{$operationstaff->id}}</p>
                 <p>{{$operationstaff->name}}</p>
                 <p>eqwefqewfehfaidbfi</p>
-                    <a href="{{route('operationaccept',$operationstaff->id)}}"><button class="referee-request-accept-btn">Accept</button></a>
-                    <a href="{{route('operationdecline',$operationstaff->id)}}"><button class="referee-request-decline-btn">Decline</button></a>
+                    <a href="{{route('operationaccept',$operationstaff->id)}}"><button class="referee-request-accept-btn">{{__('msg.Accept')}}</button></a>
+                    <a href="{{route('operationdecline',$operationstaff->id)}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
               </div>
               @endforeach
             </div>

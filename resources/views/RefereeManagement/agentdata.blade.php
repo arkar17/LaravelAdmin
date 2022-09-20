@@ -5,15 +5,15 @@
 @section('content')
             <!--agent data start-->
             <div class="agent-data-parent-container">
-                <h1>Data - agent Data</h1>
+                <h1>{{__('msg.Agent Data')}}</h1>
 
                 <div class="agent-data-list-parent-container">
                   <div class="agent-data-list-labels-container">
-                    <h2>ID</h2>
-                    <h2>Name</h2>
-                    <h2>Phone No.</h2>
+                    <h2>{{__('msg.ID')}}</h2>
+                    <h2>{{__('msg.Name')}}</h2>
+                    <h2>{{__('msg.Phone Number')}}</h2>
                     <!-- <h2>Operation Staff</h2> -->
-                    <h2>No. of Customers</h2>
+                    <h2>{{__('msg.No. of Customers')}}</h2>
                   </div>
 
                   <div class="agent-data-list-rows-container">
@@ -27,7 +27,7 @@
                             <p>{{$data->NumOfCus}}</p>
                             <a href="{{route('agentprofiledetail',[$data->id])}}">
                             <iconify-icon icon="ant-design:exclamation-circle-outlined" class="agent-data-list-viewdetail-btn"></iconify-icon>
-                            View Detail
+                            {{__('msg.View Detail')}}
                             </a >
 
                     </div>

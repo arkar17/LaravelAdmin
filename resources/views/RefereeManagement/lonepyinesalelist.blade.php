@@ -8,7 +8,7 @@
 
     <!--2d sale list start-->
     <div class="twod-sale-list-parent-container">
-        <h1>Sale List - Lone Pyine Sale List</h1>
+        <h1>{{__('msg.Sale List - Lone Pyine Sale List')}}</h1>
         {{-- <div class="twod-sale-list-filters-container"> --}}
         <!-- <div class="twod-sale-list-filter-refereename-container">
             <p>Referee Name</p>
@@ -24,7 +24,7 @@
             @csrf
 
             <div class="twod-sale-list-filters-agentname-container">
-                <p>Agent Name</p>
+                <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
                 <input type="text" name="searchagent" list="agent-names" placeholder="Enter Agent Name"/>
                 <datalist id="agent-names">
                 @foreach ($lonepyineSaleList as $agentname)
@@ -34,7 +34,7 @@
             </div>
 
             <div class="twod-sale-list-filters-date-parent-container">
-                <p>Date</p>
+                <p>{{__('msg.Date')}}</p>
                 <div class="twod-sale-list-filters-date-container">
                 <input type="date" placeholder="From Date"/>
                 <input type="date" placeholder="To Date"/>
@@ -42,10 +42,10 @@
             </div>
 
             <div class="twod-sale-list-filters-round-container">
-                <p>Round</p>
+                <p>{{__('msg.Round')}}</p>
 
                 <select>
-                <option value="">Choose Round</option>
+                <option value="">{{__('msg.Choose Round')}}</option>
                 <option value="Morning">Morning</option>
                 <option value="Evening">Evening</option>
                 </select>
@@ -64,11 +64,11 @@
 
         <div class="twod-sale-list-details-parent-container">
         <div class="twod-sale-list-details-labels-container">
-            <p>No</p>
-            <p>Agent Name</p>
-            <p>Customer Name</p>
-            <p>Number</p>
-            <p>Amount</p>
+            <p>{{__('msg.ID')}}</p>
+            <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
+            <p>{{__('msg.Customer')}} {{__('msg.Name')}}</p>
+            <p>{{__('msg.Number')}}</p>
+            <p>{{__('msg.Amount')}}</p>
         </div>
 
         <div class="twod-sale-details-rows-container">

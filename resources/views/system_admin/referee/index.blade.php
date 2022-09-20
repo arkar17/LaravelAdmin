@@ -31,20 +31,20 @@
 
         <!--referee list start-->
         <div class="referee-list-parent-container">
-            <h1>Referee List</h1>
+            <h1>{{__('msg.Referee List')}}</h1>
             {{-- <a href="{{route('export_excel')}}">Export excel</a>
             <a href="{{route('export_pdf')}}">Export pdf</a> --}}
 
             <div class="referee-list-container">
             <div class="referee-list-labels-container">
-                <h2>ID</h2>
-                <h2>Name</h2>
-                <h2>Ph Number</h2>
-                <h2>Opstaff Code</h2>
-                <h2>Role</h2>
-                <h2>Active Status</h2>
+                <h2>{{__('msg.ID')}}</h2>
+                <h2>{{__('msg.Name')}}</h2>
+                <h2>{{__('msg.Phone Number')}}</h2>
+                <h2>{{__('msg.Opstaff Code')}}</h2>
+                <h2>{{__('msg.role')}}</h2>
+                <h2>{{__('msg.Active Status')}}</h2>
                 {{-- <h2>Image</h2> --}}
-                <h2>Action</h2>
+                <h2>{{__('msg.Action')}}</h2>
 
             </div>
 

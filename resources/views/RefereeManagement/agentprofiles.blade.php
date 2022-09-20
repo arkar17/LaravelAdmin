@@ -23,7 +23,7 @@
         <div class="main-content-parent-container">
             <!--referee profile start-->
             <div class="agent-profile-parent-container">
-                <h1>Data - agent Data - Agent Profile</h1>
+                <h1>{{__('msg.Agent Profile')}}</h1>
 
                 <div class="agent-profile-filters-container">
                     <input id="agent-profile-filter-fromdate" type="date" placeholder="From Date" />
@@ -40,7 +40,7 @@
                         @csrf
                         <div class="agent-profile-commission">
                             <input  name="editagentcomssion" id="floatingInput" type="number" placeholder="Edit comssion amount" aria-label="default input example">
-                            <button type="submit">EDIT</button>
+                            <button type="submit">{{__('msg.EDIT')}}</button>
                         </div>
                     </form>
 
@@ -55,23 +55,23 @@
 
                         <div class="agent-profile-attributes-container">
                             <div class="agent-profile-attribute">
-                                <h3>ID</h3>
+                                <h3>{{__('msg.ID')}}</h3>
                                 <p>{{$agentprofiledata->id}}</p>
                             </div>
                             <div class="agent-profile-attribute">
-                                <h3>Agent Name</h3>
+                                <h3>{{__('msg.Agent')}}{{__('msg.Name')}}</h3>
                                 <p>{{$agentprofiledata->name}}</p>
                             </div>
                             <div class="agent-profile-attribute">
-                                <h3>Phone Number</h3>
+                                <h3>{{__('msg.Phone Number')}}</h3>
                                 <p>{{$agentprofiledata->phone}}</p>
                             </div>
                             <div class="agent-profile-attribute">
-                                <h3>Total Sale Amount</h3>
+                                <h3>{{__('msg.Total Sale Amount')}}</h3>
                                 <p>{{$totalamount}}ks</p>
                             </div>
                             <div class="agent-profile-attribute">
-                                <h3>Commision</h3>
+                                <h3>{{__('msg.Commision')}}</h3>
                                 @if ($commision == null)
                                     <p>0</p>
                                 @else
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                     <div class="agent-profile-chart-container">
-                        <p class="chart-label">Total Sale Amount Of Customers</p>
+                        <p class="chart-label">{{__('msg.Total Sale Amount Of Customers')}}</p>
                         <canvas id="cuschart"></canvas>
                     </div>
                 </div>
@@ -95,17 +95,17 @@
                     {{-- <form action="{{route('agentcustomersearch',[$agentprofiledata->id])}}" method="post"> --}}
                         @csrf
                         <div class="agent-profile-agent-list-header">
-                            <h1>Agent {{$agentprofiledata->name}}'s Customer List</h1>
+                            <h1>{{__('msg.Agent')}} {{$agentprofiledata->name}}'s {{__('msg.Customer List')}}</h1>
                         </div>
 
                         <div class="agent-profile-agent-list-container">
                             <div class="agent-profile-agent-list-labels-container">
-                                <h2>ID</h2>
-                                <h2>Name</h2>
-                                <h2>Phone No.</h2>
-                                <h2>Number</h2>
-                                <h2>Compensation</h2>
-                                <h2>Amount</h2>
+                                <h2>{{__('msg.ID')}}</h2>
+                                <h2>{{__('msg.Name')}}</h2>
+                                <h2>{{__('msg.Phone Number')}}</h2>
+                                <h2>{{__('msg.Number')}}</h2>
+                                <h2>{{__('msg.Compensation')}}</h2>
+                                <h2>{{__('msg.Amount')}}</h2>
                             </div>
 
                             <div class="agent-profile-agent-list-rows-container">

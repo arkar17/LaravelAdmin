@@ -7,39 +7,39 @@
     <div class="dashboard-gradient-boxes-container">
         <div class="dashboard-gradient-registeration-container">
             <iconify-icon icon="lucide:user-plus" class="dashboard-registeration-icon"></iconify-icon>
-            <p class="dashboard-gradient-label">Number of registerations</p>
+            <p class="dashboard-gradient-label">{{__('msg.numberOfRegister')}}</p>
             <p class="dashboard-gradient-stat">{{ count($users) }}</p>
         </div>
         <div class="dashboard-gradient-traffic-container">
             <iconify-icon icon="majesticons:users-line" class="dashboard-referee-icon"></iconify-icon>
-            <p class="dashboard-gradient-label">Number of agents</p>
+            <p class="dashboard-gradient-label">{{__('msg.No. of Agents')}}</p>
             <p class="dashboard-gradient-stat">{{count($agents)}}</p>
         </div>
         <div class="dashboard-gradient-referee-container">
             <iconify-icon icon="majesticons:users-line" class="dashboard-referee-icon"></iconify-icon>
-            <p class="dashboard-gradient-label">Total No of Referees</p>
+            <p class="dashboard-gradient-label">{{__('msg.Total No of Referees')}}</p>
             <p class="dashboard-gradient-stat">{{ count($referees) }}</p>
         </div>
         <div class="dashboard-gradient-sale-container">
             <iconify-icon icon="bi:currency-dollar" class="dashboard-sale-icon"></iconify-icon>
-            <p class="dashboard-gradient-label">Total Sale Amount</p>
+            <p class="dashboard-gradient-label">{{__('msg.Total Sale Amount')}}</p>
             <p class="dashboard-gradient-stat">{{$sum}}</p>
         </div>
     </div>
 
     <div class="dashboard-bar-charts-parent-container">
       <div class="dashboard-2d-chart-container">
-        <p class="chart-label">Most Bet 2D Number</p>
+        <p class="chart-label">{{__('msg.Most Bet 2D Number')}}</p>
         <canvas id="2dchart"></canvas>
       </div>
 
       <div class="dashboard-lonepyine-container">
-        <p class="chart-label">Most Bet Lone Pyine Number</p>
+        <p class="chart-label">{{__('msg.Most Bet Lone Pyine Number')}}</p>
         <canvas id="lonepyinechart"></canvas>
       </div>
     </div>
     <div class="dashboard-lonepyine-container">
-        <p class="chart-label">Total Sale Amount Of Referee</p>
+        <p class="chart-label">{{__('msg.Total Sale Amount Of Referee')}}</p>
         <canvas id="refereechart"></canvas>
       </div>
 </div>

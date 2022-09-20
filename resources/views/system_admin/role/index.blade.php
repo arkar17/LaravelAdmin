@@ -18,19 +18,19 @@
             <div class="roles-parent-container">
               <div class="roles-header">
 
-                <h1>Roles</h1>
+                <h1>{{__('msg.role')}}</h1>
                 <a href="{{route('role.create')}}">
                   <iconify-icon icon="bi:plus" class="create-role-btn-icon"></iconify-icon>
-                  <p>Create Role</p>
+                  <p>{{__('msg.Create Role')}}</p>
                 </a>
               </div>
 
               <div class="roles-lists-parent-container">
                 <div class="roles-list-labels-container">
-                  <h2>ID</h2>
-                  <h2>Name</h2>
-                  <h2>Date</h2>
-                  <h2>Action</h2>
+                  <h2>{{__('ID')}}</h2>
+                  <h2>{{__('msg.Name')}}</h2>
+                  <h2>{{__('msg.Date')}}</h2>
+                  <h2>{{__('msg.Action')}}</h2>
                 </div>
 
                 <div class="roles-list-rows-container">
