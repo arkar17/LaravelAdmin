@@ -17,7 +17,7 @@
                 <div class="create-user-inputs-row">
                     <div class="create-user-name-container">
                     <label for="referee-name">Tournament Name</label>
-                    <input type="text" id="name" name="name" placeholder="Enter Tournament Name"/>
+                    <input type="text" id="name" name="name" placeholder="Enter Tournament Name" required/>
                     </div>
                     </div>
                 </div>

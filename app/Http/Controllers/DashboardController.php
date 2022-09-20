@@ -56,18 +56,23 @@ class DashboardController extends Controller
             })->first();
 
             if ($twod_salelist == null) {
-                $twod_total = $twod_total + 0;
+                $twod_total = 0;
             }
-            $twod_total +=$twod_salelist->sale_amount;
+            else{
+                $twod_total +=$twod_salelist->sale_amount;
+            }
+
 
             $threed_salelist = Threedsalelist::where('status', '1')->whereIn('agent_id', $agents)->with('threed')->whereHas('threed', function ($q) use ($current_date) {
                 $q->where('date', $current_date);
             })->first();
             if ($threed_salelist == null) {
                 $threed_total = $threed_total + 0;
-
             }
-            $threed_total +=  $threed_salelist->sale_amount;
+            else{
+                $threed_total +=  $threed_salelist->sale_amount;
+            }
+
 
 
             $lonepyine_salelist = Lonepyinesalelist::where('status', '1')->whereIn('agent_id', $agents)->with('lonepyine')->whereHas('lonepyine', function ($q) use ($current_date) {
@@ -75,10 +80,12 @@ class DashboardController extends Controller
             })->first();
             if ($lonepyine_salelist == null) {
                 $lonepyine_total = $lonepyine_total + 0;
-
             }
-            $lonepyine_total += $lonepyine_salelist->sale_amount;
-      
+            else{
+                $lonepyine_total += $lonepyine_salelist->sale_amount;
+            }
+
+
 
         $sum = $twod_total+$threed_total+$lonepyine_total;
         // calculating commision start
@@ -161,7 +168,22 @@ class DashboardController extends Controller
 
 
         // calculating commision end
-        $totalcommision = $tdcomission[0]->Commision + $thdcomission[0]->Commision + $lpcomission[0]->Commision;
+        if($tdcomission!=null && $thdcomission != null && $lpcomission != null){
+            $totalcommision = $tdcomission[0]->Commision + $thdcomission[0]->Commision + $lpcomission[0]->Commision;
+        }
+        if($tdcomission!=null && $thdcomission != null && $lpcomission == null){
+            $totalcommision = $tdcomission[0]->Commision + $thdcomission[0]->Commision + 0;
+        }
+        if($tdcomission!=null && $thdcomission == null && $lpcomission != null){
+            $totalcommision = $tdcomission[0]->Commision + 0 + $lpcomission[0]->Commision;
+        }
+        if($tdcomission==null && $thdcomission == null && $lpcomission != null){
+            $totalcommision = 0 + $thdcomission[0]->Commision + $lpcomission[0]->Commision;
+        }
+        else{
+            $totalcommision = 0;
+        }
+
         $totalprofit  = $twodprofit+$threedprofit+$loonpyineprofit;
 
 
