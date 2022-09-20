@@ -99,6 +99,7 @@
         encrypted: true
         });
         var id =  window.userID = {{ auth()->user()->referee->id }};
+        console.log(id);
         var channel = pusher.subscribe('betlist-channel.'+ id);
         channel.bind('App\\Events\\NewBetList', function(data) {
             alert(data);
