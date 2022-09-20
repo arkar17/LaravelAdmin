@@ -26,16 +26,16 @@
         @endif
 
         <div class="referee-requests-parent-container">
-            <h1>Request List - Referee</h1>
+            <h1>{{__('msg.Request List - Referee')}}</h1>
 
             <div class="referee-request-container">
               <div class="referee-requests-labels-container">
-                <h2>ID</h2>
-                <h2>Name</h2>
-                <h2>Phone No.</h2>
-                <h2>Op Staff ID</h2>
-                <h2>Remark</h2>
-                <h2>Role</h2>
+                <h2>{{__('msg.ID')}}</h2>
+                <h2>{{__('msg.Name')}}</h2>
+                <h2>{{__('msg.Phone Number')}}</h2>
+                <h2>{{__('msg.Op Staff ID')}}</h2>
+                <h2>{{__('msg.Remark')}}</h2>
+                <h2>{{__('msg.role')}}</h2>
               </div>
               @foreach ($refereerequests as $refereerequest)
               <div class="referee-request-row">
@@ -57,10 +57,10 @@
                         @endforeach
                     </select>
                 </p>
-                <button type="submit" class="referee-request-accept-btn">Accept</button>
+                <button type="submit" class="referee-request-accept-btn">{{__('msg.Accept')}}</button>
                 {{-- <a href="{{route('referee_accept',$refereerequest->id)}}"><button class="referee-request-accept-btn">Accept</button></a> --}}
                 </form>
-                <a href="{{route('referee_decline',[$refereerequest->id])}}"><button class="referee-request-decline-btn">Decline</button></a>
+                <a href="{{route('referee_decline',[$refereerequest->id])}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
               </div>
               @endforeach
             </div>

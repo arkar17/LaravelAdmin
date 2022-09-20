@@ -58,7 +58,7 @@
 
         <div class="referee-list-parent-container">
 
-            <h1>Winning Result</h1>
+            <h1>{{__('msg.Winning Result')}}</h1>
 
             <div class="referee-list-container">
 
@@ -68,7 +68,7 @@
 
                     <select class="winningresult-select" name="type">
 
-                        <option value="">Select Type</option>
+                        <option value="">{{__('msg.Select Type')}}</option>
 
                         <option value="2d">2D</option>
 
@@ -78,7 +78,7 @@
 
                     <input type="number" name="number">
 
-                    <button type="submit">Submit</button>
+                    <button type="submit">{{__('msg.Submit')}}</button>
 
                 </form>
 

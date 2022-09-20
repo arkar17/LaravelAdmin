@@ -62,7 +62,7 @@ class CashInCashOutController extends Controller
             $cashin_cashout->agent_id = $request->agent_id;
             $cashin_cashout->referee_id = $referee->id;
             $cashin_cashout->coin_amount = $cashin_cashout->coin_amount + ($request->coin_amount ?? 0);
-            if($cashin_cashout->coin_amount > ($cashin_cashout->payment + $request->payment)) {
+            if(($cashin_cashout->payment + $request->payment) > $cashin_cashout->coin_amount  ) {
                 $cashin_cashout->status = 2;
             }else {
                 $cashin_cashout->status = 1;

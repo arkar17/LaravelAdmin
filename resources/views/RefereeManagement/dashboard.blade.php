@@ -4,12 +4,12 @@
 @section('content')
 <div class="main-content-parent-container">
     <!--dashboard start-->
-    <button class="referee-remark-btn">Add Remark</button>
+    <button class="referee-remark-btn">{{__('msg.Remark')}}</button>
     <div class="referee-remark-popup-parent-container">
         <div class="referee-remark-popup-container ">
             <div class="referee-remark-popup">
                 <div class="referee-remark-popup-header">
-                    <p>Remark</p>
+                    <p>{{__('msg.Remark')}}</p>
                     <iconify-icon icon="akar-icons:cross" class="referee-remark-icon"></iconify-icon>
                 </div>
 
@@ -17,7 +17,7 @@
                     @csrf
                     <textarea name = "remark"></textarea>
                     <div class="referee-remark-input-btns-container">
-                        <button type = "submit" class="referee-remark-confirm-btn">Confirm</button>
+                        <button type = "submit" class="referee-remark-confirm-btn">{{__('msg.Submit')}}</button>
                         {{-- <button class="referee-remark-cancel-btn">Cancel</button> --}}
                     </div>
                 </form>
@@ -30,34 +30,34 @@
 
         <div class="dashboard-gradient-registeration-container">
             <iconify-icon icon="lucide:user-plus" class="dashboard-registeration-icon"></iconify-icon>
-            <p class="dashboard-gradient-label">Total Sale Amount</p>
+            <p class="dashboard-gradient-label">{{__('msg.Total Sale Amount')}}</p>
             <p class="dashboard-gradient-stat">{{$sum}}</p>
         </div>
         <div class="dashboard-gradient-traffic-container">
             <iconify-icon icon="tabler:activity-heartbeat" class="dashboard-traffic-icon"></iconify-icon>
-            <p class="dashboard-gradient-label">Total No. Of Agent</p>
+            <p class="dashboard-gradient-label">{{__('msg.Total No. Of Agent')}}</p>
             <p class="dashboard-gradient-stat">{{count($agents)}}</p>
         </div>
         <div class="dashboard-gradient-referee-container">
             <iconify-icon icon="majesticons:users-line" class="dashboard-referee-icon"></iconify-icon>
-            <p class="dashboard-gradient-label">Total Commision</p>
+            <p class="dashboard-gradient-label">{{__('msg.Total Commision')}}</p>
             <p class="dashboard-gradient-stat">{{$totalcommision}}</p>
         </div>
         <div class="dashboard-gradient-sale-container">
             <iconify-icon icon="bi:currency-dollar" class="dashboard-sale-icon"></iconify-icon>
-            <p class="dashboard-gradient-label">Total Profit</p>
+            <p class="dashboard-gradient-label">{{__('msg.Total Profit')}}</p>
             <p class="dashboard-gradient-stat">{{$totalprofit}}</p>
         </div>
     </div>
 
     <div class="dashboard-bar-charts-parent-container">
       <div class="dashboard-2d-chart-container">
-        <p class="chart-label">Most Bet 2D Number</p>
+        <p class="chart-label">{{__('msg.Most Bet 2D Number')}}</p>
         <canvas id="2dchart"></canvas>
       </div>
 
       <div class="dashboard-lonepyine-container">
-        <p class="chart-label">Most Bet Lone Pyine Number</p>
+        <p class="chart-label">{{__('msg.Most Bet Lone Pyine Number')}}</p>
         <canvas id="lonepyinechart"></canvas>
       </div>
     </div>

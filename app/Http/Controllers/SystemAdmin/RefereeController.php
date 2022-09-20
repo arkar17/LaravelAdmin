@@ -95,6 +95,8 @@ class RefereeController extends Controller
     public function referee_accept(Request $request)
      {
         $DateTime = Carbon::now()->addDay(7);
+        $role=Role::where('name','referee')->first();
+        $role_id=$role->id;
 
         $user = User::findOrFail($request->user_id);
         $user->status = 2;
@@ -107,13 +109,6 @@ class RefereeController extends Controller
         }
         $user->operationstaff_code=$otcode;
         $user->assignRole('referee');
-
-        // if($request->role_id==" "){
-        //     $user->roles()->attach(5);
-        // }else{
-        //     $role = Role::find($request->role_id);
-        //     $user->roles()->attach($role);
-        // }
 
         $user->update();
 
@@ -140,7 +135,7 @@ class RefereeController extends Controller
             $referee->role_id=$request->role_id;
 
         }else{
-            $referee->role_id=5;
+            $referee->role_id=$role_id;
         }
         $referee->remark=$request->remark;
 
@@ -186,14 +181,18 @@ class RefereeController extends Controller
     // }
 
 
-    public function update(UpdateRefereeRequest $request, $id)
+    public function update(Request $request,$id)
     {
         if($request->hasFile('profile_img')) {
             $file = $request->file('profile_img');
             $imgName = uniqid() . '_' . $file->getClientOriginalName();
-
             $file->move(public_path() . '/image/', $imgName);
+        }else{
+            $imgName=$request->image;
         }
+
+        $role=Role::where('name','referee')->first();
+        $role_id=$role->id;
 
         $referee = Referee::findOrFail($id);
         $user_id=$referee->user_id;
@@ -202,11 +201,13 @@ class RefereeController extends Controller
         $user->phone = $request->phone;
         $user->operationstaff_code = $request->operationstaff_id;
 
-        $role = Role::findOrFail($request->role_id);
-        $user->roles()->detach($referee->role_id);
+        $assign_role = Role::where('id',$request->role_id)->first();
+        $assign_role_id=$assign_role->id;
 
-        $user->roles()->attach($role);
-        $user->roles()->attach(5);
+        $user->roles()->detach($referee->role_id);
+        $user->roles()->attach($assign_role_id);
+        $user->assignRole('referee');
+
         $user->update();
 
         $referee_code=Operationstaff::where('operationstaff_code','=',$request->operationstaff_id)->first();
@@ -230,8 +231,8 @@ class RefereeController extends Controller
                 $referee->active_status=0;
             }
         }
+        // $referee->remark = $request->remark;
 
-        $referee->remark = $request->remark;
         $referee->update();
 
         return redirect()->route('referee.index')->with('success', 'Referee is updated successfully!');

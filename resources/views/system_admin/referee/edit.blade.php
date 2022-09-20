@@ -19,7 +19,7 @@
 
                     <p>Profile Image</p>
 
-                    <img src="{{ asset('/image/'. $referee->image) }}" alt="">
+                    <img src="{{ asset('/image/'.$referee->image) }}" alt="">
                     {{-- <a href=">{{ $referee->image }}</a> --}}
                         {{-- <input type="file" class="form-control form-control-md" id="profile_img" > --}}
                     {{-- <div class="preview_img mt-2"></div> --}}
@@ -29,22 +29,22 @@
                 <div class="create-referee-inputs-parent-container">
                 <div class="create-referee-inputs-row">
                     <div class="create-referee-name-container">
-                    <label for="referee-name">Name</label>
+                    <label for="referee-name">{{__('msg.Name')}}</label>
                     <input type="text" placeholder="Enter Your Name" name="name" id="name" value="{{ old('name', $referee->user->name) }}" autofocus>
                     </div>
                     <div class="create-referee-phno-container">
-                    <label for="referee-phno">Phone Number</label>
+                    <label for="referee-phno">{{__('msg.Phone Number')}}</label>
                     <input type="number" placeholder="Enter Your Phone Number" name="phone" id="phone" value="{{ old('phone', $referee->user->phone) }}">
                     </div>
                 </div>
 
                 <div class="create-referee-inputs-row">
                     <div class="create-referee-pw-container">
-                    <label for="password">Password</label>
+                    <label for="password">{{__('msg.Password')}}</label>
                     <input type="password" placeholder="Enter Password" name="password" id="password"  value="{{ old('password', $referee->user->password) }}">
                     </div>
                     <div class="create-referee-confirmpw-container">
-                    <label for="referee-confirmpw">Confirm Password</label>
+                    <label for="referee-confirmpw">{{__('msg.Confirm Password')}}</label>
                     <input type="password" id="referee-confirmpw" name="confirmpasword" placeholder="Re-enter Password"/>
                     </div>
 
@@ -52,7 +52,7 @@
 
                 <div class="create-referee-inputs-row">
                     <div class="create-referee-opstaff-container">
-                        <label for="referee-pw">Operation Staff</label>
+                        <label for="referee-pw">{{__('msg.operationstaff')}}</label>
                         <input list="opid" value="{{$referee->operationstaff->operationstaff_code}}" name="operationstaff_id" placeholder="Enter Operation Staff ID" id="operationstaff_id">
                         <datalist id="opid" name="operationstaff_id">
                             @foreach ($operationstaffs as $operationstaff)
@@ -72,7 +72,7 @@
 
                     {{-- </div> --}}
                     <div class="create-referee-role-container">
-                        <label>Role</label>
+                        <label>{{__('msg.role')}}</label>
                         <select name="role_id">
                             @foreach ($roles as $role)
                             <option value="{{ $role->id }}" {{$referee->role_id == $role->id  ? 'selected' : ''}}>{{ $role->name}}</option>
@@ -80,19 +80,19 @@
                         </select>
                     </div>
                 </div>
-
+                <input type="hidden" name="image" value="{{$referee->image}}">
                 <div class="create-referee-inputs-row">
                     <div class="create-referee-date-container">
-                        <label for="avaliable_date">Avaliable Date:</label>
-                        <input type="datetime-local" id="avaliable_date" name="avaliable_date">
+                        <label for="avaliable_date">{{__('msg.Avaliable Date')}}</label>
+                        <input type="datetime-local" id="avaliable_date" name="avaliable_date" value="{{$referee->avaliable_date}}">
                     </div>
                     <div class="create-referee-active-container">
                         <div>
-                            <label for="active">Active</label>
+                            <label for="active">{{__('msg.Active')}}</label>
                             <input id="active" type="radio" name="active_status" value="1" {{ $referee->active_status == 1 ? 'checked' : ''}} >
                         </div>
                         <div>
-                            <label for="inactive">Inactive</label>
+                            <label for="inactive">{{__('msg.Inactive')}}</label>
                             <input id="inactive" type="radio" name="active_status" value="0" {{ $referee->active_status == 0 ? 'checked' : ''}}>
                         </div>
 
@@ -100,8 +100,8 @@
                 </div>
 
                 <div class="create-refree-inputs-btns-container">
-                    <button type="submit">Edit</button>
-                    <button type="button">Cancel</button>
+                    <button type="submit">{{__('msg.Edit')}}</button>
+                    <button type="button">{{__('msg.Cancel')}}</button>
                 </div>
 
                 </div>

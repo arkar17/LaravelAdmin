@@ -19,19 +19,19 @@
             <!--permissions start-->
             <div class="permissions-parent-container">
                 <div class="permissions-header">
-                    <h1>Permissions</h1>
+                    <h1>{{__('msg.permission')}}</h1>
                     <a href="{{ route('permission.create') }}">
                         <iconify-icon icon="bi:plus" class="create-role-btn-icon"></iconify-icon>
-                        <p>Create Permission</p>
+                        <p>{{__('msg.Create permission')}}</p>
                     </a>
                 </div>
 
                 <div class="permissions-lists-parent-container">
                     <div class="permissions-list-labels-container">
-                        <h2>ID</h2>
-                        <h2>Name</h2>
+                        <h2>{{__('msg.ID')}}</h2>
+                        <h2>{{__('msg.Name')}}</h2>
 
-                        <h2>Action</h2>
+                        <h2>{{__('msg.Action')}}</h2>
                     </div>
 
                     <div class="permissions-list-rows-container">

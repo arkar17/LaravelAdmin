@@ -24,7 +24,7 @@
         @endif
 
         <div class="create-user-parent-container">
-            <h1>Create User</h1>
+            <h1>{{__('msg.Create User')}}</h1>
             <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data" class="create-user-container">
 
                 @csrf
@@ -36,23 +36,23 @@
                 <div class="create-user-inputs-parent-container">
                 <div class="create-user-inputs-row">
                     <div class="create-user-name-container">
-                    <label for="referee-name">Name</label>
+                    <label for="referee-name">{{__('msg.Name')}}</label>
                     <input type="text" id="name" name="name" placeholder="Enter Your Name"/>
                     </div>
                     <div class="create-user-phno-container">
-                    <label for="referee-phno">Phone Number</label>
+                    <label for="referee-phno">{{__('msg.Phone Number')}}</label>
                     <input type="text" id="phone" name="phone" placeholder="Enter Your Phone Number"/>
                     </div>
                 </div>
 
                 <div class="create-user-inputs-row">
                     <div class="create-user-type-container">
-                    <label>Type</label>
+                    <label>{{__('msg.Type')}}</label>
                     <select id="create-user-type" name="request_type">
                         <option value="guest">Guest</option>
-                        <option value="referee">Referee</option>
-                        <option value="operationstaff">OperationStaff</option>
-                        <option value="agent">Agent</option>
+                        <option value="referee">{{__('msg.referee')}}</option>
+                        <option value="operationstaff">{{__('msg.operationstaff')}}</option>
+                        <option value="agent">{{__('msg.Agent')}}</option>
                     </select>
                     </div>
 
@@ -70,11 +70,11 @@
 
                 <div class="create-user-inputs-row">
                     <div class="create-user-pw-container">
-                    <label for="password">Password</label>
+                    <label for="password">{{__('msg.Password')}}</label>
                     <input type="password" id="password" name="password" placeholder="Enter Password"/>
                     </div>
                     <div class="create-user-confirmpw-container">
-                    <label for="referee-confirmpw">Confirm Password</label>
+                    <label for="referee-confirmpw">{{__('msg.Confirm Password')}}</label>
                     <input type="password" id="referee-confirmpw" name="confirmpasword" placeholder="Re-enter Password"/>
                     </div>
                 </div>
@@ -94,8 +94,8 @@
                 </div> --}}
 
                 <div class="create-user-inputs-btns-container">
-                    <button type="submit">Create</button>
-                    <button type="button">Cancel</button>
+                    <button type="submit">{{__('msg.Create')}}</button>
+                    <button type="button">{{__('msg.Cancel')}}</button>
                 </div>
 
                 </div>
@@ -108,13 +108,13 @@
                 <div class="card-header">{{ __('Dashboard') }}</div> --}}
                     <!--guest list start-->
                     <div class="user-list-parent-container">
-                        <h1>User List</h1>
+                        <h1>{{__('msg.User List')}}</h1>
                         <div class="user-list-container">
                         <div class="user-list-labels-container">
-                            <h2>ID</h2>
-                            <h2>Name</h2>
-                            <h2>Phone Number</h2>
-                            <h2>Promote</h2>
+                            <h2>{{__('msg.ID')}}</h2>
+                            <h2>{{__('msg.Name')}}</h2>
+                            <h2>{{__('msg.Phone Number')}}</h2>
+                            <h2>{{__('msg.Promote')}}</h2>
                             {{-- <h2>Action</h2> --}}
 
                         </div>
@@ -127,7 +127,7 @@
                                     <p>{{$user->phone}}</p>
                                     <div>
                                         <a href="{{route('promoteos',$user->id)}}">
-                                            Operation Staff
+                                           {{__('msg.operationstaff')}}
                                         </a>
                                         {{-- <a href="{{route('promoterf',$user->id)}}">
                                             user

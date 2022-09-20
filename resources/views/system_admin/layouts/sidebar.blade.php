@@ -6,41 +6,41 @@
     <div class="side-bar-links-container">
         @hasanyrole('system_admin')
         <a class="side-bar-link" href="{{route('sys-dashboard')}}">
-          Dashboard
+          {{__('msg.home')}}
         </a>
         <a class="side-bar-link" href="/create_user">
-            Create User
+            {{__('msg.user')}}
         </a>
         <div class="side-bar-link-dropdown-container">
           <p class="side-bar-link-dropdown-header">
-            Request List
+            {{__('msg.request')}}
             <!-- <i class="fa-solid fa-angle-down side-bar-link-drop-down-icon"></i> -->
             <i class="fa-solid fa-angle-left side-bar-link-drop-down-icon"></i>
           </p>
           <div class="side-bar-link-drop-down">
-            <a class="side-bar-link-drop-down-link" href="{{route('refereerequests')}}">Referee</a>
+            <a class="side-bar-link-drop-down-link" href="{{route('refereerequests')}}">{{__('msg.referee')}}</a>
           </div>
           <div class="side-bar-link-drop-down">
-            <a class="side-bar-link-drop-down-link" href="{{route('operationstaffrequests')}}">Operation Staff</a>
+            <a class="side-bar-link-drop-down-link" href="{{route('operationstaffrequests')}}">{{__('msg.operationstaff')}}</a>
           </div>
         </div>
         <div class="side-bar-link-dropdown-container">
           <p class="side-bar-link-dropdown-header">
-            Role & Permission
+            {{__('msg.role')}}&{{__('msg.permission')}}
             <!-- <i class="fa-solid fa-angle-down side-bar-link-drop-down-icon"></i> -->
             <i class="fa-solid fa-angle-left side-bar-link-drop-down-icon"></i>
           </p>
           <div class="side-bar-link-drop-down">
-            <a class="side-bar-link-drop-down-link" href="{{route('role.index')}}">Role</a>
-            <a class="side-bar-link-drop-down-link" href="{{route('permission.index')}}">Permission</a>
+            <a class="side-bar-link-drop-down-link" href="{{route('role.index')}}">{{__('msg.role')}}</a>
+            <a class="side-bar-link-drop-down-link" href="{{route('permission.index')}}">{{__('msg.permission')}}</a>
           </div>
         </div>
 
         <a class="side-bar-link" href="{{route('referee.index')}}">
-          Referee
+            {{__('msg.referee')}}
         </a>
         <a class="side-bar-link" href="{{route('operation-staff.index')}}">
-          Operation Staff
+          {{__('msg.operationstaff')}}
         </a>
 
         <!-- <div class="side-bar-link-dropdown-container">
@@ -58,29 +58,18 @@
 
         <div class="side-bar-link-dropdown-container">
           <p class="side-bar-link-dropdown-header">
-            Data
+            {{__('msg.data')}}
 
             <i class="fa-solid fa-angle-left side-bar-link-drop-down-icon"></i>
           </p>
           <div class="side-bar-link-drop-down">
-            <a class="side-bar-link-drop-down-link" href="{{route('refereedata')}}">Refree Data</a>
+            <a class="side-bar-link-drop-down-link" href="{{route('refereedata')}}"> {{__('msg.referee')}}{{__('msg.data')}}</a>
 
           </div>
         </div>
         <a class="side-bar-link" href="/winningstatus">
-            Winning Number
+            {{__('msg.winning_number')}}
         </a>
-        @endhasanyrole
-        @hasanyrole('phasetwo_admin')
-        <a class="side-bar-link" href="/tournament-register">
-           Tournament
-        </a>
-        <a class="side-bar-link" href="/matches-register">
-            Match
-         </a>
-         <a class="side-bar-link" href="{{ route('dota.matches') }}">
-            Dota Match
-         </a>
         @endhasanyrole
     </div>
   </div>

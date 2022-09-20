@@ -8,12 +8,16 @@
     <div class="top-bar-right-container">
       <form action="{{ route('logout') }}" method="POST">
         @csrf
-        <button type="submit" class="logout-btn">Log out</button>
+        <button type="submit" class="logout-btn">{{__('msg.logout')}}</button>
       </form>
       &nbsp;
       &nbsp;
       &nbsp;
       {{-- <i class="fa-regular fa-bell"></i> --}}
+
+    </form>
+
+      <i class="fa-regular fa-bell"></i>
 
       <div class="top-bar-username-container">
         Coin Amount :
