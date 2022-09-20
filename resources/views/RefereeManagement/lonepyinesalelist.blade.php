@@ -33,6 +33,8 @@
                 </datalist>
             </div>
 
+            {{-- <div class="twod-sale-list-filters-date-parent-container">
+                <p>Date</p>
             <div class="twod-sale-list-filters-date-parent-container">
                 <p>{{__('msg.Date')}}</p>
                 <div class="twod-sale-list-filters-date-container">
@@ -49,7 +51,7 @@
                 <option value="Morning">Morning</option>
                 <option value="Evening">Evening</option>
                 </select>
-            </div>
+            </div> --}}
 
             <button type="submit" class="twod-sale-list-filters-btn">
                 <iconify-icon icon="akar-icons:search" class="twod-sale-list-filter-icon"></iconify-icon>

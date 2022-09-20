@@ -92,5 +92,23 @@
     <script src="{{ asset('jquery/refereemanage/cashincashout.js') }}"></script>
 
    @yield('script')
+   <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+   <script>
+        var pusher = new Pusher('{{env("MIX_PUSHER_APP_KEY")}}', {
+        cluster: '{{env("PUSHER_APP_CLUSTER")}}',
+        encrypted: true
+        });
+        var id =  window.userID = {{ auth()->user()->referee->id }};
+        var channel = pusher.subscribe('betlist-channel.'+ id);
+        channel.bind('App\\Events\\NewBetList', function(data) {
+            alert(data);
+        console.log(data);
+        });
+
+        let hide = document.getElementById("hide");
+        hide.addEventListener("click", function() {
+            hide.style.display = "none";
+        });
+    </script>
   </body>
 </html>

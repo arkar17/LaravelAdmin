@@ -47,7 +47,7 @@ $(document).ready(function(){
     let dataArr = []
 
 
-    $.getJSON('http://165.22.51.1/twodlist', (data, jqXHR) => {
+    $.getJSON('http://128.199.201.43/twodlist', (data, jqXHR) => {
         //2d 1st row
         if(data.data.salesList.length != 0){
     for(let i = 0;i <= 8;i++){
@@ -558,7 +558,7 @@ $(document).ready(function(){
 
 
 
-    $.getJSON('http://165.22.51.1/lonepyinelist', (data, jqXHR) => {
+    $.getJSON('http://128.199.201.43/lonepyinelist', (data, jqXHR) => {
     console.log(data.data.salesList.length)
     if(data.data.salesList.length != 0){
             //lonepyine 1st row

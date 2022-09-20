@@ -62,6 +62,23 @@
             border: 2px solid #D9DEED;
             outline: none;
         }
+
+        .main-cash-alert {
+            color: white;
+            margin-left: 20px;
+            background-color: rgb(12, 94, 12);
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        #hide {
+            margin-top: 10px;
+        }
+        .closeBtn {
+            color: #ddd;
+            cursor: pointer;
+            float: right;
+        }
     </style>
 @endsection
 
@@ -83,6 +100,12 @@
                     <button type="reset" class="cashin-cancel-btn">{{__('msg.Cancel')}}</button>
                 </div>
             </div>
+            @if (Session::has('main-cash'))
+                <div id="hide">
+                    <h4 class="main-cash-alert"> {{ Session::get('main-cash') }} <span class="closeBtn">X</span> </h4>
+                </div>
+            @endif
+
         </form>
     </div>
     <hr>
@@ -141,12 +164,8 @@
                     <div class="cashin-agent-payment-container">
                         <p>{{__('msg.Payment')}}</p>
                         <input type="number" placeholder="Enter Payment" name="payment"
-                            class="@error('payment')
-                            alert-border
-                        @enderror" />
-                        @error('payment')
-                            <small class="error-message">{{ $message }}</small>
-                        @enderror
+                            />
+
                     </div>
                 </div>
 
@@ -155,6 +174,14 @@
                     <button type="reset" class="cashin-cancel-btn">{{__('msg.Cancel')}}</button>
                 </div>
 
+
+
+                </div>
+                @if (Session::has('cash-in'))
+                    <div id="hide">
+                        <h4 class="main-cash-alert"> {{ Session::get('cash-in') }} <span class="closeBtn">X</span> </h4>
+                    </div>
+                @endif
             </form>
 
             <div class="cashin-list-parent-container">
@@ -222,7 +249,7 @@
                             class="inputCoinAmount2 @error('coin_amount')
                             alert-border
                         @enderror"
-                            name="coin_amount" disabled/>
+                            name="coin_amount" disabled />
 
                         @error('coin_amount')
                             <small class="error-message">{{ $message }}</small>
@@ -244,6 +271,11 @@
                     <button type="reset" class="cashin-cancel-btn">{{__('msg.Cancel')}}</button>
                 </div>
 
+                @if (Session::has('cash-out'))
+                    <div id="hide">
+                        <h4 class="main-cash-alert"> {{ Session::get('cash-out') }} <span class="closeBtn">X</span> </h4>
+                    </div>
+                @endif
             </form>
 
 

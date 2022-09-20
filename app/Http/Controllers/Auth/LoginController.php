@@ -72,15 +72,15 @@ class LoginController extends Controller
             return redirect()->route('sys-dashboard');
 
         }elseif( $user->hasAnyRole(['referee'])){
+            return redirect()->route('refe-dashboard');
+            // $referee=Referee::where('user_id',$user->id)->first();
+            // $r_status=$referee->active_status;
 
-            $referee=Referee::where('user_id',$user->id)->first();
-            $r_status=$referee->active_status;
-
-            if($r_status==1){
-                return redirect()->route('refe-dashboard');
-            }else{
-                return redirect('/login')->with('message', 'Account Expired');
-            }
+            // if($r_status==1){
+            //     return redirect()->route('refe-dashboard');
+            // }else{
+            //     return redirect('/login')->with('message', 'Account Expired');
+            // }
         }elseif( $user->hasAnyRole(['phasetwo_admin'])){
              return redirect()->route('matches-register');
         }else

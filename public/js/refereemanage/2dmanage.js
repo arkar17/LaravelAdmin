@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     $.getJSON('http://128.199.201.43/send', (data, jqXHR) => {
         console.log(data);
         if(data.data.salesList.length != 0){

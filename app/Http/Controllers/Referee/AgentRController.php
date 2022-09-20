@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Referee;
 use App\Models\Twod;
 use App\Models\User;
 use App\Models\Agent;
+use App\Models\Referee;
 use App\Models\Twodsalelist;
 use Illuminate\Http\Request;
 use App\Exports\Export2DSalesList;
@@ -20,8 +21,8 @@ class AgentRController extends Controller
     public function agentData()
     {
         $user = auth()->user()->id;
-
-        $agentdata = DB::select("SELECT a.id,u.name,u.phone ,Count(td.customer_name) as NumOfCus FROM agents a left join users u on a.user_id = u.id left join twodsalelists td on a.id = td.agent_id where a.referee_id = '$user' Group By td.agent_id,u.name,u.phone,a.id");
+        $referee = Referee::where('user_id', $user)->first();
+        $agentdata = DB::select("SELECT a.id,u.name,u.phone ,Count(td.customer_name) as NumOfCus FROM agents a left join users u on a.user_id = u.id left join twodsalelists td on a.id = td.agent_id where a.referee_id = '$referee->id' Group By td.agent_id,u.name,u.phone,a.id");
         //dd($agentdata);
         // dump ($user);
         return view('RefereeManagement.agentdata')->with(['agentdata'=>$agentdata]);

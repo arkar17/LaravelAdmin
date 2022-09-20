@@ -517,7 +517,7 @@ class RefreeManagementController extends Controller
                 $referee =Referee::where('user_id',$user)->first();
                 $data = 'Acceped';
                 $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
-        return redirect()->back()->with('success', 'Status Update!');
+        return redirect()->back()->with('success', 'Accepted!');
     }
     public function lpupdate(Request $request){
 
@@ -677,7 +677,7 @@ class RefreeManagementController extends Controller
 
                 $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
 
-        return redirect()->back()->with('success', 'Status Update!');
+        return redirect()->back()->with('success', 'Accepted!');
 
     }
 
@@ -781,7 +781,7 @@ class RefreeManagementController extends Controller
 
                 $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
 
-        return redirect()->back()->with('success', 'Status Update!');
+        return redirect()->back()->with('success', 'Accepted!');
 
     }
 
@@ -794,21 +794,21 @@ class RefreeManagementController extends Controller
             $twoDSalesList = Twodsalelist::where('id',$re)
             ->update(["status" => 2]);
         }
-        return redirect()->back()->with('success', 'Status Update!');
+        return redirect()->back()->with('declined', 'Declined!');
     }
     public function declinelp(Request $request){
         foreach($request->id as $re){
             $lpSalesList = Lonepyinesalelist::where('id',$re)
             ->update(["status" => 2]);
         }
-        return redirect()->back()->with('success', 'Status Update!');
+        return redirect()->back()->with('declined', 'Declined!');
     }
     public function declineThreed(Request $request){
         foreach($request->id as $re){
             $lpSalesList = Threedsalelist::where('id',$re)
             ->update(["status" => 2]);
         }
-        return redirect()->back()->with('success', 'Status Update!');
+        return redirect()->back()->with('declined', 'Declined!');
     }
 
     //dailysalebook end
@@ -858,56 +858,6 @@ class RefreeManagementController extends Controller
 
     }
 
-    // Accept & decline
-
-    public function  twodAccept($id)
-    {
-        //dd($id);
-        $twodrequest = Twodsalelist::findOrFail($id);
-        $twodrequest->status = 1;
-        $twodrequest->update();
-        return redirect()->back()->with(['twodaccept' => '2D Accepted Success']);
-    }
-    public function  twodDecline($id)
-    {
-        //dd($id);
-        $twodrequest = Twodsalelist::findOrFail($id);
-        $twodrequest->status = 2;
-        $twodrequest->update();
-        return redirect()->back()->with(['twoddecline' => '2D Decline Success !']);
-    }
-    public function  lonepyineAccept($id)
-    {
-        //dd($id);d
-        $lonepyinerequest = Lonepyinesalelist::findOrFail($id);
-        $lonepyinerequest->status = 1;
-        $lonepyinerequest->update();
-        return redirect()->back()->with(['lonepyineaccept' => 'Lone Pyine Accepted Success']);
-    }
-    public function lonepyinedecline($id)
-    {
-        //dd($id);
-        $lonepyinerequest = Lonepyinesalelist::findOrFail($id);
-        $lonepyinerequest->status = 2;
-        $lonepyinerequest->update();
-        return redirect()->back()->with(['lonepyinedecline' => 'Lone pyine Decline Success!']);
-    }
-    public function  threedAccept($id)
-    {
-        //dd($id);
-        $lonepyinerequest = Threedsalelist::findOrFail($id);
-        $lonepyinerequest->status = 1;
-        $lonepyinerequest->update();
-        return redirect()->back()->with(['threedaccept' => '3D Accepted Success']);
-    }
-    public function threeddecline($id)
-    {
-        //dd($id);
-        $lonepyinerequest = Threedsalelist::findOrFail($id);
-        $lonepyinerequest->status = 2;
-        $lonepyinerequest->update();
-        return redirect()->back()->with(['threeddecline' => '3D Decline Success!']);
-    }
     public function announcement(Request $request){
         $user = auth()->user()->id;
 
@@ -926,5 +876,55 @@ class RefreeManagementController extends Controller
                 // $data['message'] = 'Hello XpertPhp';
         $pusher->trigger('announce-referee.'.$refereeID->id, 'App\\Events\\AnnouncementForAgents',  $refereeID->remark);
         return redirect()->back();
+    }
+
+
+    public function refereeProfile(){
+        $user = auth()->user()->id;
+        $referee =Referee::where('user_id',$user)->first();
+        $agentsaleamounts= DB::select("Select (SUM(ts.sale_amount)+SUM(tr.sale_amount)+SUM(ls.sale_amount))maincash ,re.id,a.id From agents a left join referees re on re.id = a.referee_id left join twodsalelists ts on ts.agent_id = a.id and ts.status = 1 left join threedsalelists tr on tr.agent_id = a.id and tr.status = 1 left join lonepyinesalelists ls on ls.agent_id = a.id and ls.status = 1 where re.id= $referee->id Group By a.id;");
+        $agents=DB::select("Select a.id,u.name,u.phone
+                            From agents a JOIN referees re on re.id = a.referee_id
+                            LEFT JOIN users u on u.id = a.user_id
+                            where re.id=$referee->id Group By a.id,u.name,u.phone;");
+
+        $twod=Twodsalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(twodsalelists.sale_amount)as Amount'))
+                    ->join('agents','agents.id','twodsalelists.agent_id')
+                    ->where('agents.referee_id',$referee->id)
+                    ->where('twodsalelists.status',1)
+                    ->groupBy('agents.id')
+                    ->join('users','users.id','agents.user_id')
+                    ->get()->toArray();
+
+        $threed=Threedsalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(threedsalelists.sale_amount)as Amount'))
+                    ->join('agents','agents.id','threedsalelists.agent_id')
+                    ->where('agents.referee_id',$referee->id)
+                    ->where('threedsalelists.status',1)
+                    ->groupBy('agents.id')
+                    ->join('users','users.id','agents.user_id')
+                    ->get()->toArray();
+
+        $lonepyine=Lonepyinesalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(lonepyinesalelists.sale_amount)as Amount'))
+                    ->join('agents','agents.id','lonepyinesalelists.agent_id')
+                    ->where('agents.referee_id',$referee->id)
+                    ->where('lonepyinesalelists.status',1)
+                    ->groupBy('agents.id')
+                    ->join('users','users.id','agents.user_id')
+                    ->get()->toArray();
+        $output = array_merge($twod,$threed,$lonepyine);
+        $sum=0;
+            foreach($output as $op){
+
+                $sum+=$op['Amount'];
+            }
+        $results = array_reduce($output, function($carry, $item){
+        if(!isset($carry[$item['id']])){
+        $carry[$item['id']] = ['id'=>$item['id'],'name'=>$item['name'],'phone'=>$item['phone'],'Amount'=>$item['Amount']];
+        } else {
+        $carry[$item['id']]['Amount'] += $item['Amount'];
+        }
+        return $carry;
+        });
+        return view('RefereeManagement.referee_profile',compact('referee','agents','results','sum','agentsaleamounts'));
     }
 }

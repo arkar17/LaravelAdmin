@@ -32,10 +32,7 @@
             <div class="lonepyine-manage-parent-container">
                 <div class="lonepyine-manage-header-container">
                     <h1>{{__('msg.Lone Pyine Manage')}}</h1>
-                    <div class="lonepyine-manage-search-container">
-                      <iconify-icon icon="akar-icons:search" class="lonepyine-manage-search-icon"></iconify-icon>
-                      <input type="number" placeholder="Search Number"/>
-                    </div>
+
                 </div>
 
                 <form class="lonepyine-manage-numbers-parent-container">

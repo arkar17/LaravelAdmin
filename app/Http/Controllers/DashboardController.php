@@ -40,10 +40,6 @@ class DashboardController extends Controller
         $user = Auth::user();
         $referee =Referee::where('user_id',$user->id)->first();
         $agents = Agent::where('id' ,'>' ,0)->where('referee_id',$referee->id)->pluck('id')->toArray();
-        // $referee = Referee::where('user_id', $user->id)->first();
-        // $agents = Agent::where('referee_id', $user->id)->get();
-        // $agent = Agent::where('referee_id', $user->id)->first();
-       //dd($agents);
         $current_date = Carbon::now('Asia/Yangon')->toDateString();
 
         $twod_total = 0;

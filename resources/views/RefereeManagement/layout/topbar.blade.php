@@ -6,21 +6,37 @@
     </div>
 
     <div class="top-bar-right-container">
-        Coin Amount : {{auth()->user()->referee->main_cash}}
-      <div class="top-bar-searchbox-container">
-        <i class="fa-solid fa-magnifying-glass " ></i>
-        <input type="text" placeholder="Search..."/>
-      </div>
       <form action="{{ route('logout') }}" method="POST">
         @csrf
         <button type="submit" class="logout-btn">{{__('msg.logout')}}</button>
+      </form>
+      &nbsp;
+      &nbsp;
+      &nbsp;
+      <a href="locale/en">English</a> |
+      <a href="locale/mm">Myanmar</a>
+      {{-- <i class="fa-regular fa-bell"></i> --}}
+
     </form>
 
       <i class="fa-regular fa-bell"></i>
 
       <div class="top-bar-username-container">
+        Coin Amount :
+        @if(auth()->user()->referee->main_cash != 0)
+        {{auth()->user()->referee->main_cash}}
+        @elseif (auth()->user()->referee->main_cash == 0 )
+        0
+        @endif
+
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <a class="side-bar-link" href="{{route('porfile-referee')}}">
         <i class="fa-regular fa-user"></i>
         <p>{{auth()->user()->name}}</p>
+        </a>
+
     </div>
     </div>
   </div>

@@ -26,7 +26,7 @@ class CashInCashOutController extends Controller
         }
         $referee->save();
 
-        return redirect()->back()->with('success', 'Main Cash added successfully!');
+        return redirect()->back()->with('main-cash', 'Main Cash added successfully!');
     }
 
     public function cashInView()
@@ -48,24 +48,33 @@ class CashInCashOutController extends Controller
 
 
         $cashin_cashout = CashinCashout::where('agent_id', $request->agent_id)->first();
-        // $cashin_cashout = new CashinCashout();
-        if($cashin_cashout->coin_amount) {
-            $cashin_cashout->agent_id = $request->agent_id;
-            $cashin_cashout->referee_id = $referee->id;
-            $cashin_cashout->coin_amount = $cashin_cashout->coin_amount + $request->coin_amount;
-            $cashin_cashout->status = $request->status;
-            $cashin_cashout->payment = $cashin_cashout->payment + $request->payment;
+        // dd($cashin_cashout);
+
+        if($cashin_cashout == null) {
+            $cin_cout = new CashinCashout();
+            $cin_cout->agent_id = $request->agent_id;
+            $cin_cout->referee_id = $referee->id;
+            $cin_cout->coin_amount = $request->coin_amount ?? 0;
+            $cin_cout->status = $request->status;
+            $cin_cout->payment = $request->payment;
+            $cin_cout->save();
         }else {
             $cashin_cashout->agent_id = $request->agent_id;
             $cashin_cashout->referee_id = $referee->id;
-            $cashin_cashout->coin_amount = $request->coin_amount;
-            $cashin_cashout->status = $request->status;
-            $cashin_cashout->payment = $request->payment;
+            $cashin_cashout->coin_amount = $cashin_cashout->coin_amount + ($request->coin_amount ?? 0);
+            if(($cashin_cashout->payment + $request->payment) > $cashin_cashout->coin_amount  ) {
+                $cashin_cashout->status = 2;
+            }else {
+                $cashin_cashout->status = 1;
+            }
+
+            $cashin_cashout->payment = $cashin_cashout->payment + $request->payment;
+            $cashin_cashout->save();
         }
 
-        $cashin_cashout->save();
 
-        return redirect()->back();
+
+        return redirect()->back()->with('cash-in', 'Cash is added successfully!');
     }
 
     public function cashOutStore(Request $request)
@@ -77,6 +86,6 @@ class CashInCashOutController extends Controller
         $cashin_cashout->withdraw = $request->withdraw;
         $cashin_cashout->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('cash-out', 'Successfully cash out!');
     }
 }
