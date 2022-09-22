@@ -55,17 +55,6 @@ class LoginController extends Controller
         return redirect('/login');
     }
 
-    //protected function authenticated(Request $request, $user)
-    //{
-
-        // if ( $user->hasAnyRole(['system_admin']) ) {// do your margic here
-        //     return redirect()->route('sys-dashboard');
-        // }elseif( $user->hasAnyRole(['referee']) ){
-        //     return redirect()->route('refe-dashboard');
-        // }else
-        //  return redirect('/login');
-    //}
-
     protected function authenticated(Request $request, $user)
     {
         if ( $user->hasAnyRole(['system_admin']) ) {// do your margic here

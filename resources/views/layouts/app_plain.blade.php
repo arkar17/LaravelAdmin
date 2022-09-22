@@ -58,18 +58,8 @@
 <body>
 
     @yield('content')
-    {{-- <script>
-        console.log('hello');
-        function disableBack() { window.history.forward(); }
-        setTimeout("disableBack()", 0);
-        window.onunload = function () { null };
-    </script> --}}
-    <script type="text/javascript">
-        history.pushState(null, null, `{{ route('login') }}`);
-        window.addEventListener('popstate', function () {
-            history.pushState(null, null, `{{ route('login') }}`);
-        });
-    </script>
+
+
     <!-- CORE JS FRAMEWORK - START -->
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.easing.min.js') }}"></script>
@@ -96,7 +86,7 @@
     <!-- CORE TEMPLATE JS - START -->
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <!-- END CORE TEMPLATE JS - END -->
-
+    
 </body>
 
 </html>

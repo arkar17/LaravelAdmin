@@ -36,12 +36,6 @@ use App\Http\Controllers\SystemAdmin\phaseTwo\team\TeamRegisterController;
 use App\Http\Controllers\SystemAdmin\phaseTwo\MatchesController;
 use App\Http\Controllers\SystemAdmin\phaseTwo\TournamentController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-// Route::get('/r',function(){
-//     return view('referee.index');
-// });
 Route::get('/locale/{lange}',[HomeController::class, 'lang'])->name('locale');
 
 Auth::routes();
@@ -52,6 +46,7 @@ Route::get('/welcome', fn() => view('welcome'));
 Route::get('/refereelogin',fn() => view('auth/refereelogin'))->name('refereelogin');
 Route::post('/refereelogin', [RefereeLoginController::class, 'authentication']);
 
+Route::group(['middleware' => 'prevent-back-history'], function(){
 Route::group(['middleware' => 'role:referee'], function(){
 // Route::group(['middleware' => 'auth'], function () {
     Route::get('/refe-dashboard', [DashboardController::class, 'refedashboard'])->name('refe-dashboard');
@@ -245,6 +240,8 @@ Route::group(['middleware' => 'role:referee'], function(){
 
     // Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
     // Route::post('winningstatus',[HomeController::class, 'winningstatus']);
+
+});
 
 });
 
