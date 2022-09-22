@@ -54,6 +54,8 @@ class UserController extends Controller
         // if (!auth()->user()->can('create_assign_user_role')) {
         //     abort(403, 'Unauthorized Action');
         // }
+            
+
         $user = new User();
         $user->name = $request->name;
         $user->phone = $request->phone;

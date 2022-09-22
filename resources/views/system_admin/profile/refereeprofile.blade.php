@@ -12,6 +12,7 @@
                 <strong>{{ Session::get('success') }}</strong>
             </div>
         @endif
+
         <!--main content start-->
             <!--referee profile start-->
             <div class="referee-profile-parent-container">
@@ -64,10 +65,11 @@
                 <div class="referee-profile-agent-list-rows-container">
                     @if ($results == null)
                     <div></div>
+                    <?php $i=1; ?>
                     @foreach ($agents as $agent)
 
                     <div class="referee-profile-agent-list-row">
-                        <p>{{$agent->id}}</p>
+                        <p>{{$i++}}</p>
                         <p>{{{$agent->name}}}</p>
                         <p>{{{$agent->phone}}}</p>
                         <p>0</p>
@@ -78,11 +80,11 @@
                     </div>
                     @endforeach
                         @else
-
+                        <?php $i=1; ?>
                         @foreach ($results as $agent)
                         <div class="referee-profile-agent-list-row">
 
-                            <p>{{$agent['id']}}</p>
+                            <p>{{$i++}}</p>
                             <p>{{{$agent['name']}}}</p>
                             <p>{{{$agent['phone']}}}</p>
                             <p>{{{$agent['Amount']}}}</p>

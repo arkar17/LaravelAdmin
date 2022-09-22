@@ -46,9 +46,9 @@ Route::get('/locale/{lange}',[HomeController::class, 'lang'])->name('locale');
 
 Auth::routes();
 
-Route::fallback(function() {
-    return view('auth.login');
-});
+// Route::fallback(function() {
+//     return view('auth.login');
+// });
  Route::redirect('/', '/login', 301);
 Route::get('/send',[PusherNotificationController::class, 'notification']);
 
@@ -169,7 +169,7 @@ Route::group(['middleware' => 'role:referee'], function(){
     Route::group(['middleware' => 'role:system_admin'], function(){
     // Route::get('/', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
 
-    Route::get('/sys-dashboard', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
+    Route::get('/home', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
     //Route::get('/systemadmin', [HomeController::class, 'index'])->name('systemadmin');
 
     Route::resource('role', RoleController::class);
@@ -223,7 +223,7 @@ Route::group(['middleware' => 'role:referee'], function(){
     Route::get('excel/customerdata_export/{id}', [ExportController::class, 'customer_export'])->name('customer.export_excel');
     Route::get('pdf/customerdata_export/{id}', [ExportController::class, 'customer_createPDF'])->name('customer.export_pdf');
     Route::get('/porfile-admin',[HomeController::class, 'adminprofile'])->name('porfile-admin');
-    Route::get(' create_user', [UserController::class, 'create_user']);
+    Route::get('create_user', [UserController::class, 'create_user']);
     Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
     Route::post('add_winningstatus',[HomeController::class, 'winningstatus'])->name('add_winningstatus');
 });

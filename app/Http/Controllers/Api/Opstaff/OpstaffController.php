@@ -58,7 +58,7 @@ class OpstaffController extends Controller
             if ($request->hasFile('profile_image')) {
                 $file = $request->file('profile_image');
                 $imageName = uniqid() . '_' . $file->getClientOriginalName();
-                Storage::disk('public')->put('profiles/' . $imageName, file_get_contents($file));
+                $file->move(public_path() . '/image/', $imageName);
             }
 
             $op_staff = Operationstaff::where('user_id', $user->id)->first();
@@ -228,14 +228,9 @@ class OpstaffController extends Controller
         if ($user) {
             $op_staff = Operationstaff::where('user_id', $user->id)->first();
 
-            // $referees = Referee::with('user')->whereHas('user', function ($q) use ($op_staff) {
-            //     $q->where('request_type', 'referee')->where('status', '2')->whereNotNull('referee_code')->where('operationstaff_code', $op_staff->operationstaff_code);
-            // })->get();
-
             $referees = Referee::where('operationstaff_id', '=', $op_staff->id)->with('user')->whereHas('user', function ($q) use ($op_staff) {
                 $q->where('request_type', 'referee')->where('status', '2');
             })->get();
-
 
             return response()->json([
                 'status' => 200,
@@ -266,14 +261,14 @@ class OpstaffController extends Controller
 
         if ($user) {
             $referee = Referee::findOrFail($id);
-            $user = User::findOrFail($referee->user_id);
-            $user->name = $request->name;
+            $usr = User::findOrFail($referee->user_id);
+            $usr->name = $request->name;
 
-            $user->save();
+            $usr->save();
 
             return response()->json([
                 'status' => 200,
-                'refereee_name' => $user,
+                'refereee_name' => $usr,
             ]);
         } else {
             return response()->json([

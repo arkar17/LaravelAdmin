@@ -50,7 +50,7 @@
                 <div class="agent-profile-details-parent-container">
                     <div class="agent-profile-details-container">
                         <div class="agent-profile-img-container">
-                            <img src="{{asset('/image'.$agentprofiledata->image)}}"/>
+                            <img src="{{asset('/image/'.$agentprofiledata->image)}}"/>
                         </div>
 
                         <div class="agent-profile-attributes-container">

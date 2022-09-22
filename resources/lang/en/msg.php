@@ -132,7 +132,8 @@ return[
     'Edit Permission'=>'Edit Permission',
     'Edit Operation Staff'=>'Edit Operation Staff',
     'Add Photo'=>'Add Photo',
-    'Admin Profile'=>'System Admin Profile'
+    'Admin Profile'=>'System Admin Profile',
+    'Profile Image'=>'Profile Image'
 
 
 ];

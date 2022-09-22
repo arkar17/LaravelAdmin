@@ -183,18 +183,17 @@ class RefereeController extends Controller
 
     public function update(Request $request,$id)
     {
+        // $role=Role::where('name','referee')->first();
+        // $role_id=$role->id;
+
+        $referee = Referee::findOrFail($id);
         if($request->hasFile('profile_img')) {
             $file = $request->file('profile_img');
             $imgName = uniqid() . '_' . $file->getClientOriginalName();
             $file->move(public_path() . '/image/', $imgName);
         }else{
-            $imgName=$request->image;
+            $imgName = $referee->image;
         }
-
-        // $role=Role::where('name','referee')->first();
-        // $role_id=$role->id;
-
-        $referee = Referee::findOrFail($id);
         $user_id=$referee->user_id;
         $user = User::findOrFail($user_id);
         $user->name = $request->name;

@@ -26,39 +26,63 @@ class ProfileController extends Controller
                             LEFT JOIN users u on u.id = a.user_id
                             where re.id=$referee_id Group By a.id,u.name,u.phone;");
 
-        $twod=Twodsalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(twodsalelists.sale_amount)as Amount'))
-                    ->join('agents','agents.id','twodsalelists.agent_id')
-                    ->where('agents.referee_id',$referee_id)
-                    ->where('twodsalelists.status',1)
-                    ->groupBy('agents.id')
-                    ->join('users','users.id','agents.user_id')
-                    ->get()->toArray();
+        // $two=Agent::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(twodsalelists.sale_amount)as Amount'))
+        //             ->leftJoin('users','users.id','agents.user_id')
+        //             ->leftJoin('twodsalelists','agents.id','twodsalelists.agent_id')
+        //             ->where('agents.referee_id',$referee_id)
+        //             ->where('twodsalelists.status',1)
+        //             ->groupBy('agents.id')
+        //             ->get()->toArray();
 
-        $threed=Threedsalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(threedsalelists.sale_amount)as Amount'))
-                    ->join('agents','agents.id','threedsalelists.agent_id')
-                    ->where('agents.referee_id',$referee_id)
-                    ->where('threedsalelists.status',1)
-                    ->groupBy('agents.id')
-                    ->join('users','users.id','agents.user_id')
-                    ->get()->toArray();
+        // $three=Threedsalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(threedsalelists.sale_amount)as Amount'))
+        //             ->join('agents','agents.id','threedsalelists.agent_id')
+        //             ->where('agents.referee_id',$referee_id)
+        //             ->where('threedsalelists.status',1)
+        //             ->groupBy('agents.id')
+        //             ->join('users','users.id','agents.user_id')
+        //             ->get()->toArray();
 
-        $lonepyine=Lonepyinesalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(lonepyinesalelists.sale_amount)as Amount'))
-                    ->join('agents','agents.id','lonepyinesalelists.agent_id')
-                    ->where('agents.referee_id',$referee_id)
-                    ->where('lonepyinesalelists.status',1)
-                    ->groupBy('agents.id')
-                    ->join('users','users.id','agents.user_id')
-                    ->get()->toArray();
+        // $lone=Lonepyinesalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(lonepyinesalelists.sale_amount)as Amount'))
+        //             ->join('agents','agents.id','lonepyinesalelists.agent_id')
+        //             ->where('agents.referee_id',$referee_id)
+        //             ->where('lonepyinesalelists.status',1)
+        //             ->groupBy('agents.id')
+        //             ->join('users','users.id','agents.user_id')
+        //             ->get()->toArray();
 
-        $output = array_merge($twod,$threed,$lonepyine);
 
+        $twod_salelist=DB::select("select a.id,u.name,u.phone,COALESCE(SUM(td.sale_amount),0)Amount from agents a
+                        left join twodsalelists td on a.id=td.agent_id and td.status=1
+                        join referees re on a.referee_id=re.id
+                        LEFT JOIN users u on u.id = a.user_id
+                        where a.referee_id='$referee_id'
+                        group BY a.id;");
+         $twod = json_decode(json_encode ( $twod_salelist ) , true);
+
+        $threed_salelist=DB::select("select a.id,u.name,u.phone,COALESCE(SUM(td.sale_amount),0)Amount from agents a
+                        left join threedsalelists td on a.id=td.agent_id and td.status=1
+                        join referees re on a.referee_id=re.id
+                        LEFT JOIN users u on u.id = a.user_id
+                        where a.referee_id='$referee_id'
+                        group BY a.id;");
+        $threed=json_decode(json_encode ( $threed_salelist ) , true);
+
+        $lonepyine_salelists=DB::select("select a.id,u.name,u.phone,COALESCE(SUM(td.sale_amount),0)Amount from agents a
+                        left join lonepyinesalelists td on a.id=td.agent_id and td.status=1
+                        join referees re on a.referee_id=re.id
+                        LEFT JOIN users u on u.id = a.user_id
+                        where a.referee_id='$referee_id'
+                        group BY a.id;");
+        $lonepyine=json_decode(json_encode ( $lonepyine_salelists ) , true);
+
+        //$output = array_merge($two,$three,$lone);
+        $res = array_merge($twod,$threed,$lonepyine);
         $sum=0;
-            foreach($output as $op){
-
+            foreach($res as $op){
                 $sum+=$op['Amount'];
             }
 
-        $results = array_reduce($output, function($carry, $item){
+        $results = array_reduce($res, function($carry, $item){
         if(!isset($carry[$item['id']])){
         $carry[$item['id']] = ['id'=>$item['id'],'name'=>$item['name'],'phone'=>$item['phone'],'Amount'=>$item['Amount']];
         } else {
@@ -66,8 +90,6 @@ class ProfileController extends Controller
         }
         return $carry;
         });
-
-
         return view('system_admin.profile.refereeprofile',compact('referee','agents','results','sum','agentsaleamounts'));
     }
 
@@ -162,6 +184,7 @@ class ProfileController extends Controller
 
     public function operationstaffprofile($id)
     {
+
        $operationstaff=Operationstaff::findOrFail($id);
        $referees=Referee::where('operationstaff_id','=',$id)->get();
        return view('system_admin.profile.operationstaffprofile',compact('operationstaff','referees'));
