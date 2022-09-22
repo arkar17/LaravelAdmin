@@ -1,6 +1,6 @@
 @extends('layouts.app_plain')
-
 @section('content')
+
 <div class="container-fluid">
     <div class="login-wrapper row">
         <div id="login" class="login loginpage col-lg-offset-4 col-md-offset-3 col-sm-offset-3 col-xs-offset-0 col-xs-12 col-sm-6 col-lg-4">

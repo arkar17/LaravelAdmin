@@ -2,6 +2,12 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <script>
+        function disableBackButton() {
+           window.history.forward();
+       }
+       setTimeout("disableBackButton()", 0);
+    </script>
     <!--
         * @Package: Multipurpose Dashboard
         * @Version: 1.0.0

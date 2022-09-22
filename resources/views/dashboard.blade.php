@@ -2,6 +2,7 @@
 
 
 @section('content')
+
 <div class="main-content-parent-container">
     <!--dashboard start-->
     <div class="dashboard-gradient-boxes-container">

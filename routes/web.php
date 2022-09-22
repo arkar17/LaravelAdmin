@@ -46,10 +46,6 @@ Route::get('/locale/{lange}',[HomeController::class, 'lang'])->name('locale');
 
 Auth::routes();
 
-// Route::fallback(function() {
-//     return view('auth.login');
-// });
- Route::redirect('/', '/login', 301);
 Route::get('/send',[PusherNotificationController::class, 'notification']);
 
 Route::get('/welcome', fn() => view('welcome'));
@@ -166,7 +162,8 @@ Route::group(['middleware' => 'role:referee'], function(){
 
     });
     // System Admin//
-    Route::group(['middleware' => 'role:system_admin'], function(){
+    Route::group(['middleware' =>  'role:system_admin'], function(){
+
     // Route::get('/', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
 
     Route::get('/home', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
