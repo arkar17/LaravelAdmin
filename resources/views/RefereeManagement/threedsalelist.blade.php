@@ -4,9 +4,6 @@
 
 @section('content')
 
-    <!--main content start-->
-    <div class="main-content-parent-container">
-
         <!--2d sale list start-->
         <div class="twod-sale-list-parent-container">
         <h1>{{__('msg.Sale List - 3D Sale List')}}</h1>
@@ -85,7 +82,4 @@
         </div>
         </div>
         <!--2d sale list end-->
-
-    </div>
-  <!--main content end-->
 @endsection

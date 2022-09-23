@@ -3,8 +3,6 @@
 @section('title', 'Agent Data')
 
 @section('content')
-                  <!--main content start-->
-        <div class="main-content-parent-container">
 
             <!--2d sale list start-->
             <div class="twod-sale-list-parent-container">
@@ -91,9 +89,6 @@
               </div>
             </div>
             <!--2d sale list end-->
-
-          </div>
-          <!--main content end-->
 
 @endsection
 

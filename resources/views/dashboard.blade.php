@@ -1,7 +1,6 @@
 @extends('system_admin.layouts.app')
 @section('content')
 
-<div class="main-content-parent-container">
     <!--dashboard start-->
     @hasanyrole('system_admin')
     <div class="dashboard-gradient-boxes-container">
@@ -161,7 +160,7 @@
       </div>
       @endhasanyrole
 
-</div>
+
 @endsection
 
 

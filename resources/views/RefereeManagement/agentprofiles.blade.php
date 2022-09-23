@@ -19,8 +19,7 @@
             <strong>{{ Session::get('commision') }}</strong>
         </div>
         @endif
-        <!--main content start-->
-        <div class="main-content-parent-container">
+
             <!--referee profile start-->
             <div class="agent-profile-parent-container">
                 <h1>{{__('msg.Agent Profile')}}</h1>
@@ -121,10 +120,7 @@
 
             </div>
             <!--referee profile end-->
-        </div>
 
-
-        <!--main content end-->
     </div>
 @endsection
 

@@ -1,8 +1,5 @@
 @extends('system_admin.layouts.app')
-
-
 @section('content')
-<div class="main-content-parent-container" style = "margin-bottom: 10px">
     <!--dashboard start-->
     <button class="referee-remark-btn">{{__('msg.Remark')}}</button>
     <div class="referee-remark-popup-parent-container">
@@ -117,8 +114,6 @@
 
         </div>
     </div>
-
-  </div>
 @endsection
 
 

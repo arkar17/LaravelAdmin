@@ -134,7 +134,8 @@ return[
     'Edit Operation Staff'=>'Edit Operation Staff',
     'Add Photo'=>'Add Photo',
     'Admin Profile'=>'System Admin Profile',
-    'Profile Image'=>'Profile Image'
+    'Profile Image'=>'Profile Image',
+    'Remaining Amount'=>'Remaining Amount',
 
 
 ];

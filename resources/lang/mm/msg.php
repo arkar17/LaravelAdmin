@@ -134,7 +134,8 @@ return[
     'Edit Operation Staff'=>'ဝန်ထမ်းအချက်အလက်ပြင်မည်',
     'Add Photo'=>'ဓာတ်ပုံထည့်မည်',
     'Admin Profile'=>'စီမံခန့်ခွဲသူကိုယ်ရေးရာဇဝင်',
-    'Profile Image'=>'ပရိုဖိုင်ပုံ'
+    'Profile Image'=>'ပရိုဖိုင်ပုံ',
+    'Remaining Amount'=>'ပေးရန်ကျန်ရှိသောငွေ',
 
 ];
 ?>
