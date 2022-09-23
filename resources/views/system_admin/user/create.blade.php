@@ -114,15 +114,11 @@
             </form>
         </div>
 
-          {{-- <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div> --}}
-                    <!--guest list start-->
                     <div class="user-list-parent-container">
                         <h1>{{__('msg.User List')}}</h1>
                         <div class="user-list-container">
                         <div class="user-list-labels-container">
-                            <h2>{{__('msg.ID')}}</h2>
+                            <h2>{{__('msg.No')}}</h2>
                             <h2>{{__('msg.Name')}}</h2>
                             <h2>{{__('msg.Phone Number')}}</h2>
                             <h2>{{__('msg.Promote')}}</h2>
@@ -131,9 +127,12 @@
                         </div>
 
                         <div class="user-list-rows-container">
+                            @php
+                            $i=1;
+                            @endphp
                             @foreach ($users as $user)
                                 <div class="user-list-row">
-                                    <p>{{$user->id}}</p>
+                                    <p>{{$i++}}</p>
                                     <p>{{$user->name}}</p>
                                     <p>{{$user->phone}}</p>
                                     <div>

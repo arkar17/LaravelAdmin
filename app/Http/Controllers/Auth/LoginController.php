@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use App\Models\Referee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -46,8 +47,21 @@ class LoginController extends Controller
     {
         return 'phone';
     }
+    protected function authenticated(Request $request, $user)
+    {
+        if( $user->hasAnyRole(['referee'])){
 
+            $referee=Referee::where('user_id',$user->id)->first();
+            $r_status=$referee->active_status;
 
+            if($r_status==1){
+                Auth::login($user);
+            }else{
+                Auth::logout();
+                return redirect()->back()->with('message','Referee Account is expired !');
+            }
+        }
+    }
 
     public function logout(Request $request) {
         session()->flush();

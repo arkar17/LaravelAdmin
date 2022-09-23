@@ -207,7 +207,7 @@ class ThreeDManageController extends Controller
                 $LonePyaing->number = $lonePyaingLists['lonepyineNumber'];
                 $LonePyaing->date = $date;
                 $LonePyaing->max_amount = intval($maxAmt);
-                $LonePyaing->compensation = intval($comp);
+                $LonePyaing->compensation = $comp;
                 $LonePyaing->round =  'Evening';
                 $LonePyaing->referee_id = $referee->id;
                 $LonePyaing->save();
@@ -222,7 +222,7 @@ class ThreeDManageController extends Controller
                 $LonePyaing->number = $lonePyaingLists['lonepyineNumber'];
                 $LonePyaing->date = $date;
                 $LonePyaing->max_amount = intval($maxAmt);
-                $LonePyaing->compensation = intval($comp);
+                $LonePyaing->compensation = $comp;
                 $LonePyaing->round =  'Morning';
                 $LonePyaing->referee_id = $referee->id;
                 $LonePyaing->save();

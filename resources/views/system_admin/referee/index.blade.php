@@ -24,7 +24,6 @@
                     <h4 class="main-cash-alert"> {{ Session::get('success') }} <span class="closeBtn">X</span> </h4>
                 </div>
         @endif
-
         <div class="section-line"></div>
 
         <!--referee list start-->

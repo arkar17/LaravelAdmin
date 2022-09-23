@@ -22,7 +22,7 @@
                         <p>{{__('msg.Rate')}}:</p>
                         <form action="{{route('3D')}}" mehtod = 'post'>
                             @csrf
-                            <input id="threed-rate-insert-input" type="number" name="number" />
+                            <input id="threed-rate-insert-input" type="number" name="number" required />
                             <button type="submit" id="threed-rate-insert-btn">{{__('msg.Insert')}}</button>
                         </form>
                     </div>
@@ -61,8 +61,8 @@
                             </div>
 
                             <div class="lonepyine-manage-numbers-inputs-container">
-                                <input type="number" name="lonepyine-number-rate-input" id="lonepyine-number-rate" />
-                                <input type="number" name="lonepyine-number-max-input" id="lonepyine-number-max"/>
+                                <input type="number" name="lonepyine-number-rate-input" id="lonepyine-number-rate" step="any" />
+                                <input type="number" name="lonepyine-number-max-input" id="lonepyine-number-max" step="any"/>
                             </div>
                         </div>
                         @endfor
