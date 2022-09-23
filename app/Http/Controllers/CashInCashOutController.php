@@ -61,7 +61,6 @@ class CashInCashOutController extends Controller
 
     public function cashInStore(CashInRequest $request)
     {
-
         $user = auth()->user();
         $referee = Referee::where('user_id', $user->id)->first();
 
@@ -84,7 +83,7 @@ class CashInCashOutController extends Controller
             $agent_cash_history->referee_id =  $referee->id;
             $agent_cash_history->agent_cash = $request->coin_amount ?? 0;
             $agent_cash_history->agent_payment = $request->payment ?? 0;
-            $agent_cash_history->agent_withdraw = $request->withdraw ?? 0;
+            // $agent_cash_history->agent_withdraw = $request->withdraw ?? 0;
 
             $agent_cash_history->save();
             $cin_cout->save();
@@ -114,7 +113,7 @@ class CashInCashOutController extends Controller
             $agent_cash_history->referee_id =  $referee->id;
             $agent_cash_history->agent_cash = $request->coin_amount ?? 0;
             $agent_cash_history->agent_payment = $request->payment ?? 0;
-            $agent_cash_history->agent_withdraw = $request->withdraw ?? 0;
+            // $agent_cash_history->agent_withdraw = $request->withdraw ?? 0;
 
             $agent_cash_history->save();
             $cashin_cashout->save();
@@ -152,6 +151,9 @@ class CashInCashOutController extends Controller
 
     public function cashInUpdate($id, Request $request)
     {
+        $user = auth()->user();
+        $referee = Referee::where('user_id', $user->id)->first();
+
         $cashin_cashout =  CashinCashout::findOrFail($id);
 
         if( $request->payment > $cashin_cashout->remaining_amount ) {
@@ -170,6 +172,12 @@ class CashInCashOutController extends Controller
             $cashin_cashout->status = 1;
         }
 
+        $agent_cash_history = new AgentcashHistory();
+        $agent_cash_history->agent_id = $cashin_cashout->agent_id;
+        $agent_cash_history->referee_id =  $referee->id;
+        $agent_cash_history->agent_payment = $request->payment ?? 0;
+
+        $agent_cash_history->save();
         $cashin_cashout->save();
 
         return redirect()->route('cashin')->with('cash-in', 'Payment is updated!');

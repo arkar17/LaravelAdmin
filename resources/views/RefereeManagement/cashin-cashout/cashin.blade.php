@@ -125,9 +125,6 @@
             @endif
 
         </form>
-        @foreach ($maincash_histories as $maincash_history)
-            <p>{{ $maincash_history->main_cash }}</p>
-        @endforeach
 
     </div>
     <hr>
@@ -304,7 +301,6 @@
                         <input type="number" placeholder="Enter Coin Amount"
                             class="inputCoinAmount2"
                             name="coin_amount" disabled />
-
                     </div>
                 </div>
 
