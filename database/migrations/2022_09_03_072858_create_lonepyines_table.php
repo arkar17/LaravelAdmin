@@ -18,7 +18,7 @@ class CreateLonepyinesTable extends Migration
             $table->integer('referee_id');
             $table->string('number')->nullable();
             $table->bigInteger('max_amount')->nullable();
-            $table->integer('compensation')->nullable();
+            $table->float('compensation')->nullable();
             $table->date('date')->nullable();
             $table->string('round')->nullable();
             $table->string('status')->nullable();

@@ -14,7 +14,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <meta content="" name="description" />
     <meta content="" name="author" />
-
+    <link href="{{ asset('css/systemadmin/login.css') }}" rel="stylesheet" />
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon" />
     <!-- For iPhone -->
@@ -86,7 +86,7 @@
     <!-- CORE TEMPLATE JS - START -->
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <!-- END CORE TEMPLATE JS - END -->
-    
+
 </body>
 
 </html>
