@@ -6,7 +6,7 @@ use auth;
 use Carbon\Carbon;
 use Pusher\Pusher;
 use App\Models\Agent;
-use App\Models\threed;
+use App\Models\Threed;
 use App\Models\Referee;
 use App\Models\Lonepyine;
 use App\Models\LonePyaing;
@@ -17,6 +17,10 @@ use App\Http\Controllers\Controller;
 class ThreeDManageController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function ThreeDmanage()
     {
         $user = auth()->user();
@@ -65,8 +69,7 @@ class ThreeDManageController extends Controller
                      ( SELECT * FROM lonepyines t where referee_id = '$referee->id' ORDER BY id DESC LIMIT 20 )sub ORDER BY id ASC)
                       aa LEFT join agents on aa.referee_id = agents.id
                       LEFT join lonepyinesalelists ts on ts.lonepyine_id = aa.id where aa.referee_id = '$referee->id'
-                      and aa.date = '$currentDate' and aa.round = 'Evening' group by aa.number, aa.max_amount , agents.id ,
-                       aa.max_amount , aa.compensation");
+                      and aa.date = '$currentDate' and aa.round = 'Evening' group by aa.number");
                 }
                 else{
                     $lonepyaing_sale_lists = DB::select("Select aa.id, aa.number , aa.max_amount ,
@@ -74,8 +77,7 @@ class ThreeDManageController extends Controller
                     ( SELECT * FROM lonepyines t where referee_id = '$referee->id' ORDER BY id DESC LIMIT 20 )
                     sub ORDER BY id ASC) aa LEFT join agents on aa.referee_id = agents.id
                     LEFT join lonepyinesalelists ts on ts.lonepyine_id = aa.id where aa.referee_id = '$referee->id'
-                    and aa.date = '$referee->id' and aa.round = 'Morning' group by aa.number, aa.max_amount ,
-                    agents.id , aa.max_amount , aa.compensation");
+                    and aa.date = '$referee->id' and aa.round = 'Morning' group by aa.number");
                 }
                     }
                     $options = array(
@@ -111,7 +113,7 @@ class ThreeDManageController extends Controller
                     // $agent = Agent::where('user_id', $user->id)->with('referee')->first();
                     // $referee = Referee::where('user_id', $agent->referee->user_id)->with('user')->first();
                     if($time > 12){
-                    $lonepyaing_sale_lists = DB::select("Select * from (SELECT id,number FROM threeds t where referee_id = '$user'  ORDER BY id DESC LIMIT 350)sub ORDER BY id ASC;");
+                    $lonepyaing_sale_lists = DB::select("Select * from (SELECT id,number FROM threeds t where referee_id = '$referee->id'  ORDER BY id DESC LIMIT 350)sub ORDER BY id ASC;");
                 }
                     }
                     $options = array(
@@ -139,13 +141,12 @@ class ThreeDManageController extends Controller
     {
         $rate = $request->number;
         $date = Carbon::Now();
-        $time = Carbon::Now()->toTimeString();
         $user = auth()->user()->id;
         if($user){
             $referee = Referee::where('user_id', $user)->first();
             for($i=0; $i <= 999 ; $i++){
                 if(strlen($i) == 1){
-                $threeD = new threed();
+                $threeD = new Threed();
                 $threeD->number = '00'.$i;
                 $threeD->compensation = $rate;
                 $threeD->date = $date;
@@ -153,15 +154,15 @@ class ThreeDManageController extends Controller
                 $threeD->save();
                 }
                 elseif(strlen($i) == 2){
-                    $threeD = new threed();
+                    $threeD = new Threed();
                     $threeD->number = '0'.$i;
                     $threeD->compensation = $rate;
                     $threeD->date = $date;
-                    $threeD->referee_id = 2;
+                    $threeD->referee_id = $referee->id;
                     $threeD->save();
                     }
                 else{
-                $threeD = new threed();
+                $threeD = new Threed();
                 $threeD->number = $i;
                 $threeD->compensation = $rate;
                 $threeD->date = $date;
@@ -191,42 +192,41 @@ class ThreeDManageController extends Controller
     }
     public function LonePyaingManageCreate(Request $request)
     {
-    //     return response()->json([
-    //         'success' => 'success',
-    //         'data' => $request->lonepyaing,
-    // ]);
     $lonePyaingList = $request->lonepyaing; // json string
     $date = Carbon::Now();
     $time = Carbon::Now()->toTimeString();
     $user = auth()->user()->id;
-    if($time > 12){
-        foreach ($lonePyaingList as $lonePyaingLists) {
-            $LonePyaing = new Lonepyine();
-           //  intval($num)
-            $maxAmt = $lonePyaingLists['maxAmount'];
-            $comp = $lonePyaingLists['compensation'];
-            $LonePyaing->number = $lonePyaingLists['lonepyineNumber'];
-            $LonePyaing->date = $date;
-            $LonePyaing->max_amount = intval($maxAmt);
-            $LonePyaing->compensation = intval($comp);
-            $LonePyaing->round =  'Evening';
-            $LonePyaing->referee_id = 2;
-            $LonePyaing->save();
+    if($user){
+        $referee = Referee::where('user_id', $user)->first();
+        if($time > 12){
+            foreach ($lonePyaingList as $lonePyaingLists) {
+                $LonePyaing = new Lonepyine();
+               //  intval($num)
+                $maxAmt = $lonePyaingLists['maxAmount'];
+                $comp = $lonePyaingLists['compensation'];
+                $LonePyaing->number = $lonePyaingLists['lonepyineNumber'];
+                $LonePyaing->date = $date;
+                $LonePyaing->max_amount = intval($maxAmt);
+                $LonePyaing->compensation = intval($comp);
+                $LonePyaing->round =  'Evening';
+                $LonePyaing->referee_id = $referee->id;
+                $LonePyaing->save();
+            }
         }
-    }
-    else{
-        foreach ($lonePyaingList as $lonePyaingLists) {
-            $LonePyaing = new Lonepyine();
-           //  intval($num)
-            $maxAmt = $lonePyaingLists['maxAmount'];
-            $comp = $lonePyaingLists['compensation'];
-            $LonePyaing->number = $lonePyaingLists['lonepyineNumber'];
-            $LonePyaing->date = $date;
-            $LonePyaing->max_amount = intval($maxAmt);
-            $LonePyaing->compensation = intval($comp);
-            $LonePyaing->round =  'Morning';
-            $LonePyaing->referee_id = 2;
-            $LonePyaing->save();
+        else{
+            foreach ($lonePyaingList as $lonePyaingLists) {
+                $LonePyaing = new Lonepyine();
+               //  intval($num)
+                $maxAmt = $lonePyaingLists['maxAmount'];
+                $comp = $lonePyaingLists['compensation'];
+                $LonePyaing->number = $lonePyaingLists['lonepyineNumber'];
+                $LonePyaing->date = $date;
+                $LonePyaing->max_amount = intval($maxAmt);
+                $LonePyaing->compensation = intval($comp);
+                $LonePyaing->round =  'Morning';
+                $LonePyaing->referee_id = $referee->id;
+                $LonePyaing->save();
+            }
         }
     }
 }

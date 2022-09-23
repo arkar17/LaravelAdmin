@@ -31,7 +31,10 @@ class HomeController extends Controller
     // {
     //     $this->middleware('auth');
     // }
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function lang($locale){
         App::setLocale($locale);
         Session::put("locale",$locale);
@@ -234,5 +237,10 @@ class HomeController extends Controller
         }
 
         return redirect ()->back()->with('success', 'Winning Status is Updated successfully!');
+    }
+
+    public function adminprofile()
+    {
+        return view('system_admin.profile.adminprofile');
     }
 }

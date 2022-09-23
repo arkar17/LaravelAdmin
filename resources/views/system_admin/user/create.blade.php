@@ -15,13 +15,16 @@
      alert(data.message);
   });
 </script>
-        {{-- @if (Session::has('success'))
-        <div class="alert alert-success alert-dismissible fade in">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                    aria-hidden="true">×</span></button>
-            <strong>{{ Session::get('success') }}</strong>
-        </div>
-        @endif --}}
+
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li style="color: red; list-style: none;">{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
         <div class="create-user-parent-container">
             <h1>{{__('msg.Create User')}}</h1>
@@ -37,11 +40,13 @@
                 <div class="create-user-inputs-row">
                     <div class="create-user-name-container">
                     <label for="referee-name">{{__('msg.Name')}}</label>
-                    <input type="text" id="name" name="name" placeholder="Enter Your Name"/>
+
+                    <input type="text" id="name" name="name" placeholder="Enter Your Name" />
+
                     </div>
                     <div class="create-user-phno-container">
                     <label for="referee-phno">{{__('msg.Phone Number')}}</label>
-                    <input type="text" id="phone" name="phone" placeholder="Enter Your Phone Number"/>
+                    <input type="number" id="phone" name="phone" placeholder="Enter Your Phone Number" required/>
                     </div>
                 </div>
 
@@ -54,15 +59,16 @@
                         <option value="operationstaff">{{__('msg.operationstaff')}}</option>
                         <option value="agent">{{__('msg.Agent')}}</option>
                     </select>
+                    <span class="text-danger help-inline">@error('create-user-type'){{$message}}@enderror</span>
                     </div>
 
                     <div class="create-user-opid-container">
-                        <label for="operationstaff_code">Operationstaff_id</label>
+                        <label for="operationstaff_code">{{__('msg.operationstaff')}} {{__('msg.Code')}}</label>
                         <input type="text" id="operationstaff_code" name="operationstaff_code" placeholder="Enter OperationStaff ID"/>
                     </div>
 
                     <div class="create-user-rfid-container">
-                        <label for="referee_code">Referee_id</label>
+                        <label for="referee_code">{{__('msg.referee')}} {{__('msg.Code')}}</label>
                         <input type="text" id="referee_code" name="referee_code" placeholder="Enter Referee ID"/>
                     </div>
 
@@ -75,7 +81,7 @@
                     </div>
                     <div class="create-user-confirmpw-container">
                     <label for="referee-confirmpw">{{__('msg.Confirm Password')}}</label>
-                    <input type="password" id="referee-confirmpw" name="confirmpasword" placeholder="Re-enter Password"/>
+                    <input type="password" id="referee-confirmpw" name="password_confirmation" placeholder="Re-enter Password"/>
                     </div>
                 </div>
 
@@ -95,7 +101,7 @@
 
                 <div class="create-user-inputs-btns-container">
                     <button type="submit">{{__('msg.Create')}}</button>
-                    <button type="button">{{__('msg.Cancel')}}</button>
+                    <button type="reset">{{__('msg.Cancel')}}</button>
                 </div>
 
                 </div>
@@ -142,7 +148,7 @@
                                         <a href="{{route('guestprofile',$user->id)}}">
                                             <iconify-icon icon="ant-design:exclamation-circle-outlined" class="user-list-row-icon"></iconify-icon>
                                         </a>
-                                        <a href="{{route('guest.destroy',$user->id)}}">
+                                        <a href="{{route('guest.destroy',$user->id)}}" onclick="return confirm('Are you sure you want to delete this ?')">
                                             <iconify-icon icon="akar-icons:trash-can" class="user-list-row-icon"></iconify-icon>
                                         </a>
                                     </div>

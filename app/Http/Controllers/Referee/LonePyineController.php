@@ -10,7 +10,10 @@ use App\Http\Controllers\Controller;
 
 class LonePyineController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function lonepyineSaleList(){
         $user = auth()->user()->id;
         $referee =Referee::where('user_id',$user)->first();

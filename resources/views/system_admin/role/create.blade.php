@@ -7,18 +7,27 @@
         <!--main content- start-->
         <!--Create role start-->
         <div class="create-role-parent-container">
-            <h1>Create Role</h1>
+            <h1>{{__('msg.Create')}} {{__('msg.Role')}}</h1>
             <div class="create-role-container">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li style="color: red; list-style: none;">{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <form action="{{ route('role.store') }}" method="POST">
                     @csrf
                     <div class="create-role-name-container">
-                        <p>Enter Role Name:</p>
+                        <p>{{__('msg.Enter Role Name')}}:</p>
                         <input type="text" placeholder="Role Name" name="name" />
                     </div>
 
                     <div class="create-role-permission-parent-container">
                         <p class="create-role-permission-label">
-                            Choose Permission for this role:
+                            {{__('msg.Choose Permission for this role')}}:
                         </p>
 
                         <div class="create-role-permission-list-container">
@@ -27,7 +36,7 @@
                                     <div class="create-role-permission-checkboxes-container">
                                         <div class="create-role-permission-list-row-checkbox-container ">
                                                 <input type="checkbox" name="permissions[]" id="{{ $permission->name }}"
-                                                    value="{{ $permission->name }}" />
+                                                    value="{{ $permission->name }}"/>
                                                 <label for="{{ $permission->name }}">{{ $permission->name }}</label>
                                         </div>
                                     </div>
@@ -36,8 +45,8 @@
                         </div>
                     </div>
                     <div class="create-permission-btn-container">
-                        <button type="submit">Create</button>
-                        <button type="reset">Cancel</button>
+                        <button type="submit">{{__('msg.Create')}}</button>
+                        <button type="reset" onclick="javascript:history.back()">{{__('msg.Cancel')}}</button>
                     </div>
                     @if (Session::has('success'))
                     <div id="hide">

@@ -21,6 +21,10 @@ class OperationStaffController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
        // $operation_staffs = Client::whereNotNull('operationstaff_id')->get();
@@ -73,8 +77,10 @@ class OperationStaffController extends Controller
     public function operationdecline($id)
      {
         $user = User::findOrFail($id);
-        $user->status = '3';//0=null,1=pending,2=accept,3=decline
+        $user->status = '0';//0=null,1=pending,2=accept
         $user->request_type =null;
+        $user->referee_code=null;
+        $user->operationstaff_code=null;
         $user->update();
 
         return redirect()->back()->with('success', 'Operationstaff Decline');
@@ -117,10 +123,7 @@ class OperationStaffController extends Controller
             $profile_img_file = $request->file('profile_img');
             $profile_img_name = time() . '-' . uniqid() . '-' . $profile_img_file->getClientOriginalName();
 
-            Storage::disk('public')->put(
-                'image/' . $profile_img_name,
-                file_get_contents($profile_img_file)
-            );
+            $profile_img_file->move(public_path() . '/image/', $profile_img_name);
         }
         $operationstaff->image = $profile_img_name;
 

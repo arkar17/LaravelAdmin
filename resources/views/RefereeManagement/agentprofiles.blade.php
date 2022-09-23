@@ -1,4 +1,4 @@
-@extends('RefereeManagement.layout.app')
+@extends('system_admin.layouts.app')
 
 @section('title', 'Agent Data')
 
@@ -17,8 +17,13 @@
      </style>
     <div>
 
-        <!--main content start-->
-        <div class="main-content-parent-container">
+        @if (Session::has('commision'))
+        <div class="alert alert-success alert-dismissible fade show my-3" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong>{{ Session::get('commision') }}</strong>
+        </div>
+        @endif
+
             <!--referee profile start-->
             <div class="agent-profile-parent-container">
                 <h1>{{__('msg.Agent Profile')}}</h1>
@@ -47,7 +52,7 @@
                 <div class="agent-profile-details-parent-container">
                     <div class="agent-profile-details-container">
                         <div class="agent-profile-img-container">
-                            <img src="{{asset('image/'.$agentprofiledata->image)}}" alt=""/>
+                            <img src="{{asset('/image/'.$agentprofiledata->image)}}"/>
                         </div>
 
                         <div class="agent-profile-attributes-container">
@@ -128,10 +133,7 @@
 
             </div>
             <!--referee profile end-->
-        </div>
 
-
-        <!--main content end-->
     </div>
 @endsection
 
@@ -174,7 +176,6 @@
 
     }]
     };
-
 
     const config1 = {
     type: 'bar',

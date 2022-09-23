@@ -29,15 +29,15 @@
                         </div>
                         <div class="agent-profile-attribute">
                             <h3>{{__('msg.Agent')}} {{__('msg.Name')}}</h3>
-                            <p>{{$agent->name}}</p>
+                            <p>{{$agent->user->name}}</p>
                         </div>
                         <div class="agent-profile-attribute">
                             <h3>{{__('msg.Phone Number')}}</h3>
-                            <p>{{$agent->phone}}</p>
+                            <p>{{$agent->user->phone}}</p>
                         </div>
                         <div class="agent-profile-attribute">
                             <h3>{{__('msg.referee')}} {{__('msg.Code')}}</h3>
-                            <p>{{$agent->referee_code}}</p>
+                            <p>{{$agent->referee->referee_code}}</p>
                         </div>
                         <div class="agent-profile-attribute">
                             <h3>{{__('msg.Total Sale Amount')}}</h3>
@@ -52,7 +52,7 @@
             </div>
             <div class="agent-profile-customer-list-parent-container">
                 <div class="agent-profile-customer-list-header">
-                    <h1>{{$agent->name}} {{__('msg.Customer List')}}</h1>
+                    <h1>{{$agent->user->name}} {{__('msg.Customer List')}}</h1>
 
                     <div class="export-btns-container">
                         <a href="{{route('customer.export_excel',$agent->id)}}">Export excel </a>

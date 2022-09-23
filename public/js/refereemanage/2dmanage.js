@@ -1,12 +1,13 @@
 $(document).ready(function(){
-    $.getJSON('http://128.199.201.43/send', (data, jqXHR) => {
-        console.log(data);
+    $.getJSON('http://127.0.0.1:8000/send', (data, jqXHR) => {
         if(data.data.salesList.length != 0){
             $.each(data.data.salesList, function(index, value){
+                // value.sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
+                // console.log(value);
                 $(".twod-manage-numbers-rows-container").append(`
                 <div class="twod-manage-numbers-row">
                 <div class="twod-manage-numbers-attributes">
-                    <p>${value.number}</p>
+                    <p>${index <= 9? `0${index}` : index}</p>
                     <p>${value.compensation}</p>
                     <p>${value.max_amount}</p>
                     <p>${value.sales == null? `0` : value.sales}</p>

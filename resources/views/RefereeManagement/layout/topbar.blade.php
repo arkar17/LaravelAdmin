@@ -19,6 +19,8 @@
 
     </form>
 
+      {{-- <i class="fa-regular fa-bell"></i> --}}
+
       <div class="top-bar-username-container">
        {{__('msg.Coin Amount')}} :
         @if(auth()->user()->referee->main_cash != 0)

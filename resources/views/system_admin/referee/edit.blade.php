@@ -6,7 +6,7 @@
     <div>
         <!--Edit referee start-->
         <div class="create-referee-parent-container">
-            <h1>Edit Referee</h1>
+            <h1>{{__('msg.Edit')}} {{__('msg.referee')}}</h1>
             <form action="{{ route('referee.update' , $referee->id) }}" method="POST" enctype="multipart/form-data" class="create-referee-container">
                 @csrf
                 @method('PUT')
@@ -17,7 +17,7 @@
                     <span class="title">Add Photo</span>
                     <input type="file" id="imgInp" name="profile_img"/>
 
-                    <p>Profile Image</p>
+                    <p>{{__('msg.Profile Image')}}</p>
 
                     <img src="{{ asset('/image/'.$referee->image) }}" alt="">
                     {{-- <a href=">{{ $referee->image }}</a> --}}
@@ -71,14 +71,14 @@
 
 
                     {{-- </div> --}}
-                    <div class="create-referee-role-container">
+                    {{-- <div class="create-referee-role-container">
                         <label>{{__('msg.role')}}</label>
                         <select name="role_id">
                             @foreach ($roles as $role)
                             <option value="{{ $role->id }}" {{$referee->role_id == $role->id  ? 'selected' : ''}}>{{ $role->name}}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
                 </div>
                 <input type="hidden" name="image" value="{{$referee->image}}">
                 <div class="create-referee-inputs-row">
@@ -100,9 +100,14 @@
                 </div>
 
                 <div class="create-refree-inputs-btns-container">
-                    <button type="submit">{{__('msg.Edit')}}</button>
-                    <button type="button">{{__('msg.Cancel')}}</button>
+                    <button type="submit">{{__('msg.Save')}}</button>
+                    <button type="reset" onclick="javascript:history.back()">{{__('msg.Cancel')}}</button>
                 </div>
+                @if (Session::has('success'))
+                <div id="hide">
+                    <h4 class="main-cash-alert"> {{ Session::get('success') }} <span class="closeBtn">X</span> </h4>
+                </div>
+                @endif
 
                 </div>
 

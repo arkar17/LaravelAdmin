@@ -30,8 +30,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-    // protected $redirectTo = '/';
-    //protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
+    // protected $redirectTo = RouteServiceProvider::HOME;
     /**
      * Create a new controller instance.
      *
@@ -50,41 +50,9 @@ class LoginController extends Controller
 
 
     public function logout(Request $request) {
-        Session::flush();
+        session()->flush();
+        // $request->session()->regenerate();
         Auth::logout();
         return redirect('/login');
     }
-
-    //protected function authenticated(Request $request, $user)
-    //{
-
-        // if ( $user->hasAnyRole(['system_admin']) ) {// do your margic here
-        //     return redirect()->route('sys-dashboard');
-        // }elseif( $user->hasAnyRole(['referee']) ){
-        //     return redirect()->route('refe-dashboard');
-        // }else
-        //  return redirect('/login');
-    //}
-
-    protected function authenticated(Request $request, $user)
-    {
-        if ( $user->hasAnyRole(['system_admin']) ) {// do your margic here
-            return redirect()->route('sys-dashboard');
-
-        }elseif( $user->hasAnyRole(['referee'])){
-            return redirect()->route('refe-dashboard');
-            // $referee=Referee::where('user_id',$user->id)->first();
-            // $r_status=$referee->active_status;
-
-            // if($r_status==1){
-            //     return redirect()->route('refe-dashboard');
-            // }else{
-            //     return redirect('/login')->with('message', 'Account Expired');
-            // }
-        }elseif( $user->hasAnyRole(['phasetwo_admin'])){
-             return redirect()->route('matches-register');
-        }else
-         return redirect('/login');
-    }
-
 }

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $.getJSON('http://128.199.201.43/sendlonepyineData', (data, jqXHR) => {
+    $.getJSON('http://127.0.0.1:8000/sendlonepyineData', (data, jqXHR) => {
 
         console.log(data.data.salesList);
         $.each(data.data.salesList, function(index, value){

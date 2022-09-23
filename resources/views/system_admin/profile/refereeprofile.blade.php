@@ -12,6 +12,7 @@
                 <strong>{{ Session::get('success') }}</strong>
             </div>
         @endif
+
         <!--main content start-->
             <!--referee profile start-->
             <div class="referee-profile-parent-container">
@@ -54,31 +55,21 @@
             </div>
 
             <div class="referee-profile-agent-list-parent-container">
-                <div class="referee-profile-agent-list-header">
-                    <h1>{{$referee->referee_code}} {{__('msg.Agent List')}}</h1>
-                    <div class="referee-profile-agent-list-filter">
-                        <iconify-icon icon="ant-design:search-outlined" class="referee-profile-agent-list-icon"></iconify-icon>
-                        <input list="agents" name="myBrowser" placeholder="Search By Name"/>
-                        <datalist id="agents">
-                            <option value="Agent 01">
-                            <option value="Agent 02">
-                            <option value="Agent 03">
-                        </datalist>
-                    </div>
+                <div class="agent-profile-customer-list-labels-container">
+                    <h2>{{__('msg.ID')}}</h2>
+                    <h2>{{__('msg.Name')}}</h2>
+                    <h2>{{__('msg.Phone Number')}}</h2>
+                    <h2>{{__('msg.Sale Amount')}}</h2>
+                    <h2>{{__('msg.Action')}}</h2>
                 </div>
-
                 <div class="referee-profile-agent-list-rows-container">
-                    <div class="agent-profile-customer-list-labels-container">
-                        <h2>{{__('msg.ID')}}</h2>
-                        <h2>{{__('msg.Name')}}</h2>
-                        <h2>{{__('msg.Phone Number')}}</h2>
-                        <h2>{{__('msg.Sale Amount')}}</h2>
-                        <h2>{{__('msg.Action')}}</h2>
-                    </div>
                     @if ($results == null)
+                    <div></div>
+                    <?php $i=1; ?>
                     @foreach ($agents as $agent)
+
                     <div class="referee-profile-agent-list-row">
-                        <p>{{$agent->id}}</p>
+                        <p>{{$i++}}</p>
                         <p>{{{$agent->name}}}</p>
                         <p>{{{$agent->phone}}}</p>
                         <p>0</p>
@@ -89,23 +80,17 @@
                     </div>
                     @endforeach
                         @else
-                        <div class="agent-profile-customer-list-labels-container">
-                        <h2>{{__('msg.ID')}}</h2>
-                        <h2>{{__('msg.Name')}}</h2>
-                        <h2>{{__('msg.Phone Number')}}</h2>
-                        <h2>{{__('msg.Sale Amount')}}</h2>
-                        <h2>{{__('msg.Action')}}</h2>
-                        </div>
+                        <?php $i=1; ?>
                         @foreach ($results as $agent)
                         <div class="referee-profile-agent-list-row">
 
-                            <p>{{$agent['id']}}</p>
+                            <p>{{$i++}}</p>
                             <p>{{{$agent['name']}}}</p>
                             <p>{{{$agent['phone']}}}</p>
                             <p>{{{$agent['Amount']}}}</p>
                              <a href="{{route('agentprofile',$agent['id'])}}">
                                 <iconify-icon icon="ant-design:exclamation-circle-outlined" class="referee-profile-agent-list-btn"></iconify-icon>
-                                <p>View Details</p>
+                                <p>{{__('View Detail')}}</p>
                             </a>
                         </div>
                         @endforeach
