@@ -310,6 +310,25 @@
         twod_data[8].number,
         twod_data[9].number
       ];
+      const data1 = {
+        labels: labels1,
+        datasets: [{
+          label: 'Amount',
+          backgroundColor: '#EB5E28',
+          borderColor: 'rgb(255, 99, 132)',
+          data: [ twod_data[0].sale_amount,  twod_data[1].sale_amount,  twod_data[2].sale_amount,  twod_data[3].sale_amount,  twod_data[4].sale_amount,  twod_data[5].sale_amount,  twod_data[6].sale_amount,  twod_data[7].sale_amount, twod_data[8].sale_amount, twod_data[9].sale_amount]
+
+        }]
+      };
+      const config1 = {
+        type: 'bar',
+        data: data1,
+        options: {}
+      };
+      const twodChart = new Chart(
+        document.getElementById('2dchart'),
+        config1
+      );
       const labels2 = [
         lp_data[0].number,
         lp_data[1].number,
@@ -322,16 +341,7 @@
         lp_data[8].number,
         lp_data[9].number,
       ];
-      const data1 = {
-        labels: labels1,
-        datasets: [{
-          label: 'Amount',
-          backgroundColor: '#EB5E28',
-          borderColor: 'rgb(255, 99, 132)',
-          data: [ twod_data[0].sale_amount,  twod_data[1].sale_amount,  twod_data[2].sale_amount,  twod_data[3].sale_amount,  twod_data[4].sale_amount,  twod_data[5].sale_amount,  twod_data[6].sale_amount,  twod_data[7].sale_amount, twod_data[8].sale_amount, twod_data[9].sale_amount]
 
-        }]
-      };
       const data2 = {
         labels: labels2,
         datasets: [{
@@ -342,22 +352,12 @@
 
         }]
       };
-
-      const config1 = {
-        type: 'bar',
-        data: data1,
-        options: {}
-      };
       const config2 = {
         type: 'bar',
         data: data2,
         options: {}
       };
 
-      const twodChart = new Chart(
-        document.getElementById('2dchart'),
-        config1
-      );
       const lonepyineChart = new Chart(
         document.getElementById('lonepyinechart'),
         config2

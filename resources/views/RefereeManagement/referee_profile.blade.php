@@ -14,36 +14,44 @@
         <!--main content start-->
             <!--referee profile start-->
             <div class="referee-profile-parent-container">
-                <h1>Referee Profile</h1>
+                <h1>{{__('msg.Referee Profile')}}</h1>
             <div class="referee-profile-details-parent-container">
                 <div class="referee-profile-details-container">
                     <div class="referee-profile-img-container">
-                        <img src="{{asset('/image/'.$referee->image)}}" title="Referee Profile" alt=""/>
+                        <img src="{{asset('image/'.$referee->image)}}" title="Referee Profile" alt=""/>
                     </div>
 
                     <div class="referee-profile-attributes-container">
                         <div class="referee-profile-attribute">
-                            <h3>Referee ID</h3>
+                            <h3>{{__('msg.referee')}} {{__('msg.AgID')}}</h3>
                             <p>{{$referee->referee_code}}</p>
                         </div>
                         <div class="referee-profile-attribute">
-                            <h3>Referee Name</h3>
+                            <h3>{{__('msg.referee')}} {{__('msg.Name')}}</h3>
                             <p>{{$referee->user->name}}</p>
                         </div>
                         <div class="referee-profile-attribute">
-                            <h3>Phone Number</h3>
+                            <h3>{{__('msg.Phone Number')}}</h3>
                             <p>{{$referee->user->phone}}</p>
                         </div>
                         <div class="referee-profile-attribute">
-                            <h3>Total Sale Amount</h3>
-                            <p>{{$sum}}</p>
+                            <h3>{{__('msg.Total Sale Amount')}}</h3>
+                            @if ($sum== null || $sum==0)
+                                <p>0 {{__('ks')}}</p>
+                                @else
+                                <p>{{$sum}} {{__('msg.ks')}}</p>
+                            @endif
 
                         </div>
                     </div>
                 </div>
                 <div class="referee-profile-chart-container">
-                    <p class="chart-label">Total Sale Amount Of Agents</p>
-                    <canvas id="agchart"></canvas>
+                    <p class="chart-label">{{__('msg.Total Sale Amount Of Agents')}}</p>
+                    @if(count($agentsaleamounts) !=5 || count($agentsaleamounts) !=null)
+                        <p style="text-align: center;">{{__('msg.Your total sale amount of agent is under 5 transactions. So you can not view the chart')}}</p>
+                    @else
+                        <canvas id="agchart"></canvas>
+                    @endif
                 </div>
             </div>
 
@@ -91,10 +99,6 @@
         agentdata[2].maincash,
         agentdata[3].maincash,
         agentdata[4].maincash,
-        agentdata[5].maincash,
-        agentdata[6].maincash,
-        agentdata[7].maincash,
-
       ];
 
       const data1 = {
@@ -103,7 +107,7 @@
           label: 'Amount',
           backgroundColor: '#EB5E28',
           borderColor: 'rgb(255, 99, 132)',
-          data: [ agentdata[0].maincash,  agentdata[1].maincash,  agentdata[2].maincash,  agentdata[3].maincash]
+          data: [ agentdata[0].maincash,  agentdata[1].maincash,  agentdata[2].maincash,agentdata[3].maincash,agentdata[4].maincash]
 
         }]
       };

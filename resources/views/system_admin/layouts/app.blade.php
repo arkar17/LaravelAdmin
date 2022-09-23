@@ -70,7 +70,7 @@
     <!-- CSS -->
 
     <!-- Referee Global CSS -->
-    <link href="{{ asset('css/refereemanage/globals.css') }}" rel="stylesheet" />
+    {{-- <link href="{{ asset('css/refereemanage/globals.css') }}" rel="stylesheet" /> --}}
 
     <!--agent css-->
     <link href="{{ asset('css/refereemanage/2dmanage.css') }}" rel="stylesheet" />

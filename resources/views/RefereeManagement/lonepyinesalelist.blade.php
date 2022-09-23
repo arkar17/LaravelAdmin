@@ -18,48 +18,11 @@
             </datalist>
         </div> -->
 
-        <form class="twod-sale-list-filters-container" action="{{route('searchlonepyineagent')}}" method="post">
-            @csrf
 
-            <div class="twod-sale-list-filters-agentname-container">
-                <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
-                <input type="text" name="searchagent" list="agent-names" placeholder="Enter Agent Name"/>
-                <datalist id="agent-names">
-                @foreach ($lonepyineSaleList as $agentname)
-                    <option value="{{$agentname->customer_name}}"></option>
-                @endforeach
-                </datalist>
-            </div>
-
-            {{-- <div class="twod-sale-list-filters-date-parent-container">
-                <p>Date</p>
-            <div class="twod-sale-list-filters-date-parent-container">
-                <p>{{__('msg.Date')}}</p>
-                <div class="twod-sale-list-filters-date-container">
-                <input type="date" placeholder="From Date"/>
-                <input type="date" placeholder="To Date"/>
-                </div>
-            </div>
-
-            <div class="twod-sale-list-filters-round-container">
-                <p>{{__('msg.Round')}}</p>
-
-                <select>
-                <option value="">{{__('msg.Choose Round')}}</option>
-                <option value="Morning">Morning</option>
-                <option value="Evening">Evening</option>
-                </select>
-            </div> --}}
-
-            <button type="submit" class="twod-sale-list-filters-btn">
-                <iconify-icon icon="akar-icons:search" class="twod-sale-list-filter-icon"></iconify-icon>
-                <p>Filter</p>
-            </button>
-         </form>
          <a class="lonepyine-sale-export-btn"
                        href="{{ route('exportlonePyaingList') }}">
                               Export lonepyine Data
-                    </a>
+        </a>
         {{-- </div> --}}
 
         <div class="twod-sale-list-details-parent-container">
@@ -72,15 +35,20 @@
         </div>
 
         <div class="twod-sale-details-rows-container">
-            @foreach ($lonepyineSaleList as $lonepyinesalelist)
-                <div class="twod-sale-details-row">
-                    <p>{{$lonepyinesalelist->id}}</p>
-                    <p>{{$lonepyinesalelist->name}}</p>
-                    <p>{{$lonepyinesalelist->customer_name}}</p>
-                    <p>{{$lonepyinesalelist->number}}</p>
-                    <p>{{$lonepyinesalelist->sale_amount}}</p>
-                </div>
-            @endforeach
+            @if (count($lonepyineSaleList) ==0 || count($lonepyineSaleList) ==null)
+                <p style="text-align: center;">{{__('msg.Today is not sold any number')}}</p>
+            @else
+                <?php $i=1;?>
+                @foreach ($lonepyineSaleList as $lonepyinesalelist)
+                    <div class="twod-sale-details-row">
+                        <p>{{$i++}}</p>
+                        <p>{{$lonepyinesalelist->name}}</p>
+                        <p>{{$lonepyinesalelist->customer_name}}</p>
+                        <p>{{$lonepyinesalelist->number}}</p>
+                        <p>{{$lonepyinesalelist->sale_amount}}</p>
+                    </div>
+                @endforeach
+            @endif
 
         </div>
         </div>
