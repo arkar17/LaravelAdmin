@@ -59,6 +59,7 @@
 
     @yield('content')
 
+
     <!-- CORE JS FRAMEWORK - START -->
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.easing.min.js') }}"></script>
@@ -85,7 +86,7 @@
     <!-- CORE TEMPLATE JS - START -->
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <!-- END CORE TEMPLATE JS - END -->
-
+    
 </body>
 
 </html>

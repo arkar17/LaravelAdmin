@@ -20,11 +20,9 @@
 @section('content')
     <div>
         @if (Session::has('success'))
-            <div class="alert alert-success alert-dismissible fade in">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                        aria-hidden="true">×</span></button>
-                <strong>{{ Session::get('success') }}</strong>
-            </div>
+                <div id="hide">
+                    <h4 class="main-cash-alert"> {{ Session::get('success') }} <span class="closeBtn">X</span> </h4>
+                </div>
         @endif
 
         <div class="section-line"></div>
@@ -71,7 +69,7 @@
                             <a href="{{route('referee.edit',$referee->id)}}">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </a>
-                            <a href="{{route('referee.destroy',$referee->id)}}">
+                            <a href="{{route('referee.destroy',$referee->id)}}" onclick="return confirm('Are you sure you want to delete this ?')">
                                 <i class="fa-regular fa-trash-can"></i>
                             </a>
                         </div>

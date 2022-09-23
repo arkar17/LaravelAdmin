@@ -1,5 +1,6 @@
 @extends('system_admin.layouts.app')
 @section('content')
+
 <div class="main-content-parent-container">
     <!--dashboard start-->
     @hasanyrole('system_admin')

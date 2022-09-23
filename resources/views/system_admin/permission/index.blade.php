@@ -6,11 +6,9 @@
 
     <div>
         @if (Session::has('success'))
-            <div class="alert alert-success alert-dismissible fade in">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                        aria-hidden="true">×</span></button>
-                <strong>{{ Session::get('success') }}</strong>
-            </div>
+        <div id="hide">
+            <h4 class="main-cash-alert"> {{ Session::get('success') }} <span class="closeBtn">X</span> </h4>
+        </div>
         @endif
 
         <!--main content start-->
@@ -49,7 +47,7 @@
                                         <iconify-icon icon="akar-icons:edit" class="permissions-list-row-icon">
                                         </iconify-icon>
                                     </a>
-                                    <a href="{{ route('permission.destroy', $permission->id) }}" class="delete-btn">
+                                    <a href="{{ route('permission.destroy', $permission->id) }}" class="delete-btn" onclick="return confirm('Are you sure you want to delete this ?')">
                                         <iconify-icon icon="fluent:delete-16-regular" class="permissions-list-row-icon">
                                         </iconify-icon>
                                     </a>

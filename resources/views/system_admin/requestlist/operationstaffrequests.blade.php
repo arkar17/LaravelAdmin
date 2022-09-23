@@ -18,11 +18,9 @@
 
     <div>
         @if (Session::has('success'))
-            <div class="alert alert-success alert-dismissible fade in">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                        aria-hidden="true">×</span></button>
-                <strong>{{ Session::get('success') }}</strong>
-            </div>
+        <div id="hide">
+            <h4 class="main-cash-alert"> {{ Session::get('success') }} <span class="closeBtn">X</span> </h4>
+        </div>
         @endif
 
         <div class="referee-requests-parent-container">
@@ -40,7 +38,8 @@
               <div class="referee-request-row">
                 <p>{{$operationstaff->id}}</p>
                 <p>{{$operationstaff->name}}</p>
-                <p>eqwefqewfehfaidbfi</p>
+                <p>{{$operationstaff->phone}}</p>
+                <p>{{$operationstaff->remark}}</p>
                     <a href="{{route('operationaccept',$operationstaff->id)}}"><button class="referee-request-accept-btn">{{__('msg.Accept')}}</button></a>
                     <a href="{{route('operationdecline',$operationstaff->id)}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
               </div>

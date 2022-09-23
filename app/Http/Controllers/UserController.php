@@ -58,6 +58,8 @@ class UserController extends Controller
         // if (!auth()->user()->can('create_assign_user_role')) {
         //     abort(403, 'Unauthorized Action');
         // }
+            
+
         $user = new User();
         $user->name = $request->name;
         $user->phone = $request->phone;
@@ -116,7 +118,8 @@ class UserController extends Controller
 
     public function create_user()
     {
-        $users=User::where('status','=','0')->get();
+        $users=User::where('status','!=','2')
+                    ->get();
                 return view('system_admin.user.create',compact('users'));
     }
 

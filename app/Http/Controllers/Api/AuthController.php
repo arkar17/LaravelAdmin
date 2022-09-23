@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\JWT;
+use Tymon\JWTAuth\JWTAuth as JWTAuthJWTAuth;
 
 class AuthController extends Controller
 {
@@ -135,6 +137,7 @@ class AuthController extends Controller
         ]);
     }
 
+
     // User Login
     public function login(Request $request)
     {
@@ -153,7 +156,6 @@ class AuthController extends Controller
         $input =  $request->only(['phone', 'password']);
         $token = JWTAuth::attempt($input);
 
-
         $user = auth()->user();
 
         $usr = User::find($user->id);
@@ -164,7 +166,6 @@ class AuthController extends Controller
             $agent->save();
         }
 
-
         //$token = auth()->attempt($validator->validated());
         if ($token) {
             return response()->json([
@@ -172,6 +173,7 @@ class AuthController extends Controller
                 'message' => 'success',
                 'token' => $token,
                 'user' => auth()->user(),
+                'expires_in' => JWTAuth::factory()->getTTL(),
             ]);
         } else {
             return response()->json([
@@ -299,7 +301,7 @@ class AuthController extends Controller
             if ($request->hasFile('profile_image')) {
                 $file = $request->file('profile_image');
                 $imageName = uniqid() . '_' .  $file->getClientOriginalName();
-                Storage::disk('public')->put('images/' . $imageName, file_get_contents($file));
+                $file->move(public_path() . '/image/', $imageName);
             }
 
             $agent->user->name = $request->name;
@@ -375,7 +377,7 @@ class AuthController extends Controller
             'message' => 'Login Success',
             'access_token' => $token,
             'token_type' => 'bearer',
-            // 'expires_in' => auth()->factory()->getTTL(),
+            //'expires_in' => auth()->factory()->getTTL(),
             'user' => auth()->user()
         ]);
     }

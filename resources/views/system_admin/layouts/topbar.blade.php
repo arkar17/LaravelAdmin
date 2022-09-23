@@ -35,12 +35,13 @@
         <i class="fa-regular fa-user"></i>
         <p>{{auth()->user()->name}}</p>
         </a>
+    </div>
 
     </div>
     @endhasanyrole
     @hasanyrole('system_admin')
     <div class="top-bar-username-container">
-        <a class="side-bar-link" href="">
+        <a class="side-bar-link" href="{{route('porfile-admin')}}">
             <i class="fa-regular fa-user"></i>
             <p>{{auth()->user()->name}}</p>
         </a>

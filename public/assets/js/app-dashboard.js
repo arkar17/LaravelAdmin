@@ -2,6 +2,7 @@
  * @Package: Apptora Dashboard
 * @Version: 1.0.0
 */
+    
 
 jQuery(function($) {
 
@@ -25,8 +26,8 @@ jQuery(function($) {
             var ctx = document.getElementById("ico-purchase-chartjs").getContext('2d');
 
             var gradientStroke1 = ctx.createLinearGradient(0, 0, 0, 300);
-              gradientStroke1.addColorStop(0, '#f9bb5e');  
-              gradientStroke1.addColorStop(1, '#e45131'); 
+              gradientStroke1.addColorStop(0, '#f9bb5e');
+              gradientStroke1.addColorStop(1, '#e45131');
 
             var barChartData = {
                 labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "sep"],
@@ -286,7 +287,7 @@ jQuery(function($) {
         }
 
         if($("#morris-area-chart").length) {
-          
+
             Morris.Bar( {
                 element: 'morris-area-chart',
                 data: [ {
@@ -340,7 +341,7 @@ jQuery(function($) {
                 lineColors: [ '#26DAD2', '#4680ff', '#fc6180' ],
                 resize: true
 
-            } 
+            }
             );
         }
     };
@@ -480,7 +481,7 @@ jQuery(function($) {
 
 
     /******************************
-     initialize respective scripts 
+     initialize respective scripts
      *****************************/
     $(document).ready(function() {
         DASH_SETTINGS.dbSparklineChart();

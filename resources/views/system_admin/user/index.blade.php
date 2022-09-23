@@ -6,11 +6,9 @@
 
     <div>
         @if (Session::has('success'))
-            <div class="alert alert-success alert-dismissible fade in">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                        aria-hidden="true">×</span></button>
-                <strong>{{ Session::get('success') }}</strong>
-            </div>
+        <div id="hide">
+            <h4 class="main-cash-alert"> {{ Session::get('success') }} <span class="closeBtn">X</span> </h4>
+        </div>
         @endif
 
         <section class="box">
@@ -69,7 +67,7 @@
                                                         style="margin: 0px 5px"></i> </a>
 
                                                 <a href="{{ route('user.destroy', $user->id) }}" title="delete"
-                                                    class="delete-btn" data-id="{{ $user->id }}"> <i
+                                                    class="delete-btn" data-id="{{ $user->id }}" onclick="return confirm('Are you sure you want to delete this ?')"> <i
                                                         class="fa-solid fa-trash text-danger fa-lg"
                                                         style="margin: 0px 5px"></i> </a>
                                             </td>

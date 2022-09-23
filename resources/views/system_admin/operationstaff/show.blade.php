@@ -23,7 +23,7 @@
             <div class="role-view-detail-container">
                 <div class="role-view-detail-attributes-container">
                     <div class="role-view-detail-attribute">
-                        <img src="{{asset('storage/image/'.$operation_staff->image) }}" class="" alt="">
+                        <img src="{{asset('/image/'.$operation_staff->image) }}" class="" alt="">
                     </div>
                     <div class="role-view-detail-attribute">
                         <p>Name:</p>

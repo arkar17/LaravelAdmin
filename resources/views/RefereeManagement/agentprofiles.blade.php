@@ -27,13 +27,13 @@
 
                 <div class="agent-profile-filters-container">
 
-                    <button class="agent-profile-edit-comission-btn">Edit Commission</button>
+                    <button class="agent-profile-edit-comission-btn">{{__('msg.Edit Commission')}}</button>
 
                     <form action="{{route('agentcommsionupdate',[$agentprofiledata->id])}}" method="post" class="agent-profile-commission-container">
                         @csrf
                         <div class="agent-profile-commission">
                             <input  name="editagentcomssion" id="floatingInput" type="number" placeholder="Edit comssion amount" aria-label="default input example">
-                            <button type="submit">{{__('msg.EDIT')}}</button>
+                            <button type="submit">{{__('msg.Edit')}}</button>
                         </div>
                     </form>
 
@@ -43,7 +43,7 @@
                 <div class="agent-profile-details-parent-container">
                     <div class="agent-profile-details-container">
                         <div class="agent-profile-img-container">
-                            <img src="{{asset('/image'.$agentprofiledata->image)}}"/>
+                            <img src="{{asset('/image/'.$agentprofiledata->image)}}"/>
                         </div>
 
                         <div class="agent-profile-attributes-container">

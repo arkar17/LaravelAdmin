@@ -44,16 +44,9 @@ Auth::routes();
 Route::middleware(['role:system_admin|referee'])->group(function () {
     Route::get('/', [DashboardController::class, 'sysdashboard'])->name('home');
 });
-// Route::redirect('/', '/login', 301);
 Route::get('/send',[PusherNotificationController::class, 'notification']);
-// Route::get('/welcome', fn() => view('welcome'));
-// Route::get('/refereelogin',fn() => view('auth/refereelogin'))->name('refereelogin');
-// Route::post('/refereelogin', [RefereeLoginController::class, 'authentication']);
-
+Route::group(['middleware' => 'prevent-back-history'], function(){
 Route::group(['middleware' => 'role:referee'], function(){
-// Route::group(['middleware' => 'auth'], function () {
-    // Route::get('refe-dashboard', [DashboardController::class, 'refedashboard'])->name('refe-dashboard');
-
     Route::get('twoddecline/export_pdf', [DashboardController::class, 'twoddecline_pdf'])->name('twoddecline.export_pdf');
     Route::get('lonepyinedecline/export_pdf', [DashboardController::class, 'lonepyinedecline_pdf'])->name('lonepyinedecline.export_pdf');
 
@@ -144,7 +137,6 @@ Route::group(['middleware' => 'role:referee'], function(){
     // System Admin//
     Route::group(['middleware' => 'role:system_admin'], function(){
 
-    // Route::get('/sys-dashboard', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
 
     Route::resource('role', RoleController::class);
     Route::get('/role/delete/{id}',[RoleController::class,'destroy'])->name('role.destroy');
@@ -196,8 +188,8 @@ Route::group(['middleware' => 'role:referee'], function(){
 
     Route::get('excel/customerdata_export/{id}', [ExportController::class, 'customer_export'])->name('customer.export_excel');
     Route::get('pdf/customerdata_export/{id}', [ExportController::class, 'customer_createPDF'])->name('customer.export_pdf');
-
-    Route::get(' create_user', [UserController::class, 'create_user']);
+    Route::get('/porfile-admin',[HomeController::class, 'adminprofile'])->name('porfile-admin');
+    Route::get('create_user', [UserController::class, 'create_user']);
     Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
     Route::post('add_winningstatus',[HomeController::class, 'winningstatus'])->name('add_winningstatus');
 });
@@ -219,9 +211,7 @@ Route::group(['middleware' => 'role:referee'], function(){
     //Phase Two - matches - nc
     Route::get('/dota-matches', [MatchController::class, 'index'])->name('dota.matches');
 
-
-    // Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
-    // Route::post('winningstatus',[HomeController::class, 'winningstatus']);
+});
 
 });
 

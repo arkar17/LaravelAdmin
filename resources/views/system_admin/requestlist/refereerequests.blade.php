@@ -18,11 +18,9 @@
 
     <div>
         @if (Session::has('success'))
-            <div class="alert alert-success alert-dismissible fade in">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                        aria-hidden="true">×</span></button>
-                <strong>{{ Session::get('success') }}</strong>
-            </div>
+        <div id="hide">
+            <h4 class="main-cash-alert"> {{ Session::get('success') }} <span class="closeBtn">X</span> </h4>
+        </div>
         @endif
 
         <div class="referee-requests-parent-container">
@@ -49,18 +47,18 @@
                 <input type="hidden" name="user_id" value="{{$refereerequest->id}}" >
                 <input type="text" name="operationstaff_code" value="{{$refereerequest->operationstaff_code}}" >
                 <input type="hidden" name="remark" value="{{$refereerequest->remark}}">
-                <p>
+                {{-- <p>
                     <select name="role_id" class="referee-request-role-select">
                         <option value=" ">Assign Role</option>
                         @foreach ($roles as $role)
                         <option value="{{$role->id}}">{{$role->name}}</option>
                         @endforeach
                     </select>
-                </p>
-                <button type="submit" class="referee-request-accept-btn">{{__('msg.Accept')}}</button>
+                </p> --}}
+                <button type="submit" class="referee-request-accept-btn" onclick="return confirm('Are you sure to accept?')">{{__('msg.Accept')}}</button>
                 {{-- <a href="{{route('referee_accept',$refereerequest->id)}}"><button class="referee-request-accept-btn">Accept</button></a> --}}
                 </form>
-                <a href="{{route('referee_decline',[$refereerequest->id])}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
+                <a href="{{route('referee_decline',[$refereerequest->id])}}" onclick="return confirm('Are you sure to decline?')"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
               </div>
               @endforeach
             </div>

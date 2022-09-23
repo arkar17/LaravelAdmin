@@ -151,7 +151,7 @@ class RefereeController extends Controller
      public function referee_decline($id)
      {
         $user = User::findOrFail($id);
-        $user->status = '3';//0=null,1=pending,2=accept,3=decline
+        $user->status = '0';//0=null,1=pending,2=accept,3=decline
         $user->request_type =null;
         $user->update();
 
@@ -187,30 +187,29 @@ class RefereeController extends Controller
 
     public function update(Request $request,$id)
     {
+        // $role=Role::where('name','referee')->first();
+        // $role_id=$role->id;
+
+        $referee = Referee::findOrFail($id);
         if($request->hasFile('profile_img')) {
             $file = $request->file('profile_img');
             $imgName = uniqid() . '_' . $file->getClientOriginalName();
             $file->move(public_path() . '/image/', $imgName);
         }else{
-            $imgName=$request->image;
+            $imgName = $referee->image;
         }
-
-        $role=Role::where('name','referee')->first();
-        $role_id=$role->id;
-
-        $referee = Referee::findOrFail($id);
         $user_id=$referee->user_id;
         $user = User::findOrFail($user_id);
         $user->name = $request->name;
         $user->phone = $request->phone;
         $user->operationstaff_code = $request->operationstaff_id;
 
-        $assign_role = Role::where('id',$request->role_id)->first();
-        $assign_role_id=$assign_role->id;
+        // $assign_role = Role::where('id',$request->role_id)->first();
+        // $assign_role_id=$assign_role->id;
 
-        $user->roles()->detach($referee->role_id);
-        $user->roles()->attach($assign_role_id);
-        $user->assignRole('referee');
+        // $user->roles()->detach($referee->role_id);
+        // $user->roles()->attach($assign_role_id);
+        // $user->assignRole('referee');
 
         $user->update();
 
@@ -218,7 +217,7 @@ class RefereeController extends Controller
         $id=$referee_code->id;
 
         $referee->operationstaff_id=$id;
-        $referee->role_id=$request->role_id;
+        // $referee->role_id=$request->role_id;
         $referee->user->password = $referee->passowrd ?? $request->password;
         $referee->image = $imgName;
         $user_status=$request->active_status;

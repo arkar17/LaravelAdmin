@@ -6,24 +6,24 @@
     <div>
         <!--role view detail start-->
         <div class="role-view-detail-parent-container">
-            <h1>View Detail</h1>
+            <h1>{{__('msg.View Detail')}}</h1>
 
             <div class="role-view-detail-container">
                 <div class="role-view-detail-attributes-container">
                     <div class="role-view-detail-attribute">
-                        <p>ID:</p>
+                        <p>{{__('msg.ID')}}:</p>
                         <p>{{$role->id}}</p>
                     </div>
                     <div class="role-view-detail-attribute">
-                        <p>Name:</p>
+                        <p>{{__('msg.Name')}}:</p>
                         <p>{{$role->name}}</p>
                     </div>
                     <div class="role-view-detail-attribute">
-                        <p>Joined Date:</p>
+                        <p>{{__('msg.Joined Date')}}:</p>
                         <p> {{date('d M Y',strtotime($role->created_at))}}</p>
                     </div>
                     <div class="role-view-detail-permissions-parent-container">
-                        <p>Assingned Permissions:</p>
+                        <p>{{__('msg.Assingned Permissions')}}:</p>
                         <div class="role-view-detail-permissions-container">
                             @foreach ($permissions as $key=>$value)
                                 <p>{{$value}}</p>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                <a href="{{url()->previous()}}">Go Back</a>
+                <a href="{{url()->previous()}}">{{__('msg.Go Back')}}</a>
             </div>
         </div>
         <!-- role view detail end-->
