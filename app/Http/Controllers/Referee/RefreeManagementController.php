@@ -12,15 +12,16 @@ use App\Models\Client;
 use App\Models\Referee;
 use App\Models\Requests;
 use App\Models\Lonepyine;
+use Illuminate\Support\Arr;
 use App\Models\Twodsalelist;
 use Illuminate\Http\Request;
 use App\Models\CashinCashout;
+use App\Models\MaincashHitory;
 use App\Models\Threedsalelist;
+use App\Models\AgentcashHistory;
 use App\Models\Lonepyinesalelist;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\AgentcashHistory;
-use App\Models\MaincashHitory;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class RefreeManagementController extends Controller
@@ -200,7 +201,8 @@ class RefreeManagementController extends Controller
             // ->get();
             // dd($twoD_sale);
 
-            $twoD_sale_lists = collect($twoD_sale)->sortBy('id')->toArray();
+            // $twoD_sale_lists = collect($twoD_sale)->rsort('id')->toArray();
+            $twoD_sale_lists = Arr::sort($twoD_sale);
             } else {
                 $twoD_sale = DB::select("Select aa.id,aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
             from (SELECT * FROM ( SELECT * FROM twods t where referee_id = '$referee->id' ORDER BY id DESC LIMIT 100 )sub ORDER BY id ASC) aa
@@ -210,7 +212,7 @@ class RefreeManagementController extends Controller
             and aa.date = '$currenDate'
             and aa.round = 'Morning'
             group by aa.number");
-            $twoD_sale_lists = collect($twoD_sale)->sortBy('id')->toArray();
+            $twoD_sale_lists = Arr::sort($twoD_sale);
             }
         }
         $options = array(
