@@ -18,10 +18,6 @@ class RoleSeeder extends Seeder
         'guard_name' => 'web'
        ]);
 
-       Role::create(['name' =>'phasetwo_admin',
-        'guard_name' => 'web'
-            ]);
-
         Role::create(['name' =>'referee',
         'guard_name' => 'web'
             ]);

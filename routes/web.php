@@ -43,6 +43,7 @@ Auth::routes();
 
 Route::get('/send',[PusherNotificationController::class, 'notification']);
 Route::group(['middleware' => 'prevent-back-history'], function(){
+
     Route::middleware(['role:system_admin|referee'])->group(function () {
         Route::get('/', [DashboardController::class, 'sysdashboard'])->name('home');
     });
@@ -192,25 +193,6 @@ Route::group(['middleware' => 'role:referee'], function(){
     Route::get('create_user', [UserController::class, 'create_user']);
     Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
     Route::post('add_winningstatus',[HomeController::class, 'winningstatus'])->name('add_winningstatus');
-});
-
-    Route::group(['middleware' => 'role:phasetwo_admin'], function(){
-    //Tournament
-    Route::get('tournament-register', [TournamentController::class, 'tournamentRegister'])->name('tournament-register');
-    Route::post('tournament-store', [TournamentController::class, 'tournamentStore'])->name('tournament-store');
-
-    //Matches
-    Route::get('matches-register', [MatchesController::class, 'MatchesRegister'])->name('matches-register');
-    Route::post('matches/store',[MatchesController::class, 'store'])->name('matches.store');
-
-    //phaseTwo
-    Route::get('team_register',[TeamRegisterController::class,'teamRegister'])->name('team_register');
-    Route::post('team_create',[TeamRegisterController::class,'teamCreate'])->name('team_create');
-
-
-    //Phase Two - matches - nc
-    Route::get('/dota-matches', [MatchController::class, 'index'])->name('dota.matches');
-
 });
 
 });
