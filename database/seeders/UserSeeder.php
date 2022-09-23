@@ -30,11 +30,5 @@ class UserSeeder extends Seeder
             'status'=>'1',
         ]);
 
-        $user = User::create([
-            'name' => 'Agent',
-            'phone' => '09123456788',
-            'password' => Hash::make('12345678'),
-        ]);
-        $user->assignRole('agent');
     }
 }

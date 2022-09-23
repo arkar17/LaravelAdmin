@@ -46,21 +46,6 @@
                   </div>
                 </div>
 
-                <div class="create-referee-inputs-row">
-                  <div class="create-referee-pw-container">
-                    <label for="referee-pw">{{__('msg.Password')}}</label>
-                    <input type="password" placeholder="Enter Password" name="password" id="password"  value="{{ $operation_staff->user->password}}">
-
-                    @error('password')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                  </div>
-                  <div class="create-referee-confirmpw-container">
-                    <label for="referee-confirmpw">{{__('msg.Confirm Password')}}</label>
-                    <input type="password" id="referee-confirmpw" name="confirmpassword" placeholder="Re-enter Password"/>
-                  </div>
-                </div>
-
                 <div class="create-refree-inputs-btns-container">
                     <button type="submit">{{__('msg.Save')}}</button>
                     <button type="reset" onclick="javascript:history.back()">{{__('msg.Cancel')}}</button>

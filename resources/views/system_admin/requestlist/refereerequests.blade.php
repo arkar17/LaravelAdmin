@@ -33,7 +33,6 @@
                 <h2>{{__('msg.Phone Number')}}</h2>
                 <h2>{{__('msg.Op Staff ID')}}</h2>
                 <h2>{{__('msg.Remark')}}</h2>
-                <h2>{{__('msg.role')}}</h2>
               </div>
               @foreach ($refereerequests as $refereerequest)
               <div class="referee-request-row">

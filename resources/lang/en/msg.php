@@ -154,7 +154,7 @@ return[
     'Admin Profile'=>'System Admin Profile',
     'Profile Image'=>'Profile Image',
     'Remaining Amount'=>'Remaining Amount',
-
+    'No'=>'No',
 
 ];
 ?>

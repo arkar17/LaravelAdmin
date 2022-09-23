@@ -14,7 +14,7 @@
         @endif
         <div class="login-username-container">
           <p>Phone Number:</p>
-          <input type="number" name="phone" required/>
+          <input type="number" name="phone" required autofocus/>
         </div>
         <div class="login-pw-container">
           <p>Password:</p>

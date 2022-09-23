@@ -58,7 +58,7 @@
 
                     @csrf
 
-                    <select class="winningresult-select" name="type">
+                    <select class="winningresult-select" name="type" required>
 
                         <option value="">{{__('msg.Select Type')}}</option>
 
