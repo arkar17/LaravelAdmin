@@ -1,7 +1,30 @@
 @extends('layouts.app_plain')
 @section('content')
 
-<div onload="noBack()" class="container-fluid">
+<div class="parent-container">
+    <div class="login-form-parent-container">
+        <form  action="{{ route('login') }}" class="login-form-container" method="POST">
+            @csrf
+        <div class="login-username-container">
+          <p>Phone Number:</p>
+          <input type="number" name="phone"/>
+        </div>
+        <div class="login-pw-container">
+          <p>Password:</p>
+          <input type="password" name="password"/>
+        </div>
+
+        <div class="login-form-btn-container">
+          <button type="submit" >Log In</button>
+          <button>Cancel</button>
+        </div>
+
+
+      </form>
+    </div>
+  </div>
+
+{{-- <div class="container-fluid">
     <div class="login-wrapper row">
         <div id="login" class="login loginpage col-lg-offset-4 col-md-offset-3 col-sm-offset-3 col-xs-offset-0 col-xs-12 col-sm-6 col-lg-4">
             <div class="login-form-header">
@@ -11,28 +34,6 @@
                      <h4><small>Please enter your credentials to login.</small></h4>
                  </div>
             </div>
-            {{-- <div class="parent-container">
-                <div class="login-form-parent-container">
-                  <form action="{{ route('login') }}" class="login-form-container" method="POST">
-                    @csrf
-                    <div class="login-username-container">
-                      <p>User Name:</p>
-                      <input type="text" name="name" placeholder="username" autofocus/>
-                    </div>
-                    <div class="login-pw-container">
-                      <p>Password:</p>
-                      <input type="password" name="password" placeholder="password" id="password"/>
-                    </div>
-
-                    <div class="login-form-btn-container">
-                      <button type="submit">Log In</button>
-                      <button>Cancel</button>
-                    </div>
-
-
-                  </form>
-                </div>
-              </div> --}}
             <div class="box login">
                 <div class="content-body" style="padding-top:30px">
 
@@ -72,15 +73,7 @@
 
         </div>
     </div>
-</div>
-
-{{-- <script>
-
-window.history.pushState(null, null, window.location.href);
-window.onpopstate = function () {
-    window.history.go(1);
-};
-</script> --}}
+</div> --}}
 
 @endsection
 

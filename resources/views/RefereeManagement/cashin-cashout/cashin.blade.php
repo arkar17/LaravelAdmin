@@ -197,7 +197,7 @@
                     </div>
 
                     <div class="cashin-agent-payment-container">
-                        <p>Remaining Amount</p>
+                        <p>{{__('msg.Remaining Amount')}}</p>
                         <input type="number" placeholder="" name="remaining_amount" class="inputRemainingAmount1"
                             class="@error('payment')
                           alert-border
@@ -242,7 +242,7 @@
                         <p>{{ __('msg.Coin Amount') }}</p>
                         <p>{{ __('msg.Status') }}</p>
                         <p>{{ __('msg.Payment') }}</p>
-                        <p>Remaining Amount</p>
+                        <p>{{ __('msg.Remaining Amount') }}</p>
                         {{-- <p>Action</p> --}}
                     </div>
 

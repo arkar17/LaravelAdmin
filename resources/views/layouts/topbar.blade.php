@@ -5,12 +5,6 @@
     </div>
 
     <div class="top-bar-right-container">
-    <div class="top-bar-searchbox-container">
-        <i class="fa-solid fa-magnifying-glass " ></i>
-        <input type="text" placeholder="Search..."/>
-    </div>
-
-    <i class="fa-regular fa-bell"></i>
 
     <div class="top-bar-username-container">
         <i class="fa-regular fa-user"></i>

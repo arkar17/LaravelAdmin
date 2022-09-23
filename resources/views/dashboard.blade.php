@@ -1,7 +1,6 @@
 @extends('system_admin.layouts.app')
 @section('content')
 
-<div class="main-content-parent-container">
     <!--dashboard start-->
     @hasanyrole('system_admin')
     <div class="dashboard-gradient-boxes-container">
@@ -94,12 +93,20 @@
       <div class="dashboard-bar-charts-parent-container">
         <div class="dashboard-2d-chart-container">
           <p class="chart-label">{{__('msg.Most Bet 2D Number')}}</p>
-          <canvas id="2dchart"></canvas>
+          @if(count($refe_twod_salelists) !=10)
+                <p>{{__('msg.Your sale list is under 10 transactions. So you can not view the chart')}}</p>
+            @else
+            <canvas id="2dchart"></canvas>
+            @endif
         </div>
 
         <div class="dashboard-lonepyine-container">
           <p class="chart-label">{{__('msg.Most Bet Lone Pyine Number')}}</p>
-          <canvas id="lonepyinechart"></canvas>
+            @if(count($refe_lp_salelists) !=10)
+            <p>{{__('msg.Your sale list is under 10 transactions. So you can not view the chart')}}</p>
+            @else
+            <canvas id="lonepyinechart"></canvas>
+            @endif
         </div>
       </div>
 
@@ -161,7 +168,7 @@
       </div>
       @endhasanyrole
 
-</div>
+
 @endsection
 
 
@@ -311,6 +318,25 @@
         twod_data[8].number,
         twod_data[9].number
       ];
+      const data1 = {
+        labels: labels1,
+        datasets: [{
+          label: 'Amount',
+          backgroundColor: '#EB5E28',
+          borderColor: 'rgb(255, 99, 132)',
+          data: [ twod_data[0].sale_amount,  twod_data[1].sale_amount,  twod_data[2].sale_amount,  twod_data[3].sale_amount,  twod_data[4].sale_amount,  twod_data[5].sale_amount,  twod_data[6].sale_amount,  twod_data[7].sale_amount, twod_data[8].sale_amount, twod_data[9].sale_amount]
+
+        }]
+      };
+      const config1 = {
+        type: 'bar',
+        data: data1,
+        options: {}
+      };
+      const twodChart = new Chart(
+        document.getElementById('2dchart'),
+        config1
+      );
       const labels2 = [
         lp_data[0].number,
         lp_data[1].number,
@@ -323,16 +349,7 @@
         lp_data[8].number,
         lp_data[9].number,
       ];
-      const data1 = {
-        labels: labels1,
-        datasets: [{
-          label: 'Amount',
-          backgroundColor: '#EB5E28',
-          borderColor: 'rgb(255, 99, 132)',
-          data: [ twod_data[0].sale_amount,  twod_data[1].sale_amount,  twod_data[2].sale_amount,  twod_data[3].sale_amount,  twod_data[4].sale_amount,  twod_data[5].sale_amount,  twod_data[6].sale_amount,  twod_data[7].sale_amount, twod_data[8].sale_amount, twod_data[9].sale_amount]
 
-        }]
-      };
       const data2 = {
         labels: labels2,
         datasets: [{
@@ -343,22 +360,12 @@
 
         }]
       };
-
-      const config1 = {
-        type: 'bar',
-        data: data1,
-        options: {}
-      };
       const config2 = {
         type: 'bar',
         data: data2,
         options: {}
       };
 
-      const twodChart = new Chart(
-        document.getElementById('2dchart'),
-        config1
-      );
       const lonepyineChart = new Chart(
         document.getElementById('lonepyinechart'),
         config2

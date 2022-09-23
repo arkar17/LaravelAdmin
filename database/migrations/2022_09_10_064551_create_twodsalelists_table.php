@@ -20,7 +20,7 @@ class CreateTwodsalelistsTable extends Migration
             $table->bigInteger('sale_amount')->nullable();
             $table->string('status')->default(0);
             $table->boolean('winning_status')->default(0);
-            $table->dateTime('datetime')->nullable();
+            $table->date('date')->nullable();
             $table->string('customer_name')->nullable();
             $table->string('customer_phone')->nullable();
             $table->timestamps();

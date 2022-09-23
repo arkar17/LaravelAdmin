@@ -3,15 +3,19 @@
 @section('title', 'Agent Data')
 
 @section('content')
-
+     <style>
+        #hide {
+            margin-top: 10px;
+        }
+        .closeBtn {
+            color: white;
+            cursor: pointer;
+            float: right;
+            margin-right: 20px;
+            margin-top: 2px;
+        }
+     </style>
     <div>
-        @if (Session::has('success'))
-            <div class="alert alert-success alert-dismissible fade in">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                        aria-hidden="true">×</span></button>
-                <strong>{{ Session::get('success') }}</strong>
-            </div>
-        @endif
 
         @if (Session::has('commision'))
         <div class="alert alert-success alert-dismissible fade show my-3" role="alert">
@@ -19,20 +23,25 @@
             <strong>{{ Session::get('commision') }}</strong>
         </div>
         @endif
-        <!--main content start-->
-        <div class="main-content-parent-container">
+
             <!--referee profile start-->
             <div class="agent-profile-parent-container">
                 <h1>{{__('msg.Agent Profile')}}</h1>
 
+                @if (Session::has('commisionEditSucess'))
+                    <div id="hide">
+                        <h4 class="agent-profile-commission-edit">{{Session::get('commisionEditSucess')}}<span class="closeBtn">X</span></h4>
+                    </div>
+                @endif
+
                 <div class="agent-profile-filters-container">
 
-                    <button class="agent-profile-edit-comission-btn">{{__('msg.Edit Commission')}}</button>
+                    <button class="agent-profile-edit-comission-btn">{{__('msg.Edit Commision')}}</button>
 
                     <form action="{{route('agentcommsionupdate',[$agentprofiledata->id])}}" method="post" class="agent-profile-commission-container">
                         @csrf
                         <div class="agent-profile-commission">
-                            <input  name="editagentcomssion" id="floatingInput" type="number" placeholder="Edit comssion amount" aria-label="default input example">
+                            <input  name="editagentcomssion" id="floatingInput" type="number" placeholder="Edit commision amount" aria-label="default input example" required>
                             <button type="submit">{{__('msg.Edit')}}</button>
                         </div>
                     </form>
@@ -48,7 +57,7 @@
 
                         <div class="agent-profile-attributes-container">
                             <div class="agent-profile-attribute">
-                                <h3>{{__('msg.ID')}}</h3>
+                                <h3>{{__('msg.AgID')}}</h3>
                                 <p>{{$agentprofiledata->id}}</p>
                             </div>
                             <div class="agent-profile-attribute">
@@ -61,14 +70,14 @@
                             </div>
                             <div class="agent-profile-attribute">
                                 <h3>{{__('msg.Total Sale Amount')}}</h3>
-                                <p>{{$totalamount}}ks</p>
+                                <p>{{$totalamount}} {{__('msg.ks')}}</p>
                             </div>
                             <div class="agent-profile-attribute">
                                 <h3>{{__('msg.Commision')}}</h3>
-                                @if ($commision == null)
-                                    <p>0</p>
+                                @if ($commision->commision == null)
+                                    <p>0 {{__('msg.percent')}}</p>
                                 @else
-                                <p>{{$commision->commision}}</p>
+                                <p>{{$commision->commision}} {{__('msg.percent')}}</p>
                                 @endif
 
                             </div>
@@ -76,7 +85,11 @@
                     </div>
                     <div class="agent-profile-chart-container">
                         <p class="chart-label">{{__('msg.Total Sale Amount Of Customers')}}</p>
-                        <canvas id="cuschart"></canvas>
+                        @if (count($twocus)!=3 || count($threecus)!=3 || count($lpcus)!=3)
+                            <p style="text-align: center;">{{__('msg.Your sale list 2D, 3D and Lone pyine in one of the three is less transactions. So you can not view the chart')}}</p>
+                        @else
+                            <canvas id="cuschart"></canvas>
+                        @endif
                     </div>
                 </div>
 
@@ -85,8 +98,6 @@
                 </div>
 
                 <div class="agent-profile-agent-list-parent-container">
-                    {{-- <form action="{{route('agentcustomersearch',[$agentprofiledata->id])}}" method="post"> --}}
-                        @csrf
                         <div class="agent-profile-agent-list-header">
                             <h1>{{__('msg.Agent')}} {{$agentprofiledata->name}}'s {{__('msg.Customer List')}}</h1>
                         </div>
@@ -102,7 +113,9 @@
                             </div>
 
                             <div class="agent-profile-agent-list-rows-container">
-                                {{-- @for ($i=0; $i<=count($twodnum)-1; $i++) --}}
+                                @if (count($agentcustomerdata) ==null || count($agentcustomerdata) ==0)
+                                    <p style="text-align: center;">{{__('msg.You not have customer')}}</p>
+                                @else
                                     @foreach ($agentcustomerdata as $data)
                                         <div class="agent-profile-agent-list-row">
                                             <p>{{$data->id}}</p>
@@ -113,18 +126,14 @@
                                             <p>{{$data->sale_amount}}ks</p>
                                         </div>
                                     @endforeach
-                                {{-- @endfor --}}
+                                @endif
                             </div>
                         </div>
-                    </form>
                 </div>
 
             </div>
             <!--referee profile end-->
-        </div>
 
-
-        <!--main content end-->
     </div>
 @endsection
 
@@ -167,7 +176,6 @@
 
     }]
     };
-
 
     const config1 = {
     type: 'bar',

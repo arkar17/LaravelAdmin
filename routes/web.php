@@ -41,11 +41,11 @@ Route::get('/locale/{lange}',[HomeController::class, 'lang'])->name('locale');
 
 Auth::routes();
 
-Route::middleware(['role:system_admin|referee'])->group(function () {
-    Route::get('/', [DashboardController::class, 'sysdashboard'])->name('home');
-});
 Route::get('/send',[PusherNotificationController::class, 'notification']);
 Route::group(['middleware' => 'prevent-back-history'], function(){
+    Route::middleware(['role:system_admin|referee'])->group(function () {
+        Route::get('/', [DashboardController::class, 'sysdashboard'])->name('home');
+    });
 Route::group(['middleware' => 'role:referee'], function(){
     Route::get('twoddecline/export_pdf', [DashboardController::class, 'twoddecline_pdf'])->name('twoddecline.export_pdf');
     Route::get('lonepyinedecline/export_pdf', [DashboardController::class, 'lonepyinedecline_pdf'])->name('lonepyinedecline.export_pdf');
