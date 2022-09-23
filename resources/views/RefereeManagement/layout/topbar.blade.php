@@ -19,7 +19,7 @@
 
     </form>
 
-      <i class="fa-regular fa-bell"></i>
+      {{-- <i class="fa-regular fa-bell"></i> --}}
 
       <div class="top-bar-username-container">
         Coin Amount :

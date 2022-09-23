@@ -299,7 +299,7 @@ class AuthController extends Controller
             if ($request->hasFile('profile_image')) {
                 $file = $request->file('profile_image');
                 $imageName = uniqid() . '_' .  $file->getClientOriginalName();
-                Storage::disk('public')->put('profiles/' . $imageName, file_get_contents($file));
+                Storage::disk('public')->put('images/' . $imageName, file_get_contents($file));
             }
 
             $agent->user->name = $request->name;

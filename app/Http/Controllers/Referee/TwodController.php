@@ -22,6 +22,10 @@ class TwodController extends Controller
     //     //dd($twoDSaleList->toArray());
     //     return view('RefereeManagement.twodsalelist')->with(['twoDSaleList'=>$twoDSaleList]);
     // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function twoDSaleList(){
 

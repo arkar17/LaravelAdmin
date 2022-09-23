@@ -4,7 +4,7 @@ return[
     'home'=>'Home',
     'user'=>'User',
     'request'=>'Request list',
-    'referee'=>'Rreferee',
+    'referee'=>'Referee',
     'operationstaff'=>'Operation Staff',
     'permission'=>'Permission',
     'role'=>'Role',
@@ -113,7 +113,8 @@ return[
     'Code'=>'Code',
    'Active'=>'Active',
    'Inactive'=>'Inactive',
-   'Avaliable Date'=>'Avaliable Date'
+   'Avaliable Date'=>'Avaliable Date',
+   'Declined List'=>'Declined List'
 
 ];
 ?>

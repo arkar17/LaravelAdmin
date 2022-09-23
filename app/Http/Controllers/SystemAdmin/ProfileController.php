@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function refreeprofile($referee_id)
     {
         $referee=Referee::findOrFail($referee_id);

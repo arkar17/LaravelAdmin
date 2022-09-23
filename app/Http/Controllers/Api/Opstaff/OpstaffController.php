@@ -58,11 +58,11 @@ class OpstaffController extends Controller
             if ($request->hasFile('profile_image')) {
                 $file = $request->file('profile_image');
                 $imageName = uniqid() . '_' . $file->getClientOriginalName();
-                Storage::disk('public')->put('profiles/' . $imageName, file_get_contents($file));
+                Storage::disk('public')->put('images/' . $imageName, file_get_contents($file));
             }
 
             $op_staff = Operationstaff::where('user_id', $user->id)->first();
-            $user = User::where('operationstaff_code', $op_staff->operationstaff_code)->first();
+            $user = User::findOrFail($user->id);
 
             $user->name = $request->name;
             $op_staff->image = $imageName;

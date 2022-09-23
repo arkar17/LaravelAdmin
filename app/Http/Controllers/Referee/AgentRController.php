@@ -18,6 +18,10 @@ use App\Exports\ExportlonepyineSalesList;
 class AgentRController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function agentData()
     {
         $user = auth()->user()->id;

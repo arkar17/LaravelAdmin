@@ -1,4 +1,4 @@
-@extends('RefereeManagement.layout.app')
+@extends('system_admin.layouts.app')
 
 @section('title', 'Agent Data')
 
@@ -26,13 +26,6 @@
                 <h1>{{__('msg.Agent Profile')}}</h1>
 
                 <div class="agent-profile-filters-container">
-                    <input id="agent-profile-filter-fromdate" type="date" placeholder="From Date" />
-                    <input id="agent-profile-filter-todate" type="date" placeholder="To Date" />
-
-                    <button class="agent-profile-filter-btn">
-                        <iconify-icon icon="ant-design:search-outlined" class="agent-data-filter-btn-icon"></iconify-icon>
-                        <p>Filter</p>
-                    </button>
 
                     <button class="agent-profile-edit-comission-btn">Edit Commission</button>
 

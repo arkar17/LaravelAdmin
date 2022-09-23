@@ -21,6 +21,10 @@ class OperationStaffController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
        // $operation_staffs = Client::whereNotNull('operationstaff_id')->get();

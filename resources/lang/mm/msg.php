@@ -113,7 +113,8 @@ return[
    'Code'=>'ကုဒ်',
    'Active'=>'ဖွင့်သည်',
    'Inactive'=>'ပိတ်သည်',
-   'Avaliable Date'=>'ခွင့်ပြုရက်'
+   'Avaliable Date'=>'ခွင့်ပြုရက်',
+   'Declined List'=>'ငြင်းပယ်ထားသောစာရင်း'
 ];
 ?>
 

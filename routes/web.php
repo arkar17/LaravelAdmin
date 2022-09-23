@@ -36,39 +36,26 @@ use App\Http\Controllers\SystemAdmin\phaseTwo\team\TeamRegisterController;
 use App\Http\Controllers\SystemAdmin\phaseTwo\MatchesController;
 use App\Http\Controllers\SystemAdmin\phaseTwo\TournamentController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-// Route::get('/r',function(){
-//     return view('referee.index');
-// });
+
 Route::get('/locale/{lange}',[HomeController::class, 'lang'])->name('locale');
 
 Auth::routes();
 
-Route::fallback(function() {
-    return view('auth.login');
+Route::middleware(['role:system_admin|referee'])->group(function () {
+    Route::get('/', [DashboardController::class, 'sysdashboard'])->name('home');
 });
- Route::redirect('/', '/login', 301);
+// Route::redirect('/', '/login', 301);
 Route::get('/send',[PusherNotificationController::class, 'notification']);
-
-Route::get('/welcome', fn() => view('welcome'));
-Route::get('/refereelogin',fn() => view('auth/refereelogin'))->name('refereelogin');
-Route::post('/refereelogin', [RefereeLoginController::class, 'authentication']);
+// Route::get('/welcome', fn() => view('welcome'));
+// Route::get('/refereelogin',fn() => view('auth/refereelogin'))->name('refereelogin');
+// Route::post('/refereelogin', [RefereeLoginController::class, 'authentication']);
 
 Route::group(['middleware' => 'role:referee'], function(){
 // Route::group(['middleware' => 'auth'], function () {
-    Route::get('/refe-dashboard', [DashboardController::class, 'refedashboard'])->name('refe-dashboard');
+    // Route::get('refe-dashboard', [DashboardController::class, 'refedashboard'])->name('refe-dashboard');
 
-    Route::resource('role', RoleController::class);
-    Route::get('/role/delete/{id}',[RoleController::class,'destroy'])->name('role.destroy');
-
-    Route::resource('permission', PermissionController::class);
-    Route::get('/permission/delete/{id}',[PermissionController::class,'destroy'])->name('permission.destroy');
-
-    Route::resource('user', UserController::class);
-    Route::resource('agent', AgentController::class);
-
+    Route::get('twoddecline/export_pdf', [DashboardController::class, 'twoddecline_pdf'])->name('twoddecline.export_pdf');
+    Route::get('lonepyinedecline/export_pdf', [DashboardController::class, 'lonepyinedecline_pdf'])->name('lonepyinedecline.export_pdf');
 
     // Referee Management
 
@@ -79,8 +66,7 @@ Route::group(['middleware' => 'role:referee'], function(){
     Route::get('/3D',[ThreeDManageController::class,'ThreeDManageCreate'])->name('3D');
     Route::post('/3DManage',[ThreeDManageController::class,'LonePyaingManageCreate'])->name('3DManage');
 
-     Route::get('/dailysalebook',[RefreeManagementController::class,'dailysalebook'])->name('dailysalebook');
-    // Route::post('/dailysalebook',[RefreeManagementController::class,'dailysalebookOne'])->name('dailysalebook');
+    Route::get('/dailysalebook',[RefreeManagementController::class,'dailysalebook'])->name('dailysalebook');
     Route::get('/acceptTwod',[RefreeManagementController::class,'update'])->name('acceptTwod');
 
      //Accept
@@ -94,18 +80,6 @@ Route::group(['middleware' => 'role:referee'], function(){
     Route::get('/declineTwod',[RefreeManagementController::class,'declineTwod'])->name('declineTwod');
     Route::get('/declinelp',[RefreeManagementController::class,'declinelp'])->name('declinelp');
     Route::get('/declineThreed',[RefreeManagementController::class,'declineThreed'])->name('declineThreed');
-
-
-    //Accept & decline
-    // Route::get('/twodAccept/{id}',[RefreeManagementController::class,'twodAccept'])->name('twodAccept');
-    // Route::get('/twodDecline/{id}',[RefreeManagementController::class,'twodDecline'])->name('twodDecline');
-    // Route::get('/lonepyineAccept/{id}',[RefreeManagementController::class,'lonepyineAccept'])->name('lonepyineAccept');
-    // Route::get('/lonepyinedecline/{id}',[RefreeManagementController::class,'lonepyinedecline'])->name('lonepyinedecline');
-    // Route::get('/threedAccept/{id}',[RefreeManagementController::class,'threedAccept'])->name('threedAccept');
-    // Route::get('/threedDecline/{id}',[RefreeManagementController::class,'threeddecline'])->name('threeddecline');
-
-    //Route::post('/dailySales',[RefreeManagementController::class,'DailySales'])->name('dailySales');
-    // Route::get('/tDList', [RefreeManagementController::class, 'getTwoDs']);
 
     Route::get('/agentDataForRefree',[AgentRController::class,'agentData'])->name('agentDataForRefree');
     Route::get('/agentAccept/{id}',[RefreeManagementController::class,'agentAccept'])->name('agentAccept');
@@ -148,6 +122,8 @@ Route::group(['middleware' => 'role:referee'], function(){
     Route::post('main-cash.store', [CashInCashOutController::class, 'maincashStore'])->name('maincash.store');
     Route::post('/cashin-store', [CashInCashOutController::class, 'cashInStore'])->name('cashin.store');
     Route::post('/cashout-store', [CashInCashOutController::class, 'cashOutStore'])->name('cashout.store');
+    Route::get('/cashin-edit/{id}', [CashInCashOutController::class, 'cashInEdit'])->name('cashin.edit');
+    Route::post('cashin-update/{id}', [CashInCashOutController::class, 'cashInUpdate'])->name('cashin.update');
 
     //excel export
     Route::get('/export-2dList',[AgentRController::class,'export2DList'])->name('export-2dList');
@@ -167,10 +143,8 @@ Route::group(['middleware' => 'role:referee'], function(){
     });
     // System Admin//
     Route::group(['middleware' => 'role:system_admin'], function(){
-    // Route::get('/', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
 
-    Route::get('/sys-dashboard', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
-    //Route::get('/systemadmin', [HomeController::class, 'index'])->name('systemadmin');
+    // Route::get('/sys-dashboard', [DashboardController::class, 'sysdashboard'])->name('sys-dashboard');
 
     Route::resource('role', RoleController::class);
     Route::get('/role/delete/{id}',[RoleController::class,'destroy'])->name('role.destroy');

@@ -32,7 +32,10 @@ class HomeController extends Controller
     //     $this->middleware('auth');
     // }
 
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $users=User::where('status','=','0')->get();

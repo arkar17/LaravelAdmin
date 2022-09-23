@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class DataController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function refereedata(Request $request)
     {
         $referees=DB::select('select r.id,r.referee_code,r.id, u.name,u.phone,op.operationstaff_code,COUNT(a.id) as agentcount FROM agents a right join referees r on a.referee_id = r.id right join users u on r.user_id = u.id join operationstaffs op on r.operationstaff_id = op.id GROUP BY a.referee_id,r.referee_code, u.name,u.phone,op.operationstaff_code,r.id;');

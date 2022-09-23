@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class DataController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function refereedata()
     {
         $referees = Agent::whereNotNull('referee_id')->get();

@@ -1,4 +1,4 @@
-@extends('RefereeManagement.layout.app')
+@extends('system_admin.layouts.app')
 
 @section('title', 'Agent Data')
 
@@ -64,7 +64,7 @@
                 <a class="twod-sale-export-btn"
                        href="{{ route('export-2dList') }}">
                               Export 2D Data
-                    </a>
+                </a>
               {{-- </div> --}}
 
               <div class="twod-sale-list-details-parent-container">

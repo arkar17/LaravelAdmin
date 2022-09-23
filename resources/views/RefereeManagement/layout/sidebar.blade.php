@@ -6,7 +6,7 @@
 
         <div class="side-bar-links-container">
 
-            <a class="side-bar-link" href="{{ route('refe-dashboard') }}">
+            <a class="side-bar-link" href="{{ url('refe-dashboard') }}">
                 {{__('msg.home')}}
             </a>
 

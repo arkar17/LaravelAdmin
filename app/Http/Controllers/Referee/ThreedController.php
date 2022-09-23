@@ -11,6 +11,10 @@ use App\Http\Controllers\Controller;
 
 class ThreedController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function threeDSaleList(){
         $user = auth()->user()->id;
         $referee =Referee::where('user_id',$user)->first();
