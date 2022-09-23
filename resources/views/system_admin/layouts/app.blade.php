@@ -146,8 +146,6 @@
     <script src="{{ asset('jquery/refereemanage/cashincashout.js') }}"></script>
 
     <script>
-
-
             var closeBtn = document.querySelector(".closeBtn");
 
             var hide = document.getElementById("hide");

@@ -188,7 +188,7 @@ class RefreeManagementController extends Controller
             // ->groupBy('twods.number')
             // ->get();
 
-            $twoD_sale_lists = collect($twoD_sale)->sortBy('id')->reverse()->toArray();
+            $twoD_sale_lists = collect($twoD_sale)->sortBy('id')->toArray();
             } else {
                 $twoD_sale = DB::select("Select aa.id,aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
             from (SELECT * FROM ( SELECT * FROM twods t where referee_id = '$referee->id' ORDER BY id DESC LIMIT 100 )sub ORDER BY id ASC) aa
@@ -198,7 +198,7 @@ class RefreeManagementController extends Controller
             and aa.date = '$currenDate'
             and aa.round = 'Morning'
             group by aa.number");
-            $twoD_sale_lists = collect($twoD_sale)->sortBy('id')->reverse()->toArray();
+            $twoD_sale_lists = collect($twoD_sale)->sortBy('id')->toArray();
             }
         }
         $options = array(
