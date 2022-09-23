@@ -90,45 +90,29 @@
             cursor: pointer;
             float: right;
         }
+        .backBtn{
+            color: white;
+            background-color: #3C3C3C;
+            padding: 7px;
+            width: 60px;
+            border-radius: 5px;
+            text-align: center;
+            border: 1px solid #3C3C3C;
+            margin-bottom: 10px;
+
+        }
+        .backBtn:hover {
+            background-color: #fff;
+            color: #3C3C3C;
+            border: 1px solid #3C3C3C;
+        }
     </style>
 @endsection
 
 @section('title', 'Referee')
 @section('content')
-    <h3><a href="{{ route('cashin') }}">Back</a></h3>
-    <div class="main-cash-container">
-        <h1>{{ __('msg.Main Cash') }}</h1>
-        <form action="{{ route('maincash.store') }}" method="POST">
-            @csrf
-            <div class="add-main-cash">
-                <label for="main_cash" class="mc-label">{{ __('msg.Add Main Cash') }}</label>
+<a href="{{ url()->previous() }}" class="backBtn"><i class="fa-solid fa-left-long fa-2xl"></i></a>
 
-                <div>
-                    <input type="number"
-                        class="mc-inp @error('main_cash')
-                    alert-border
-                @enderror"
-                        id="main_cash" name="main_cash" placeholder="Enter your amount"> <br>
-                    @error('main_cash')
-                        <small class="error-message">{{ $message }}</small>
-                    @enderror
-                </div>
-
-
-                <div class="">
-                    <button type="submit" class="cashin-confirm-btn">{{ __('msg.Confirm') }}</button>
-                    <button type="reset" class="cashin-cancel-btn">{{ __('msg.Cancel') }}</button>
-                </div>
-            </div>
-            @if (Session::has('main-cash'))
-            <div id="hide2">
-                    <h4 class="main-cash-alert"> {{ Session::get('main-cash') }} <span class="closeBtn2">X</span> </h4>
-                </div>
-                @endif
-
-        </form>
-    </div>
-    <hr>
     <!--cash in/cash out start-->
     <div class="cashinout-parent-container">
         <div class="cashinout-categories-container">

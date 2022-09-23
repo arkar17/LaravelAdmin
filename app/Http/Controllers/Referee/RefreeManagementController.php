@@ -19,6 +19,8 @@ use App\Models\Threedsalelist;
 use App\Models\Lonepyinesalelist;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\AgentcashHistory;
+use App\Models\MaincashHitory;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class RefreeManagementController extends Controller
@@ -818,6 +820,11 @@ class RefreeManagementController extends Controller
     public function refereeProfile(){
         $user = auth()->user()->id;
         $referee =Referee::where('user_id',$user)->first();
+        $referee_maincash_hitories = MaincashHitory::where('referee_id', $referee->id)->orderBy('updated_at', 'desc')->get();
+
+        $agent_cash_histories = AgentcashHistory::where('referee_id', $referee->id)->with('agent', 'agent.user')->orderBy('updated_at', 'desc')->get();
+
+        $agentsaleamounts= DB::select("Select (SUM(ts.sale_amount)+SUM(tr.sale_amount)+SUM(ls.sale_amount))maincash ,re.id,a.id From agents a left join referees re on re.id = a.referee_id left join twodsalelists ts on ts.agent_id = a.id and ts.status = 1 left join threedsalelists tr on tr.agent_id = a.id and tr.status = 1 left join lonepyinesalelists ls on ls.agent_id = a.id and ls.status = 1 where re.id= $referee->id Group By a.id;");
         $agentsaleamounts= DB::select("Select (SUM(ts.sale_amount)+SUM(tr.sale_amount)+SUM(ls.sale_amount))maincash ,re.id,a.id From agents a left join referees re on re.id = a.referee_id left join twodsalelists ts on ts.agent_id = a.id and ts.status = 1 left join threedsalelists tr on tr.agent_id = a.id and tr.status = 1 left join lonepyinesalelists ls on ls.agent_id = a.id and ls.status = 1 where re.id= $referee->id Group By a.id limit 5;");
         //$agentsaleamounts->limit(3);
         $agents=DB::select("Select a.id,u.name,u.phone
@@ -862,6 +869,6 @@ class RefreeManagementController extends Controller
         }
         return $carry;
         });
-        return view('RefereeManagement.referee_profile',compact('referee','agents','results','sum','agentsaleamounts'));
+        return view('RefereeManagement.referee_profile', compact('referee','agents','results','sum','agentsaleamounts', 'referee_maincash_hitories','agent_cash_histories'));
     }
 }

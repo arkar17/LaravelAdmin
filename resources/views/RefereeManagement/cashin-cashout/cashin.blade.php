@@ -125,9 +125,6 @@
             @endif
 
         </form>
-        @foreach ($maincash_histories as $maincash_history)
-            <p>{{ $maincash_history->main_cash }}</p>
-        @endforeach
 
     </div>
     <hr>
@@ -304,7 +301,6 @@
                         <input type="number" placeholder="Enter Coin Amount"
                             class="inputCoinAmount2"
                             name="coin_amount" disabled />
-
                     </div>
                 </div>
 
@@ -391,6 +387,7 @@
 
             $('.inputPhone1').val(agents[0].user.phone);
             $('.inputPhone2').val(agents[0].user.phone);
+            $('.inputRemainingAmount1').val(cashin_cashouts[0].remaining_amount);
 
 
             $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount);

@@ -214,17 +214,22 @@ class RefereeController extends Controller
         $user->update();
 
         $referee_code=Operationstaff::where('operationstaff_code','=',$request->operationstaff_id)->first();
+     if($referee_code==null){
+        return redirect()->back()->with('success', 'Invalid Operation Staff ID');
+     }else{
         $id=$referee_code->id;
+     }
+
 
         $referee->operationstaff_id=$id;
         // $referee->role_id=$request->role_id;
         $referee->user->password = $referee->passowrd ?? $request->password;
         $referee->image = $imgName;
         $user_status=$request->active_status;
-        if(!empty($request->avaliable_date)){
-            $referee->avaliable_date=$request->avaliable_date;
-            $referee->active_status=1;
-        }else{
+        // if(!empty($request->avaliable_date)){
+        //     $referee->avaliable_date=$request->avaliable_date;
+        //     $referee->active_status=1;
+        // }else{
             if($user_status == 1){
                 $DateTime = Carbon::now()->addDay(7);
                 $referee->avaliable_date= $DateTime;
@@ -232,8 +237,8 @@ class RefereeController extends Controller
             }else{
                 $referee->avaliable_date=null;
                 $referee->active_status=0;
-            }
-        }
+               }
+        // }
         // $referee->remark = $request->remark;
 
         $referee->update();

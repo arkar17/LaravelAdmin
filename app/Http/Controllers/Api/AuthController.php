@@ -153,6 +153,14 @@ class AuthController extends Controller
             ]);
         }
 
+        $check_password = User::where('phone', $request->phone)->first();
+        $checked =  Hash::check($request->password, $check_password->password);
+        if(!$checked) {
+            return response()->json([
+                'message' => 'Uncorrect Password'
+            ]);
+        }
+
         $input =  $request->only(['phone', 'password']);
         $token = JWTAuth::attempt($input);
 
@@ -181,8 +189,58 @@ class AuthController extends Controller
                 'message' => 'Unauthenticated user!'
             ]);
         }
+    }
 
-        return $this->createNewToken($token);
+    //Mobile Login
+    public function mobileLogin(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'phone' => 'required',
+            'password' => 'required|min:6|max:9'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'data' => $validator->errors()
+            ]);
+        }
+
+        $check_password = User::where('phone', $request->phone)->first();
+        $checked =  Hash::check($request->password, $check_password->password);
+        if(!$checked) {
+            return response()->json([
+                'message' => 'Uncorrect Password'
+            ]);
+        }
+
+        $input =  $request->only(['phone', 'password']);
+        $token = JWTAuth::attempt($input);
+
+        $user = auth()->user();
+
+        $usr = User::find($user->id);
+
+        $agent = Agent::where('user_id', $usr->id)->first();
+        if ($agent) {
+            $agent->is_online = 1;
+            $agent->save();
+        }
+
+        //$token = auth()->attempt($validator->validated());
+        if ($token) {
+            return response()->json([
+                'status' => 200,
+                'message' => 'success',
+                'token' => $token,
+                'user' => auth()->user(),
+                'expires_in' => 5 * (JWTAuth::factory()->getTTL() * 24),
+            ]);
+        } else {
+            return response()->json([
+                'status' => 401,
+                'message' => 'Unauthenticated user!'
+            ]);
+        }
     }
 
     // Request For promotion

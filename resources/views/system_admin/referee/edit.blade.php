@@ -39,20 +39,9 @@
                 </div>
 
                 <div class="create-referee-inputs-row">
-                    <div class="create-referee-pw-container">
-                    <label for="password">{{__('msg.Password')}}</label>
-                    <input type="password" placeholder="Enter Password" name="password" id="password"  value="{{ old('password', $referee->user->password) }}">
-                    </div>
-                    <div class="create-referee-confirmpw-container">
-                    <label for="referee-confirmpw">{{__('msg.Confirm Password')}}</label>
-                    <input type="password" id="referee-confirmpw" name="confirmpasword" placeholder="Re-enter Password"/>
-                    </div>
-
-                </div>
-
-                <div class="create-referee-inputs-row">
                     <div class="create-referee-opstaff-container">
                         <label for="referee-pw">{{__('msg.operationstaff')}}</label>
+                        {{-- <input type="text" value="{{$referee->operationstaff->operationstaff_code}}" name="operationstaff_id" disabled> --}}
                         <input list="opid" value="{{$referee->operationstaff->operationstaff_code}}" name="operationstaff_id" placeholder="Enter Operation Staff ID" id="operationstaff_id">
                         <datalist id="opid" name="operationstaff_id">
                             @foreach ($operationstaffs as $operationstaff)

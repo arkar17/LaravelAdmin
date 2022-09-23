@@ -1,0 +1,58 @@
+.login-form-parent-container{
+    width: 100vw;
+    height: 100vh;
+    background-color: #E5E5E5;
+    display: grid;
+    place-items: center;
+}
+
+.login-form-container{
+    width: 450px;
+    /* height: 300px; */
+    background-color: white;
+    border-radius: 5px;
+    padding: 30px 20px;
+}
+
+.login-username-container, .login-pw-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.login-username-container input, .login-pw-container input{
+    height: 40px;
+    width: 300px;
+    border: 2px solid #D9DEED;
+    border-radius: 5px;
+    padding-left: 20px;
+    font-size: 16px;
+}
+
+.login-form-btn-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form-parent-container button:nth-child(1){
+    /* display: block; */
+    /* margin: auto; */
+    font-size: 16px;
+    border: none;
+    background-color: #FF7F2B;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: white;
+}
+
+.login-form-parent-container button:nth-child(2){
+    font-size: 16px;
+    border: 1px solid black;
+    padding: 7px 10px;
+    border-radius: 5px;
+    /* color: white; */
+    background-color: transparent;
+    margin-left: 10px;
+}
