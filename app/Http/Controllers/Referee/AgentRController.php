@@ -31,7 +31,9 @@ class AgentRController extends Controller
     }
     public function agentprofile($id)
     {
-        $agentProfileData = User::select('id','name','phone')->where('id',$id)->first();
+        //$agentProfileData = User::select('id','name','phone')->where('id',$id)->get();
+        $agentProfileData = Agent::select('agents.id','agents.image','users.name','users.phone')->join('users','users.id','agents.user_id')->where('agents.id',$id)->first();
+        //dd($agentProfileData);
         $agentCustomerData = DB::select("Select ts.id, ts.customer_name,
         ts.customer_phone, t.number, t.compensation, ts.sale_amount from twodsalelists ts left join twods t on ts.twod_id = t.id where ts.agent_id = $id");
         $commision = Agent::select('commision')->where('id',$id)->first();
@@ -44,17 +46,21 @@ class AgentRController extends Controller
           $total+=implode(" ",$totalAmount[$i]);
         }
 
-      $twocus=DB::select("Select (SUM(ts.sale_amount))maincash ,a.id,ts.customer_name From agents a left join referees re on re.id = a.referee_id left join twodsalelists ts on ts.agent_id = a.id and ts.status = 1 WHERE a.id=$id Group By a.id,ts.customer_name ORDER BY maincash DESC;");
-      $threecus=DB::select("Select (SUM(tr.sale_amount))maincash ,a.id,tr.customer_name From agents a left join referees re on re.id = a.referee_id left join threedsalelists tr on tr.agent_id = a.id and tr.status = 1 WHERE a.id=$id Group By a.id,tr.customer_name ORDER BY maincash DESC;");
-      $lpcus=DB::select("Select (SUM(ls.sale_amount))maincash ,a.id,ls.customer_name From agents a left join referees re on re.id = a.referee_id left join lonepyinesalelists ls on ls.agent_id = a.id and ls.status = 1 WHERE a.id=$id Group By a.id,ls.customer_name ORDER BY maincash DESC;");
-        return view('RefereeManagement.agentprofiles')->with(['twocus'=>$twocus,'threecus'=>$threecus,'lpcus'=>$lpcus,'commision'=>$commision,'agentprofiledata'=>$agentProfileData, 'agentcustomerdata'=>$agentCustomerData, 'totalamount'=>$total, 'twodnum'=>$twodnum]);
+      $twocus=DB::select("Select (SUM(ts.sale_amount))maincash ,a.id,ts.customer_name From agents a left join referees re on re.id = a.referee_id left join twodsalelists ts on ts.agent_id = a.id and ts.status = 1 WHERE a.id=$id Group By a.id,ts.customer_name ORDER BY maincash DESC limit 3;");
+      $threecus=DB::select("Select (SUM(tr.sale_amount))maincash ,a.id,tr.customer_name From agents a left join referees re on re.id = a.referee_id left join threedsalelists tr on tr.agent_id = a.id and tr.status = 1 WHERE a.id=$id Group By a.id,tr.customer_name ORDER BY maincash DESC limit 3;");
+      $lpcus=DB::select("Select (SUM(ls.sale_amount))maincash ,a.id,ls.customer_name From agents a left join referees re on re.id = a.referee_id left join lonepyinesalelists ls on ls.agent_id = a.id and ls.status = 1 WHERE a.id=$id Group By a.id,ls.customer_name ORDER BY maincash DESC limit 3;");
+      return view('RefereeManagement.agentprofiles')->with(['twocus'=>$twocus,'threecus'=>$threecus,'lpcus'=>$lpcus,'commision'=>$commision,'agentprofiledata'=>$agentProfileData, 'agentcustomerdata'=>$agentCustomerData, 'totalamount'=>$total, 'twodnum'=>$twodnum]);
     }
 
     public function agentcommsionupdate(Request $request,$id){
+        $validated = $request->validate([
+            'editagentcomssion' => 'required',
+        ]);
+
         $updateAgentComssion = Agent::findOrFail($id);
-       $updateAgentComssion->comssion = $request->editagentcomssion;
+       $updateAgentComssion->commision = $request->editagentcomssion;
        $updateAgentComssion->update();
-       return redirect()->back()->with(['commision'=>'Commision Edit Success']);
+       return redirect()->back()->with(['commisionEditSucess'=>'ကော်မရှင်ပြုပြင်မှု အောင်မြင်သည်']);
     }
     public function export2DList(){
         return Excel::download(new Export2DSalesList, '2d_Sales_list.xlsx');

@@ -38,7 +38,6 @@ class TwodController extends Controller
             ->join('users','users.id','agents.user_id')
             ->join('twods','twods.id','twodsalelists.twod_id')
             ->get();
-
         return view('RefereeManagement.twodsalelist')->with(['twoDSaleList'=>$twoDSaleList]);
 
     }

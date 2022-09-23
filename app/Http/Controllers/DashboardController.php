@@ -182,10 +182,10 @@ class DashboardController extends Controller
 
         $totalprofit  = $twodprofit+$threedprofit+$loonpyineprofit;
 
-
-        $twod_salelists = Twodsalelist::select('number', 'sale_amount')->orderBy('sale_amount', 'DESC')->join('twods', 'twods.id', 'twodsalelists.twod_id')->limit(10)->get();
-
-        $lp_salelists = Lonepyinesalelist::select('number', 'sale_amount')->orderBy('sale_amount', 'DESC')->join('lonepyines', 'lonepyines.id', 'lonepyinesalelists.lonepyine_id')->limit(10)->get();
+        $user = auth()->user()->id;
+        $referee =Referee::where('user_id',$user)->first();
+        $twod_salelists = Twodsalelist::select('number', 'sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','twodsalelists.agent_id','agents.id')->where('agents.referee_id',$referee->id)->join('twods', 'twods.id', 'twodsalelists.twod_id')->limit(10)->get();
+        $lp_salelists = Lonepyinesalelist::select('number', 'sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','lonepyinesalelists.agent_id','agents.id')->where('agents.referee_id',$referee->id)->join('lonepyines', 'lonepyines.id', 'lonepyinesalelists.lonepyine_id')->limit(10)->get();
         return view('RefereeManagement.dashboard', compact('totalcommision','totalprofit','agents', 'sum', 'twod_salelists', 'lp_salelists'));
     }
 }

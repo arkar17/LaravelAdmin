@@ -23,7 +23,7 @@
                         <form action="{{route('3D')}}" mehtod = 'post'>
                             @csrf
                             <input id="threed-rate-insert-input" type="number" name="number" />
-                            <button type="submit" id="threed-rate-insert-btn">Insert</button>
+                            <button type="submit" id="threed-rate-insert-btn">{{__('msg.Insert')}}</button>
                         </form>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                       </div>
                       <div class="lonepyine-manage-numbers-labels-right-container">
                         <p>{{__('msg.Rate')}}</p>
-                        <p>{{__('mgs.Max')}}</p>
+                        <p>{{__('msg.Max')}}</p>
                       </div>
                     </div>
 
@@ -108,12 +108,12 @@
                       <div class="lonepyine-manage-rate-insert-container">
                         <p>{{__('msg.Rate')}}:</p>
                         <input id="lonepyine-rate-insert-input" type="number"/>
-                        <button type="button" id="lonepyine-rate-insert-btn">Insert</button>
+                        <button type="button" id="lonepyine-rate-insert-btn">{{__('msg.Insert')}}</button>
                       </div>
                       <div class="lonepyine-manage-max-insert-container">
                         <p>{{__('msg.Max Amount')}}:</p>
                         <input id="lonepyine-max-insert-input" type="number" />
-                        <button type="button" id="lonepyine-max-insert-btn">Insert</button>
+                        <button type="button" id="lonepyine-max-insert-btn">{{__('msg.Insert')}}</button>
                       </div>
 
                       <div class="lonepyine-manage-inserts-btns-container">

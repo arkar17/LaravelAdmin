@@ -10,7 +10,7 @@
     </div>
 
     <div class="top-bar-right-container">
-        <a href={{route('locale','en')}}>English</a> |
+        <a href={{route('locale','en')}}>English</a>|
         <a href={{route('locale','mm')}}>Myanmar</a>
     <form action="{{ route('logout') }}" method="POST">
         @csrf

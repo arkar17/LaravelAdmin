@@ -20,42 +20,7 @@
                 <option value="referee 03"></option>
             </datalist>
             </div> -->
-            <form class="twod-sale-list-filters-container" action="{{route('searchthreeddagent')}}" method="post">
-                @csrf
 
-                <div class="twod-sale-list-filters-agentname-container">
-                <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
-                <input type="text" name="searchagent" list="agent-names" placeholder="Enter Agent Name"/>
-                <datalist id="agent-names">
-                    @foreach ($threeDSaleList as $agentname)
-                        <option value="{{$agentname->name}}"></option>
-                    @endforeach
-                </datalist>
-                </div>
-
-                <div class="twod-sale-list-filters-date-parent-container">
-                <p>{{__('msg.Date')}}</p>
-                <div class="twod-sale-list-filters-date-container">
-                    <input type="date" placeholder="From Date"/>
-                    <input type="date" placeholder="To Date"/>
-                </div>
-                </div>
-
-                <div class="twod-sale-list-filters-round-container">
-                <p>{{__('msg.Round')}}</p>
-
-                <select>
-                    <option value="">{{__('msg.Choose Round')}}</option>
-                    <option value="Morning">Morning</option>
-                    <option value="Evening">Evening</option>
-                </select>
-                </div>
-
-                <button type="submit" class="twod-sale-list-filters-btn">
-                <iconify-icon icon="akar-icons:search" class="twod-sale-list-filter-icon" ></iconify-icon>
-                <p>Filter</p>
-                </button>
-            </form>
             <a class="lonepyine-sale-export-btn"
                 href="{{ route('export3DList') }}">
                    Export 3d Data
@@ -72,15 +37,20 @@
             </div>
 
             <div class="twod-sale-details-rows-container">
-                @foreach ($threeDSaleList as $threedsalelist)
-                    <div class="twod-sale-details-row">
-                        <p>{{$threedsalelist->id}}</p>
-                        <p>{{$threedsalelist->name}}</p>
-                        <p>{{$threedsalelist->customer_name}}</p>
-                        <p>{{$threedsalelist->number}}</p>
-                        <p>{{$threedsalelist->sale_amount}}ks</p>
-                    </div>
-                @endforeach
+                @if (count($threeDSaleList) ==0 || count($threeDSaleList) ==null)
+                    <p style="text-align: center;">{{__('msg.Today is not sold any number')}}</p>
+                @else
+                    <?php $i=1;?>
+                    @foreach ($threeDSaleList as $threedsalelist)
+                        <div class="twod-sale-details-row">
+                            <p>{{$i++}}</p>
+                            <p>{{$threedsalelist->name}}</p>
+                            <p>{{$threedsalelist->customer_name}}</p>
+                            <p>{{$threedsalelist->number}}</p>
+                            <p>{{$threedsalelist->sale_amount}}ks</p>
+                        </div>
+                    @endforeach
+                @endif
             </div>
         </div>
         </div>

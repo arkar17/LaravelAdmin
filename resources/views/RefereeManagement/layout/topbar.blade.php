@@ -13,16 +13,14 @@
       &nbsp;
       &nbsp;
       &nbsp;
-      <a href="locale/en">English</a> |
-      <a href="locale/mm">Myanmar</a>
-      {{-- <i class="fa-regular fa-bell"></i> --}}
+
+      <a href={{route('locale','en')}}>English</a> |
+    <a href={{route('locale','mm')}}>Myanmar</a>
 
     </form>
 
-      <i class="fa-regular fa-bell"></i>
-
       <div class="top-bar-username-container">
-        Coin Amount :
+       {{__('msg.Coin Amount')}} :
         @if(auth()->user()->referee->main_cash != 0)
         {{auth()->user()->referee->main_cash}}
         @elseif (auth()->user()->referee->main_cash == 0 )

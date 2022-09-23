@@ -23,7 +23,7 @@
             </div>
             <div class="side-bar-link-dropdown-container">
               <p class="side-bar-link-dropdown-header">
-                2D / 3D
+                {{__('msg.2D')}} / {{__('msg.3D')}}
                 <!-- <i class="fa-solid fa-angle-down side-bar-link-drop-down-icon"></i> -->
                 <i class="fa-solid fa-angle-left side-bar-link-drop-down-icon"></i>
               </p>
