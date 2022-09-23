@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $.getJSON('http://128.199.201.43/send', (data, jqXHR) => {
+        console.log(data.data.salesList);
         if(data.data.salesList.length != 0){
             $.each(data.data.salesList, function(index, value){
                 // value.sort((a, b) => parseFloat(a.id) - parseFloat(b.id));

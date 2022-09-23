@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -92,22 +93,23 @@
     <title>Trail Blazers</title>
     <style>
         .main-cash-alert {
-           color: white;
-           margin-left: 20px;
-           background-color: rgb(12, 94, 12);
-           border-radius: 5px;
-           padding: 10px;
-       }
+            color: white;
+            margin-left: 20px;
+            background-color: rgb(12, 94, 12);
+            border-radius: 5px;
+            padding: 10px;
+        }
 
-       #hide {
-           margin-top: 10px;
-       }
-       .closeBtn {
-           color: #ddd;
-           cursor: pointer;
-           float: right;
-       }
-   </style>
+        #hide {
+            margin-top: 10px;
+        }
+
+        .closeBtn {
+            color: #ddd;
+            cursor: pointer;
+            float: right;
+        }
+    </style>
 </head>
 
 <body>
@@ -146,26 +148,22 @@
     <script src="{{ asset('jquery/refereemanage/cashincashout.js') }}"></script>
 
     <script>
-            var closeBtn = document.querySelector(".closeBtn");
+        var closeBtn = document.querySelector(".closeBtn");
 
-            var hide = document.getElementById("hide");
+        var hide = document.getElementById("hide");
 
-            console.log(hide);
+        console.log(hide);
 
-            closeBtn.addEventListener("click", function() {
-                // console.log("Hee Hee");
-                // main_cash_alert.style.d = "red";
+        closeBtn.addEventListener("click", function() {
+            // console.log("Hee Hee");
+            // main_cash_alert.style.d = "red";
             hide.style.visibility = 'hidden';
-                // hide.style.display = "none";
-            });
+            // hide.style.display = "none";
+        });
     </script>
     @yield('script')
     @hasanyrole('referee')
         <script>
-
-
-
-
             var pusher = new Pusher('{{ env('MIX_PUSHER_APP_KEY') }}', {
                 cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
                 encrypted: true
@@ -177,6 +175,7 @@
                 alert(data);
                 console.log(data);
             });
+
         </script>
     @endhasanyrole
 </body>

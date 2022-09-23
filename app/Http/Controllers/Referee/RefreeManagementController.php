@@ -70,6 +70,17 @@ class RefreeManagementController extends Controller
         return redirect()->back()->with('success', 'Accepted!');
     }
 
+    public function agentDecline($id)
+     {
+        $user = User::findOrFail($id);
+        $user->status = '0';//0=null,1=pending,2=accept
+        $user->request_type =null;
+        $user->referee_code=null;
+        $user->update();
+
+        return redirect()->back()->with('success', 'Decline');
+     }
+
     public function agentAcceptold($id, $client_id)
     {
         $refereerequest = User::findOrFail($id);
@@ -180,13 +191,14 @@ class RefreeManagementController extends Controller
             and aa.round = 'Evening'
             group by aa.number");
 
-            // $twoD_sale_lists = Twod::select('twods.number','twods.max_amount','twods.compensation',DB::raw('SUM(twodsalelists.sale_amount)as sales'))
+            // $twoD_sale = Twod::select('twods.number','twods.max_amount','twods.compensation',DB::raw('SUM(twodsalelists.sale_amount)as sales'))
             // ->join('twodsalelists','twods.id','twodsalelists.twod_id')
             // ->where('referee_id', $referee->id)
             // ->where('round', 'Evening')->where('date', $currenDate)->latest()->take(100)
             // ->orderBy('twods.id','ASC')
             // ->groupBy('twods.number')
             // ->get();
+            // dd($twoD_sale);
 
             $twoD_sale_lists = collect($twoD_sale)->sortBy('id')->toArray();
             } else {
