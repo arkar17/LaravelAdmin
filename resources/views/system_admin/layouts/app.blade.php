@@ -1,24 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <style>
-         .main-cash-alert {
-            color: white;
-            margin-left: 20px;
-            background-color: rgb(12, 94, 12);
-            border-radius: 5px;
-            padding: 10px;
-        }
 
-        #hide {
-            margin-top: 10px;
-        }
-        .closeBtn {
-            color: #ddd;
-            cursor: pointer;
-            float: right;
-        }
-    </style>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -70,7 +53,7 @@
     <!-- CSS -->
 
     <!-- Referee Global CSS -->
-    <link href="{{ asset('css/refereemanage/globals.css') }}" rel="stylesheet" />
+    {{-- <link href="{{ asset('css/refereemanage/globals.css') }}" rel="stylesheet" /> --}}
 
     <!--agent css-->
     <link href="{{ asset('css/refereemanage/2dmanage.css') }}" rel="stylesheet" />
@@ -107,6 +90,24 @@
 
 
     <title>Trail Blazers</title>
+    <style>
+        .main-cash-alert {
+           color: white;
+           margin-left: 20px;
+           background-color: rgb(12, 94, 12);
+           border-radius: 5px;
+           padding: 10px;
+       }
+
+       #hide {
+           margin-top: 10px;
+       }
+       .closeBtn {
+           color: #ddd;
+           cursor: pointer;
+           float: right;
+       }
+   </style>
 </head>
 
 <body>
@@ -146,10 +147,8 @@
 
     <script>
 
-    console.log("Why always me?");
 
             var closeBtn = document.querySelector(".closeBtn");
-            //let main_cash_alert = document.querySelector(".main-cash-alert");
 
             var hide = document.getElementById("hide");
 
