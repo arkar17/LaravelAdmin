@@ -161,7 +161,9 @@
             // hide.style.display = "none";
         });
     </script>
-    @yield('script')
+
+    @stack('script')
+
     @hasanyrole('referee')
         <script>
             var pusher = new Pusher('{{ env('MIX_PUSHER_APP_KEY') }}', {

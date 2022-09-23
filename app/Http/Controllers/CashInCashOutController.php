@@ -25,14 +25,12 @@ class CashInCashOutController extends Controller
 
     public function maincashStore(MainCashRequest $request)
     {
-
         $user = auth()->user();
         $referee = Referee::where('user_id', $user->id)->first();
 
         $maincash_history = new MaincashHitory();
         $maincash_history->referee_id = $referee->id;
         $maincash_history->main_cash = $request->main_cash;
-
 
         if ($referee->main_cash) {
             $referee->main_cash = $referee->main_cash + $request->main_cash;

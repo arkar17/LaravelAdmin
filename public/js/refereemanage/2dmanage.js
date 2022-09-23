@@ -8,7 +8,7 @@ $(document).ready(function(){
                 $(".twod-manage-numbers-rows-container").append(`
                 <div class="twod-manage-numbers-row">
                 <div class="twod-manage-numbers-attributes">
-                    <p>${index <= 9? `0${index}` : index}</p>
+                    <p>${value.number}</p>
                     <p>${value.compensation}</p>
                     <p>${value.max_amount}</p>
                     <p>${value.sales == null? `0` : value.sales}</p>
