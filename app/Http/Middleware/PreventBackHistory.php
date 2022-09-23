@@ -23,6 +23,5 @@ class PreventBackHistory
         $response->headers->set('Pragma','no-cache');
         $response->headers->set('Expires','Sun, 02 Jan 1990 00:00:00 GMT');
         return $response;
-
       }
 }

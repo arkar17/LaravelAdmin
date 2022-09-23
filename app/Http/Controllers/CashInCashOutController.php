@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CashInRequest;
 use App\Http\Requests\CashOutRequest;
 use App\Http\Requests\MainCashRequest;
+use App\Models\AgentcashHistory;
 use App\Models\MaincashHitory;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
@@ -64,10 +65,7 @@ class CashInCashOutController extends Controller
         $user = auth()->user();
         $referee = Referee::where('user_id', $user->id)->first();
 
-
         $cashin_cashout = CashinCashout::where('agent_id', $request->agent_id)->first();
-        // dd($cashin_cashout);
-
 
         if ($cashin_cashout == null) {
             $cin_cout = new CashinCashout();
@@ -80,6 +78,15 @@ class CashInCashOutController extends Controller
             }
             $cin_cout->payment = $request->payment ?? 0;
             $cin_cout->remaining_amount = $request->coin_amount - $request->payment;
+
+            $agent_cash_history = new AgentcashHistory();
+            $agent_cash_history->agent_id = $request->agent_id;
+            $agent_cash_history->referee_id =  $referee->id;
+            $agent_cash_history->agent_cash = $request->coin_amount ?? 0;
+            $agent_cash_history->agent_payment = $request->payment ?? 0;
+            $agent_cash_history->agent_withdraw = $request->withdraw ?? 0;
+
+            $agent_cash_history->save();
             $cin_cout->save();
         } else {
             $cashin_cashout->agent_id = $request->agent_id;
@@ -101,6 +108,15 @@ class CashInCashOutController extends Controller
             }else {
                 $cashin_cashout->remaining_amount = $request->coin_amount - $request->payment;
             }
+
+            $agent_cash_history = new AgentcashHistory();
+            $agent_cash_history->agent_id = $request->agent_id;
+            $agent_cash_history->referee_id =  $referee->id;
+            $agent_cash_history->agent_cash = $request->coin_amount ?? 0;
+            $agent_cash_history->agent_payment = $request->payment ?? 0;
+            $agent_cash_history->agent_withdraw = $request->withdraw ?? 0;
+
+            $agent_cash_history->save();
             $cashin_cashout->save();
         }
 
@@ -162,6 +178,8 @@ class CashInCashOutController extends Controller
     public function cashOutStore(CashOutRequest $request)
     {
         // dd($request->agent_id);
+        $user = auth()->user();
+        $referee = Referee::where('user_id', $user->id)->first();
         $cashin_cashout = CashinCashout::where('agent_id', $request->agent_id)->first();
 
         if($request->withdraw > $cashin_cashout->coin_amount) {
@@ -169,6 +187,13 @@ class CashInCashOutController extends Controller
         }
         $cashin_cashout->coin_amount = $cashin_cashout->coin_amount - $request->withdraw;
         $cashin_cashout->withdraw = $request->withdraw;
+
+        $agent_cash_history = new AgentcashHistory();
+        $agent_cash_history->agent_id = $request->agent_id;
+        $agent_cash_history->referee_id =  $referee->id;
+        $agent_cash_history->agent_withdraw = $request->withdraw ?? 0;
+
+        $agent_cash_history->save();
         $cashin_cashout->save();
 
         return redirect()->back()->with('cash-out', 'Successfully cash out!');
