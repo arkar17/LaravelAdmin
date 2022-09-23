@@ -93,12 +93,20 @@
       <div class="dashboard-bar-charts-parent-container">
         <div class="dashboard-2d-chart-container">
           <p class="chart-label">{{__('msg.Most Bet 2D Number')}}</p>
-          <canvas id="2dchart"></canvas>
+          @if(count($refe_twod_salelists) !=10)
+                <p>{{__('msg.Your sale list is under 10 transactions. So you can not view the chart')}}</p>
+            @else
+            <canvas id="2dchart"></canvas>
+            @endif
         </div>
 
         <div class="dashboard-lonepyine-container">
           <p class="chart-label">{{__('msg.Most Bet Lone Pyine Number')}}</p>
-          <canvas id="lonepyinechart"></canvas>
+            @if(count($refe_lp_salelists) !=10)
+            <p>{{__('msg.Your sale list is under 10 transactions. So you can not view the chart')}}</p>
+            @else
+            <canvas id="lonepyinechart"></canvas>
+            @endif
         </div>
       </div>
 
