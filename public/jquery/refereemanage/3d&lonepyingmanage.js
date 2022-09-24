@@ -1,10 +1,16 @@
 $(document).ready(function(){
     $.getJSON('http://128.199.201.43/sendlonepyineData', (data, jqXHR) => {
 
-        console.log(data.data.salesList);
+        console.log(data);
         $.each(data.data.salesList, function(index, value){
-
+                // console.log(index)
         })
+
+        const lonePyineListData = data.data.salesList.sort((a,b) => {
+            return parseInt(a.id) - parseInt(b.id)
+        })
+
+        console.log(lonePyineListData)
 
     //array of input values
     let rate = []
@@ -24,7 +30,8 @@ $(document).ready(function(){
         //pushing values from inputs to rate array
         const rateinputArr = $(".lonepyine-manage-numbers-inputs-container #lonepyine-number-rate")
         rateinputArr.each(function(index){
-            const value = $(this).val()? $(this).val() : data.data.salesList[index].compensation //checking if input is empty. if it is empty push the old value
+            console.log(index);
+            const value = $(this).val()? $(this).val() : lonePyineListData[index].compensation //checking if input is empty. if it is empty push the old value
            rate.push(value)
 
         $(this).val("")
@@ -34,7 +41,7 @@ $(document).ready(function(){
         //pushing values from inputs to max array
         const maxinputarr = $(".lonepyine-manage-numbers-inputs-container #lonepyine-number-max")
         maxinputarr.each(function(index){
-            const value = $(this).val()? $(this).val() : data.data.salesList[index].max_amount //checking if input is empty. if it is empty push the old value
+            const value = $(this).val()? $(this).val() : lonePyineListData[index].max_amount //checking if input is empty. if it is empty push the old value
             max.push(value)
 
             $(this).val("")

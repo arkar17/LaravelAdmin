@@ -90,7 +90,7 @@
         <div class="daily-sale-book-charts-container">
           <div class="daily-sale-book-2d-chart-container" >
             <p>{{__('msg.Most Bet 2D Number')}}</p>
-            @if(count($twod_salelists) !=10)
+            @if(count($twod_salelists) !=10 || count($twod_salelists) ==null)
             <p>{{__('msg.Your sale list is under 10 transactions. So you can not view the chart')}}</p>
             @else
                 <canvas id="daily-sale-book-2d-chart"></canvas>
@@ -100,7 +100,7 @@
           <div class="daily-sale-book-lonepyine-chart-container">
             <p>{{__('msg.Most Bet Lone Pyine Number')}}</p>
 
-            @if(count($lp_salelists) !=10)
+            @if(count($lp_salelists) !=10 || count($lp_salelists) ==null)
             <p>{{__('msg.Your sale list is under 10 transactions. So you can not view the chart')}}</p>
             @else
             <canvas id="daily-sale-book-lonepyine-chart"></canvas>
@@ -237,7 +237,7 @@
 
       <div class="daily-sale-book-3d-chart-container">
         <p>{{__('msg.Most Bet 3D Numbers')}}</p>
-        @if(count($threed_salelists) !=10)
+        @if(count($threed_salelists) !=10 || count($threed_salelists) ==null)
             <p>{{__('msg.Your sale list is under 10 transactions. So you can not view the chart')}}</p>
         @else
             <canvas id="daily-sale-book-3d-chart"></canvas>

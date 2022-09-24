@@ -153,6 +153,7 @@ class RefereeController extends Controller
         $user = User::findOrFail($id);
         $user->status = '0';//0=null,1=pending,2=accept,3=decline
         $user->request_type =null;
+        $user->operationstaff_code=null;
         $user->update();
 
         return redirect()->back()->with('success', 'Referee Decline');

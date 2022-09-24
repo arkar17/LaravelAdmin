@@ -25,14 +25,12 @@ class CashInCashOutController extends Controller
 
     public function maincashStore(MainCashRequest $request)
     {
-
         $user = auth()->user();
         $referee = Referee::where('user_id', $user->id)->first();
 
         $maincash_history = new MaincashHitory();
         $maincash_history->referee_id = $referee->id;
         $maincash_history->main_cash = $request->main_cash;
-
 
         if ($referee->main_cash) {
             $referee->main_cash = $referee->main_cash + $request->main_cash;
@@ -75,6 +73,13 @@ class CashInCashOutController extends Controller
             if($request->payment > $request->coin_amount) {
                 return redirect()->back()->with('error', 'Your payment is greater than the coin amount you wanted!');
             }
+
+            if (($cashin_cashout->payment + ($request->payment ?? 0)) >= $cashin_cashout->coin_amount) {
+                $cashin_cashout->status = 1;
+            } else {
+                $cashin_cashout->status = 2;
+            }
+
             $cin_cout->payment = $request->payment ?? 0;
             $cin_cout->remaining_amount = $request->coin_amount - $request->payment;
 
@@ -94,7 +99,7 @@ class CashInCashOutController extends Controller
             if($request->payment > $request->coin_amount) {
                 return redirect()->back()->with('error', 'Your payment is greater than the coin amount you wanted!');
             }
-            if (($cashin_cashout->payment + ($request->payment ?? 0)) > $cashin_cashout->coin_amount) {
+            if (($cashin_cashout->payment + ($request->payment ?? 0)) >= $cashin_cashout->coin_amount) {
                 $cashin_cashout->status = 1;
             } else {
                 $cashin_cashout->status = 2;

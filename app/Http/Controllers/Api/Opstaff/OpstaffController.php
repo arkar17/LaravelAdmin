@@ -183,8 +183,9 @@ class OpstaffController extends Controller
         $user = auth()->user();
         if ($user) {
             $usr = User::findOrFail($id);
-            $usr->status = '3';
+            $usr->status = '0';
             $usr->request_type = null;
+            $usr->operationstaff_code = null;
             $usr->save();
 
             return response()->json([

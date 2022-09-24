@@ -12,10 +12,10 @@
             width: 100%;
 
             display: block;
-  height: 200px;
-  overflow-y: scroll;
+            /* height: 200px; */
+            /* overflow-y: scroll; */
             /* height: 100px !important;
-            overflow-y: hidden; */
+                    overflow-y: hidden; */
         }
 
         #main_cash_hitory_table td,
@@ -50,7 +50,8 @@
             background-color: #3C3C3C;
             color: #fff;
         }
-        .backBtn{
+
+        .backBtn {
             color: white;
             background-color: #3C3C3C;
             padding: 7px;
@@ -61,6 +62,7 @@
             margin-bottom: 10px;
 
         }
+
         .backBtn:hover {
             background-color: #fff;
             color: #3C3C3C;
@@ -82,7 +84,7 @@
         <!--referee profile start-->
         <div class="referee-profile-parent-container">
             <a href="{{ url()->previous() }}" class="backBtn"><i class="fa-solid fa-left-long fa-2xl"></i></a>
-            <h1>Referee Profile</h1>
+            <h1>{{__('msg.Referee Profile')}}</h1>
             <div class="referee-profile-details-parent-container">
                 <div class="referee-profile-details-container">
                     <div class="referee-profile-img-container">
@@ -128,35 +130,35 @@
             <!--main content end-->
         </div>
 
-        <h1 style="margin-top: 20px;">Adding Referee MainCash History</h1>
+        <h1 style="margin-top: 20px;">{{__('msg.Adding Referee MainCash History')}}</h1>
         <table id="main_cash_hitory_table">
             <tr>
-                <th>ID</th>
-                <th>Main Cash</th>
-                <th>DateTime</th>
+                <th>{{__('msg.AgID')}}</th>
+                <th>{{__('msg.Main Cash')}}</th>
+                <th>{{__('msg.DateTime')}}</th>
             </tr>
             <tbody>
                 @php
-                $i = 1;
-            @endphp
-            @foreach ($referee_maincash_hitories as $main_cash_history)
-                <tr>
-                    <td>{{ $i++ }}</td>
-                    <td>{{ $main_cash_history->main_cash }}</td>
-                    <td>{{ $main_cash_history->updated_at }}</td>
-                </tr>
-            @endforeach
+                    $i = 1;
+                @endphp
+                @foreach ($referee_maincash_hitories as $main_cash_history)
+                    <tr>
+                        <td>{{ $i++ }}</td>
+                        <td>{{ $main_cash_history->main_cash }}</td>
+                        <td>{{ $main_cash_history->updated_at }}</td>
+                    </tr>
+                @endforeach
             </tbody>
 
         </table>
 
-        <h1 style="margin-top: 20px;">CashIn to Agent History</h1>
-        <table id="agent_cash_history_table">
+        <h1 style="margin-top: 20px;">{{__('msg.CashIn to Agent History')}}</h1>
+        <table id="main_cash_hitory_table">
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>CashIn</th>
-                <th>DateTime</th>
+                <th>{{__('msg.AgID')}}</th>
+                <th>{{__('msg.Name')}}</th>
+                <th>{{__('msg.CashIn')}}</th>
+                <th>{{__('msg.DateTime')}}</th>
             </tr>
             @php
                 $i = 1;
@@ -174,13 +176,13 @@
             @endforeach
         </table>
 
-        <h1 style="margin-top: 20px;">Payment History</h1>
-        <table id="agent_cash_history_table">
+        <h1 style="margin-top: 20px;">{{__('msg.Payment History')}}</h1>
+        <table id="main_cash_hitory_table">
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Payment</th>
-                <th>DateTime</th>
+                <th>{{__('msg.AgID')}}</th>
+                <th>{{__('msg.Name')}}</th>
+                <th>{{__('msg.Paymenthis')}}</th>
+                <th>{{__('msg.DateTime')}}</th>
             </tr>
             @php
                 $i = 1;
@@ -199,13 +201,13 @@
         </table>
 
 
-        <h1 style="margin-top: 20px;">CashOut History</h1>
+        <h1 style="margin-top: 20px;">{{__('msg.CashOut History')}}</h1>
         <table id="agent_cash_history_table">
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Withdraw Amount</th>
-                <th>DateTime</th>
+                <th>{{__('msg.AgID')}}</th>
+                <th>{{__('msg.Name')}}</th>
+                <th>{{__('msg.Withdraw Amount')}}</th>
+                <th>{{__('msg.DateTime')}}</th>
             </tr>
             @php
                 $i = 1;
@@ -225,7 +227,7 @@
     @endsection
 
     @push('script')
-        @section('script')
+
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script>
                 $(document).ready(function() {
@@ -252,6 +254,12 @@
                                 }
                             });
                     })
+                    var main_cash_hitory_table = document.querySelector("#main_cash_hitory_table");
+
+                    if (main_cash_hitory_table.offsetHeight > 400) {
+                        main_cash_hitory_table.style.height = "400px";
+                        main_cash_hitory_table.style.overflowY = "scroll";
+                    }
 
                     // BarChart//
 
@@ -297,5 +305,5 @@
 
                 })
             </script>
-        @endsection
+       
     @endpush

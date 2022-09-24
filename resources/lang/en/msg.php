@@ -76,7 +76,7 @@ return[
      'You not have customer'=>'You not have customer for today',
      'No. of Customers'=>'No. of Customers',
      'Agent Profile'=>'Agent Profile',
-     'Edit'=>'Edit',
+     'Edit'=>'Save',
      'Commision'=>'Commision',
      'percent'=>'%',
      'ks'=>'ks',
@@ -155,7 +155,15 @@ return[
     'Profile Image'=>'Profile Image',
     'Remaining Amount'=>'Remaining Amount',
     'No'=>'No',
-
+    'Adding Referee MainCash History' => 'Adding Referee MainCash History',
+    'CashIn to Agent History'=>'CashIn to Agent History',
+    'CashIn'=>'CashIn',
+    'Payment History'=>'Payment History',
+    'CashOut History'=>'CashOut History',
+    'Withdraw Amount'=>'Withdraw Amount',
+    'Referee Profile'=> 'Referee Profile',
+    'DateTime'=>'DateTime',
+    'Paymenthis'=>'Payment',
 ];
 ?>
 
