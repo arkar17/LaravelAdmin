@@ -96,7 +96,7 @@ class HomeController extends Controller
                             ->join('twodsalelists','twodsalelists.twod_id','=','twods.id')
                             ->where('twods.number',$request->number)
                             ->where('twods.round',$round)
-                            ->where('date',$current_date)
+                            ->where('twods.date',$current_date)
                             ->where('twodsalelists.status','1')->update(['twodsalelists.winning_status'=>1]);
                 $lonepyineno=substr($request->number, 0, 1);
                 $lonepyinelno=$request->number % 10;
@@ -105,14 +105,14 @@ class HomeController extends Controller
                                 ->join('lonepyinesalelists','lonepyinesalelists.lonepyine_id','=','lonepyines.id')
                                 ->where('lonepyinesalelists.status','=','1')
                                 ->where('lonepyines.round',$round)
-                                ->where('date',$current_date)
+                                ->where('lonepyines.date',$current_date)
                                 ->update(['lonepyinesalelists.winning_status'=>1]);
 
                 $lonepyinelno = DB::table('lonepyines')->where('number','LIKE','%'.$lonepyinelno)
                                 ->join('lonepyinesalelists','lonepyinesalelists.lonepyine_id','=','lonepyines.id')
                                 ->where('lonepyinesalelists.status','=','1')
                                 ->where('lonepyines.round',$round)
-                                ->where('date',$current_date)
+                                ->where('lonepyines.date',$current_date)
                                 ->update(['lonepyinesalelists.winning_status'=>1]);
             }else{
                 return redirect()->back()->with('success', 'Not a Winning Number');
@@ -123,7 +123,7 @@ class HomeController extends Controller
                 $threednum=Threed::where('number','=',$request->number)
                 ->join('threedsalelists','threedsalelists.threed_id','=','threeds.id')
                 ->where('threedsalelists.status','=','1')
-                ->where('date',$current_date)
+                ->where('threeds.date',$current_date)
                 ->update(['threedsalelists.winning_status'=>1]);
             }else{
                 return redirect()->back()->with('success', 'Not a Winning Number');
