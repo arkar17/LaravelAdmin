@@ -386,12 +386,12 @@
 
             $('.inputPhone1').val(agents[0].user.phone);
             $('.inputPhone2').val(agents[0].user.phone);
-            // if (cashin_cashouts.length != 0) {
-            //     $('.inputRemainingAmount1').val(cashin_cashouts[0].remaining_amount == 0 ? "" : cashin_cashouts[0]
-            //         .remaining_amount);
-            //     $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount == 0 ? "" : cashin_cashouts[0]
-            //         .coin_amount);
-            // }
+            if (cashin_cashouts.length != 0) {
+                $('.inputRemainingAmount1').val(cashin_cashouts[0].remaining_amount == 0 ? "" : cashin_cashouts[0]
+                    .remaining_amount);
+                $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount == 0 ? "" : cashin_cashouts[0]
+                    .coin_amount);
+            }
 
             $('.inputRemainingAmount1').val(cashin_cashouts[0].remaining_amount == 0 ? "" : cashin_cashouts[0]
                 .remaining_amount);

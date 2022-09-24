@@ -340,8 +340,7 @@ class RefreeManagementController extends Controller
         $lp_salelists = Lonepyinesalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','lonepyinesalelists.agent_id','agents.id')->where('lonepyines.date',$tdy_date)
         ->where('lonepyines.round',$round)->where('agents.referee_id',$referee->id)->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')->limit(10)->get();
 
-        $threed_salelists = Threedsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','threedsalelists.agent_id','agents.id')->where('threeds.date',$tdy_date)
-        ->where('threeds.round',$round)->where('agents.referee_id',$referee->id)->join('threeds','threeds.id','threedsalelists.threed_id')->limit(10)->get();
+        $threed_salelists = Threedsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','threedsalelists.agent_id','agents.id')->where('threeds.date',$tdy_date)->where('agents.referee_id',$referee->id)->join('threeds','threeds.id','threedsalelists.threed_id')->limit(10)->get();
 
         $rate = DB::Select("SELECT t.compensation FROM threeds t where referee_id = $referee->id ORDER BY id DESC LIMIT 1");
         //twodnumberlist for an agent

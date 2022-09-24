@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $.getJSON('http://128.199.201.43/send', (data, jqXHR) => {
+    $.getJSON('http://127.0.0.1:8000/send', (data, jqXHR) => {
         console.log(data);
             const twodListData = data.data.salesList.sort((a,b) => {
                 return parseInt(a.number) - parseInt(b.number)
