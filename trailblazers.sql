@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 23, 2022 at 09:31 AM
+-- Generation Time: Sep 24, 2022 at 09:51 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `trailblazers`
+-- Database: `trailblazers_update`
 --
 
 -- --------------------------------------------------------
@@ -55,13 +55,6 @@ CREATE TABLE `agents` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `agents`
---
-
-INSERT INTO `agents` (`id`, `user_id`, `referee_id`, `image`, `commision`, `is_online`, `created_at`, `updated_at`) VALUES
-(1, 3, 1, NULL, NULL, 0, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -74,9 +67,9 @@ CREATE TABLE `cashin_cashouts` (
   `referee_id` int(11) NOT NULL,
   `coin_amount` bigint(20) NOT NULL DEFAULT 0,
   `status` int(11) DEFAULT NULL,
-  `payment` bigint(20) DEFAULT NULL,
-  `remaining_amount` bigint(20) DEFAULT NULL,
-  `withdraw` bigint(20) DEFAULT NULL,
+  `payment` bigint(20) NOT NULL DEFAULT 0,
+  `remaining_amount` bigint(20) NOT NULL DEFAULT 0,
+  `withdraw` bigint(20) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -108,7 +101,7 @@ CREATE TABLE `lonepyines` (
   `referee_id` int(11) NOT NULL,
   `number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `max_amount` bigint(20) DEFAULT NULL,
-  `compensation` decimal(8,2) DEFAULT NULL,
+  `compensation` double(8,2) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `round` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -126,7 +119,7 @@ CREATE TABLE `lonepyinesalelists` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `lonepyine_id` int(11) NOT NULL,
   `agent_id` int(11) NOT NULL,
-  `sale_amount` bigint(20) DEFAULT NULL,
+  `sale_amount` bigint(20) NOT NULL DEFAULT 0,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `winning_status` tinyint(1) NOT NULL DEFAULT 0,
   `date` date DEFAULT NULL,
@@ -203,31 +196,31 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(28, '2014_10_12_000000_create_users_table', 1),
-(29, '2014_10_12_100000_create_password_resets_table', 1),
-(30, '2019_08_19_000000_create_failed_jobs_table', 1),
-(31, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(32, '2022_08_19_012309_create_permission_tables', 1),
-(33, '2022_08_30_101149_create_operationstaffs_table', 1),
-(34, '2022_08_30_101208_create_referees_table', 1),
-(35, '2022_08_30_101239_create_agents_table', 1),
-(36, '2022_09_03_071657_create_threeds_table', 1),
-(37, '2022_09_03_071709_create_threedsalelists_table', 1),
-(38, '2022_09_03_072858_create_lonepyines_table', 1),
-(39, '2022_09_03_072914_create_lonepyinesalelists_table', 1),
-(40, '2022_09_06_042631_create_cashin_cashouts_table', 1),
-(41, '2022_09_06_043903_create_transactions_table', 1),
-(42, '2022_09_07_015015_create_winning_results_table', 1),
-(43, '2022_09_07_033646_create_winning_numbers_table', 1),
-(44, '2022_09_10_064541_create_twods_table', 1),
-(45, '2022_09_10_064551_create_twodsalelists_table', 1),
-(46, '2022_09_19_103824_create_matches_table', 1),
-(47, '2022_09_19_103830_create_tournaments_table', 1),
-(48, '2022_09_19_103835_create_teams_table', 1),
-(49, '2022_09_22_230444_create_maincash_hitories_table', 1),
-(50, '2022_09_23_101537_create_agentcash_histories_table', 1),
-(51, '2022_09_23_111225_add_cols_to_agentcash_hitories', 1),
-(52, '2022_09_23_114046_add_referee_id_col_to_agentcash_hitories', 1);
+(89, '2014_10_12_000000_create_users_table', 1),
+(90, '2014_10_12_100000_create_password_resets_table', 1),
+(91, '2019_08_19_000000_create_failed_jobs_table', 1),
+(92, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(93, '2022_08_19_012309_create_permission_tables', 1),
+(94, '2022_08_30_101149_create_operationstaffs_table', 1),
+(95, '2022_08_30_101208_create_referees_table', 1),
+(96, '2022_08_30_101239_create_agents_table', 1),
+(97, '2022_09_03_071657_create_threeds_table', 1),
+(98, '2022_09_03_071709_create_threedsalelists_table', 1),
+(99, '2022_09_03_072858_create_lonepyines_table', 1),
+(100, '2022_09_03_072914_create_lonepyinesalelists_table', 1),
+(101, '2022_09_06_042631_create_cashin_cashouts_table', 1),
+(102, '2022_09_06_043903_create_transactions_table', 1),
+(103, '2022_09_07_015015_create_winning_results_table', 1),
+(104, '2022_09_07_033646_create_winning_numbers_table', 1),
+(105, '2022_09_10_064541_create_twods_table', 1),
+(106, '2022_09_10_064551_create_twodsalelists_table', 1),
+(107, '2022_09_19_103824_create_matches_table', 1),
+(108, '2022_09_19_103830_create_tournaments_table', 1),
+(109, '2022_09_19_103835_create_teams_table', 1),
+(110, '2022_09_22_230444_create_maincash_hitories_table', 1),
+(111, '2022_09_23_101537_create_agentcash_histories_table', 1),
+(112, '2022_09_23_111225_add_cols_to_agentcash_hitories', 1),
+(113, '2022_09_23_114046_add_referee_id_col_to_agentcash_hitories', 1);
 
 -- --------------------------------------------------------
 
@@ -259,9 +252,7 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 1),
-(2, 'App\\Models\\User', 2),
-(2, 'App\\Models\\User', 5),
-(3, 'App\\Models\\User', 3);
+(2, 'App\\Models\\User', 2);
 
 -- --------------------------------------------------------
 
@@ -283,7 +274,7 @@ CREATE TABLE `operationstaffs` (
 --
 
 INSERT INTO `operationstaffs` (`id`, `user_id`, `operationstaff_code`, `image`, `created_at`, `updated_at`) VALUES
-(1, 4, 'OT1', '1663915973-632d57c5dac26-tester.png', '2022-09-23 05:34:06', '2022-09-23 06:52:53');
+(1, 3, 'OT1', NULL, '2022-09-24 07:51:14', '2022-09-24 07:51:14');
 
 -- --------------------------------------------------------
 
@@ -356,8 +347,7 @@ CREATE TABLE `referees` (
 --
 
 INSERT INTO `referees` (`id`, `user_id`, `operationstaff_id`, `role_id`, `referee_code`, `remark`, `image`, `main_cash`, `avaliable_date`, `active_status`, `is_online`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, 2, 'RF1', NULL, '632d45876d879_TaylorOtwell.jpg', NULL, NULL, 0, 0, '2022-09-23 05:34:24', '2022-09-23 06:50:33'),
-(2, 5, 1, 2, 'RF2', NULL, NULL, NULL, '2022-09-30 13:20:02', 1, 0, '2022-09-23 06:47:07', '2022-09-23 06:50:02');
+(1, 2, 1, 2, 'RF1', NULL, NULL, NULL, '2022-10-01 14:21:22', 1, 0, '2022-09-24 07:51:22', '2022-09-24 07:51:22');
 
 -- --------------------------------------------------------
 
@@ -378,10 +368,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'system_admin', 'web', '2022-09-23 05:31:09', '2022-09-23 05:31:09'),
-(2, 'referee', 'web', '2022-09-23 05:31:09', '2022-09-23 05:31:09'),
-(3, 'agent', 'web', '2022-09-23 05:31:09', '2022-09-23 05:31:09'),
-(4, 'guest', 'web', '2022-09-23 05:31:09', '2022-09-23 05:31:09');
+(1, 'system_admin', 'web', '2022-09-24 07:50:09', '2022-09-24 07:50:09'),
+(2, 'referee', 'web', '2022-09-24 07:50:09', '2022-09-24 07:50:09'),
+(3, 'guest', 'web', '2022-09-24 07:50:09', '2022-09-24 07:50:09');
 
 -- --------------------------------------------------------
 
@@ -436,7 +425,7 @@ CREATE TABLE `threedsalelists` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `threed_id` int(11) NOT NULL,
   `agent_id` int(11) NOT NULL,
-  `sale_amount` bigint(20) DEFAULT NULL,
+  `sale_amount` bigint(20) NOT NULL DEFAULT 0,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `winning_status` tinyint(1) NOT NULL DEFAULT 0,
   `date` date DEFAULT NULL,
@@ -505,7 +494,7 @@ CREATE TABLE `twodsalelists` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `twod_id` int(11) NOT NULL,
   `agent_id` int(11) NOT NULL,
-  `sale_amount` bigint(20) DEFAULT NULL,
+  `sale_amount` bigint(20) NOT NULL DEFAULT 0,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `winning_status` tinyint(1) NOT NULL DEFAULT 0,
   `date` date DEFAULT NULL,
@@ -540,11 +529,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `phone`, `password`, `request_type`, `status`, `referee_code`, `operationstaff_code`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'System Admin', '0912345678', '$2y$10$KDb4w0OqMWBD9ehga1/ha.iTNFld0Pk2pcGrfpFtrPNEjjcL.mTti', NULL, '0', NULL, NULL, NULL, '2022-09-23 05:31:09', '2022-09-23 05:31:09'),
-(2, 'Referee', '09123456789', '$2y$10$hXUEjHLqA.hrB5j6Z2nhS.jot/AExZQ1VqrVzv/AHrFNnEhdLuuu2', 'referee', '2', NULL, 'OT2', NULL, '2022-09-23 05:31:09', '2022-09-23 06:50:44'),
-(3, 'Agent', '09123456788', '$2y$10$OU1HGKxpt/JYD5lkkEueROqvb3TU9uXbwEuCvjXlJOnP3WXSkbrma', NULL, '0', NULL, NULL, NULL, '2022-09-23 05:31:10', '2022-09-23 05:31:10'),
-(4, 'Operation Staff 1', '0923232323', '$2y$10$mnid/xGS.Lo39LvErVJeGurFhuSUlYj6VvxNnn2JhHaCFykVtNZeq', 'operationstaff', '2', '', '', NULL, '2022-09-23 05:33:55', '2022-09-23 05:34:06'),
-(5, 'Referee Testing', '09123456778', '$2y$10$cYo6/kOvSZ.7uR21rYJcW.GaptihHMtDP8IV1GULc.ioKSu3FzqJG', 'referee', '2', '', 'OT1', NULL, '2022-09-23 06:46:26', '2022-09-23 06:47:07');
+(1, 'System Admin', '0912345678', '$2y$10$jOrSih5DlPAdnun9NqXg3Oes7gVRncEYeTCQrYXYklXToWK63aWOG', NULL, '0', NULL, NULL, NULL, '2022-09-24 07:50:09', '2022-09-24 07:50:09'),
+(2, 'Referee', '09123456789', '$2y$10$yIi3HwF1GOFgQP88KaScC.Z2zm.V2A4kRV6Moi0y4TK0mh6wz/hhK', 'referee', '2', NULL, 'OT1', NULL, '2022-09-24 07:50:09', '2022-09-24 07:51:22'),
+(3, 'Operation Staff 1', '09456138923', '$2y$10$HtBzp909ffszO2Dk0f3I8eXpAKERpJ9sdCjewctKf85aouIY09Rre', 'operationstaff', '2', '', '', NULL, '2022-09-24 07:50:50', '2022-09-24 07:51:14');
 
 -- --------------------------------------------------------
 
@@ -772,7 +759,7 @@ ALTER TABLE `agentcash_histories`
 -- AUTO_INCREMENT for table `agents`
 --
 ALTER TABLE `agents`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cashin_cashouts`
@@ -814,7 +801,7 @@ ALTER TABLE `matches`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `operationstaffs`
@@ -838,13 +825,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `referees`
 --
 ALTER TABLE `referees`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `teams`
@@ -892,7 +879,7 @@ ALTER TABLE `twodsalelists`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `winning_numbers`

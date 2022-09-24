@@ -25,7 +25,7 @@
                   <h2>{{__('msg.Referee ID')}}</h2>
                   <h2>{{__('msg.Name')}}</h2>
                   <h2>{{__('msg.Phone Number')}}</h2>
-                  <h2>{{__('operationstaff')}}</h2>
+                  <h2>{{__('msg.operationstaff')}}</h2>
                   <h2>{{__('msg.No. of Agents')}}</h2>
                   {{-- <h2>Action</h2> --}}
                 </div>

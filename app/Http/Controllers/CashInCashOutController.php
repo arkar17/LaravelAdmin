@@ -73,6 +73,13 @@ class CashInCashOutController extends Controller
             if($request->payment > $request->coin_amount) {
                 return redirect()->back()->with('error', 'Your payment is greater than the coin amount you wanted!');
             }
+
+            if (($cashin_cashout->payment + ($request->payment ?? 0)) >= $cashin_cashout->coin_amount) {
+                $cashin_cashout->status = 1;
+            } else {
+                $cashin_cashout->status = 2;
+            }
+
             $cin_cout->payment = $request->payment ?? 0;
             $cin_cout->remaining_amount = $request->coin_amount - $request->payment;
 
@@ -92,7 +99,7 @@ class CashInCashOutController extends Controller
             if($request->payment > $request->coin_amount) {
                 return redirect()->back()->with('error', 'Your payment is greater than the coin amount you wanted!');
             }
-            if (($cashin_cashout->payment + ($request->payment ?? 0)) > $cashin_cashout->coin_amount) {
+            if (($cashin_cashout->payment + ($request->payment ?? 0)) >= $cashin_cashout->coin_amount) {
                 $cashin_cashout->status = 1;
             } else {
                 $cashin_cashout->status = 2;

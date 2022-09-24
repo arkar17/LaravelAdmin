@@ -6,16 +6,16 @@
 
   <!--agent request list start-->
   <div class="agent-requests-parent-container">
+    @if (Session::has('success'))
+            <div id="hide">
+                <h4 class="main-cash-alert"> {{ Session::get('success') }} &nbsp;&nbsp;&nbsp;<span class="closeBtn">x</span> </h4>
+            </div>
+        @endif
     <h1>{{__('msg.Request List - Agent')}}</h1>
 
     <div class="agent-request-container">
-        @if (Session::has('success'))
-            <div id="hide">
-                <h4 class="main-cash-alert"> {{ Session::get('success') }} &nbsp; &nbsp; &nbsp;<span class="closeBtn">x</span> </h4>
-            </div>
-        @endif
-      <div class="agent-requests-labels-container">
 
+      <div class="agent-requests-labels-container">
         <h2>{{__('msg.ID')}}</h2>
         <h2>{{__('msg.Name')}}</h2>
         <h2>{{__('msg.Phone Number')}}</h2>

@@ -76,7 +76,7 @@ return[
      'You not have customer'=>'You not have customer for today',
      'No. of Customers'=>'No. of Customers',
      'Agent Profile'=>'Agent Profile',
-     'Edit'=>'Edit',
+     'Edit'=>'Save',
      'Commision'=>'Commision',
      'percent'=>'%',
      'ks'=>'ks',
