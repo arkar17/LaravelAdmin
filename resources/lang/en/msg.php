@@ -155,7 +155,15 @@ return[
     'Profile Image'=>'Profile Image',
     'Remaining Amount'=>'Remaining Amount',
     'No'=>'No',
-
+    'Adding Referee MainCash History' => 'Adding Referee MainCash History',
+    'CashIn to Agent History'=>'CashIn to Agent History',
+    'CashIn'=>'CashIn',
+    'Payment History'=>'Payment History',
+    'CashOut History'=>'CashOut History',
+    'Withdraw Amount'=>'Withdraw Amount',
+    'Referee Profile'=> 'Referee Profile',
+    'DateTime'=>'DateTime',
+    'Paymenthis'=>'Payment',
 ];
 ?>
 

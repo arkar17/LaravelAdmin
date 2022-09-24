@@ -156,7 +156,15 @@ return[
     'Profile Image'=>'ပရိုဖိုင်ပုံ',
     'Remaining Amount'=>'ပေးရန်ကျန်ရှိသောငွေ',
     'No'=>'စဉ်',
-
+    'Adding Referee MainCash History' => 'ပိုက်ဆံ ထည့်သော မှတ်တမ်း',
+    'CashIn to Agent History'=>'အေးဂျင့် များဆီသို့ ပိုက်ဆံထည့်သော မှတ်တမ်း',
+    'CashIn'=>'ငွေပမာဏ',
+    'Payment History'=>'အေးဂျင့်များ အကြွေးပေးသော မှတ်တမ်',
+    'CashOut History'=>'အေးဂျင့်များ ပိုက်ဆံထုတ်သောမှတ်တမ်း',
+    'Withdraw Amount'=>'ထုတ်ငွေ',
+    'Referee Profile'=>'ဒိုင်ပရိုဖိုင်',
+    'DateTime'=>'အချိန်',
+    'Paymenthis'=>'အကြွေး',
 ];
 ?>
 

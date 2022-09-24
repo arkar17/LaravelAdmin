@@ -12,7 +12,7 @@
         $('.inputPhone2').val(agents[0].user.phone);
         $('.inputRemainingAmount1').val(cashin_cashouts[0].remaining_amount == null ? "" : cashin_cashouts[0].remaining_amount);
 
-        $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount);
+        $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount == null ? "" : cashin_cashouts[0].coin_amount);
 
         $('.se1').on('change', function() {
             var id = $('.se1').val();
@@ -50,11 +50,17 @@
         });
 
         $('.se2').on('change', function() {
+            console.log("Ha");
             var id = $('.se2').val();
+            console.log("Hee");
             agents.forEach(agent => {
+                console.log("Agents Here");
                 cashin_cashouts.forEach(cashin_cashout => {
+                    console.log("Cashin cashout here");
                     if (cashin_cashout.agent.id == agent.id) {
+                        console.log("Nyi 1");
                         if (agent.id == id) {
+                            console.log("Nyi 2");
                             $('.inputCoinAmount2').val(cashin_cashout.coin_amount);
                         }
                     }

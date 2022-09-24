@@ -372,7 +372,7 @@
     </div>
 @include('RefereeManagement.cashin-cashout.cashin-cashout')
 @endsection
-
+{{--
 @push('script')
 <script>
     $(document).ready(function() {
@@ -389,7 +389,6 @@
         $('.inputRemainingAmount1').val(cashin_cashouts[0].remaining_amount);
 
         $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount);
-
         $('.se1').on('change', function() {
             var id = $('.se1').val();
             console.log("Hee Hee");
@@ -438,6 +437,6 @@
             });
         });
     });
-</script>
+</script> --}}
 
-@endpush
+{{-- @endpush --}}
