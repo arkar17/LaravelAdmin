@@ -74,13 +74,15 @@ class CashInCashOutController extends Controller
                 return redirect()->back()->with('error', 'Your payment is greater than the coin amount you wanted!');
             }
 
-            if (($cashin_cashout->payment + ($request->payment ?? 0)) >= $cashin_cashout->coin_amount) {
-                $cashin_cashout->status = 1;
-            } else {
-                $cashin_cashout->status = 2;
-            }
+                if (($cin_cout->payment + ($request->payment ?? 0)) >= $cin_cout->coin_amount) {
+                    $cin_cout->status = 1;
+                } else {
+                    $cin_cout->status = 2;
+                }
+
 
             $cin_cout->payment = $request->payment ?? 0;
+
             $cin_cout->remaining_amount = $request->coin_amount - $request->payment;
 
             $agent_cash_history = new AgentcashHistory();

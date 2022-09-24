@@ -253,6 +253,10 @@ class RefreeManagementController extends Controller
 
     // dailysalebook start
     public function dailysalebook(){
+        $agents = Agent::get();
+        //dd($agents->toArray());
+        $user = auth()->user()->id;
+        $referee =Referee::where('user_id',$user)->first();
         $agenttwodsaleList = Twodsalelist::select('twodsalelists.id','twodsalelists.agent_id','twodsalelists.sale_amount','twodsalelists.status','twods.number',
                                 'twods.compensation','twods.round','users.name')
                                 ->join('twods','twods.id','twodsalelists.twod_id')
@@ -261,15 +265,17 @@ class RefreeManagementController extends Controller
                                 ->groupBy('twodsalelists.agent_id')
                                 ->orderBy('twodsalelists.id','desc')
                                 ->where('twodsalelists.status',0)
+                                ->where('twods.referee_id',$referee->id)
                                 ->get();
         $agenttwodsalenumber = Twodsalelist::select('twodsalelists.id','twodsalelists.agent_id','twodsalelists.sale_amount','twodsalelists.status','twods.number',
         'twods.compensation','twods.round','users.name')
         ->join('twods','twods.id','twodsalelists.twod_id')
         ->join('agents','agents.id','twodsalelists.agent_id')
         ->join('users','users.id','agents.user_id')
+        ->where('twods.referee_id',$referee->id)
         ->where('twodsalelists.status',0)
         ->get();
-                            //    dd($agenttwodsalenumber->toArray());
+                            dd($agenttwodsalenumber->toArray());
         $agentlonepyinesalelist = Lonepyinesalelist::select('lonepyinesalelists.id','lonepyines.number','lonepyines.compensation','lonepyines.round','lonepyinesalelists.sale_amount',
                             'lonepyinesalelists.agent_id','users.name','lonepyinesalelists.status')
                             ->join('lonepyines','lonepyinesalelists.lonepyine_id','lonepyines.id')
@@ -277,6 +283,7 @@ class RefreeManagementController extends Controller
                             ->join('users','users.id','agents.user_id')
                             ->groupBy('lonepyinesalelists.agent_id')
                             ->orderBy('lonepyinesalelists.id','desc')
+                            ->where('lonepyines.referee_id',$referee->id)
                             ->where('lonepyinesalelists.status',0)
                             ->get();
                             //dd($agentlonepyinesalelist->toArray());
@@ -286,8 +293,9 @@ class RefreeManagementController extends Controller
         ->join('lonepyines','lonepyinesalelists.lonepyine_id','lonepyines.id')
         ->join('agents','agents.id','lonepyinesalelists.agent_id')
         ->join('users','users.id','agents.user_id')
-        ->where('lonepyinesalelists.status',0)
-        ->get();
+                        ->where('lonepyines.referee_id',$referee->id)
+                        ->where('lonepyinesalelists.status',0)
+    ->get();
                         //dd($agentlonepyinesalelist->toArray());
 
         $agentthreedsalelist = Threedsalelist::select('threedsalelists.id','threedsalelists.agent_id','threedsalelists.sale_amount','threedsalelists.status',
@@ -298,6 +306,7 @@ class RefreeManagementController extends Controller
                             ->groupBy('threedsalelists.agent_id')
                            ->orderBy('threedsalelists.id','desc')
                             ->where('threedsalelists.status',0)
+                        ->where('threeds.referee_id',$referee->id)
                             ->get();
 
         $threedCurrentRate = Threedsalelist::select(DB::raw('SUM(compensation)as rate'))->join('threeds','threeds.id','threedsalelists.threed_id')->orderBy('threedsalelists.id', 'DESC')->limit(1000)->get();
@@ -310,15 +319,13 @@ class RefreeManagementController extends Controller
         ->join('agents','agents.id','threedsalelists.agent_id')
         ->join('users','users.id','agents.user_id')
         ->where('threedsalelists.status',0)
+        ->where('threeds.referee_id',$referee->id)
         ->get();
         //dd($threedlist->toArray());
         $acceptstatus = $agenttwodsaleList->where('status',1);
 
         //chart
-        $agents = Agent::get();
-        //dd($agents->toArray());
-        $user = auth()->user()->id;
-        $referee =Referee::where('user_id',$user)->first();
+
         $twod_salelists = Twodsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','twodsalelists.agent_id','agents.id')->where('agents.referee_id',$referee->id)->join('twods','twods.id','twodsalelists.twod_id')->limit(10)->get();
         $lp_salelists = Lonepyinesalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','lonepyinesalelists.agent_id','agents.id')->where('agents.referee_id',$referee->id)->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')->limit(10)->get();
         $threed_salelists = Threedsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','threedsalelists.agent_id','agents.id')->where('agents.referee_id',$referee->id)->join('threeds','threeds.id','threedsalelists.threed_id')->limit(10)->get();
