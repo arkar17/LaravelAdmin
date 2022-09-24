@@ -135,58 +135,52 @@
             <!--referee profile end-->
 
     </div>
+    <script>
+        $(document).ready(function() {
+           $(".agent-profile-edit-comission-btn").click(function(){
+               $(".agent-profile-commission-container").toggle()
+           })
+
+           var twodata= @json($twocus);
+           var threedata=@json($threecus);
+           var lonepyinedata=@json($lpcus);
+           console.log(twodata);
+           console.log(threedata);
+           console.log(lonepyinedata);
+
+           const labels1 = [
+           twodata[0].customer_name,
+           twodata[1].customer_name,
+           twodata[2].customer_name,
+           lonepyinedata[0].customer_name,
+           lonepyinedata[1].customer_name,
+           lonepyinedata[2].customer_name,
+           threedata[0].customer_name,
+           threedata[1].customer_name,
+           threedata[2].customer_name,
+           ];
+           const data1 = {
+           labels: labels1,
+           datasets: [{
+               label: 'Amount',
+               backgroundColor: '#EB5E28',
+               borderColor: 'rgb(255, 99, 132)',
+               data: [ twodata[0].maincash,twodata[1].maincash,twodata[2].maincash,twodata[3].maincash,lonepyinedata[0].maincash,lonepyinedata[1].maincash,lonepyinedata[2].maincash,threedata[0].maincash,threedata[1].maincash]
+
+           }]
+           };
+
+           const config1 = {
+           type: 'bar',
+           data: data1,
+           options: {}
+           };
+
+           const agChart = new Chart(
+           document.getElementById('cuschart'),
+           config1
+           );
+       })
+       </script>
 @endsection
 
-
-@section('script')
-{{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"> --}}
-<script>
- $(document).ready(function() {
-
-
-    $(".agent-profile-edit-comission-btn").click(function(){
-        $(".agent-profile-commission-container").toggle()
-    })
-
-    var twodata= @json($twocus);
-    var threedata=@json($threecus);
-    var lonepyinedata=@json($lpcus);
-    console.log(twodata);
-    console.log(threedata);
-    console.log(lonepyinedata);
-
-    const labels1 = [
-    twodata[0].customer_name,
-    twodata[1].customer_name,
-    twodata[2].customer_name,
-    lonepyinedata[0].customer_name,
-    lonepyinedata[1].customer_name,
-    lonepyinedata[2].customer_name,
-    threedata[0].customer_name,
-    threedata[1].customer_name,
-    threedata[2].customer_name,
-    ];
-    const data1 = {
-    labels: labels1,
-    datasets: [{
-        label: 'Amount',
-        backgroundColor: '#EB5E28',
-        borderColor: 'rgb(255, 99, 132)',
-        data: [ twodata[0].maincash,twodata[1].maincash,twodata[2].maincash,twodata[3].maincash,lonepyinedata[0].maincash,lonepyinedata[1].maincash,lonepyinedata[2].maincash,threedata[0].maincash,threedata[1].maincash]
-
-    }]
-    };
-
-    const config1 = {
-    type: 'bar',
-    data: data1,
-    options: {}
-    };
-
-    const agChart = new Chart(
-    document.getElementById('cuschart'),
-    config1
-    );
-})
-</script>
-@endsection

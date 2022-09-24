@@ -90,7 +90,7 @@
                             <p>{{{$agent['Amount']}}}</p>
                              <a href="{{route('agentprofile',$agent['id'])}}">
                                 <iconify-icon icon="ant-design:exclamation-circle-outlined" class="referee-profile-agent-list-btn"></iconify-icon>
-                                <p>{{__('View Detail')}}</p>
+                                <p>{{__('msg.View Detail')}}</p>
                             </a>
                         </div>
                         @endforeach

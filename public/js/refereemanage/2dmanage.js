@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $.getJSON('http://127.0.0.1:8000/send', (data, jqXHR) => {
+    $.getJSON('http://128.199.201.43/send', (data, jqXHR) => {
         console.log(data.data.salesList);
         if(data.data.salesList.length != 0){
             $.each(data.data.salesList, function(index, value){
