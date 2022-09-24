@@ -15,6 +15,8 @@
             $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount == 0 ? "" : cashin_cashouts[0].coin_amount);
         }
 
+        $('.inputRemainingAmount1').val(cashin_cashouts[0].remaining_amount == 0 ? "" : cashin_cashouts[0].remaining_amount);
+        $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount == 0 ? "" : cashin_cashouts[0].coin_amount);
 
         $('.se1').on('change', function() {
             var id = $('.se1').val();
