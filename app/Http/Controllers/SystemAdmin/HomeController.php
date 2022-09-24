@@ -59,9 +59,11 @@ class HomeController extends Controller
 
     public function viewWinning(Request $request)
     {
-        $twodnumbers=DB::select('Select u.name,two.round,two.number,two.date,ts.id,ts.customer_name,ts.customer_phone,ts.date From agents a left join twodsalelists ts on ts.agent_id = a.id LEFT join twods two on two.id=ts.twod_id LEFT join users u on u.id=a.user_id where ts.winning_status = 1 and two.date=CURRENT_DATE;');
-        $lonepyinenumbers=DB::select('Select u.name,l.round,l.number,lps.id,l.date,lps.customer_name,lps.customer_phone,lps.date From agents a left join lonepyinesalelists lps on lps.agent_id = a.id LEFT join lonepyines l on l.id=lps.lonepyine_id LEFT join users u on u.id=a.user_id where lps.winning_status = 1 and l.date=CURRENT_DATE;');
-        $threednumbers=DB::select('Select u.name,t.number,ts.id,t.date,ts.customer_name,ts.customer_phone,ts.date From agents a left join threedsalelists ts on ts.agent_id = a.id LEFT join threeds t on t.id=ts.threed_id LEFT join users u on u.id=a.user_id where ts.winning_status = 1 and t.date=CURRENT_DATE;');
+        $twodnumbers=DB::select('SELECT u.name,two.round,two.number,two.date,ts.id,ts.customer_name,ts.customer_phone From agents a left join twodsalelists ts on ts.agent_id = a.id LEFT join twods two on two.id=ts.twod_id LEFT join users u on u.id=a.user_id where ts.winning_status = 1 and
+        two.date=CURRENT_DATE;');
+        $lonepyinenumbers=DB::select('SELECT u.name,l.round,l.number,lps.id,l.date,lps.customer_name,lps.customer_phone From agents a left join lonepyinesalelists lps on lps.agent_id = a.id LEFT join lonepyines l on l.id=lps.lonepyine_id LEFT join users u on u.id=a.user_id where
+        lps.winning_status = 1 and l.date=CURRENT_DATE;');
+        $threednumbers=DB::select('SELECT u.name,t.number,ts.id,t.date,ts.customer_name,ts.customer_phone From agents a left join threedsalelists ts on ts.agent_id = a.id LEFT join threeds t on t.id=ts.threed_id LEFT join users u on u.id=a.user_id where ts.winning_status = 1 and t.date=CURRENT_DATE;');
         return view('system_admin.winning_result', compact('twodnumbers','threednumbers','lonepyinenumbers'))->with('success', 'Winning Status is Updated successfully!');
 
     }
@@ -207,9 +209,16 @@ class HomeController extends Controller
             $maincash=DB::table('cashin_cashouts')
             ->where('agent_id',$value->id)
             ->select('coin_amount')->first();
+            if($maincash != 0){
+                $amount=$value->sales;
+                $coin = $maincash->coin_amount + $amount;
+            }
+            else{
+                $amount=$value->sales;
+                $coin = 0 + $amount;
+            }
 
-            $amount=$value->sales;
-            $coin = $maincash->coin_amount + $amount;
+
 
             CashinCashout::where('agent_id',$value->id)->update(['coin_amount'=>$coin]);
         }
@@ -219,8 +228,14 @@ class HomeController extends Controller
             ->where('agent_id',$value->id)
             ->select('coin_amount')->first();
 
-            $amount=$value->sales;
-            $coin = $maincash->coin_amount + $amount;
+            if($maincash != 0){
+                $amount=$value->sales;
+                $coin = $maincash->coin_amount + $amount;
+            }
+            else{
+                $amount=$value->sales;
+                $coin = 0 + $amount;
+            }
 
             CashinCashout::where('agent_id',$value->id)->update(['coin_amount'=>$coin]);
         }
@@ -230,8 +245,14 @@ class HomeController extends Controller
             ->where('agent_id',$value->id)
             ->select('coin_amount')->first();
 
-            $amount=$value->sales;
-            $coin = $maincash->coin_amount + $amount;
+            if($maincash != 0){
+                $amount=$value->sales;
+                $coin = $maincash->coin_amount + $amount;
+            }
+            else{
+                $amount=$value->sales;
+                $coin = 0 + $amount;
+            }
 
             CashinCashout::where('agent_id',$value->id)->update(['coin_amount'=>$coin]);
         }
