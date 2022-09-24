@@ -19,9 +19,9 @@ class CreateCashinCashoutsTable extends Migration
             $table->integer('referee_id');
             $table->bigInteger('coin_amount')->default(0);
             $table->integer('status')->nullable();
-            $table->bigInteger('payment')->nullable();
-            $table->bigInteger('remaining_amount')->nullable();
-            $table->bigInteger('withdraw')->nullable();
+            $table->bigInteger('payment')->default(0);
+            $table->bigInteger('remaining_amount')->default(0);
+            $table->bigInteger('withdraw')->default(0);
             $table->timestamps();
         });
     }

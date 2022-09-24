@@ -154,6 +154,11 @@ class AuthController extends Controller
         }
 
         $check_password = User::where('phone', $request->phone)->first();
+        if(!$check_password) {
+            return response()->json([
+                'message' => 'Unauthenticated Phone number!'
+            ]);
+        }
         $checked =  Hash::check($request->password, $check_password->password);
         if(!$checked) {
             return response()->json([
@@ -192,7 +197,8 @@ class AuthController extends Controller
     }
 
     //Mobile Login
-    public function mobileLogin(Request $request) {
+    public function mobileLogin(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'phone' => 'required',
             'password' => 'required|min:6|max:9'
@@ -206,6 +212,11 @@ class AuthController extends Controller
         }
 
         $check_password = User::where('phone', $request->phone)->first();
+        if(!$check_password) {
+            return response()->json([
+                'message' => 'Unauthenticated Phone number!'
+            ]);
+        }
         $checked =  Hash::check($request->password, $check_password->password);
         if(!$checked) {
             return response()->json([
@@ -291,7 +302,7 @@ class AuthController extends Controller
         } else {
             return response()->json([
                 'status' => 401,
-                'message' => "Your phone is not registered in our website yet."
+                'message' => "Your phone is not registered in our database yet."
             ]);
         }
     }

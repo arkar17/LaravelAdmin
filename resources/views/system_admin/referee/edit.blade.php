@@ -41,13 +41,13 @@
                 <div class="create-referee-inputs-row">
                     <div class="create-referee-opstaff-container">
                         <label for="referee-pw">{{__('msg.operationstaff')}}</label>
-                        <input type="text" value="{{$referee->operationstaff->operationstaff_code}}" name="operationstaff_id" disabled>
-                        {{-- <input list="opid" value="{{$referee->operationstaff->operationstaff_code}}" name="operationstaff_id" placeholder="Enter Operation Staff ID" id="operationstaff_id">
+                        {{-- <input type="text" value="{{$referee->operationstaff->operationstaff_code}}" name="operationstaff_id" disabled> --}}
+                        <input list="opid" value="{{$referee->operationstaff->operationstaff_code}}" name="operationstaff_id" placeholder="Enter Operation Staff ID" id="operationstaff_id">
                         <datalist id="opid" name="operationstaff_id">
                             @foreach ($operationstaffs as $operationstaff)
                             <option data-id="{{$operationstaff->id }}" value ="{{$operationstaff->operationstaff_code}}"></option>
                             @endforeach
-                        </datalist> --}}
+                        </datalist>
                     </div>
 
                             {{-- <select name="operationstaff_id">

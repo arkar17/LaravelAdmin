@@ -12,15 +12,16 @@ use App\Models\Client;
 use App\Models\Referee;
 use App\Models\Requests;
 use App\Models\Lonepyine;
+use Illuminate\Support\Arr;
 use App\Models\Twodsalelist;
 use Illuminate\Http\Request;
 use App\Models\CashinCashout;
+use App\Models\MaincashHitory;
 use App\Models\Threedsalelist;
+use App\Models\AgentcashHistory;
 use App\Models\Lonepyinesalelist;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\AgentcashHistory;
-use App\Models\MaincashHitory;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class RefreeManagementController extends Controller
@@ -69,6 +70,17 @@ class RefreeManagementController extends Controller
         $agent->save();
         return redirect()->back()->with('success', 'Accepted!');
     }
+
+    public function agentDecline($id)
+     {
+        $user = User::findOrFail($id);
+        $user->status = '0';//0=null,1=pending,2=accept
+        $user->request_type =null;
+        $user->referee_code=null;
+        $user->update();
+
+        return redirect()->back()->with('success', 'Decline');
+     }
 
     public function agentAcceptold($id, $client_id)
     {
