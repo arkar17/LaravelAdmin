@@ -126,6 +126,21 @@ class RefreeManagementController extends Controller
 
     public function twoDmanage()
     {
+            // $user = auth()->user()->id;
+            // $currenDate = Carbon::now()->toDateString();
+            // $referee = Referee::where('user_id', $user)->first();
+
+            // // ->get()->toArray();
+            // $twod = DB::table('twods')->latest('twods.id')->take(100)
+            // ->leftJoin('twodsalelists','twods.id','twodsalelists.twod_id')
+            // ->select('twods.id','twods.number','twods.max_amount','twods.compensation',DB::raw('SUM(twodsalelists.sale_amount)as sales'))
+            // ->where('twodsalelists.status',1)
+            // // ->SUM('twodsalelists.sale_amount')
+            // ->groupBy('twods.number')
+            // ->get()->toArray();
+
+
+            //  dd($twod);
         return view('RefereeManagement.twoDManage');
     }
 
@@ -183,36 +198,31 @@ class RefreeManagementController extends Controller
             // dd($referee->toArray());
             // dd($referee);
             if ($time > 12) {
-            $twoD_sale = DB::select("Select aa.id,aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
+            $twoD_sale_lists = DB::select("SELECT aa.id,aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
             from (SELECT * FROM ( SELECT * FROM twods t where referee_id = '$referee->id' ORDER BY id DESC LIMIT 100 )sub ORDER BY id ASC) aa
             LEFT join agents on aa.referee_id = agents.id
             LEFT join twodsalelists ts on ts.twod_id = aa.id
+            and ts.status = 1
             where aa.referee_id = '$referee->id'
             and aa.date = '$currenDate'
             and aa.round = 'Evening'
             group by aa.number");
 
-            // $twoD_sale = Twod::select('twods.number','twods.max_amount','twods.compensation',DB::raw('SUM(twodsalelists.sale_amount)as sales'))
-            // ->join('twodsalelists','twods.id','twodsalelists.twod_id')
-            // ->where('referee_id', $referee->id)
-            // ->where('round', 'Evening')->where('date', $currenDate)->latest()->take(100)
-            // ->orderBy('twods.id','ASC')
-            // ->groupBy('twods.number')
-            // ->get();
-            // dd($twoD_sale);
-
-            // $twoD_sale_lists = collect($twoD_sale)->rsort('id')->toArray();
-            $twoD_sale_lists = Arr::sort($twoD_sale);
+            // $twoD_sale_lists = json_decode(json_encode ( $twoD_sale ) , true);
+            // $twoD_sale_lists = collect($twoD_sale)->sortBy('id')->toArray();
+            // $twoD_sale_lists->sortByDesc('score');
             } else {
-                $twoD_sale = DB::select("Select aa.id,aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
+                $twoD_sale_lists = DB::select("SELECT aa.id,aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
             from (SELECT * FROM ( SELECT * FROM twods t where referee_id = '$referee->id' ORDER BY id DESC LIMIT 100 )sub ORDER BY id ASC) aa
             LEFT join agents on aa.referee_id = agents.id
             LEFT join twodsalelists ts on ts.twod_id = aa.id
+            and ts.status = 1
             where aa.referee_id = '$referee->id'
             and aa.date = '$currenDate'
             and aa.round = 'Morning'
             group by aa.number");
-            $twoD_sale_lists = Arr::sort($twoD_sale);
+            //  $twoD_sale_lists = json_decode(json_encode ( $twoD_sale ) , true);
+            //  $twoD_sale_lists = collect($twoD_sale)->sortBy('id')->toArray();
             }
         }
         $options = array(

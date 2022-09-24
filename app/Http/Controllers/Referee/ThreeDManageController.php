@@ -26,27 +26,36 @@ class ThreeDManageController extends Controller
         $user = auth()->user();
 
         // $user = auth()->user()->id;
-                $currenDate = Carbon::now()->toDateString();
+                $currentDate = Carbon::now()->toDateString();
                 $time = Carbon::Now()->toTimeString();
                 if ($user) {
-
                     $referee = Referee::where('user_id', $user->id)->first();
                     $rate = DB::Select("SELECT t.compensation FROM threeds t where referee_id = $referee->id ORDER BY id DESC LIMIT 1");
                     if($time > 12){
-                    $lonepyaing_sale_lists = DB::select("Select aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
+                    $lonepyaing = DB::select("SELECT aa.id,aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
                     from (SELECT * FROM
-                     ( SELECT * FROM lonepyines t where referee_id = '$referee->id'
+                     ( SELECT * FROM lonepyines where referee_id = '$referee->id'
                      ORDER BY id DESC LIMIT 20 )sub ORDER BY id ASC) aa LEFT join agents on
                      aa.referee_id = agents.id LEFT join lonepyinesalelists ts on
-                     ts.lonepyine_id = aa.id where aa.referee_id = '$referee->id' and aa.date = '$currenDate' and aa.round = 'Evening' group by aa.number, aa.max_amount , agents.id , aa.max_amount , aa.compensation");
+                     ts.lonepyine_id = aa.id where aa.referee_id = '$referee->id' and aa.date = '$currentDate' and aa.round = 'Evening'
+                     group by aa.number");
+                    $lonepyaing_sale_lists = json_decode(json_encode ( $lonepyaing ) , true);
+                    $lonepyaing_sale_lists = collect($lonepyaing_sale_lists)->sortBy('id')->toArray();
+                    // $lonepyaing_sale_lists = array_values(array_sort($lonepyaing, function ($key, $value) {
+                    //     return $value['id'];
+                    // }));
+                    // dd($lonepyaing_sale_lists);
                 }
                 else{
-                    $lonepyaing_sale_lists = DB::select("Select aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
+                    $lonepyaing = DB::select("SELECT aa.id, aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
                     from (SELECT * FROM
-                     ( SELECT * FROM lonepyines t where referee_id = '$referee->id'
+                     ( SELECT * FROM lonepyines where referee_id = '$referee->id'
                      ORDER BY id DESC LIMIT 20 )sub ORDER BY id ASC) aa LEFT join agents on
                      aa.referee_id = agents.id LEFT join lonepyinesalelists ts on
-                     ts.lonepyine_id = aa.id where aa.referee_id = '$referee->id' and aa.date = '$currenDate' and aa.round = 'Morning' group by aa.number, aa.max_amount , agents.id , aa.max_amount , aa.compensation");
+                     ts.lonepyine_id = aa.id where aa.referee_id = '$referee->id' and aa.date = '$currentDate' and aa.round = 'Morning'
+                      group by aa.number");
+                    $lonepyaing_sale_lists = json_decode(json_encode ( $lonepyaing ) , true);
+                    $lonepyaing_sale_lists = collect($lonepyaing_sale_lists)->sortBy('id')->toArray();
                 }
                     }
 
@@ -63,21 +72,32 @@ class ThreeDManageController extends Controller
                 $time = Carbon::Now()->toTimeString();
                 if ($user) {
                     $referee = Referee::where('user_id', $user->id)->first();
+                    $rate = DB::Select("SELECT t.compensation FROM threeds t where referee_id = $referee->id ORDER BY id DESC LIMIT 1");
                     if($time > 12){
-                    $lonepyaing_sale_lists = DB::select("Select aa.id, aa.number , aa.max_amount ,
-                    aa.compensation , SUM(ts.sale_amount) as sales from (SELECT * FROM
-                     ( SELECT * FROM lonepyines t where referee_id = '$referee->id' ORDER BY id DESC LIMIT 20 )sub ORDER BY id ASC)
-                      aa LEFT join agents on aa.referee_id = agents.id
-                      LEFT join lonepyinesalelists ts on ts.lonepyine_id = aa.id where aa.referee_id = '$referee->id'
-                      and aa.date = '$currentDate' and aa.round = 'Evening' group by aa.number");
+                    $lonepyaing_sale_lists = DB::select("SELECT aa.id,aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
+                    from (SELECT * FROM
+                     ( SELECT * FROM lonepyines where referee_id = '$referee->id'
+                     ORDER BY id DESC LIMIT 20 )sub ORDER BY id ASC) aa LEFT join agents on
+                     aa.referee_id = agents.id LEFT join lonepyinesalelists ts on
+                     ts.lonepyine_id = aa.id where aa.referee_id = '$referee->id' and aa.date = '$currentDate' and aa.round = 'Evening'
+                     group by aa.number");
+                   // $lonepyaing_sale_lists = json_decode(json_encode ( $lonepyaing ) , true);
+                   // $lonepyaing_sale_lists = collect($lonepyaing_sale_lists)->sortBy('id')->toArray();
+                    // $lonepyaing_sale_lists = array_values(array_sort($lonepyaing, function ($key, $value) {
+                    //     return $value['id'];
+                    // }));
+                    // dd($lonepyaing_sale_lists);
                 }
                 else{
-                    $lonepyaing_sale_lists = DB::select("Select aa.id, aa.number , aa.max_amount ,
-                    aa.compensation , SUM(ts.sale_amount) as sales from (SELECT * FROM
-                    ( SELECT * FROM lonepyines t where referee_id = '$referee->id' ORDER BY id DESC LIMIT 20 )
-                    sub ORDER BY id ASC) aa LEFT join agents on aa.referee_id = agents.id
-                    LEFT join lonepyinesalelists ts on ts.lonepyine_id = aa.id where aa.referee_id = '$referee->id'
-                    and aa.date = '$referee->id' and aa.round = 'Morning' group by aa.number");
+                    $lonepyaing_sale_lists = DB::select("SELECT aa.id, aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
+                    from (SELECT * FROM
+                     ( SELECT * FROM lonepyines where referee_id = '$referee->id'
+                     ORDER BY id DESC LIMIT 20 )sub ORDER BY id ASC) aa LEFT join agents on
+                     aa.referee_id = agents.id LEFT join lonepyinesalelists ts on
+                     ts.lonepyine_id = aa.id where aa.referee_id = '$referee->id' and aa.date = '$currentDate' and aa.round = 'Morning'
+                      group by aa.number");
+                    //$lonepyaing_sale_lists = json_decode(json_encode ( $lonepyaing ) , true);
+                   // $lonepyaing_sale_lists = collect($lonepyaing_sale_lists)->sortBy('id')->toArray();
                 }
                     }
                     $options = array(
