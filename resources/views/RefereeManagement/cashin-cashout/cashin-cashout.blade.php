@@ -10,9 +10,9 @@
 
         $('.inputPhone1').val(agents[0].user.phone);
         $('.inputPhone2').val(agents[0].user.phone);
-        $('.inputRemainingAmount1').val(cashin_cashouts[0].remaining_amount == null ? "" : cashin_cashouts[0].remaining_amount);
+        $('.inputRemainingAmount1').val(cashin_cashouts[0].remaining_amount == 0 ? "" : cashin_cashouts[0].remaining_amount);
 
-        $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount == null ? "" : cashin_cashouts[0].coin_amount);
+        $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount == 0 ? "" : cashin_cashouts[0].coin_amount);
 
         $('.se1').on('change', function() {
             var id = $('.se1').val();
