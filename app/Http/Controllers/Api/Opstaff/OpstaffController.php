@@ -185,6 +185,7 @@ class OpstaffController extends Controller
             $usr = User::findOrFail($id);
             $usr->status = '0';
             $usr->request_type = null;
+            $usr->operationstaff_code = null;
             $usr->save();
 
             return response()->json([
