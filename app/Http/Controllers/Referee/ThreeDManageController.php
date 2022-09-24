@@ -65,9 +65,7 @@ class ThreeDManageController extends Controller
 
     public function TnLmanage()
     {
-        $user = auth()->user();
-        // $rate = DB::Select("SELECT t.compensation FROM threeds t where referee_id = $user ORDER BY id DESC LIMIT 1");
-        // $user = auth()->user();
+                $user = auth()->user();
                 $currentDate = Carbon::now()->toDateString();
                 $time = Carbon::Now()->toTimeString();
                 if ($user) {
@@ -81,12 +79,6 @@ class ThreeDManageController extends Controller
                      aa.referee_id = agents.id LEFT join lonepyinesalelists ts on
                      ts.lonepyine_id = aa.id where aa.referee_id = '$referee->id' and aa.date = '$currentDate' and aa.round = 'Evening'
                      group by aa.number");
-                   // $lonepyaing_sale_lists = json_decode(json_encode ( $lonepyaing ) , true);
-                   // $lonepyaing_sale_lists = collect($lonepyaing_sale_lists)->sortBy('id')->toArray();
-                    // $lonepyaing_sale_lists = array_values(array_sort($lonepyaing, function ($key, $value) {
-                    //     return $value['id'];
-                    // }));
-                    // dd($lonepyaing_sale_lists);
                 }
                 else{
                     $lonepyaing_sale_lists = DB::select("SELECT aa.id, aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
@@ -96,8 +88,6 @@ class ThreeDManageController extends Controller
                      aa.referee_id = agents.id LEFT join lonepyinesalelists ts on
                      ts.lonepyine_id = aa.id where aa.referee_id = '$referee->id' and aa.date = '$currentDate' and aa.round = 'Morning'
                       group by aa.number");
-                    //$lonepyaing_sale_lists = json_decode(json_encode ( $lonepyaing ) , true);
-                   // $lonepyaing_sale_lists = collect($lonepyaing_sale_lists)->sortBy('id')->toArray();
                 }
                     }
                     $options = array(

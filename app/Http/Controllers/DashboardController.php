@@ -26,21 +26,43 @@ class DashboardController extends Controller
     public function sysdashboard()
     {
         $user = Auth::user();
+        $tdy_date=Carbon::now()->toDateString();
+        $time=Carbon::now()->toTimeString();
+        if($time>12){
+            $round='Evening';
+        }else{
+            $round='Morning';
+        }
 
         if($user->hasRole('system_admin')){
                 $users = User::all();
                 $referees = Referee::all();
                 $agents = Agent::all();
-                $totalsaleamounts = DB::select("Select (SUM(ts.sale_amount)+SUM(tr.sale_amount)+SUM(ls.sale_amount)) maincash ,re.id From agents a left join referees re on re.id = a.referee_id left join twodsalelists ts on ts.agent_id = a.id and ts.status = 1 left join threedsalelists tr on tr.agent_id = a.id and tr.status = 1 left join lonepyinesalelists ls on ls.agent_id = a.id and ls.status = 1 Group By re.id;");
+                $totalsaleamounts = DB::select("SELECT (SUM(ts.sale_amount)+SUM(tr.sale_amount)+SUM(ls.sale_amount)) maincash ,re.id
+                                                FROM agents a LEFT JOIN referees re ON re.id = a.referee_id
+                                                LEFT JOIN twodsalelists ts ON ts.agent_id = a.id AND ts.status = 1
+                                                LEFT JOIN threedsalelists tr ON tr.agent_id = a.id AND tr.status = 1
+                                                LEFT JOIN lonepyinesalelists ls ON ls.agent_id = a.id AND ls.status = 1
+                                                Group By re.id;");
 
                 $twodtotal = (int)Twodsalelist::where('status', '=', '1')->sum('sale_amount');
                 $threedtotal = (int)Threedsalelist::where('status', '=', '1')->sum('sale_amount');
                 $lonepyinetotal = (int)Lonepyinesalelist::where('status', '=', '1')->sum('sale_amount');
                 $sum = $twodtotal + $threedtotal + $lonepyinetotal;
 
-                $twod_salelists = Twodsalelist::select('number', 'sale_amount')->orderBy('sale_amount', 'DESC')->join('twods', 'twods.id', 'twodsalelists.twod_id')->limit(10)->get();
-                $lp_salelists = Lonepyinesalelist::select('number', 'sale_amount')->orderBy('sale_amount', 'DESC')->join('lonepyines', 'lonepyines.id', 'lonepyinesalelists.lonepyine_id')->limit(10)->get();
-                $refereesaleamounts = DB::select("Select (SUM(ts.sale_amount)+SUM(tr.sale_amount)+SUM(ls.sale_amount))maincash ,re.id From agents a left join referees re on re.id = a.referee_id left join twodsalelists ts on ts.agent_id = a.id and ts.status = 1 left join threedsalelists tr on tr.agent_id = a.id and tr.status = 1 left join lonepyinesalelists ls on ls.agent_id = a.id and ls.status = 1 Group By re.id ORDER BY maincash DESC;");
+                $twod_salelists = Twodsalelist::select('number', 'sale_amount')
+                                                ->orderBy('sale_amount', 'DESC')
+                                                ->join('twods', 'twods.id', 'twodsalelists.twod_id')
+                                                ->where('twods.date',$tdy_date)
+                                                ->where('twods.round',$round)
+                                                ->limit(10)->get();
+                $lp_salelists = Lonepyinesalelist::select('number', 'sale_amount')
+                                                ->orderBy('sale_amount', 'DESC')
+                                                ->join('lonepyines', 'lonepyines.id', 'lonepyinesalelists.lonepyine_id')
+                                                ->where('lonepyines.date',$tdy_date)
+                                                ->where('lonepyines.round',$round)
+                                                ->limit(10)->get();
+                $refereesaleamounts = DB::select("Select (SUM(ts.sale_amount)+SUM(tr.sale_amount)+SUM(ls.sale_amount))maincash ,re.id From agents a LEFT join referees re on re.id = a.referee_id left join twodsalelists ts on ts.agent_id = a.id and ts.status = 1 left join threedsalelists tr on tr.agent_id = a.id and tr.status = 1 left join lonepyinesalelists ls on ls.agent_id = a.id and ls.status = 1 Group By re.id ORDER BY maincash DESC;");
 
                 return view('dashboard', compact('users', 'referees','refereesaleamounts', 'twod_salelists','agents', 'lp_salelists', 'totalsaleamounts', 'sum'));
         }else{
@@ -191,8 +213,10 @@ class DashboardController extends Controller
 
 
             $referee =Referee::where('user_id',$user->id)->first();
-            $refe_twod_salelists = Twodsalelist::select('number', 'sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','twodsalelists.agent_id','agents.id')->where('agents.referee_id',$referee->id)->join('twods', 'twods.id', 'twodsalelists.twod_id')->limit(10)->get();
-            $refe_lp_salelists = Lonepyinesalelist::select('number', 'sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','lonepyinesalelists.agent_id','agents.id')->where('agents.referee_id',$referee->id)->join('lonepyines', 'lonepyines.id', 'lonepyinesalelists.lonepyine_id')->limit(10)->get();
+            $refe_twod_salelists = Twodsalelist::select('number', 'sale_amount')->orderBy('sale_amount', 'DESC')->where('twods.date',$tdy_date)
+            ->where('twods.round',$round)->join('agents','twodsalelists.agent_id','agents.id')->where('agents.referee_id',$referee->id)->join('twods', 'twods.id', 'twodsalelists.twod_id')->limit(10)->get();
+            $refe_lp_salelists = Lonepyinesalelist::select('number', 'sale_amount')->orderBy('sale_amount', 'DESC')->where('lonepyines.date',$tdy_date)
+            ->where('lonepyines.round',$round)->join('agents','lonepyinesalelists.agent_id','agents.id')->where('agents.referee_id',$referee->id)->join('lonepyines', 'lonepyines.id', 'lonepyinesalelists.lonepyine_id')->limit(10)->get();
 
             $Declined_twoDList = Twodsalelist::select('twods.number','twods.max_amount','users.name',DB::raw('SUM(twodsalelists.sale_amount)as sales'))
             ->join('twods','twods.id','twodsalelists.twod_id')
