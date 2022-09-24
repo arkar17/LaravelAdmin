@@ -1,13 +1,30 @@
 $(document).ready(function(){
     $.getJSON('http://128.199.201.43/send', (data, jqXHR) => {
-        if(data.data.salesList.length != 0){
-            $.each(data.data.salesList, function(index, value){
+        console.log(data);
+
+
+        // console.log(twodData)
+        // if(data.data.salesList.length != 0){
+            const twodListData = data.data.salesList.sort((a,b) => {
+                return parseInt(a.number) - parseInt(b.number)
+            })
+        // }
+
+        console.log(twodListData)
+//
+
+        if(twodListData.length != 0){
+
+
+            //  console.log(twodData)
+
+            $.each(twodListData, function(index, value){
                 // value.sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
-                // console.log(value);
+
                 $(".twod-manage-numbers-rows-container").append(`
                 <div class="twod-manage-numbers-row">
                 <div class="twod-manage-numbers-attributes">
-                    <p>${index <= 9? `0${index}` : index}</p>
+                    <p>${value.number}</p>
                     <p>${value.compensation}</p>
                     <p>${value.max_amount}</p>
                     <p>${value.sales == null? `0` : value.sales}</p>
@@ -62,7 +79,7 @@ $(document).ready(function(){
         rateinputArr.each(function(index){
             // console.log(index)
             // console.log(data.data[index].max_amount)
-            const value = $(this).val()? $(this).val() : data.data.salesList[index].compensation //checking if input is empty. if it is empty push the old value
+            const value = $(this).val()? $(this).val() : twodListData[index]?.compensation //checking if input is empty. if it is empty push the old value
            rate.push(parseInt(value))
         //    data()
 
@@ -73,7 +90,7 @@ $(document).ready(function(){
         //pushing values from inputs to max array
         const maxinputarr = $(".twod-manage-numbers-inputs-container #twod-number-max")
         maxinputarr.each(function(index){
-            const value = $(this).val()? $(this).val() : data.data.salesList[index].max_amount //checking if input is empty. if it is empty push the old value
+            const value = $(this).val()? $(this).val() : twodListData[index]?.max_amount //checking if input is empty. if it is empty push the old value
             max.push(parseInt(value))
 
             $(this).val("")

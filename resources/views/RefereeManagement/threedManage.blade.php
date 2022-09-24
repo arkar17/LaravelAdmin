@@ -54,7 +54,7 @@
                         @for ($i = 0; $i <= 9 ; $i++)
                         <div class="lonepyine-manage-numbers-row">
                             <div class="lonepyine-manage-numbers-attributes">
-                            <p>{{$i}} &nbsp;&nbsp;<span>∞</span></p>
+                            <p>{{$i}} &nbsp;&nbsp;<span>*</span></p>
                             <p>0</p>
                             <p>0</p>
                             <p>0</p>
@@ -69,7 +69,7 @@
                         @for ($i = 0; $i <= 9 ; $i++)
                         <div class="lonepyine-manage-numbers-row">
                             <div class="lonepyine-manage-numbers-attributes">
-                            <p><span>∞</span>&nbsp;&nbsp;{{$i}} </p>
+                            <p><span>*</span>&nbsp;&nbsp;{{$i}} </p>
                             <p>0</p>
                             <p>0</p>
                             <p>0</p>
@@ -83,13 +83,16 @@
                         @endfor
 
                     @else
+                    {{-- @php
+                       $lplist = sort($lonepyaing_sale_lists)
+                    @endphp --}}
                         @foreach($lonepyaing_sale_lists as $lonePyaing)
                         <div class="lonepyine-manage-numbers-row">
                             <div class="lonepyine-manage-numbers-attributes">
-                            <p>{{$lonePyaing->number}}</span></p>
-                            <p>{{$lonePyaing->compensation}}</p>
-                            <p>{{$lonePyaing->max_amount}}</p>
-                            <p>{{$lonePyaing->sales}}</p>
+                            <p>{{$lonePyaing['number']}}</span></p>
+                            <p>{{$lonePyaing['compensation']}}</p>
+                            <p>{{$lonePyaing['max_amount']}}</p>
+                            <p>{{$lonePyaing['sales']}}</p>
                             </div>
 
                             <div class="lonepyine-manage-numbers-inputs-container">
