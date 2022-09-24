@@ -26,12 +26,12 @@
 
             <div id="hide">
                 @if (Session::has('accept'))
-                    <h4 class="main-cash-alert"> {{ Session::get('accept') }} <span class="closeBtn">X</span> </h4>
+                    <h4 class="main-cash-alert"> {{ Session::get('accept') }} &nbsp;&nbsp;&nbsp;<span class="closeBtn">x</span> </h4>
                 @endif
             </div>
             <div id="hide">
                 @if (Session::has('declined'))
-                    <h4 class="main-cash-alert"> {{ Session::get('accept') }} <span class="closeBtn">X</span> </h4>
+                    <h4 class="main-cash-alert"> {{ Session::get('accept') }} &nbsp;&nbsp;&nbsp;<span class="closeBtn">x</span> </h4>
                 @endif
             </div>
         @endforeach

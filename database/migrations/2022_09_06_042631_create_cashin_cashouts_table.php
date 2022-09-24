@@ -20,7 +20,7 @@ class CreateCashinCashoutsTable extends Migration
             $table->bigInteger('coin_amount')->default(0);
             $table->integer('status')->nullable();
             $table->bigInteger('payment')->nullable();
-            $table->bigInteger('remaining_amount')->nullable();
+            $table->bigInteger('remaining_amount')->default(0);
             $table->bigInteger('withdraw')->nullable();
             $table->timestamps();
         });
