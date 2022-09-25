@@ -407,17 +407,14 @@ class RefreeManagementController extends Controller
         }
         if($time > 12){
             $amtForA = DB::select("SELECT t.round,ts.agent_id,
-            SUM(ts.sale_amount) as SalesAmount,a.commision,
-            (cio.coin_amount + (a.commision/100)*  SUM(ts.sale_amount) -
-                 SUM(ts.sale_amount)
-            ) as UpdateAmt
+            SUM(ts.sale_amount) as SalesAmount,a.commision,(cio.coin_amount + (a.commision/100)*  SUM(ts.sale_amount) -SUM(ts.sale_amount)) as UpdateAmt
                 FROM twodsalelists ts
                 left join twods t on t.id = ts.twod_id
                 left join agents a ON a.id = ts.agent_id
                 left join cashin_cashouts cio on ts.agent_id = cio.agent_id
                 and t.round = 'Evening' and ts.status = '3' and t.date = '$currenDate'
                 group by ts.agent_id");
-            // dd($amtForA);
+            //dd($amtForA);
             $amtforR = DB::select("SELECT (COALESCE(SUM(ts.sale_amount),0) + COALESCE(re.main_cash,0)) - (a.commision/100)*  (COALESCE(SUM(ts.sale_amount),0))  totalSale ,re.id,
                         ((a.commision/100)*  (COALESCE(SUM(ts.sale_amount),0))
                                     ) as Commission
@@ -432,7 +429,7 @@ class RefreeManagementController extends Controller
                 Referee::where('id',$amtR->id)->update(["main_cash"=>$amtR->totalSale]);
             }
             foreach($amtForA as $amt){
-
+                dump($amt);
                 CashinCashout::where('agent_id',$amt->agent_id)->update(["coin_amount"=>$amt->UpdateAmt]);
             }
         }
