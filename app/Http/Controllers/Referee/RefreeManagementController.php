@@ -429,7 +429,7 @@ class RefreeManagementController extends Controller
                 Referee::where('id',$amtR->id)->update(["main_cash"=>$amtR->totalSale]);
             }
             foreach($amtForA as $amt){
-                dd($amtR);
+                dd($amtForA);
                 CashinCashout::where('agent_id',$amt->agent_id)->update(["coin_amount"=>$amt->UpdateAmt]);
             }
         }
