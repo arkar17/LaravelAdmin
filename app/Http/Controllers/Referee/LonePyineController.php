@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Referee;
-use App\Models\Agent;
+use Carbon\Carbon;
 
+use App\Models\Agent;
 use App\Models\Referee;
 use Illuminate\Http\Request;
 use App\Models\Lonepyinesalelist;
@@ -19,10 +20,20 @@ class LonePyineController extends Controller
         $referee =Referee::where('user_id',$user)->first();
         $agents = Agent::where('id' ,'>' ,0)->where('referee_id',$referee->id)->pluck('id')->toArray();
 
+        $morning ='Morning';
+        $evening ='Evening';
+        $time = Carbon::Now()->toTimeString();
+        $tdy_date=Carbon::now()->toDateString();
+
+    if($time > 12){
+
+
         $lonepyineSaleList = Lonepyinesalelist::select('lonepyinesalelists.id','lonepyinesalelists.lonepyine_id','lonepyinesalelists.sale_amount',
         'lonepyinesalelists.customer_name','users.name','lonepyines.number')
         ->whereIn('lonepyinesalelists.agent_id',$agents)
         ->where('lonepyinesalelists.status',1)
+        ->where('lonepyinesalelists.date',$tdy_date)
+        ->where('lonepyines.round',$evening)
         ->join('agents','agents.id','lonepyinesalelists.agent_id')
         ->join('users','users.id','agents.user_id')
         ->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')
@@ -30,6 +41,23 @@ class LonePyineController extends Controller
 
         //dd($lonepyineSaleList->toArray());
         return view('RefereeManagement.lonepyinesalelist')->with(['lonepyineSaleList'=>$lonepyineSaleList]);
+
+    }else{
+        $lonepyineSaleList = Lonepyinesalelist::select('lonepyinesalelists.id','lonepyinesalelists.lonepyine_id','lonepyinesalelists.sale_amount',
+        'lonepyinesalelists.customer_name','users.name','lonepyines.number')
+        ->whereIn('lonepyinesalelists.agent_id',$agents)
+        ->where('lonepyinesalelists.status',1)
+        ->where('lonepyinesalelists.date',$tdy_date)
+        ->where('lonepyines.round',$morning)
+        ->join('agents','agents.id','lonepyinesalelists.agent_id')
+        ->join('users','users.id','agents.user_id')
+        ->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')
+        ->get();
+
+        //dd($lonepyineSaleList->toArray());
+        return view('RefereeManagement.lonepyinesalelist')->with(['lonepyineSaleList'=>$lonepyineSaleList]);
+
+    }
     }
     public function searchlonepyineagent(Request $request){
         $data =  Lonepyinesalelist::select('lonepyinesalelists.id','lonepyinesalelists.lonepyine_id','lonepyinesalelists.sale_amount',
