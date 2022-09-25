@@ -336,10 +336,10 @@ class RefreeManagementController extends Controller
         //dd($agents->toArray());
         $user = auth()->user()->id;
         $referee =Referee::where('user_id',$user)->first();
-        $twod_salelists = Twodsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','twodsalelists.agent_id','agents.id')->where('twods.date',$tdy_date)
+        $twod_salelists = Twodsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','twodsalelists.agent_id','agents.id')->where('twodsalelists.date',$tdy_date)
         ->where('twods.round',$round)->where('agents.referee_id',$referee->id)->join('twods','twods.id','twodsalelists.twod_id')->limit(10)->get();
 
-        $lp_salelists = Lonepyinesalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','lonepyinesalelists.agent_id','agents.id')->where('lonepyines.date',$tdy_date)
+        $lp_salelists = Lonepyinesalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','lonepyinesalelists.agent_id','agents.id')->where('lonepyinesalelists.date',$tdy_date)
         ->where('lonepyines.round',$round)->where('agents.referee_id',$referee->id)->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')->limit(10)->get();
 
         $threed_salelists = Threedsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','threedsalelists.agent_id','agents.id')->where('threeds.date',$tdy_date)->where('agents.referee_id',$referee->id)->join('threeds','threeds.id','threedsalelists.threed_id')->limit(10)->get();

@@ -213,9 +213,9 @@ class DashboardController extends Controller
 
 
             $referee =Referee::where('user_id',$user->id)->first();
-            $refe_twod_salelists = Twodsalelist::select('number', 'sale_amount')->orderBy('sale_amount', 'DESC')->where('twods.date',$tdy_date)
+            $refe_twod_salelists = Twodsalelist::select('number', 'sale_amount')->orderBy('sale_amount', 'DESC')->where('twodsalelists.date',$tdy_date)
             ->where('twods.round',$round)->join('agents','twodsalelists.agent_id','agents.id')->where('agents.referee_id',$referee->id)->join('twods', 'twods.id', 'twodsalelists.twod_id')->limit(10)->get();
-            $refe_lp_salelists = Lonepyinesalelist::select('number', 'sale_amount')->orderBy('sale_amount', 'DESC')->where('lonepyines.date',$tdy_date)
+            $refe_lp_salelists = Lonepyinesalelist::select('number', 'sale_amount')->orderBy('sale_amount', 'DESC')->where('lonepyinesalelists.date',$tdy_date)
             ->where('lonepyines.round',$round)->join('agents','lonepyinesalelists.agent_id','agents.id')->where('agents.referee_id',$referee->id)->join('lonepyines', 'lonepyines.id', 'lonepyinesalelists.lonepyine_id')->limit(10)->get();
 
             $Declined_twoDList = Twodsalelist::select('twods.number','twods.max_amount','users.name',DB::raw('SUM(twodsalelists.sale_amount)as sales'))
