@@ -222,8 +222,8 @@ class RefreeManagementController extends Controller
             $options
         );
 
-        // $data['message'] = 'Hello XpertPhp';
-        $pusher->trigger('testing-channel.' . $referee->id, 'App\\Events\\testing',  ['salesList' => $twoD_sale_lists]);
+        $data = 'Updated';
+        $pusher->trigger('testing-channel.' . $referee->id, 'App\\Events\\testing',  $data);
         return response()->json([
             'status' => 200,
             'data' => ['salesList' => $twoD_sale_lists]
@@ -239,22 +239,6 @@ class RefreeManagementController extends Controller
 
     // dailysalebook start
     public function dailysalebook(){
-        // $user = auth()->user()->id;
-        // $currenDate = Carbon::now()->toDateString();
-        // $referee = Referee::where('user_id', $user)->first();
-
-        // $twoD_sale_lists = DB::select("SELECT aa.id,aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
-        // from (SELECT * FROM ( SELECT * FROM twods t where referee_id = '$referee->id' ORDER BY id DESC LIMIT 100 )sub ORDER BY id ASC) aa
-        // LEFT join agents on aa.referee_id = agents.id
-        // LEFT join twodsalelists ts on ts.twod_id = aa.id
-        // and ts.status = 1
-        // where aa.referee_id = '$referee->id'
-        // and aa.date = '$currenDate'
-        // and aa.round = 'Morning'
-        // group by aa.number");
-
-
-        // dd($twoD_sale_lists);
         $agents = Agent::get();
         //dd($agents->toArray());
         $user = auth()->user()->id;
@@ -422,19 +406,16 @@ class RefreeManagementController extends Controller
             ->update(["status" => 3]);
         }
         if($time > 12){
-
-            $amtForA = DB::select("SELECT t.round,ts.agent_id, (COALESCE(SUM(ts.sale_amount),0)) as SalesAmount,a.commision,
-            (cio.coin_amount + (a.commision/100)*  (COALESCE(SUM(ts.sale_amount),0)) -
-                 COALESCE(SUM(ts.sale_amount),0)
-            ) as UpdateAmt
+            $amtForA = DB::select("SELECT t.round,ts.agent_id, SUM(ts.sale_amount) as SalesAmount , a.commision,
+            (cio.coin_amount + (a.commision/100) *  SUM(ts.sale_amount) - SUM(ts.sale_amount)) as UpdateAmt
                 FROM twodsalelists ts
                 left join twods t on t.id = ts.twod_id
                 left join agents a ON a.id = ts.agent_id
                 left join cashin_cashouts cio on ts.agent_id = cio.agent_id
                 and t.round = 'Evening' and ts.status = '3' and t.date = '$currenDate'
                 group by ts.agent_id");
-            // dd($amtForA);
-            $amtforR = DB::select("Select (COALESCE(SUM(ts.sale_amount),0) + COALESCE(re.main_cash,0)) - (a.commision/100)*  (COALESCE(SUM(ts.sale_amount),0))  totalSale ,re.id,
+            //dd($amtForA);
+            $amtforR = DB::select("SELECT (COALESCE(SUM(ts.sale_amount),0) + COALESCE(re.main_cash,0)) - (a.commision/100)*  (COALESCE(SUM(ts.sale_amount),0))  totalSale ,re.id,
                         ((a.commision/100)*  (COALESCE(SUM(ts.sale_amount),0))
                                     ) as Commission
                 From agents a left join referees re on re.id = a.referee_id
@@ -444,19 +425,17 @@ class RefreeManagementController extends Controller
                 Group By re.id;");
             // dd($amtforR);
             foreach($amtforR as $amtR){
-                //  dd($amtR->totalSale);
+                // dd($amtR->totalSale);
                 Referee::where('id',$amtR->id)->update(["main_cash"=>$amtR->totalSale]);
             }
             foreach($amtForA as $amt){
-                // dd($amt->UpdateAmt);
+                // dd($amt);
                 CashinCashout::where('agent_id',$amt->agent_id)->update(["coin_amount"=>$amt->UpdateAmt]);
             }
         }
             else{
-                $amtForA = DB::select("SELECT t.round,ts.agent_id, (COALESCE(SUM(ts.sale_amount),0)) as SalesAmount,a.commision,
-            (cio.coin_amount + (a.commision/100)*  (COALESCE(SUM(ts.sale_amount),0)) -
-                 COALESCE(SUM(ts.sale_amount),0)
-            ) as UpdateAmt
+                $amtForA = DB::select("SELECT t.round,ts.agent_id,(SUM(ts.sale_amount)) as SalesAmount,a.commision,
+            (cio.coin_amount + (a.commision/100)*SUM(ts.sale_amount) - SUM(ts.sale_amount)) as UpdateAmt
                 FROM twodsalelists ts
                 left join twods t on t.id = ts.twod_id
                 left join agents a ON a.id = ts.agent_id
@@ -465,7 +444,7 @@ class RefreeManagementController extends Controller
                 group by ts.agent_id");
                 //  dd($amtForA);
 
-                $amtforR = DB::select("Select (COALESCE(SUM(ts.sale_amount),0) + COALESCE(re.main_cash,0)) - (a.commision/100)*  (COALESCE(SUM(ts.sale_amount),0))  totalSale ,re.id,
+                $amtforR = DB::select("SELECT (COALESCE(SUM(ts.sale_amount),0) + COALESCE(re.main_cash,0)) - (a.commision/100)*  (COALESCE(SUM(ts.sale_amount),0))  totalSale ,re.id,
                 ((a.commision/100)*  (COALESCE(SUM(ts.sale_amount),0))) as Commission
                 From agents a left join referees re on re.id = a.referee_id
                 right join twodsalelists ts on ts.agent_id = a.id
@@ -519,120 +498,56 @@ class RefreeManagementController extends Controller
 
         if($time > 12){
 
-            $amtForA = DB::select("SELECT ls.agent_id, (COALESCE(SUM(ls.sale_amount),0)) as SalesAmount,a.commision,
-
-            (cio.coin_amount + (a.commision/100)*  (COALESCE(SUM(ls.sale_amount),0)) - COALESCE(SUM(ls.sale_amount),0)
-
-            ) as UpdateAmt
-
+            $amtForA = DB::select("SELECT ls.agent_id, (SUM(ls.sale_amount)) as SalesAmount,a.commision,
+            (cio.coin_amount + (a.commision/100)*  SUM(ls.sale_amount)) - (SUM(ls.sale_amount)) as UpdateAmt
             FROM lonepyinesalelists ls
-
             left join agents a ON a.id = ls.agent_id
-
             left join lonepyines l on l.id = ls.lonepyine_id
-
             left join cashin_cashouts cio on ls.agent_id = cio.agent_id
-
             where l.round = 'Evening' and ls.status = '3' and l.date = '$currenDate'
-
             group by ls.agent_id");
-
-
-
             $amtforR = DB::select("Select (COALESCE(SUM(ls.sale_amount),0) + COALESCE(re.main_cash,0) - (a.commision/100)* (COALESCE(SUM(ls.       sale_amount),0))) totalSale ,re.id
-
             From agents a left join referees re on re.id = a.referee_id
-
             left join lonepyinesalelists ls on ls.agent_id = a.id
-
             left join lonepyines l on l.id = ls.lonepyine_id
-
             where ls.status = 3 and l.round = 'Evening' and l.date = '$currenDate'
-
             Group By re.id");
-
             // dd($amtforR);
-
             foreach($amtforR as $amtR){
-
-                //  dd($amtR->totalSale);
-
                 Referee::where('id',$amtR->id)->update(["main_cash"=>$amtR->totalSale]);
-
             }
-
             foreach($amtForA as $amt){
-
-                // dd($amt->UpdateAmt);
-
                 CashinCashout::where('agent_id',$amt->agent_id)->update(["coin_amount"=>$amt->UpdateAmt]);
-
             }
-
         }
-
             else{
-
-                $amtForA = DB::select("SELECT ls.agent_id,COALESCE(SUM(ls.sale_amount),0)) as SalesAmount,a.commision,
-
-                (cio.coin_amount + (a.commision/100)*  (COALESCE(SUM(ls.sale_amount),0)) - COALESCE(SUM(ls.sale_amount),0)
-
-                ) as UpdateAmt
-
+                $amtForA = DB::select("SELECT ls.agent_id,(SUM(ls.sale_amount)) as SalesAmount,a.commision,
+                (cio.coin_amount + (a.commision/100)*  (SUM(ls.sale_amount) - SUM(ls.sale_amount))) as UpdateAmt
                 FROM lonepyinesalelists ls
-
                 left join agents a on a.id = ls.agent_id
-
                 left join lonepyines l on l.id = ls.lonepyine_id
-
                 left join cashin_cashouts cio on ls.agent_id = cio.agent_id
-
                 where l.round = 'Morning' and ls.status = '1' and l.date = '$currenDate'
-
                 group by ls.agent_id");
-
-
-
-                $amtforR = DB::select("Select (COALESCE(SUM(ls.sale_amount),0) + COALESCE(re.main_cash,0)) totalSale ,re.id
-
+                $amtforR = DB::select("SELECT (COALESCE(SUM(ls.sale_amount),0) + COALESCE(re.main_cash,0)) totalSale ,re.id
                 From agents a left join referees re on re.id = a.referee_id
-
                 left join lonepyinesalelists ls on ls.agent_id = a.id
-
                 left join lonepyines l on l.id = ls.lonepyine_id
-
                 where ls.status = 3 and l.round = 'Morning' and l.date = '$currenDate'
-
                 Group By re.id");
-
                 // dd($amtforR);
-
                 foreach($amtforR as $amtR){
-
-                    //  dd($amtR->totalSale);
-
                     Referee::where('id',$amtR->id)->update(["main_cash"=>$amtR->totalSale]);
-
                 }
-
                 foreach($amtForA as $amt){
-
                     // dd($amt->UpdateAmt);
-
                     CashinCashout::where('agent_id',$amt->agent_id)->update(["coin_amount"=>$amt->UpdateAmt]);
-
                 }
-
             }
-
             foreach($request->id as $re){
-
                 Lonepyinesalelist::where('id',$re)
-
                 ->update(["status" => 1]);
-
             }
-
             $options = array(
 
                 'cluster' => env('PUSHER_APP_CLUSTER'),

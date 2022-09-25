@@ -27,7 +27,7 @@ class ThreedController extends Controller
         'threedsalelists.customer_name','users.name','threeds.number')
         ->whereIn('threedsalelists.agent_id',$agents)
         ->where('threedsalelists.status',1)
-        ->where('threedsalelists.date',$tdy_date)
+        ->where('threeds.date',$tdy_date)
         ->orderBy('threedsalelists.id','desc')
         ->join('threeds','threeds.id','threedsalelists.threed_id')
         ->join('agents','agents.id','threedsalelists.agent_id')

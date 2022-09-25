@@ -74,6 +74,7 @@ class OpstaffController extends Controller
                 'status' => 200,
                 'message' => "Operation profile updated successfully",
                 'data' => $user,
+                'op_staff' => $op_staff
             ]);
         } else {
             return response()->json([

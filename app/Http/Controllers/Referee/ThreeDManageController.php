@@ -101,8 +101,8 @@ class ThreeDManageController extends Controller
                         $options
                         );
 
-                            // $data['message'] = 'Hello XpertPhp';
-                        $pusher->trigger('lonepyine-channel.'.$referee->id, 'App\\Events\\lonepyine',  ['salesList' => $lonepyaing_sale_lists]);
+                        $data = 'Updated';
+                        $pusher->trigger('lonepyine-channel.'.$referee->id, 'App\\Events\\lonepyine',  $data);
                         return response()->json([
                             'status' => 200,
                             'data' => ['salesList' => $lonepyaing_sale_lists]
@@ -211,16 +211,16 @@ class ThreeDManageController extends Controller
         if($time > 12){
             foreach ($lonePyaingList as $lonePyaingLists) {
                 $LonePyaing = new Lonepyine();
-               //  intval($num)
-                $maxAmt = $lonePyaingLists['maxAmount'];
-                $comp = $lonePyaingLists['compensation'];
-                $LonePyaing->number = $lonePyaingLists['lonepyineNumber'];
-                $LonePyaing->date = $date;
-                $LonePyaing->max_amount = intval($maxAmt);
-                $LonePyaing->compensation = $comp;
-                $LonePyaing->round =  'Evening';
-                $LonePyaing->referee_id = $referee->id;
-                $LonePyaing->save();
+                //  intval($num)
+                 $maxAmt = $lonePyaingLists['maxAmount'];
+                 $comp = $lonePyaingLists['compensation'];
+                 $LonePyaing->number = $lonePyaingLists['lonepyineNumber'];
+                 $LonePyaing->date = $date;
+                 $LonePyaing->max_amount = intval($maxAmt);
+                 $LonePyaing->compensation = $comp;
+                 $LonePyaing->round =  'Evening';
+                 $LonePyaing->referee_id = $referee->id;
+                 $LonePyaing->save();
             }
         }
         else{
