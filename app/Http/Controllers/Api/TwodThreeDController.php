@@ -139,7 +139,7 @@ class TwodThreeDController extends Controller
         }
         return response()->json([
              'status' => 200,
-             'data' => $lonepyines
+             'lonepyines' => $lonepyines
         ]);
     }
 
@@ -161,7 +161,7 @@ class TwodThreeDController extends Controller
         }
         return response()->json([
              'status' => 200,
-             'data' => $lonepyines
+             'lonepyines' => $lonepyines
         ]);
     }
 
