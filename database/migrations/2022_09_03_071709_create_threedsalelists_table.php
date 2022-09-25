@@ -17,7 +17,7 @@ class CreateThreedsalelistsTable extends Migration
             $table->id();
             $table->integer('threed_id');
             $table->integer('agent_id');
-            $table->bigInteger('sale_amount')->nullable();
+            $table->bigInteger('sale_amount')->default(0);
             $table->string('status')->default(0);
             $table->boolean('winning_status')->default(0);
             $table->date('date')->nullable();

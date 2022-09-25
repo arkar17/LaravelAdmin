@@ -70,7 +70,8 @@
             border-radius: 5px;
             padding: 10px;
         }
-        .error-alert{
+
+        .error-alert {
             margin-top: 10px;
             color: white;
             margin-left: 20px;
@@ -119,7 +120,7 @@
                 </div>
             </div>
             @if (Session::has('main-cash'))
-            <div id="hide">
+                <div id="hide">
                     <h4 class="main-cash-alert"> {{ Session::get('main-cash') }} <span class="closeBtn">X</span> </h4>
                 </div>
             @endif
@@ -162,7 +163,7 @@
                             class="inputCoinAmount1 @error('coin_amount')
                             alert-border
                         @enderror"
-                            name="coin_amount"  />
+                            name="coin_amount" />
 
                         @error('coin_amount')
                             <small class="error-message">{{ $message }}</small>
@@ -194,11 +195,12 @@
                     </div>
 
                     <div class="cashin-agent-payment-container">
-                        <p>{{__('msg.Remaining Amount')}}</p>
+                        <p>{{ __('msg.Remaining Amount') }}</p>
                         <input type="number" placeholder="" name="remaining_amount" class="inputRemainingAmount1"
                             class="@error('payment')
                           alert-border
-                      @enderror" disabled />
+                      @enderror"
+                            disabled />
 
                         @error('payment')
                             <small class="error-message">{{ $message }}</small>
@@ -214,18 +216,18 @@
                 </div>
 
 
-                    @if (Session::has('cash-in'))
+                @if (Session::has('cash-in'))
                     <div id="hide">
                         <h4 class="main-cash-alert"> {{ Session::get('cash-in') }} <span class="closeBtn">X</span> </h4>
                     </div>
-                    @endif
+                @endif
 
 
-                    @if (Session::has('error'))
+                @if (Session::has('error'))
                     <div id="hide">
                         <h4 class="error-alert"> {{ Session::get('error') }} <span class="closeBtn">X</span> </h4>
                     </div>
-                    @endif
+                @endif
 
 
             </form>
@@ -251,7 +253,7 @@
                                 <p>{{ $cashin_cashout->agent->user->name }}</p>
                                 <p>{{ $cashin_cashout->agent->user->phone }}</p>
                                 <p>{{ $cashin_cashout->coin_amount }}</p>
-                                @if ($cashin_cashout->status == 1)
+                                @if ($cashin_cashout->payment >= $cashin_cashout->coin_amount)
                                     <p style="color: rgb(107, 153, 37)">{{ __('msg.Fully Paid') }}</p>
                                 @else
                                     <p style="color: red">{{ __('msg.Credit') }}</p>
@@ -298,8 +300,7 @@
                     </div>
                     <div class="cashin-agent-coin-container">
                         <p>{{ __('msg.Coin Amount') }}</p>
-                        <input type="number" placeholder="Enter Coin Amount"
-                            class="inputCoinAmount2"
+                        <input type="number" placeholder="Enter Coin Amount" class="inputCoinAmount2"
                             name="coin_amount" disabled />
                     </div>
                 </div>
@@ -329,10 +330,11 @@
                     </div>
                 @endif
                 @if (Session::has('cashout-error'))
-                <div id="hide">
-                    <h4 class="error-alert"> {{ Session::get('cashout-error') }} <span class="closeBtn">X</span> </h4>
-                </div>
-            @endif
+                    <div id="hide">
+                        <h4 class="error-alert"> {{ Session::get('cashout-error') }} <span class="closeBtn">X</span>
+                        </h4>
+                    </div>
+                @endif
             </form>
 
 
@@ -370,73 +372,74 @@
     {{-- --------------------------------  Cash Out --------------------------------------- --}}
 
     </div>
-@include('RefereeManagement.cashin-cashout.cashin-cashout')
 @endsection
-{{--
+
 @push('script')
-<script>
-    $(document).ready(function() {
+    <script>
+        $(document).ready(function() {
 
-        $('.select2').select2();
+            $('.select2').select2();
 
-        var agents = @json($agents);
-        var cashin_cashouts = @json($cashin_cashouts);
+            var agents = @json($agents);
+            var cashin_cashouts = @json($cashin_cashouts);
 
-        console.log(cashin_cashouts);
 
-        $('.inputPhone1').val(agents[0].user.phone);
-        $('.inputPhone2').val(agents[0].user.phone);
-        $('.inputRemainingAmount1').val(cashin_cashouts[0].remaining_amount);
+            $('.inputPhone1').val(agents[0].user.phone);
+            $('.inputPhone2').val(agents[0].user.phone);
+            if (cashin_cashouts.length != 0) {
+                $('.inputRemainingAmount1').val(cashin_cashouts[0].remaining_amount == 0 ? "" : cashin_cashouts[0]
+                    .remaining_amount);
+                $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount == 0 ? "" : cashin_cashouts[0]
+                    .coin_amount);
+            }
 
-        $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount);
-        $('.se1').on('change', function() {
-            var id = $('.se1').val();
-            console.log("Hee Hee");
-            agents.forEach(agent => {
-                if (agent.id == id) {
-                    $('.inputPhone1').val(agent.user.phone);
-                }
-            });
-        });
-        // to show remaining amount start
-        $('.se1').on('change', function() {
-            var id = $('.se1').val();
-            agents.forEach(agent => {
-                cashin_cashouts.forEach(cashin_cashout => {
-                    if (cashin_cashout.agent.id == agent.id) {
-                        if (agent.id == id) {
-                            $('.inputRemainingAmount1').val(cashin_cashout
-                                .remaining_amount);
-                        }
+            $('.inputRemainingAmount1').val(cashin_cashouts[0].remaining_amount == 0 ? "" : cashin_cashouts[0]
+                .remaining_amount);
+            $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount == 0 ? "" : cashin_cashouts[0].coin_amount);
+
+            $('.se1').on('change', function() {
+                var id = $('.se1').val();
+                console.log("Hee Hee");
+                agents.forEach(agent => {
+                    if (agent.id == id) {
+                        $('.inputPhone1').val(agent.user.phone);
                     }
-                })
+                });
             });
-        });
-        // to show remaining amount end
+            /////////////////////////////////
 
-
-        $('.se2').on('change', function() {
-            var id = $('.se2').val();
-            agents.forEach(agent => {
-                if (agent.id == id) {
-                    $('.inputPhone2').val(agent.user.phone);
-                }
-            });
-        });
-
-        $('.se2').on('change', function() {
-            var id = $('.se2').val();
-            agents.forEach(agent => {
-                cashin_cashouts.forEach(cashin_cashout => {
-                    if (cashin_cashout.agent.id == agent.id) {
-                        if (agent.id == id) {
-                            $('.inputCoinAmount2').val(cashin_cashout.coin_amount);
-                        }
+            $('.se2').on('change', function() {
+                var id = $('.se2').val();
+                agents.forEach(agent => {
+                    if (agent.id == id) {
+                        $('.inputPhone2').val(agent.user.phone);
                     }
-                })
+                });
             });
-        });
-    });
-</script> --}}
 
-{{-- @endpush --}}
+            $('.se2').on('change', function() {
+                var id = $('.se2').val();
+                ind = cashin_cashouts.findIndex(cashin_cashout => {
+                    return cashin_cashout.agent_id == id;
+                })
+                ind != -1 ?  $('.inputCoinAmount2').val(cashin_cashouts[ind].coin_amount) : $('.inputCoinAmount2').val('0');
+                console.log("Goad ",ind);
+
+                });
+            // });
+
+            // to show remaining amount start
+            $('.se1').on('change', function() {
+                var id = $('.se1').val();
+                ind = cashin_cashouts.findIndex(cashin_cashout => {
+                    return cashin_cashout.agent_id == id;
+                })
+                ind != -1 ?  $('.inputRemainingAmount1').val(cashin_cashouts[ind].remaining_amount) : $('.inputRemainingAmount1').val('');
+                console.log("Goad ",ind);
+
+            });
+            // to show remaining amount end
+
+        });
+    </script>
+@endpush

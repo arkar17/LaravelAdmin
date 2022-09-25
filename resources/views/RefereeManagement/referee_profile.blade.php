@@ -5,7 +5,7 @@
 @section('css')
     <style>
         #main_cash_hitory_table,
-        #agent_cash_history_table {
+        #cashin_hitory_table,#payment_hitory_table, #cashout_hitory_table {
             margin: 15px 0px;
             font-family: Arial, Helvetica, sans-serif;
             border-collapse: collapse;
@@ -20,29 +20,36 @@
 
         #main_cash_hitory_table td,
         #main_cash_hitory_table th,
-        #agent_cash_history_table td,
-        #agent_cash_history_table th {
+        #cashin_hitory_table td,
+        #cashin_hitory_table th,
+        #payment_hitory_table td, #payment_hitory_table th,
+        #cashout_hitory_table td, #cashout_hitory_table th{
             border: 1px solid #ddd;
             padding: 8px;
         }
 
         #main_cash_hitory_table tr:nth-child(even),
-        #agent_cash_history_table tr:nth-child(event) {
+        #cashin_hitory_table tr:nth-child(even),
+        #payment_hitory_table tr:nth-child(even),
+        #cashout_hitory_table tr:nth-child(even){
             background-color: #f2f2f2;
         }
 
         #main_cash_hitory_table tr:hover,
-        #agent_cash_history_table tr:hover {
+        #cashin_hitory_table tr:hover,
+        #payment_hitory_table tr:hover,
+        #cashout_hitory_table tr:hover {
             background-color: #ddd;
         }
 
         #main_cash_hitory_table tr,
-        #agent_cash_history_table tr {
+        #cashin_hitory_table tr, #payment_hitory_table tr,
+        #cashout_hitory_table tr {
             text-align: center;
         }
 
         #main_cash_hitory_table th,
-        #agent_cash_history_table th {
+        #cashin_hitory_table th, #payment_hitory_table th, #cashout_hitory_table th {
 
             padding-top: 12px;
             padding-bottom: 12px;
@@ -153,7 +160,7 @@
         </table>
 
         <h1 style="margin-top: 20px;">{{__('msg.CashIn to Agent History')}}</h1>
-        <table id="main_cash_hitory_table">
+        <table id="cashin_hitory_table">
             <tr>
                 <th>{{__('msg.AgID')}}</th>
                 <th>{{__('msg.Name')}}</th>
@@ -177,7 +184,7 @@
         </table>
 
         <h1 style="margin-top: 20px;">{{__('msg.Payment History')}}</h1>
-        <table id="main_cash_hitory_table">
+        <table id="payment_hitory_table">
             <tr>
                 <th>{{__('msg.AgID')}}</th>
                 <th>{{__('msg.Name')}}</th>
@@ -202,7 +209,7 @@
 
 
         <h1 style="margin-top: 20px;">{{__('msg.CashOut History')}}</h1>
-        <table id="agent_cash_history_table">
+        <table id="cashout_hitory_table">
             <tr>
                 <th>{{__('msg.AgID')}}</th>
                 <th>{{__('msg.Name')}}</th>
@@ -255,10 +262,29 @@
                             });
                     })
                     var main_cash_hitory_table = document.querySelector("#main_cash_hitory_table");
+                    var cashin_hitory_table = document.querySelector("#cashin_hitory_table");
+                    var payment_hitory_table = document.querySelector("#payment_hitory_table");
+                    var cashout_hitory_table = document.querySelector("#cashout_hitory_table");
+
+
+
 
                     if (main_cash_hitory_table.offsetHeight > 400) {
                         main_cash_hitory_table.style.height = "400px";
                         main_cash_hitory_table.style.overflowY = "scroll";
+                    }
+
+                    if (cashin_hitory_table.offsetHeight > 400) {
+                        cashin_hitory_table.style.height = "400px";
+                        cashin_hitory_table.style.overflowY = "scroll";
+                    }
+                    if (payment_hitory_table.offsetHeight > 400) {
+                        payment_hitory_table.style.height = "400px";
+                        payment_hitory_table.style.overflowY = "scroll";
+                    }
+                    if (cashout_hitory_table.offsetHeight > 400) {
+                        cashout_hitory_table.style.height = "400px";
+                        cashout_hitory_table.style.overflowY = "scroll";
                     }
 
                     // BarChart//
@@ -305,5 +331,5 @@
 
                 })
             </script>
-       
+
     @endpush

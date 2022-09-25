@@ -170,10 +170,6 @@
                             </div>
                             </div>
                         @endforeach
-
-
-
-
                         @foreach($agentlonepyinesalelist as $agent)
                             <div class="daily-sale-book-sale-record-row">
                                 <p>{{$agent->id}}</p>
@@ -230,10 +226,14 @@
 
 
     <div class="daily-sale-book-3d-parent-container">
+                        @if($rate == [])
+                            <p class="daily-sale-book-3d-current-rate">{{__('msg.Current Rate')}} : 0</p>
 
-      <p class="daily-sale-book-3d-current-rate">
-          {{__('msg.Current Rate')}} : {{$threedCurrentRate[0]['rate']}}
-      </p>
+                        @else
+                            @foreach($rate as $rat)
+                            <p class="daily-sale-book-3d-current-rate">{{__('msg.Current Rate')}}  : {{$rat->compensation}}</p>
+                            @endforeach
+                        @endif
 
       <div class="daily-sale-book-3d-chart-container">
         <p>{{__('msg.Most Bet 3D Numbers')}}</p>

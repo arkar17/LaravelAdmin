@@ -1,26 +1,13 @@
 $(document).ready(function(){
     $.getJSON('http://128.199.201.43/send', (data, jqXHR) => {
         console.log(data);
-
-
-        // console.log(twodData)
-        // if(data.data.salesList.length != 0){
             const twodListData = data.data.salesList.sort((a,b) => {
                 return parseInt(a.number) - parseInt(b.number)
             })
-        // }
-
         console.log(twodListData)
-//
-
         if(twodListData.length != 0){
 
-
-            //  console.log(twodData)
-
             $.each(twodListData, function(index, value){
-                // value.sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
-
                 $(".twod-manage-numbers-rows-container").append(`
                 <div class="twod-manage-numbers-row">
                 <div class="twod-manage-numbers-attributes">

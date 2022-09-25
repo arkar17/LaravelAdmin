@@ -15,6 +15,7 @@ use App\Models\Twodsalelist;
 use Illuminate\Http\Request;
 use App\Models\Threedsalelist;
 use App\Models\Lonepyinesalelist;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,37 +24,57 @@ class TwodThreeDController extends Controller
     //  2d numbers For AM
     public function getTwoDsAM()
     {
-        $options = array(
-            'cluster' => env('PUSHER_APP_CLUSTER'),
-            'encrypted' => true
-        );
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            $options
-        );
+        // $options = array(
+        //     'cluster' => env('PUSHER_APP_CLUSTER'),
+        //     'encrypted' => true
+        // );
+        // $pusher = new Pusher(
+        //     env('PUSHER_APP_KEY'),
+        //     env('PUSHER_APP_SECRET'),
+        //     env('PUSHER_APP_ID'),
+        //     $options
+        // );
 
-        $user = auth()->user();
+        // $user = auth()->user();
 
-        $current_date = Carbon::now('Asia/Yangon')->toDateString();
+        // $current_date = Carbon::now('Asia/Yangon')->toDateString();
 
+        // if ($user) {
+        //     $agent = Agent::where('user_id', $user->id)->first();
+        //     $twods = Twod::where('referee_id', $agent->referee_id)
+        //         ->where('round', 'Morning')->where('date', $current_date)->latest()->take(100)->get();
+
+        //     // $pusher->trigger('notify-channel', 'App\\Events\\Notify', $twods);
+        //     return response()->json([
+        //         'status' => 200,
+        //         'twods' => $twods
+        //     ]);
+        // } else {
+        //     return response()->json([
+        //         'status' => 401,
+        //         'message' => 'Unauthorized user!'
+        //     ]);
+        // }
+
+        $user = auth()->user()->id;
+        $currenDate = Carbon::now()->toDateString();
         if ($user) {
-            $agent = Agent::where('user_id', $user->id)->first();
-            $twods = Twod::where('referee_id', $agent->referee_id)
-                ->where('round', 'Morning')->where('date', $current_date)->latest()->take(100)->get();
-
-            // $pusher->trigger('notify-channel', 'App\\Events\\Notify', $twods);
-            return response()->json([
-                'status' => 200,
-                'twods' => $twods
-            ]);
-        } else {
-            return response()->json([
-                'status' => 401,
-                'message' => 'Unauthorized user!'
-            ]);
+            $referee = Referee::where('user_id', $user)->first();
+            // $agent = Agent::where('user_id', $user->id)->first();
+            $twods = DB::select("SELECT aa.id,aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
+            from (SELECT * FROM ( SELECT * FROM twods t where referee_id = '$referee->id' ORDER BY id DESC LIMIT 100 )sub ORDER BY id ASC) aa
+            LEFT join agents on aa.referee_id = agents.id
+            LEFT join twodsalelists ts on ts.twod_id = aa.id
+            and ts.status = 1
+            where aa.referee_id = '$referee->id'
+            and aa.date = '$currenDate'
+            and aa.round = 'Morning'
+            group by aa.number");
         }
+        return response()->json([
+            'status' => 200,
+            'twods' => $twods
+        ]);
     }
 
     //  2d numbers For PM
@@ -147,7 +168,7 @@ class TwodThreeDController extends Controller
             $pusher->trigger('notify-channel', 'App\\Events\\Notify', $lonepyines);
             return response()->json([
                 'status' => 200,
-                'lonepyaings' => $lonepyines
+                'lonepyines' => $lonepyines
             ]);
         } else {
             return response()->json([
