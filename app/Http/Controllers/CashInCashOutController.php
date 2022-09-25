@@ -187,6 +187,22 @@ class CashInCashOutController extends Controller
         $agent_cash_history->save();
         $cashin_cashout->save();
 
+        $options = array(
+            'cluster' => env('PUSHER_APP_CLUSTER'),
+            'encrypted' => true
+        );
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+        // $referee = Referee::where('user_id', $user->id)->first();
+        // $agent = Agent::where('referee_id', $referee->id)->get();
+        // dd($agent->toArray());
+        $cash_amt = CashinCashout::select('coin_amount')->where('cashin_cashouts.agent_id', $request->agent_id)->first();
+        $pusher->trigger('channel-agent.' . $request->agent_id, 'App\\Events\\agent_cash',  $cash_amt);
+
         return redirect()->route('cashin')->with('cash-in', 'Payment is updated!');
     }
 
@@ -210,6 +226,21 @@ class CashInCashOutController extends Controller
 
         $agent_cash_history->save();
         $cashin_cashout->save();
+        $options = array(
+            'cluster' => env('PUSHER_APP_CLUSTER'),
+            'encrypted' => true
+        );
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+        // $referee = Referee::where('user_id', $user->id)->first();
+        // $agent = Agent::where('referee_id', $referee->id)->get();
+        // dd($agent->toArray());
+        $cash_amt = CashinCashout::select('coin_amount')->where('cashin_cashouts.agent_id', $request->agent_id)->first();
+        $pusher->trigger('channel-agent.' . $request->agent_id, 'App\\Events\\agent_cash',  $cash_amt);
 
         return redirect()->back()->with('cash-out', 'Successfully cash out!');
     }

@@ -170,8 +170,13 @@
                 cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
                 encrypted: true
             });
+
             var id = window.userID = {{ auth()->user()->referee->id }};
-            console.log(id);
+            var mainCash = window.userID = {{ auth()->user()->referee->main_cash }};
+            console.log(mainCash);
+            if(mainCash <= 0){
+                alert("Update your main cash!!");
+            }
             var channel = pusher.subscribe('betlist-channel.' + id);
             channel.bind('App\\Events\\NewBetList', function(data) {
                 alert(data);

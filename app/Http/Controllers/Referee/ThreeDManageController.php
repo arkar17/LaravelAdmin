@@ -101,8 +101,8 @@ class ThreeDManageController extends Controller
                         $options
                         );
 
-                            // $data['message'] = 'Hello XpertPhp';
-                        $pusher->trigger('lonepyine-channel.'.$referee->id, 'App\\Events\\lonepyine',  ['salesList' => $lonepyaing_sale_lists]);
+                        $data = 'Updated';
+                        $pusher->trigger('lonepyine-channel.'.$referee->id, 'App\\Events\\lonepyine',  $data);
                         return response()->json([
                             'status' => 200,
                             'data' => ['salesList' => $lonepyaing_sale_lists]

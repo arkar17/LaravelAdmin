@@ -239,22 +239,6 @@ class RefreeManagementController extends Controller
 
     // dailysalebook start
     public function dailysalebook(){
-        // $user = auth()->user()->id;
-        // $currenDate = Carbon::now()->toDateString();
-        // $referee = Referee::where('user_id', $user)->first();
-
-        // $twoD_sale_lists = DB::select("SELECT aa.id,aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
-        // from (SELECT * FROM ( SELECT * FROM twods t where referee_id = '$referee->id' ORDER BY id DESC LIMIT 100 )sub ORDER BY id ASC) aa
-        // LEFT join agents on aa.referee_id = agents.id
-        // LEFT join twodsalelists ts on ts.twod_id = aa.id
-        // and ts.status = 1
-        // where aa.referee_id = '$referee->id'
-        // and aa.date = '$currenDate'
-        // and aa.round = 'Morning'
-        // group by aa.number");
-
-
-        // dd($twoD_sale_lists);
         $agents = Agent::get();
         //dd($agents->toArray());
         $user = auth()->user()->id;
