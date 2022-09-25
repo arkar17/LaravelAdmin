@@ -56,18 +56,18 @@ class TwodThreeDController extends Controller
         //     ]);
         // }
 
-        $user = auth()->user()->id;
-        $currenDate = Carbon::now()->toDateString();
+        $user = auth()->user();
+        $currentDate = Carbon::now()->toDateString();
         if ($user) {
-            $referee = Referee::where('user_id', $user)->first();
-            // $agent = Agent::where('user_id', $user->id)->first();
+            // $referee = Referee::where('user_id', $user)->first();
+            $agent = Agent::where('user_id', $user->id)->first();
             $twods = DB::select("SELECT aa.id,aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
-            from (SELECT * FROM ( SELECT * FROM twods t where referee_id = '$referee->id' ORDER BY id DESC LIMIT 100 )sub ORDER BY id ASC) aa
+            from (SELECT * FROM ( SELECT * FROM twods t where referee_id = '$agent->referee_id' ORDER BY id DESC LIMIT 100 )sub ORDER BY id ASC) aa
             LEFT join agents on aa.referee_id = agents.id
             LEFT join twodsalelists ts on ts.twod_id = aa.id
             and ts.status = 1
-            where aa.referee_id = '$referee->id'
-            and aa.date = '$currenDate'
+            where aa.referee_id = '$agent->referee_id'
+            and aa.date = '$currentDate'
             and aa.round = 'Morning'
             group by aa.number");
         }
