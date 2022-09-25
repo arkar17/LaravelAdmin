@@ -15,6 +15,7 @@ use App\Models\Twodsalelist;
 use Illuminate\Http\Request;
 use App\Models\Threedsalelist;
 use App\Models\Lonepyinesalelist;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
