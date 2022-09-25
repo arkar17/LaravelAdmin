@@ -147,7 +147,7 @@ class TwodThreeDController extends Controller
             $pusher->trigger('notify-channel', 'App\\Events\\Notify', $lonepyines);
             return response()->json([
                 'status' => 200,
-                'lonepyaings' => $lonepyines
+                'lonepyines' => $lonepyines
             ]);
         } else {
             return response()->json([

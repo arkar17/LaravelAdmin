@@ -209,7 +209,7 @@ class HomeController extends Controller
             $maincash=DB::table('cashin_cashouts')
             ->where('agent_id',$value->id)
             ->select('coin_amount')->first();
-            if($maincash != 0){
+            if($maincash != null){
                 $amount=$value->sales;
                 $coin = $maincash->coin_amount + $amount;
             }
@@ -228,7 +228,7 @@ class HomeController extends Controller
             ->where('agent_id',$value->id)
             ->select('coin_amount')->first();
 
-            if($maincash != 0){
+            if($maincash != null){
                 $amount=$value->sales;
                 $coin = $maincash->coin_amount + $amount;
             }
@@ -245,7 +245,7 @@ class HomeController extends Controller
             ->where('agent_id',$value->id)
             ->select('coin_amount')->first();
 
-            if($maincash != 0){
+            if($maincash != null){
                 $amount=$value->sales;
                 $coin = $maincash->coin_amount + $amount;
             }
