@@ -412,14 +412,14 @@ class RefreeManagementController extends Controller
             ->update(["status" => 3]);
         }
         if($time > 12){
-            $amtForA = DB::select("SELECT t.round,ts.agent_id, SUM(ts.sale_amount) as SalesAmount , a.commision,
+            $amtForA = DB::select("SELECT t.round,a.id, CAST(SUM(ts.sale_amount) AS int) as SalesAmount , a.commision,
             (cio.coin_amount + (a.commision/100) *  SUM(ts.sale_amount) - SUM(ts.sale_amount)) as UpdateAmt
                 FROM twodsalelists ts
                 left join twods t on t.id = ts.twod_id
                 left join agents a ON a.id = ts.agent_id
                 left join cashin_cashouts cio on ts.agent_id = cio.agent_id
                 and t.round = 'Evening' and ts.status = '3' and t.date = '$currenDate'
-                group by ts.agent_id");
+                group by a.id");
             //dd($amtForA);
             $amtforR = DB::select("SELECT (COALESCE(SUM(ts.sale_amount),0) + COALESCE(re.main_cash,0)) - (a.commision/100)*  (COALESCE(SUM(ts.sale_amount),0))  totalSale ,re.id,
                         ((a.commision/100)*  (COALESCE(SUM(ts.sale_amount),0))
@@ -435,19 +435,19 @@ class RefreeManagementController extends Controller
                 Referee::where('id',$amtR->id)->update(["main_cash"=>$amtR->totalSale]);
             }
             foreach($amtForA as $amt){
-                // dd($amt);
-                CashinCashout::where('agent_id',$amt->agent_id)->update(["coin_amount"=>$amt->UpdateAmt]);
+                dd($amt);
+                CashinCashout::where('agent_id',$amt->id)->update(["coin_amount"=>$amt->UpdateAmt]);
             }
         }
             else{
-                $amtForA = DB::select("SELECT t.round,ts.agent_id,(SUM(ts.sale_amount)) as SalesAmount,a.commision,
+                $amtForA = DB::select("SELECT t.round,a.id,(SUM(ts.sale_amount)) as SalesAmount,a.commision,
             (cio.coin_amount + (a.commision/100)*SUM(ts.sale_amount) - SUM(ts.sale_amount)) as UpdateAmt
                 FROM twodsalelists ts
                 left join twods t on t.id = ts.twod_id
                 left join agents a ON a.id = ts.agent_id
                 left join cashin_cashouts cio on ts.agent_id = cio.agent_id
                 where t.round = 'Morning' and ts.status = '3' and t.date = '$currenDate'
-                group by ts.agent_id");
+                group by a.id");
                 //  dd($amtForA);
 
                 $amtforR = DB::select("SELECT (COALESCE(SUM(ts.sale_amount),0) + COALESCE(re.main_cash,0)) - (a.commision/100)*  (COALESCE(SUM(ts.sale_amount),0))  totalSale ,re.id,
@@ -464,7 +464,7 @@ class RefreeManagementController extends Controller
                 }
                 foreach($amtForA as $amt){
                     // dd($amt->UpdateAmt);
-                    CashinCashout::where('agent_id',$amt->agent_id)->update(["coin_amount"=>$amt->UpdateAmt]);
+                    CashinCashout::where('agent_id',$amt->id)->update(["coin_amount"=>$amt->UpdateAmt]);
                 }
             }
             foreach($request->id as $re){
@@ -484,7 +484,7 @@ class RefreeManagementController extends Controller
                 );
                 $user = auth()->user()->id;
                 $referee =Referee::where('user_id',$user)->first();
-                $data = 'Acceped';
+                $data = 'Accept!';
                 $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
         return redirect()->back()->with('accept', 'Accepted!');
     }
@@ -555,93 +555,48 @@ class RefreeManagementController extends Controller
                 ->update(["status" => 1]);
             }
             $options = array(
-
                 'cluster' => env('PUSHER_APP_CLUSTER'),
-
                 'encrypted' => true
-
                 );
-
                 $pusher = new Pusher(
-
                 env('PUSHER_APP_KEY'),
-
                 env('PUSHER_APP_SECRET'),
-
                 env('PUSHER_APP_ID'),
-
                 $options
-
                 );
-
                 $user = auth()->user()->id;
-
                 $referee =Referee::where('user_id',$user)->first();
-
-                $data = 'Acceped';
-
+                $data = 'Accept!';
                 $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
-
-        return redirect()->back()->with('accept', 'Accepted!');
+                return redirect()->back()->with('accept', 'Accepted!');
 
     }
 
     public function threedupdate(Request $request){
-
         $currenDate = Carbon::now()->toDateString();
-
         foreach($request->id as $re){
-
          Threedsalelist::where('id',$re)
-
             ->update(["status" => 3]);
-
         }
-
-
-
             $amtForA = DB::select("SELECT tds.agent_id, (COALESCE(SUM(tds.sale_amount),0)) as SalesAmount,a.commision,
-
             (cio.coin_amount + (a.commision/100)*  (COALESCE(SUM(tds.sale_amount),0)) - COALESCE(SUM(tds.sale_amount),0)
-
             ) as UpdateAmt
-
             FROM threedsalelists tds
-
             left join agents a ON a.id = tds.agent_id
-
             left join threeds td on td.id = tds.threed_id
-
             left join cashin_cashouts cio on tds.agent_id = cio.agent_id
-
             where tds.status = '3' and td.date = '$currenDate'
-
             group by tds.agent_id");
-
-
-
             $amtforR = DB::select("Select (COALESCE(SUM(tds.sale_amount),0) + COALESCE(re.main_cash,0) - (a.commision/100)*  (COALESCE(SUM(tds.sale_amount),0)) ) totalSale ,re.id
-
             From agents a left join referees re on re.id = a.referee_id
-
             left join threedsalelists tds on tds.agent_id = a.id
-
             left join threeds td on td.id = tds.threed_id
-
             where tds.status = 3 and td.date = '$currenDate'
-
             Group By re.id");
-
-            // dd($amtforR);
-
             foreach($amtforR as $amtR){
-
                 //  dd($amtR->totalSale);
-
                 Referee::where('id',$amtR->id)->update(["main_cash"=>$amtR->totalSale]);
-
             }
-
             foreach($amtForA as $amt){
 
                 // dd($amt->UpdateAmt);
@@ -682,7 +637,7 @@ class RefreeManagementController extends Controller
 
                 $referee =Referee::where('user_id',$user)->first();
 
-                $data = 'Acceped';
+                $data = 'Accept!';
 
                 $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
 
