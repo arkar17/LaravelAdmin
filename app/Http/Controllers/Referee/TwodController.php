@@ -39,13 +39,13 @@ class TwodController extends Controller
         $time = Carbon::Now()->toTimeString();
         $tdy_date=Carbon::now()->toDateString();
 
-        if($time >12){
+        if($time > 12){
             $twoDSaleList = Twodsalelist::select('twodsalelists.id','twodsalelists.twod_id','twodsalelists.sale_amount',
             'twodsalelists.customer_name','users.name','twods.number')
             ->whereIn('twodsalelists.agent_id',$agents)
             ->where('twodsalelists.status',1)
             ->where('twods.round',$evening)
-            ->where('twodsalelists.date',$tdy_date)
+            ->where('twods.date',$tdy_date)
             ->orderBy('twodsalelists.id','desc')
             ->join('agents','agents.id','twodsalelists.agent_id')
             ->join('users','users.id','agents.user_id')
@@ -57,7 +57,7 @@ class TwodController extends Controller
             'twodsalelists.customer_name','users.name','twods.number')
             ->whereIn('twodsalelists.agent_id',$agents)
             ->where('twodsalelists.status',1)
-            ->where('twodsalelists.date',$tdy_date)
+            ->where('twods.date',$tdy_date)
             ->where('twods.round',$morning)
             ->orderBy('twodsalelists.id','desc')
             ->join('agents','agents.id','twodsalelists.agent_id')
@@ -66,7 +66,6 @@ class TwodController extends Controller
             ->get();
         return view('RefereeManagement.twodsalelist')->with(['twoDSaleList'=>$twoDSaleList]);
         }
-
     }
 
     public function searchthwodagent(Request $request){
