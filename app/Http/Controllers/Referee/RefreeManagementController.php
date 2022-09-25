@@ -330,7 +330,7 @@ class RefreeManagementController extends Controller
         $lp_salelists = Lonepyinesalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','lonepyinesalelists.agent_id','agents.id')->where('lonepyinesalelists.date',$tdy_date)
         ->where('lonepyinesalelists.status',1)->where('lonepyines.round',$morning)->where('agents.referee_id',$referee->id)->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')->limit(10)->get();
         }
-        
+
         $threed_salelists = Threedsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','threedsalelists.agent_id','agents.id')
         ->where('threedsalelists.status',1)->where('threedsalelists.date',$tdy_date)->where('agents.referee_id',$referee->id)->join('threeds','threeds.id','threedsalelists.threed_id')->limit(10)->get();
 
@@ -412,8 +412,8 @@ class RefreeManagementController extends Controller
             ->update(["status" => 3]);
         }
         if($time > 12){
-            $amtForA = DB::select("SELECT t.round,a.id,CAST(SUM(ts.sale_amount) AS int) SalesAmount , a.commision,
-            (cio.coin_amount + (a.commision/100) *  SUM(ts.sale_amount) - SUM(ts.sale_amount)) as UpdateAmt
+            $amtForA = DB::select("SELECT t.round,a.id,SUM(ts.sale_amount) as SalesAmount , a.commision,
+            (cio.coin_amount + ((a.commision/100) *  SUM(ts.sale_amount)) - SUM(ts.sale_amount)) as UpdateAmt
                 FROM twodsalelists ts
                 left join twods t on t.id = ts.twod_id
                 left join agents a ON a.id = ts.agent_id
