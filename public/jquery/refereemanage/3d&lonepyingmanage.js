@@ -31,7 +31,7 @@ $(document).ready(function(){
         const rateinputArr = $(".lonepyine-manage-numbers-inputs-container #lonepyine-number-rate")
         rateinputArr.each(function(index){
             console.log(index);
-            const value = $(this).val()? $(this).val() : lonePyineListData[index].compensation //checking if input is empty. if it is empty push the old value
+            const value = $(this).val()? $(this).val() : lonePyineListData[index]?.compensation //checking if input is empty. if it is empty push the old value
            rate.push(value)
 
         $(this).val("")
@@ -41,7 +41,7 @@ $(document).ready(function(){
         //pushing values from inputs to max array
         const maxinputarr = $(".lonepyine-manage-numbers-inputs-container #lonepyine-number-max")
         maxinputarr.each(function(index){
-            const value = $(this).val()? $(this).val() : lonePyineListData[index].max_amount //checking if input is empty. if it is empty push the old value
+            const value = $(this).val()? $(this).val() : lonePyineListData[index]?.max_amount //checking if input is empty. if it is empty push the old value
             max.push(value)
 
             $(this).val("")

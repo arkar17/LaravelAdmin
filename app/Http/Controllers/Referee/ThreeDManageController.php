@@ -211,16 +211,16 @@ class ThreeDManageController extends Controller
         if($time > 12){
             foreach ($lonePyaingList as $lonePyaingLists) {
                 $LonePyaing = new Lonepyine();
-               //  intval($num)
-                $maxAmt = $lonePyaingLists['maxAmount'];
-                $comp = $lonePyaingLists['compensation'];
-                $LonePyaing->number = $lonePyaingLists['lonepyineNumber'];
-                $LonePyaing->date = $date;
-                $LonePyaing->max_amount = intval($maxAmt);
-                $LonePyaing->compensation = $comp;
-                $LonePyaing->round =  'Evening';
-                $LonePyaing->referee_id = $referee->id;
-                $LonePyaing->save();
+                //  intval($num)
+                 $maxAmt = $lonePyaingLists['maxAmount'];
+                 $comp = $lonePyaingLists['compensation'];
+                 $LonePyaing->number = $lonePyaingLists['lonepyineNumber'];
+                 $LonePyaing->date = $date;
+                 $LonePyaing->max_amount = intval($maxAmt);
+                 $LonePyaing->compensation = $comp;
+                 $LonePyaing->round =  'Evening';
+                 $LonePyaing->referee_id = $referee->id;
+                 $LonePyaing->save();
             }
         }
         else{
