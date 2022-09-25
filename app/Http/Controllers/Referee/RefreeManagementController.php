@@ -406,7 +406,7 @@ class RefreeManagementController extends Controller
             ->update(["status" => 3]);
         }
         if($time > 12){
-            $amtForA = DB::select("SELECT t.round,a.id, CAST(SUM(ts.sale_amount) AS int) as SalesAmount , a.commision,
+            $amtForA = DB::select("SELECT t.round,a.id,CAST(SUM(ts.sale_amount) AS int) SalesAmount , a.commision,
             (cio.coin_amount + (a.commision/100) *  SUM(ts.sale_amount) - SUM(ts.sale_amount)) as UpdateAmt
                 FROM twodsalelists ts
                 left join twods t on t.id = ts.twod_id
