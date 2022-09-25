@@ -415,10 +415,9 @@ class RefreeManagementController extends Controller
             $amtForA = DB::select("SELECT t.round,a.id,SUM(ts.sale_amount) as SalesAmount , a.commision,
             (cio.coin_amount + ((a.commision/100) *  SUM(ts.sale_amount)) - SUM(ts.sale_amount)) as UpdateAmt
                 FROM twodsalelists ts
-                left join twods t on t.id = ts.twod_id
-                left join agents a ON a.id = ts.agent_id
+                left join twods t on t.id = ts.twod_id and t.round = 'Evening' and ts.status = '3' and t.date = '$currenDate'
+                left join agents a on a.id = ts.agent_id
                 left join cashin_cashouts cio on ts.agent_id = cio.agent_id
-                and t.round = 'Evening' and ts.status = '3' and t.date = '$currenDate'
                 group by a.id");
             //dd($amtForA);
             $amtforR = DB::select("SELECT (COALESCE(SUM(ts.sale_amount),0) + COALESCE(re.main_cash,0)) - (a.commision/100)*  (COALESCE(SUM(ts.sale_amount),0))  totalSale ,re.id,
