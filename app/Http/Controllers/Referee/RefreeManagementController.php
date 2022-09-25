@@ -222,8 +222,8 @@ class RefreeManagementController extends Controller
             $options
         );
 
-        // $data['message'] = 'Hello XpertPhp';
-        $pusher->trigger('testing-channel.' . $referee->id, 'App\\Events\\testing',  ['salesList' => $twoD_sale_lists]);
+        $data = 'Updated';
+        $pusher->trigger('testing-channel.' . $referee->id, 'App\\Events\\testing',  $data);
         return response()->json([
             'status' => 200,
             'data' => ['salesList' => $twoD_sale_lists]
