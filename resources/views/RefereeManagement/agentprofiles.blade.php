@@ -70,7 +70,13 @@
                             </div>
                             <div class="agent-profile-attribute">
                                 <h3>{{__('msg.Total Sale Amount')}}</h3>
-                                <p>{{$totalamount}} {{__('msg.ks')}}</p>
+                                @if($sum == null || $sum ==0)
+                                    <p>0 {{__('msg.ks')}}</p>
+                                @else
+                                    <p>{{$sum}} {{__('msg.ks')}}</p>
+
+                                @endif
+
                             </div>
                             <div class="agent-profile-attribute">
                                 <h3>{{__('msg.Commision')}}</h3>
@@ -113,17 +119,18 @@
                             </div>
 
                             <div class="agent-profile-agent-list-rows-container">
-                                @if (count($agentcustomerdata) ==null || count($agentcustomerdata) ==0)
+                                @if ($agentcustomerdata ==null || $agentcustomerdata ==0)
                                     <p style="text-align: center;">{{__('msg.You not have customer')}}</p>
                                 @else
+                                <?php $i=1;?>
                                     @foreach ($agentcustomerdata as $data)
                                         <div class="agent-profile-agent-list-row">
-                                            <p>{{$data->id}}</p>
-                                            <p>{{$data->customer_name}}</p>
-                                            <p>{{$data->customer_phone}}</p>
-                                            <p>{{$data->number}}</p>
-                                            <p>{{$data->compensation}}</p>
-                                            <p>{{$data->sale_amount}}ks</p>
+                                            <p>{{$i++}}</p>
+                                            <p>{{$data['customer_name']}}</p>
+                                            <p>{{$data['customer_phone']}}</p>
+                                            <p>{{$data['number']}}</p>
+                                            <p>{{$data['compensation']}}</p>
+                                            <p>{{$data['Amount']}}ks</p>
                                         </div>
                                     @endforeach
                                 @endif
