@@ -523,7 +523,7 @@ class RefreeManagementController extends Controller
                 Referee::where('id',$amtR->id)->update(["main_cash"=>$amtR->totalSale]);
             }
             foreach($amtForA as $amt){
-                CashinCashout::where('agent_id',$amt->agent_id)->update(["coin_amount"=>$amt->UpdateAmt]);
+                CashinCashout::where('agent_id',$amt->id)->update(["coin_amount"=>$amt->UpdateAmt]);
             }
         }
             else{
@@ -547,7 +547,7 @@ class RefreeManagementController extends Controller
                 }
                 foreach($amtForA as $amt){
                     // dd($amt->UpdateAmt);
-                    CashinCashout::where('agent_id',$amt->agent_id)->update(["coin_amount"=>$amt->UpdateAmt]);
+                    CashinCashout::where('agent_id',$amt->id)->update(["coin_amount"=>$amt->UpdateAmt]);
                 }
             }
             foreach($request->id as $re){

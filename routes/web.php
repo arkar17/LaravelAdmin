@@ -80,6 +80,7 @@ Route::group(['middleware' => 'role:referee'], function(){
     Route::get('/agentDecline/{id}',[RefreeManagementController::class,'agentDecline'])->name('agentDecline');
 
      Route::get('/agentprofiledetail/{id}',[AgentRController::class,'agentprofile'])->name('agentprofiledetail');
+     Route::get('/agentcusdetail/{customer_phone}/{customer_name}',[AgentRController::class,'seedetailcus'])->name('seedetail');
     Route::post('/agentcommsionupdate/{id}',[AgentRController::class,'agentcommsionupdate'])->name('agentcommsionupdate');
 
     Route::get('/2DManageCreate',[RefreeManagementController::class,'twoDManageCreate'])->name('2DManageCreate');

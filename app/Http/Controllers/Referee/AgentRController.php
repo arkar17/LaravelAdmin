@@ -60,11 +60,17 @@ class AgentRController extends Controller
     {
         //$agentProfileData = User::select('id','name','phone')->where('id',$id)->get();
         $agentProfileData = Agent::select('agents.id','agents.image','users.name','users.phone')->join('users','users.id','agents.user_id')->where('agents.id',$id)->first();
-        //dd($agentProfileData);
-        // $agentCustomerData = DB::select("Select ts.id, ts.customer_name,
-        // ts.customer_phone, t.number, t.compensation, ts.sale_amount from twodsalelists ts left join twods t on ts.twod_id = t.id  where ts.agent_id = $id");
+
+        // $agentCustomerDatatd = DB::select("Select ts.id, ts.customer_name,
+        // ts.customer_phone, t.number, t.compensation, ts.sale_amount from twodsalelists ts left join twods t on ts.twod_id = t.id  where ts.agent_id = $id and ts.status =1;");
 
 
+        // $agentCustomerDatathd = DB::select("Select ts.id, ts.customer_name,
+        // ts.customer_phone, t.number, t.compensation, ts.sale_amount from threedsalelists ts left join threeds t on ts.threed_id = t.id  where ts.agent_id = $id and ts.status =1;");
+
+        // $agentCustomerDatalone = DB::select("Select ts.id, ts.customer_name,
+        // ts.customer_phone, t.number, t.compensation, ts.sale_amount from lonepyinesalelists ts left join lonepyines t on ts.lonepyine_id = t.id  where ts.agent_id = $id and ts.status =1;");
+        //dd($agentCustomerDatalone);
         $twod_salelists=Twodsalelist::select('agents.id','twods.number','twods.compensation','twodsalelists.customer_name','twodsalelists.customer_phone',DB::raw('SUM(twodsalelists.sale_amount)as Amount'))
                         ->join('agents','agents.id','twodsalelists.agent_id')
                         ->join('twods','twods.id','twodsalelists.twod_id')
@@ -72,7 +78,7 @@ class AgentRController extends Controller
                         ->where('twodsalelists.status',1)
                         ->groupBy('twodsalelists.id')
                         ->get()->toArray();
-
+        //dd($twod_salelists);
         $threed_salelists=Threedsalelist::select('agents.id','threeds.number','threeds.compensation','threedsalelists.customer_name','threedsalelists.customer_phone',DB::raw('SUM(threedsalelists.sale_amount)as Amount'))
                         ->join('agents','agents.id','threedsalelists.agent_id')
                         ->join('threeds','threeds.id','threedsalelists.threed_id')
@@ -136,10 +142,11 @@ class AgentRController extends Controller
                 $sum+=$op['Amount'];
             }
 
+
       $twocus=DB::select("Select (SUM(ts.sale_amount))maincash ,a.id,ts.customer_name From agents a left join referees re on re.id = a.referee_id left join twodsalelists ts on ts.agent_id = a.id and ts.status = 1 WHERE a.id=$id Group By a.id,ts.customer_name ORDER BY maincash DESC limit 3;");
       $threecus=DB::select("Select (SUM(tr.sale_amount))maincash ,a.id,tr.customer_name From agents a left join referees re on re.id = a.referee_id left join threedsalelists tr on tr.agent_id = a.id and tr.status = 1 WHERE a.id=$id Group By a.id,tr.customer_name ORDER BY maincash DESC limit 3;");
       $lpcus=DB::select("Select (SUM(ls.sale_amount))maincash ,a.id,ls.customer_name From agents a left join referees re on re.id = a.referee_id left join lonepyinesalelists ls on ls.agent_id = a.id and ls.status = 1 WHERE a.id=$id Group By a.id,ls.customer_name ORDER BY maincash DESC limit 3;");
-      return view('RefereeManagement.agentprofiles')->with(['twocus'=>$twocus,'threecus'=>$threecus,'lpcus'=>$lpcus,'commision'=>$commision,'agentprofiledata'=>$agentProfileData, 'agentcustomerdata'=>$agentCustomerData, 'sum'=>$sum, 'twodnum'=>$twodnum]);
+      return view('RefereeManagement.agentprofiles')->with(['twocus'=>$twocus,'threecus'=>$threecus,'lpcus'=>$lpcus,'commision'=>$commision,'agentprofiledata'=>$agentProfileData,'agentCustomerData'=>$agentCustomerData, 'sum'=>$sum, 'twodnum'=>$twodnum]);
     }
 
     public function agentcommsionupdate(Request $request,$id){
@@ -161,5 +168,16 @@ class AgentRController extends Controller
     public function exportlonePyaingList(){
         return Excel::download(new ExportlonepyineSalesList, 'lone_Pyine_list.xlsx');
     }
+
+    public function seedetailcus($customer_phone,$customer_name){
+        //$cusname =Twodsalelist::select('customer_name')->where('customer_phone',$customer_phone)->first();
+        $twods = Twodsalelist::where('customer_phone',$customer_phone)->where('status',1)->with('twod','agent.user')->get();
+        //dd($twods->toArray());
+        $threeds = Threedsalelist::where('customer_phone',$customer_phone)->where('status',1)->with('threed','agent.user')->get();
+        $lonepyines = Lonepyinesalelist::where('customer_phone',$customer_phone)->where('status',1)->with('lonepyine','agent.user')->get();
+        //dd($twod->toArray());
+        return view('RefereeManagement.agentcustomerseedetail')->with(['twods'=>$twods,'threeds'=>$threeds,'lonepyines'=>$lonepyines,'cusname'=>$customer_name]);
+    }
+
 
 }

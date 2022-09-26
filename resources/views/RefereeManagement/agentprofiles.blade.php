@@ -106,6 +106,7 @@
                 <div class="agent-profile-agent-list-parent-container">
                         <div class="agent-profile-agent-list-header">
                             <h1>{{__('msg.Agent')}} {{$agentprofiledata->name}}'s {{__('msg.Customer List')}}</h1>
+
                         </div>
 
                         <div class="agent-profile-agent-list-container">
@@ -113,26 +114,26 @@
                                 <h2>{{__('msg.ID')}}</h2>
                                 <h2>{{__('msg.Name')}}</h2>
                                 <h2>{{__('msg.Phone Number')}}</h2>
-                                <h2>{{__('msg.Number')}}</h2>
-                                <h2>{{__('msg.Compensation')}}</h2>
-                                <h2>{{__('msg.Amount')}}</h2>
+                                <h2>{{__('msg.View Detail')}}</h2>
                             </div>
 
                             <div class="agent-profile-agent-list-rows-container">
-                                @if ($agentcustomerdata ==null || $agentcustomerdata ==0)
+
+                                @if ($agentCustomerData ==null)
                                     <p style="text-align: center;">{{__('msg.You not have customer')}}</p>
                                 @else
                                 <?php $i=1;?>
-                                    @foreach ($agentcustomerdata as $data)
+
+                                    @foreach ($agentCustomerData as $data)
                                         <div class="agent-profile-agent-list-row">
                                             <p>{{$i++}}</p>
                                             <p>{{$data['customer_name']}}</p>
                                             <p>{{$data['customer_phone']}}</p>
-                                            <p>{{$data['number']}}</p>
-                                            <p>{{$data['compensation']}}</p>
-                                            <p>{{$data['Amount']}}ks</p>
+                                            <a href="{{route('seedetail',[$data['customer_phone'],$data['customer_name']])}}">See Detail</a>
+
                                         </div>
                                     @endforeach
+                                
                                 @endif
                             </div>
                         </div>
@@ -142,6 +143,7 @@
             <!--referee profile end-->
 
     </div>
+
     <script>
         $(document).ready(function() {
            $(".agent-profile-edit-comission-btn").click(function(){
@@ -188,6 +190,7 @@
            config1
            );
        })
+
        </script>
 @endsection
 
