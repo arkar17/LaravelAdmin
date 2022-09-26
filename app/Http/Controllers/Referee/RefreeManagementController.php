@@ -318,21 +318,21 @@ class RefreeManagementController extends Controller
         $agents = Agent::get();
 
         if($time > 12){
-        $twod_salelists = Twodsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','twodsalelists.agent_id','agents.id')->where('twodsalelists.date',$tdy_date)
+        $twod_salelists = Twodsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','twodsalelists.agent_id','agents.id')->where('twods.date',$tdy_date)
         ->where('twodsalelists.status',1)->where('twods.round',$evening)->where('agents.referee_id',$referee->id)->join('twods','twods.id','twodsalelists.twod_id')->limit(10)->get();
 
-        $lp_salelists = Lonepyinesalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','lonepyinesalelists.agent_id','agents.id')->where('lonepyinesalelists.date',$tdy_date)
+        $lp_salelists = Lonepyinesalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','lonepyinesalelists.agent_id','agents.id')->where('lonepyines.date',$tdy_date)
         ->where('lonepyinesalelists.status',1)->where('lonepyines.round',$evening)->where('agents.referee_id',$referee->id)->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')->limit(10)->get();
         }else{
-            $twod_salelists = Twodsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','twodsalelists.agent_id','agents.id')->where('twodsalelists.date',$tdy_date)
+            $twod_salelists = Twodsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','twodsalelists.agent_id','agents.id')->where('twods.date',$tdy_date)
             ->where('twodsalelists.status',1)->where('twods.round',$morning)->where('agents.referee_id',$referee->id)->join('twods','twods.id','twodsalelists.twod_id')->limit(10)->get();
 
-        $lp_salelists = Lonepyinesalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','lonepyinesalelists.agent_id','agents.id')->where('lonepyinesalelists.date',$tdy_date)
+        $lp_salelists = Lonepyinesalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','lonepyinesalelists.agent_id','agents.id')->where('lonepyines.date',$tdy_date)
         ->where('lonepyinesalelists.status',1)->where('lonepyines.round',$morning)->where('agents.referee_id',$referee->id)->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')->limit(10)->get();
         }
 
         $threed_salelists = Threedsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','threedsalelists.agent_id','agents.id')
-        ->where('threedsalelists.status',1)->where('threedsalelists.date',$tdy_date)->where('agents.referee_id',$referee->id)->join('threeds','threeds.id','threedsalelists.threed_id')->limit(10)->get();
+        ->where('threedsalelists.status',1)->where('threeds.date',$tdy_date)->where('agents.referee_id',$referee->id)->join('threeds','threeds.id','threedsalelists.threed_id')->limit(10)->get();
 
         $rate = DB::Select("SELECT t.compensation FROM threeds t where referee_id = $referee->id ORDER BY id DESC LIMIT 1");
         //twodnumberlist for an agent
