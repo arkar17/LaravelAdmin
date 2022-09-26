@@ -330,7 +330,7 @@ class RefreeManagementController extends Controller
         $lp_salelists = Lonepyinesalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','lonepyinesalelists.agent_id','agents.id')->where('lonepyinesalelists.date',$tdy_date)
         ->where('lonepyinesalelists.status',1)->where('lonepyines.round',$morning)->where('agents.referee_id',$referee->id)->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')->limit(10)->get();
         }
-        
+
         $threed_salelists = Threedsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','threedsalelists.agent_id','agents.id')
         ->where('threedsalelists.status',1)->where('threedsalelists.date',$tdy_date)->where('agents.referee_id',$referee->id)->join('threeds','threeds.id','threedsalelists.threed_id')->limit(10)->get();
 
@@ -412,13 +412,13 @@ class RefreeManagementController extends Controller
             ->update(["status" => 3]);
         }
         if($time > 12){
-            $amtForA = DB::select("SELECT t.round,a.id, CAST(SUM(ts.sale_amount) AS int) as SalesAmount , a.commision,
-            (cio.coin_amount + (a.commision/100) *  SUM(ts.sale_amount) - SUM(ts.sale_amount)) as UpdateAmt
+            $amtForA = DB::select("SELECT t.round,a.id,SUM(ts.sale_amount) as SalesAmount , a.commision,
+            (cio.coin_amount + ((a.commision/100) *  SUM(ts.sale_amount)) - SUM(ts.sale_amount)) as UpdateAmt
                 FROM twodsalelists ts
                 left join twods t on t.id = ts.twod_id
-                left join agents a ON a.id = ts.agent_id
+                left join agents a on a.id = ts.agent_id
                 left join cashin_cashouts cio on ts.agent_id = cio.agent_id
-                and t.round = 'Evening' and ts.status = '3' and t.date = '$currenDate'
+                where t.round = 'Evening' and ts.status = '3' and t.date = '$currenDate'
                 group by a.id");
             //dd($amtForA);
             $amtforR = DB::select("SELECT (COALESCE(SUM(ts.sale_amount),0) + COALESCE(re.main_cash,0)) - (a.commision/100)*  (COALESCE(SUM(ts.sale_amount),0))  totalSale ,re.id,
@@ -435,7 +435,7 @@ class RefreeManagementController extends Controller
                 Referee::where('id',$amtR->id)->update(["main_cash"=>$amtR->totalSale]);
             }
             foreach($amtForA as $amt){
-                dd($amt);
+                // dd($amt);
                 CashinCashout::where('agent_id',$amt->id)->update(["coin_amount"=>$amt->UpdateAmt]);
             }
         }
