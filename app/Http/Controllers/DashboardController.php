@@ -196,13 +196,13 @@ class DashboardController extends Controller
             if($tdcomission!=null && $thdcomission != null && $lpcomission != null){
                 $refe_totalcommision = $tdcomission[0]->Commision + $thdcomission[0]->Commision + $lpcomission[0]->Commision;
             }
-            if($tdcomission!=null && $thdcomission != null && $lpcomission == null){
+            elseif($tdcomission!=null && $thdcomission != null && $lpcomission == null){
                 $refe_totalcommision = $tdcomission[0]->Commision + $thdcomission[0]->Commision + 0;
             }
-            if($tdcomission!=null && $thdcomission == null && $lpcomission != null){
+            elseif($tdcomission!=null && $thdcomission == null && $lpcomission != null){
                 $refe_totalcommision = $tdcomission[0]->Commision + 0 + $lpcomission[0]->Commision;
             }
-            if($tdcomission==null && $thdcomission == null && $lpcomission != null){
+            elseif($tdcomission==null && $thdcomission == null && $lpcomission != null){
                 $refe_totalcommision = 0 + $thdcomission[0]->Commision + $lpcomission[0]->Commision;
             }
             else{
