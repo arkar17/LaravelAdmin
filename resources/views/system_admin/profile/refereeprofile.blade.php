@@ -67,6 +67,7 @@
                     <h2>{{__('msg.Action')}}</h2>
                 </div>
                 <div class="referee-profile-agent-list-rows-container">
+                    
                     @if ($results == null)
                     <div></div>
                     <?php $i=1; ?>
@@ -87,7 +88,6 @@
                         <?php $i=1; ?>
                         @foreach ($results as $agent)
                         <div class="referee-profile-agent-list-row">
-
                             <p>{{$i++}}</p>
                             <p>{{{$agent['name']}}}</p>
                             <p>{{{$agent['phone']}}}</p>
