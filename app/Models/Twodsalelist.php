@@ -18,6 +18,10 @@ class Twodsalelist extends Model
     {
         return $this->belongsToMany(Agent::class);
     }
+    public function agent(){
+        return $this->belongsTo(Agent::class);
+    }
+
 
     public function transaction()
     {

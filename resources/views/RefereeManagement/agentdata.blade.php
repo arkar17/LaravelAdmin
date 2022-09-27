@@ -23,11 +23,11 @@
                         @foreach ($agentdata as $data)
                                 <div class="agent-data-list-row">
                                     <p>{{$i++}}</p>
-                                    <p>{{$data->name}}</p>
-                                    <p>{{$data->phone}}</p>
+                                    <p>{{$data['name']}}</p>
+                                    <p>{{$data['phone']}}</p>
                                     <!-- <p>Op Staff 01</p> -->
-                                    <p>{{$data->NumOfCus}}</p>
-                                    <a href="{{route('agentprofiledetail',[$data->id])}}">
+                                    <p>{{$data['NumOfCus']}}</p>
+                                    <a href="{{route('agentprofiledetail',[$data['id']])}}">
                                     <iconify-icon icon="ant-design:exclamation-circle-outlined" class="agent-data-list-viewdetail-btn"></iconify-icon>
                                     {{__('msg.View Detail')}}
                                     </a >

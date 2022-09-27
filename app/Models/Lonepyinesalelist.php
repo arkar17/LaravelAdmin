@@ -18,6 +18,9 @@ class Lonepyinesalelist extends Model
     {
         return $this->hasMany(Agent::class);
     }
+    public function agent(){
+        return $this->belongsTo(Agent::class);
+    }
 
     public function transaction()
     {

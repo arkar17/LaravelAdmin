@@ -380,22 +380,39 @@
 
             $('.select2').select2();
 
+            console.log("Litttttttttttttt", $('.se1').val());
+
             var agents = @json($agents);
             var cashin_cashouts = @json($cashin_cashouts);
 
+            console.log("agetrs ss", agents);
+
+            console.log("csacd ddddddd", cashin_cashouts);
 
             $('.inputPhone1').val(agents[0].user.phone);
             $('.inputPhone2').val(agents[0].user.phone);
             if (cashin_cashouts.length != 0) {
                 $('.inputRemainingAmount1').val(cashin_cashouts[0].remaining_amount == 0 ? "" : cashin_cashouts[0]
                     .remaining_amount);
-                $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount == 0 ? "" : cashin_cashouts[0]
-                    .coin_amount);
+
+                var idd = $('.se2').val();
+                ind = cashin_cashouts.findIndex(cashin_cashout => {
+                    return cashin_cashout.agent_id == idd;
+                })
+                $('.inputCoinAmount2').val(cashin_cashouts[ind].coin_amount);
+
+                // $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount == 0 ? "" : cashin_cashouts[0]
+                //     .coin_amount);
             }
 
             $('.inputRemainingAmount1').val(cashin_cashouts[0].remaining_amount == 0 ? "" : cashin_cashouts[0]
                 .remaining_amount);
-            $('.inputCoinAmount2').val(cashin_cashouts[0].coin_amount == 0 ? "" : cashin_cashouts[0].coin_amount);
+            var idd2 = $('.se2').val();
+            ind = cashin_cashouts.findIndex(cashin_cashout => {
+                return cashin_cashout.agent_id == idd2;
+            })
+            $('.inputCoinAmount2').val(cashin_cashouts[ind].coin_amount);
+
 
             $('.se1').on('change', function() {
                 var id = $('.se1').val();
@@ -422,10 +439,11 @@
                 ind = cashin_cashouts.findIndex(cashin_cashout => {
                     return cashin_cashout.agent_id == id;
                 })
-                ind != -1 ?  $('.inputCoinAmount2').val(cashin_cashouts[ind].coin_amount) : $('.inputCoinAmount2').val('0');
-                console.log("Goad ",ind);
+                ind != -1 ? $('.inputCoinAmount2').val(cashin_cashouts[ind].coin_amount) : $(
+                    '.inputCoinAmount2').val('0');
+                console.log("Goad ", ind);
 
-                });
+            });
             // });
 
             // to show remaining amount start
@@ -434,8 +452,9 @@
                 ind = cashin_cashouts.findIndex(cashin_cashout => {
                     return cashin_cashout.agent_id == id;
                 })
-                ind != -1 ?  $('.inputRemainingAmount1').val(cashin_cashouts[ind].remaining_amount) : $('.inputRemainingAmount1').val('');
-                console.log("Goad ",ind);
+                ind != -1 ? $('.inputRemainingAmount1').val(cashin_cashouts[ind].remaining_amount) : $(
+                    '.inputRemainingAmount1').val('');
+                console.log("Goad ", ind);
 
             });
             // to show remaining amount end

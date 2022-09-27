@@ -59,11 +59,22 @@ class HomeController extends Controller
 
     public function viewWinning(Request $request)
     {
-        $twodnumbers=DB::select('SELECT u.name,two.round,two.number,two.date,ts.id,ts.customer_name,ts.customer_phone From agents a left join twodsalelists ts on ts.agent_id = a.id LEFT join twods two on two.id=ts.twod_id LEFT join users u on u.id=a.user_id where ts.winning_status = 1 and
-        two.date=CURRENT_DATE;');
-        $lonepyinenumbers=DB::select('SELECT u.name,l.round,l.number,lps.id,l.date,lps.customer_name,lps.customer_phone From agents a left join lonepyinesalelists lps on lps.agent_id = a.id LEFT join lonepyines l on l.id=lps.lonepyine_id LEFT join users u on u.id=a.user_id where
-        lps.winning_status = 1 and l.date=CURRENT_DATE;');
-        $threednumbers=DB::select('SELECT u.name,t.number,ts.id,t.date,ts.customer_name,ts.customer_phone From agents a left join threedsalelists ts on ts.agent_id = a.id LEFT join threeds t on t.id=ts.threed_id LEFT join users u on u.id=a.user_id where ts.winning_status = 1 and t.date=CURRENT_DATE;');
+        $date = Carbon::Now()->toDateString();
+        $time = Carbon::now()->toTimeString();
+        if($time > 16){
+            $round = "Evening";
+            }
+            else{
+            $round = "Morning";
+            }
+        $twodnumbers=DB::select("SELECT u.name,two.round,two.number,two.date,ts.id,ts.customer_name,ts.customer_phone
+                                From agents a left join twodsalelists ts on ts.agent_id = a.id
+                                LEFT join twods two on two.id=ts.twod_id
+                                LEFT join users u on u.id=a.user_id where ts.winning_status = 1
+                                and two.date='$date' and two.round='$round';");
+        $lonepyinenumbers=DB::select("SELECT u.name,l.round,l.number,lps.id,l.date,lps.customer_name,lps.customer_phone From agents a left join lonepyinesalelists lps on lps.agent_id = a.id LEFT join lonepyines l on l.id=lps.lonepyine_id LEFT join users u on u.id=a.user_id where
+        lps.winning_status = 1 and l.date='$date' and l.round='$round';");
+        $threednumbers=DB::select("SELECT u.name,t.number,ts.id,t.date,ts.customer_name,ts.customer_phone From agents a left join threedsalelists ts on ts.agent_id = a.id LEFT join threeds t on t.id=ts.threed_id LEFT join users u on u.id=a.user_id where ts.winning_status = 1 and t.date='$date';");
         return view('system_admin.winning_result', compact('twodnumbers','threednumbers','lonepyinenumbers'))->with('success', 'Winning Status is Updated successfully!');
 
     }
@@ -97,7 +108,7 @@ class HomeController extends Controller
                             ->where('twods.number',$request->number)
                             ->where('twods.round',$round)
                             ->where('twods.date',$current_date)
-                            ->where('twodsalelists.status','1')->update(['twodsalelists.winning_status'=>1]);
+                            ->where('twodsalelists.status',1)->update(['twodsalelists.winning_status'=>1]);
                 $lonepyineno=substr($request->number, 0, 1);
                 $lonepyinelno=$request->number % 10;
 

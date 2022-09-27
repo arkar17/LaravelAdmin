@@ -92,7 +92,7 @@
 
         @else
 
-        <h3 class="winners-header">Winning 2D/Lonepyine Number Lists</h3>
+        <h3 class="winners-header">Winning 2D</h3>
 
         <table class="winning-table-parent-container">
 
@@ -138,9 +138,37 @@
                 </tr>
 
                 @endforeach
+            </tbody>
+        </table>
+        @endif
 
+        @if(count($lonepyinenumbers)==0)
+
+        <div></div>
+
+        @else
+        <h3 class="winners-header">Winning Lone Pyine</h3>
+        <table class="winning-table-parent-container">
+            <tr class="table-lables" style="background-color: none">
+
+                <th>id</th>
+
+                <th>Agent Name</th>
+
+                <th>Number</th>
+
+                <th>Customer Name</th>
+
+                <th>Customer Phone</th>
+
+                <th>Round</th>
+
+                <th>Date Time</th>
+
+            </tr>
+
+            <tbody class="table-body-container">
                 @foreach ($lonepyinenumbers as $lonepyinenumber)
-
                 <tr class="table-row">
 
                     <td>LP-{{$lonepyinenumber->id}}</td>
@@ -162,7 +190,7 @@
                 @endforeach
             </tbody>
         </table>
-
+        @endif
             @if (count($threednumbers)==0)
 
             <div></div>
@@ -215,11 +243,6 @@
             </table>
 
             @endif
-
-
-        @endif
-
-
 
     </div>
 

@@ -57,7 +57,7 @@ class TwodController extends Controller
             'twodsalelists.customer_name','users.name','twods.number')
             ->whereIn('twodsalelists.agent_id',$agents)
             ->where('twodsalelists.status',1)
-            ->where('twodsalelists.date',$tdy_date)
+            ->where('twods.date',$tdy_date)
             ->where('twods.round',$morning)
             ->orderBy('twodsalelists.id','desc')
             ->join('agents','agents.id','twodsalelists.agent_id')

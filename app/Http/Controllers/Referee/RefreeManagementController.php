@@ -318,21 +318,21 @@ class RefreeManagementController extends Controller
         $agents = Agent::get();
 
         if($time > 12){
-        $twod_salelists = Twodsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','twodsalelists.agent_id','agents.id')->where('twodsalelists.date',$tdy_date)
+        $twod_salelists = Twodsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','twodsalelists.agent_id','agents.id')->where('twods.date',$tdy_date)
         ->where('twodsalelists.status',1)->where('twods.round',$evening)->where('agents.referee_id',$referee->id)->join('twods','twods.id','twodsalelists.twod_id')->limit(10)->get();
 
-        $lp_salelists = Lonepyinesalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','lonepyinesalelists.agent_id','agents.id')->where('lonepyinesalelists.date',$tdy_date)
+        $lp_salelists = Lonepyinesalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','lonepyinesalelists.agent_id','agents.id')->where('lonepyines.date',$tdy_date)
         ->where('lonepyinesalelists.status',1)->where('lonepyines.round',$evening)->where('agents.referee_id',$referee->id)->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')->limit(10)->get();
         }else{
-            $twod_salelists = Twodsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','twodsalelists.agent_id','agents.id')->where('twodsalelists.date',$tdy_date)
+            $twod_salelists = Twodsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','twodsalelists.agent_id','agents.id')->where('twods.date',$tdy_date)
             ->where('twodsalelists.status',1)->where('twods.round',$morning)->where('agents.referee_id',$referee->id)->join('twods','twods.id','twodsalelists.twod_id')->limit(10)->get();
 
-        $lp_salelists = Lonepyinesalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','lonepyinesalelists.agent_id','agents.id')->where('lonepyinesalelists.date',$tdy_date)
+        $lp_salelists = Lonepyinesalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','lonepyinesalelists.agent_id','agents.id')->where('lonepyines.date',$tdy_date)
         ->where('lonepyinesalelists.status',1)->where('lonepyines.round',$morning)->where('agents.referee_id',$referee->id)->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')->limit(10)->get();
         }
 
         $threed_salelists = Threedsalelist::select('number','sale_amount')->orderBy('sale_amount', 'DESC')->join('agents','threedsalelists.agent_id','agents.id')
-        ->where('threedsalelists.status',1)->where('threedsalelists.date',$tdy_date)->where('agents.referee_id',$referee->id)->join('threeds','threeds.id','threedsalelists.threed_id')->limit(10)->get();
+        ->where('threedsalelists.status',1)->where('threeds.date',$tdy_date)->where('agents.referee_id',$referee->id)->join('threeds','threeds.id','threedsalelists.threed_id')->limit(10)->get();
 
         $rate = DB::Select("SELECT t.compensation FROM threeds t where referee_id = $referee->id ORDER BY id DESC LIMIT 1");
         //twodnumberlist for an agent
@@ -504,14 +504,14 @@ class RefreeManagementController extends Controller
 
         if($time > 12){
 
-            $amtForA = DB::select("SELECT ls.agent_id, (SUM(ls.sale_amount)) as SalesAmount,a.commision,
+            $amtForA = DB::select("SELECT a.id, (SUM(ls.sale_amount)) as SalesAmount,a.commision,
             (cio.coin_amount + (a.commision/100)*  SUM(ls.sale_amount)) - (SUM(ls.sale_amount)) as UpdateAmt
             FROM lonepyinesalelists ls
             left join agents a ON a.id = ls.agent_id
             left join lonepyines l on l.id = ls.lonepyine_id
             left join cashin_cashouts cio on ls.agent_id = cio.agent_id
             where l.round = 'Evening' and ls.status = '3' and l.date = '$currenDate'
-            group by ls.agent_id");
+            group by a.id");
             $amtforR = DB::select("Select (COALESCE(SUM(ls.sale_amount),0) + COALESCE(re.main_cash,0) - (a.commision/100)* (COALESCE(SUM(ls.       sale_amount),0))) totalSale ,re.id
             From agents a left join referees re on re.id = a.referee_id
             left join lonepyinesalelists ls on ls.agent_id = a.id
@@ -523,18 +523,18 @@ class RefreeManagementController extends Controller
                 Referee::where('id',$amtR->id)->update(["main_cash"=>$amtR->totalSale]);
             }
             foreach($amtForA as $amt){
-                CashinCashout::where('agent_id',$amt->agent_id)->update(["coin_amount"=>$amt->UpdateAmt]);
+                CashinCashout::where('agent_id',$amt->id)->update(["coin_amount"=>$amt->UpdateAmt]);
             }
         }
             else{
-                $amtForA = DB::select("SELECT ls.agent_id,(SUM(ls.sale_amount)) as SalesAmount,a.commision,
+                $amtForA = DB::select("SELECT a.id,(SUM(ls.sale_amount)) as SalesAmount,a.commision,
                 (cio.coin_amount + (a.commision/100)*  (SUM(ls.sale_amount) - SUM(ls.sale_amount))) as UpdateAmt
                 FROM lonepyinesalelists ls
                 left join agents a on a.id = ls.agent_id
                 left join lonepyines l on l.id = ls.lonepyine_id
                 left join cashin_cashouts cio on ls.agent_id = cio.agent_id
-                where l.round = 'Morning' and ls.status = '1' and l.date = '$currenDate'
-                group by ls.agent_id");
+                where l.round = 'Morning' and ls.status = '3' and l.date = '$currenDate'
+                group by a.id");
                 $amtforR = DB::select("SELECT (COALESCE(SUM(ls.sale_amount),0) + COALESCE(re.main_cash,0)) totalSale ,re.id
                 From agents a left join referees re on re.id = a.referee_id
                 left join lonepyinesalelists ls on ls.agent_id = a.id
@@ -547,7 +547,7 @@ class RefreeManagementController extends Controller
                 }
                 foreach($amtForA as $amt){
                     // dd($amt->UpdateAmt);
-                    CashinCashout::where('agent_id',$amt->agent_id)->update(["coin_amount"=>$amt->UpdateAmt]);
+                    CashinCashout::where('agent_id',$amt->id)->update(["coin_amount"=>$amt->UpdateAmt]);
                 }
             }
             foreach($request->id as $re){
@@ -598,47 +598,26 @@ class RefreeManagementController extends Controller
                 Referee::where('id',$amtR->id)->update(["main_cash"=>$amtR->totalSale]);
             }
             foreach($amtForA as $amt){
-
                 // dd($amt->UpdateAmt);
-
                 CashinCashout::where('agent_id',$amt->agent_id)->update(["coin_amount"=>$amt->UpdateAmt]);
-
             }
-
             foreach($request->id as $re){
-
                 Threedsalelist::where('id',$re)
-
                    ->update(["status" => 1]);
-
                }
-
                $options = array(
-
                 'cluster' => env('PUSHER_APP_CLUSTER'),
-
                 'encrypted' => true
-
                 );
-
                 $pusher = new Pusher(
-
                 env('PUSHER_APP_KEY'),
-
                 env('PUSHER_APP_SECRET'),
-
                 env('PUSHER_APP_ID'),
-
                 $options
-
                 );
-
                 $user = auth()->user()->id;
-
                 $referee =Referee::where('user_id',$user)->first();
-
                 $data = 'Accept!';
-
                 $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
 
         return redirect()->back()->with('accept', 'Accepted!');

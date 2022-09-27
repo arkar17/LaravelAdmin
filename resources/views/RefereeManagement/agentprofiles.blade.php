@@ -70,7 +70,13 @@
                             </div>
                             <div class="agent-profile-attribute">
                                 <h3>{{__('msg.Total Sale Amount')}}</h3>
-                                <p>{{$totalamount}} {{__('msg.ks')}}</p>
+                                @if($sum == null || $sum ==0)
+                                    <p>0 {{__('msg.ks')}}</p>
+                                @else
+                                    <p>{{$sum}} {{__('msg.ks')}}</p>
+
+                                @endif
+
                             </div>
                             <div class="agent-profile-attribute">
                                 <h3>{{__('msg.Commision')}}</h3>
@@ -100,6 +106,7 @@
                 <div class="agent-profile-agent-list-parent-container">
                         <div class="agent-profile-agent-list-header">
                             <h1>{{__('msg.Agent')}} {{$agentprofiledata->name}}'s {{__('msg.Customer List')}}</h1>
+
                         </div>
 
                         <div class="agent-profile-agent-list-container">
@@ -107,25 +114,26 @@
                                 <h2>{{__('msg.ID')}}</h2>
                                 <h2>{{__('msg.Name')}}</h2>
                                 <h2>{{__('msg.Phone Number')}}</h2>
-                                <h2>{{__('msg.Number')}}</h2>
-                                <h2>{{__('msg.Compensation')}}</h2>
-                                <h2>{{__('msg.Amount')}}</h2>
+                                <h2>{{__('msg.View Detail')}}</h2>
                             </div>
 
                             <div class="agent-profile-agent-list-rows-container">
-                                @if (count($agentcustomerdata) ==null || count($agentcustomerdata) ==0)
+
+                                @if ($agentCustomerData ==null)
                                     <p style="text-align: center;">{{__('msg.You not have customer')}}</p>
                                 @else
-                                    @foreach ($agentcustomerdata as $data)
+                                <?php $i=1;?>
+
+                                    @foreach ($agentCustomerData as $data)
                                         <div class="agent-profile-agent-list-row">
-                                            <p>{{$data->id}}</p>
-                                            <p>{{$data->customer_name}}</p>
-                                            <p>{{$data->customer_phone}}</p>
-                                            <p>{{$data->number}}</p>
-                                            <p>{{$data->compensation}}</p>
-                                            <p>{{$data->sale_amount}}ks</p>
+                                            <p>{{$i++}}</p>
+                                            <p>{{$data['customer_name']}}</p>
+                                            <p>{{$data['customer_phone']}}</p>
+                                            <a href="{{route('seedetail',[$data['customer_phone'],$data['customer_name']])}}">See Detail</a>
+
                                         </div>
                                     @endforeach
+                                
                                 @endif
                             </div>
                         </div>
@@ -135,6 +143,7 @@
             <!--referee profile end-->
 
     </div>
+
     <script>
         $(document).ready(function() {
            $(".agent-profile-edit-comission-btn").click(function(){
@@ -181,6 +190,7 @@
            config1
            );
        })
+
        </script>
 @endsection
 
