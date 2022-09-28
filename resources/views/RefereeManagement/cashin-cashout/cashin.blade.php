@@ -215,13 +215,13 @@
                     <button type="reset" class="cashin-cancel-btn">{{ __('msg.Cancel') }}</button>
                 </div>
 
-                    <div class="cashin-agent-payment-container">
+                    {{-- <div class="cashin-agent-payment-container">
                         <p>{{ __('msg.Remaining Amount') }}</p>
                         <input type="number" placeholder="" name="remaining_amount" class="inputRemainingAmount1"
                             class="@error('payment')
                           alert-border
                       @enderror"
-                            disabled />
+                            disabled /> --}}
 
                 @if (Session::has('cash-in'))
                     <div id="hide">
@@ -250,6 +250,7 @@
                         <th>{{ __('msg.Status') }}</th>
                         <th>{{ __('msg.Payment') }}</th>
                         <th>{{ __('msg.Remaining Amount') }}</th>
+                        <th></th>
                     </tr>
                         {{-- <p>Action</p> --}}
                     </thead>
@@ -278,11 +279,6 @@
                 </table>
             </div>
         </div>
-
-
-
-
-
         <div class="cashout-parent-container">
             <form action="{{ route('cashout.store') }}" method="POST" class="cashin-agent-inputs-parent-container">
                 @csrf
@@ -375,6 +371,12 @@
                 </table>
             </div>
         </div>
+
+
+
+
+
+
     </div>
 
     {{-- --------------------------------  Cash Out --------------------------------------- --}}

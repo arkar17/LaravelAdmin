@@ -124,7 +124,7 @@
               <th>{{__('msg.Amount')}}</th>
               <th>{{__('msg.Action')}}</th>
             </tr>
-        </thead>
+            </thead>
             <tbody class="daily-sale-book-sale-record-rows-container">
                         <?php $i=1;?>
                         @foreach ($agenttwodsaleList as $agent)
@@ -254,19 +254,19 @@
         <table class="daily-sale-book-sale-record-container">
             <thead>
           <tr class="daily-sale-book-sale-record-labels-container">
-            <p>{{__('msg.ID')}}</p>
-            {{-- <p>Date</p> --}}
-            <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
-            <p>{{__('msg.Type')}}</p>
-            <p>{{__('msg.Number')}}</p>
-            <p>{{__('msg.Compensation')}}</p>
-            <p>{{__('msg.Amount')}}</p>
-            <p>{{__('msg.Action')}}</p>
+            <th>{{__('msg.ID')}}</th>
+            {{-- <th>Date</th> --}}
+            <th>{{__('msg.Agent')}} {{__('msg.Name')}}</th>
+            <th>{{__('msg.Type')}}</th>
+            <th>{{__('msg.Number')}}</th>
+            <th>{{__('msg.Compensation')}}</th>
+            <th>{{__('msg.Amount')}}</th>
+            <th>{{__('msg.Action')}}</th>
           </tr>
             </thead>
           <tbody class="daily-sale-book-sale-record-rows-container">
             @foreach ($agentthreedsalelist as $agent)
-                <div class="daily-sale-book-sale-record-row">
+                <tr class="daily-sale-book-sale-record-row">
                     <td>{{$agent->id}}</td>
                     <td>{{$agent->name}}</td>
                     <td>{{__('msg.3D')}}</td>

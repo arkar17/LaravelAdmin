@@ -350,6 +350,10 @@ z-index: 1;
 @media screen and (max-width:1600px){
     p, a{
         font-size: 14px;
+        /* white-space: nowrap; */
+    }
+
+    a{
         white-space: nowrap;
     }
 

@@ -9,7 +9,7 @@
 
     <div class="side-bar-links-container">
         @hasanyrole('system_admin')
-        <a class="side-bar-link" href="{{route('sys-dashboard')}}">
+        <a class="side-bar-link" href="{{url('/')}}">
             <iconify-icon icon="bx:home-alt" class="sidebar-icon"></iconify-icon>
             <span>{{__('msg.home')}}</span>
         </a>
@@ -102,100 +102,111 @@
             </a> --}}
 
 
-          <div class="side-bar-link-dropdown-container">
-            <p class="side-bar-link-dropdown-header">
-              {{__('msg.Sale List')}}
-
-              <i class="fa-solid fa-angle-left side-bar-link-drop-down-icon"></i>
-            </p>
-            <div class="side-bar-link-drop-down">
-              <a class="side-bar-link-drop-down-link" href="{{route('dailysalebook')}}">{{__('msg.Daily Sale Book')}}</a>
-              <a class="side-bar-link-drop-down-link" href="{{route('twoDSaleList')}}">{{__('msg.2D Sale List')}}</a>
-              <a class="side-bar-link-drop-down-link" href="{{route('lonepyineSaleList')}}">{{__('msg.Lone Pyine Sale List')}}</a>
-              <a class="side-bar-link-drop-down-link" href="{{route('threeDSaleList')}}">{{__('msg.3D Sale List')}}</a>
-            </div>
-          </div>
 
 
 
-          <div class="side-bar-link-dropdown-container">
-            <p class="side-bar-link-dropdown-header">
-              {{__('msg.data')}}
 
-              <i class="fa-solid fa-angle-left side-bar-link-drop-down-icon"></i>
-            </p>
-            <div class="side-bar-link-drop-down">
-              <a class="side-bar-link-drop-down-link" href="{{route('agentDataForRefree')}}">{{__('msg.Agent Data')}}</a>
-              <!-- <a class="side-bar-link-drop-down-link" href="./agentdata.html">Agent Data</a> -->
 
-            </div>
-          </div>
         @endhasanyrole
         @hasanyrole('referee')
+        <a class="side-bar-link" href="{{url('/')}}">
+            <iconify-icon icon="carbon:dashboard" class="sidebar-icon"></iconify-icon>
+            <span>{{__('msg.home')}}</span>
+        </a>
         <div class="side-bar-link-dropdown-container">
             <p class="side-bar-link-dropdown-header">
-              {{__('msg.Request List')}}
+              <iconify-icon icon="bi:people" class="sidebar-icon"></iconify-icon>
+              <span>{{__('msg.Request List')}}</span>
               <!-- <i class="fa-solid fa-angle-down side-bar-link-drop-down-icon"></i> -->
               <i class="fa-solid fa-angle-left side-bar-link-drop-down-icon"></i>
             </p>
             <div class="side-bar-link-drop-down">
-              <a class="side-bar-link-drop-down-link" href="{{route('agentRequestListForRefree')}}">{{__('msg.Agent')}}</a>
 
-            </div>
-          </div>
-          <div class="side-bar-link-dropdown-container">
+              <a class="side-bar-link-drop-down-link" href="{{route('agentRequestListForRefree')}}">
+                  <iconify-icon icon="ic:baseline-support-agent" class="sidebar-icon"></iconify-icon>
+                  <span>{{__('msg.Agent')}}</span>
+              </a>
+
+              </div>
+        </div>
+        <div class="side-bar-link-dropdown-container">
             <p class="side-bar-link-dropdown-header">
-                {{__('msg.2D')}} / {{__('msg.3D')}}
+              <iconify-icon icon="mdi:video-2d" class="sidebar-icon"></iconify-icon>
+              <span>{{__('msg.2D')}} / {{__('msg.3D')}}</span>
               <!-- <i class="fa-solid fa-angle-down side-bar-link-drop-down-icon"></i> -->
               <i class="fa-solid fa-angle-left side-bar-link-drop-down-icon"></i>
             </p>
             <div class="side-bar-link-drop-down">
-              <a class="side-bar-link-drop-down-link" href="{{route('2DManage')}}">{{__('msg.2D Manage')}}</a>
-              <a class="side-bar-link-drop-down-link" href="{{route('3DManage')}}">{{__('msg.Lone Pyine & 3D Manage')}}</a>
+              <a class="side-bar-link-drop-down-link" href="{{route('2DManage')}}">
+                  <iconify-icon icon="bi:2-circle" class="sidebar-icon"></iconify-icon>
+                  <span>{{__('msg.2D Manage')}}</span>
+              </a>
+              <a class="side-bar-link-drop-down-link" href="{{route('3DManage')}}">
+                  <iconify-icon icon="bi:3-circle" class="sidebar-icon"></iconify-icon>
+                  <span>{{__('msg.Lone Pyine & 3D Manage')}}</span>
+              </a>
 
               <!-- <a class="side-bar-link-drop-down-link" href="./lonepyinemanage.html">Lone Pyine Manage</a> -->
             </div>
-          </div>
+        </div>
 
           {{-- <a class="side-bar-link" href="./maincash.html">
             Main Cash
           </a> --}}
           <a class="side-bar-link" href="{{ route('cashin') }}">
-            {{__('msg.Cash In / Cash Out')}}
-          </a>
+            <iconify-icon icon="ant-design:dollar-circle-outlined" class="sidebar-icon"></iconify-icon>
+          <span>{{__('msg.Cash In / Cash Out')}}</span>
+        </a>
           {{-- <a class="side-bar-link" href="./cashincashout.html">
              Winning Result
             </a> --}}
 
 
-          <div class="side-bar-link-dropdown-container">
-            <p class="side-bar-link-dropdown-header">
-              {{__('msg.Sale List')}}
+            <div class="side-bar-link-dropdown-container">
+                <p class="side-bar-link-dropdown-header">
+                  <iconify-icon icon="foundation:burst-sale" class="sidebar-icon"></iconify-icon>
+                <span>{{__('msg.Sale List')}}</span>
 
-              <i class="fa-solid fa-angle-left side-bar-link-drop-down-icon"></i>
-            </p>
-            <div class="side-bar-link-drop-down">
-              <a class="side-bar-link-drop-down-link" href="{{route('dailysalebook')}}">{{__('msg.Daily Sale Book')}}</a>
-              <a class="side-bar-link-drop-down-link" href="{{route('twoDSaleList')}}">{{__('msg.2D Sale List')}}</a>
-              <a class="side-bar-link-drop-down-link" href="{{route('lonepyineSaleList')}}">{{__('msg.Lone Pyine Sale List')}}</a>
-              <a class="side-bar-link-drop-down-link" href="{{route('threeDSaleList')}}">{{__('msg.3D Sale List')}}</a>
+                  <i class="fa-solid fa-angle-left side-bar-link-drop-down-icon"></i>
+                </p>
+                <div class="side-bar-link-drop-down">
+                  <a class="side-bar-link-drop-down-link" href="{{route('dailysalebook')}}">
+                      <iconify-icon icon="akar-icons:book" class="sidebar-icon"></iconify-icon>
+                      <span>{{__('msg.Daily Sale Book')}}</span>
+                  </a>
+                  <a class="side-bar-link-drop-down-link" href="{{route('twoDSaleList')}}">
+                      <iconify-icon icon="bi:2-circle" class="sidebar-icon"></iconify-icon>
+                      <span>{{__('msg.2D Sale List')}}</span>
+                  </a>
+                  <a class="side-bar-link-drop-down-link" href="{{route('lonepyineSaleList')}}">
+                      <iconify-icon icon="mdi:alpha-l-circle-outline" class="sidebar-icon"></iconify-icon>
+                      <span>{{__('msg.Lone Pyine Sale List')}}</span>
+                  </a>
+                  <a class="side-bar-link-drop-down-link" href="{{route('threeDSaleList')}}">
+                      <iconify-icon icon="bi:3-circle" class="sidebar-icon"></iconify-icon>
+                      <span>{{__('msg.3D Sale List')}}</span>
+                  </a>
+                </div>
             </div>
-          </div>
 
 
 
-          <div class="side-bar-link-dropdown-container">
-            <p class="side-bar-link-dropdown-header">
-              {{__('msg.data')}}
+            <div class="side-bar-link-dropdown-container">
+                <p class="side-bar-link-dropdown-header">
+                  <iconify-icon icon="bi:clipboard-data" class="sidebar-icon"></iconify-icon>
+                  <span>{{__('msg.data')}}</span>
 
-              <i class="fa-solid fa-angle-left side-bar-link-drop-down-icon"></i>
-            </p>
-            <div class="side-bar-link-drop-down">
-              <a class="side-bar-link-drop-down-link" href="{{route('agentDataForRefree')}}">{{__('msg.Agent Data')}}</a>
-              <!-- <a class="side-bar-link-drop-down-link" href="./agentdata.html">Agent Data</a> -->
+                  <i class="fa-solid fa-angle-left side-bar-link-drop-down-icon"></i>
+                </p>
+                <div class="side-bar-link-drop-down">
+                  <a class="side-bar-link-drop-down-link" href="{{route('agentDataForRefree')}}">
+                      <iconify-icon icon="ic:baseline-support-agent" class="sidebar-icon"></iconify-icon>
+                      <span>{{__('msg.Agent Data')}}</span>
+                  </a>
+                  <!-- <a class="side-bar-link-drop-down-link" href="./agentdata.html">Agent Data</a> -->
 
-            </div>
-          </div>
+                </div>
+              </div>
         @endhasanyrole
     </div>
   </div>

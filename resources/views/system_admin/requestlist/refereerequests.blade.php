@@ -35,6 +35,8 @@
                 <th>{{__('msg.Op Staff ID')}}</th>
                 <th>{{__('msg.Remark')}}</th>
                 <th>{{__('msg.role')}}</th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
               @foreach ($refereerequests as $refereerequest)

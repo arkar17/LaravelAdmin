@@ -187,7 +187,7 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
     /* display: flex;
     align-items: center;
     justify-content: space-between; */
-    padding: 15px;
+    padding: 15px 0;
     background-color: #E5E5E5;
 }
 

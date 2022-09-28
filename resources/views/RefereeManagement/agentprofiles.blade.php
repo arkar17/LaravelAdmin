@@ -109,15 +109,17 @@
 
                         </div>
 
-                        <div class="agent-profile-agent-list-container">
-                            <div class="agent-profile-agent-list-labels-container">
-                                <h2>{{__('msg.ID')}}</h2>
-                                <h2>{{__('msg.Name')}}</h2>
-                                <h2>{{__('msg.Phone Number')}}</h2>
-                                <h2>{{__('msg.View Detail')}}</h2>
-                            </div>
+                        <table class="agent-profile-agent-list-container">
+                            <thead>
+                            <tr class="agent-profile-agent-list-labels-container">
+                                <th>{{__('msg.ID')}}</th>
+                                <th>{{__('msg.Name')}}</th>
+                                <th>{{__('msg.Phone Number')}}</th>
+                                <th>{{__('msg.View Detail')}}</th>
+                            </tr>
+                            </thead>
 
-                            <div class="agent-profile-agent-list-rows-container">
+                            <tbody class="agent-profile-agent-list-rows-container">
 
                                 @if ($agentCustomerData ==null)
                                     <p style="text-align: center;">{{__('msg.You not have customer')}}</p>
@@ -125,18 +127,18 @@
                                 <?php $i=1;?>
 
                                     @foreach ($agentCustomerData as $data)
-                                        <div class="agent-profile-agent-list-row">
-                                            <p>{{$i++}}</p>
-                                            <p>{{$data['customer_name']}}</p>
-                                            <p>{{$data['customer_phone']}}</p>
-                                            <a href="{{route('seedetail',[$data['customer_phone'],$data['customer_name']])}}">See Detail</a>
+                                        <tr class="agent-profile-agent-list-row">
+                                            <td>{{$i++}}</td>
+                                            <td>{{$data['customer_name']}}</td>
+                                            <td>{{$data['customer_phone']}}</td>
+                                            <td href="{{route('seedetail',[$data['customer_phone'],$data['customer_name']])}}">See Detail</td>
 
-                                        </div>
+                                        </tr>
                                     @endforeach
 
                                 @endif
-                            </div>
-                        </div>
+                            </tbody>
+                        </table>
                 </div>
 
             </div>

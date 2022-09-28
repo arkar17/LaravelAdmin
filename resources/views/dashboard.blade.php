@@ -131,57 +131,62 @@
       href="{{route('twoddecline.export_pdf')}}">
              Export
       </a>
-      <div class="twod-sale-list-details-parent-container">
-          <div class="twod-sale-list-details-labels-container">
-            <p>{{__('msg.ID')}}</p>
-            <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
-            <p>{{__('msg.Number')}}</p>
-            <p>{{__('msg.Max Amount')}}</p>
-            <p>{{__('msg.Amount')}}</p>
-          </div>
+      <table class="twod-sale-list-details-parent-container">
+        <thead>
+          <tr class="twod-sale-list-details-labels-container">
+            <th>{{__('msg.ID')}}</th>
+            <th>{{__('msg.Agent')}} {{__('msg.Name')}}</th>
+            <th>{{__('msg.Number')}}</th>
+            <th>{{__('msg.Max Amount')}}</th>
+            <th>{{__('msg.Amount')}}</th>
+          </tr>
+        </thead>
 
-          <div class="twod-sale-details-rows-container" >
+          <tbody class="twod-sale-details-rows-container" >
               <?php  $i = 1 ?>
               @foreach ($Declined_twoDList as $declined)
-                  <div class="twod-sale-details-row">
-                      <p>{{$i++}}</p>
-                      <p>{{$declined->name}}</p>
-                      <p>{{$declined->number}}</p>
-                      <p>{{$declined->max_amount}}</p>
-                      <p style="color:red">{{$declined->sales}}</p>
-                  </div>
+                  <tr class="twod-sale-details-row">
+                      <td>{{$i++}}</td>
+                      <td>{{$declined->name}}</td>
+                      <td>{{$declined->number}}</td>
+                      <td>{{$declined->max_amount}}</td>
+                      <td style="color:red">{{$declined->sales}}</td>
+                  </tr>
               @endforeach
 
-          </div>
-      </div>
+          </tbody>
+      </table>
 
+      <h1>Lone Pyine {{__('msg.Declined List')}}</h1>
       <a class="twod-sale-export-btn"
       href="{{route('lonepyinedecline.export_pdf')}}">
              Export
       </a>
-      <div class="twod-sale-list-details-parent-container">
-          <div class="twod-sale-list-details-labels-container">
-            <p>{{__('msg.ID')}}</p>
-            <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
-            <p>{{__('msg.Number')}}</p>
-            <p>{{__('msg.Max Amount')}}</p>
-            <p>{{__('msg.Amount')}}</p>
-          </div>
+      <table class="twod-sale-list-details-parent-container">
+        <thead>
+          <tr class="twod-sale-list-details-labels-container">
+            <th>{{__('msg.ID')}}</th>
+            <th>{{__('msg.Agent')}} {{__('msg.Name')}}</th>
+            <th>{{__('msg.Number')}}</th>
+            <th>{{__('msg.Max Amount')}}</th>
+            <th>{{__('msg.Amount')}}</th>
+          </tr>
+        </thead>
 
-          <div class="twod-sale-details-rows-container" >
+          <tbody class="twod-sale-details-rows-container" >
               <?php  $i = 1 ?>
               @foreach ($Declined_lonepyineList as $declined)
-                  <div class="twod-sale-details-row">
-                      <p>{{$i++}}</p>
-                      <p>{{$declined->name}}</p>
-                      <p>{{$declined->number}}</p>
-                      <p>{{$declined->max_amount}}</p>
-                      <p style="color:red">{{$declined->sales}}</p>
-                  </div>
+                  <tr class="twod-sale-details-row">
+                      <td>{{$i++}}</td>
+                      <td>{{$declined->name}}</td>
+                      <td>{{$declined->number}}</td>
+                      <td>{{$declined->max_amount}}</td>
+                      <td style="color:red">{{$declined->sales}}</td>
+                  </tr>
               @endforeach
 
-          </div>
-      </div>
+          </tbody>
+      </table>
       @endhasanyrole
       @hasanyrole('referee')
 <script>

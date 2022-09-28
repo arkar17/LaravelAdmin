@@ -30,7 +30,7 @@
                     <span>{{__('msg.Agent')}}</span>
                 </a>
 
-              </div>
+                </div>
             </div>
             <div class="side-bar-link-dropdown-container">
               <p class="side-bar-link-dropdown-header">
