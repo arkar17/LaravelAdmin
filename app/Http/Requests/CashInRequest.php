@@ -24,7 +24,8 @@ class CashInRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            'coin_amount' => 'required'
+            // 'payment' => 'required',
         ];
     }
 }

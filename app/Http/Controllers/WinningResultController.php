@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Validator;
 
 class WinningResultController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function winningresult() {
         return view('winningresult');
     }

@@ -19,15 +19,13 @@
 
     <div>
         @if (Session::has('success'))
-            <div class="alert alert-success alert-dismissible fade in">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                        aria-hidden="true">×</span></button>
-                <strong>{{ Session::get('success') }}</strong>
-            </div>
+                <div id="hide">
+                    <h4 class="main-cash-alert"> {{ Session::get('success') }} <span class="closeBtn">X</span> </h4>
+                </div>
         @endif
 
          <!--Create referee start-->
-{{--
+        {{--
          <div class="create-referee-parent-container">
             <h1>Create Operation Staff</h1>
             <form action="{{ route('operation-staff.store') }}" method="POST" enctype="multipart/form-data" class="create-referee-container">

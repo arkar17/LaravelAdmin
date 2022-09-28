@@ -15,6 +15,7 @@ use App\Models\Twodsalelist;
 use Illuminate\Http\Request;
 use App\Models\Threedsalelist;
 use App\Models\Lonepyinesalelist;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,93 +24,90 @@ class TwodThreeDController extends Controller
     //  2d numbers For AM
     public function getTwoDsAM()
     {
-        $options = array(
-            'cluster' => env('PUSHER_APP_CLUSTER'),
-            'encrypted' => true
-        );
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            $options
-        );
+        // $options = array(
+        //     'cluster' => env('PUSHER_APP_CLUSTER'),
+        //     'encrypted' => true
+        // );
+        // $pusher = new Pusher(
+        //     env('PUSHER_APP_KEY'),
+        //     env('PUSHER_APP_SECRET'),
+        //     env('PUSHER_APP_ID'),
+        //     $options
+        // );
+
+        // $user = auth()->user();
+
+        // $current_date = Carbon::now('Asia/Yangon')->toDateString();
+
+        // if ($user) {
+        //     $agent = Agent::where('user_id', $user->id)->first();
+        //     $twods = Twod::where('referee_id', $agent->referee_id)
+        //         ->where('round', 'Morning')->where('date', $current_date)->latest()->take(100)->get();
+
+        //     // $pusher->trigger('notify-channel', 'App\\Events\\Notify', $twods);
+        //     return response()->json([
+        //         'status' => 200,
+        //         'twods' => $twods
+        //     ]);
+        // } else {
+        //     return response()->json([
+        //         'status' => 401,
+        //         'message' => 'Unauthorized user!'
+        //     ]);
+        // }
 
         $user = auth()->user();
-
-        $current_date = Carbon::now('Asia/Yangon')->toDateString();
-
+        $currentDate = Carbon::now()->toDateString();
         if ($user) {
+            // $referee = Referee::where('user_id', $user)->first();
             $agent = Agent::where('user_id', $user->id)->first();
-            $twods = Twod::where('referee_id', $agent->referee_id)
-                ->where('round', 'Morning')->where('date', $current_date)->latest()->take(100)->get();
-
-            // $pusher->trigger('notify-channel', 'App\\Events\\Notify', $twods);
-            return response()->json([
-                'status' => 200,
-                'twods' => $twods
-            ]);
-        } else {
-            return response()->json([
-                'status' => 401,
-                'message' => 'Unauthorized user!'
-            ]);
+            $twods = DB::select("SELECT aa.id,aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
+            from (SELECT * FROM ( SELECT * FROM twods t where referee_id = '$agent->referee_id' ORDER BY id DESC LIMIT 100 )sub ORDER BY id ASC) aa
+            LEFT join agents on aa.referee_id = agents.id
+            LEFT join twodsalelists ts on ts.twod_id = aa.id
+            and ts.status = 1
+            where aa.referee_id = '$agent->referee_id'
+            and aa.date = '$currentDate'
+            and aa.round = 'Morning'
+            group by aa.number");
         }
+        return response()->json([
+            'status' => 200,
+            'twods' => $twods
+        ]);
     }
 
     //  2d numbers For PM
     public function getTwoDsPM()
     {
-        $options = array(
-            'cluster' => env('PUSHER_APP_CLUSTER'),
-            'encrypted' => true
-        );
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            $options
-        );
         $user = auth()->user();
-        $current_date = Carbon::now('Asia/Yangon')->toDateString();
-
+        $currentDate = Carbon::now()->toDateString();
         if ($user) {
+            // $referee = Referee::where('user_id', $user)->first();
             $agent = Agent::where('user_id', $user->id)->first();
-            $twods = Twod::where('referee_id', $agent->referee_id)
-                ->where('round', 'Evening')->where('date', $current_date)->latest()->take(100)->get();
-
-            // $pusher->trigger('notify-channel', 'App\\Events\\Notify', $twods);
-            return response()->json([
-                'status' => 200,
-                'twods' => $twods
-            ]);
-        } else {
-            return response()->json([
-                'status' => 401,
-                'message' => 'Unauthorized user!'
-            ]);
+            $twods = DB::select("SELECT aa.id,aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
+            from (SELECT * FROM ( SELECT * FROM twods t where referee_id = '$agent->referee_id' ORDER BY id DESC LIMIT 100 )sub ORDER BY id ASC) aa
+            LEFT join agents on aa.referee_id = agents.id
+            LEFT join twodsalelists ts on ts.twod_id = aa.id
+            and ts.status = 1
+            where aa.referee_id = '$agent->referee_id'
+            and aa.date = '$currentDate'
+            and aa.round = 'Evening'
+            group by aa.number");
         }
+        return response()->json([
+            'status' => 200,
+            'twods' => $twods
+        ]);
     }
 
     // 3d numbers
     public function getThreeDs()
     {
-        $options = array(
-            'cluster' => env('PUSHER_APP_CLUSTER'),
-            'encrypted' => true
-        );
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            $options
-        );
-
         $user = auth()->user();
-        $current_date = Carbon::now('Asia/Yangon')->toDateString();
-
         if ($user) {
             $agent = Agent::where('user_id', $user->id)->first();
-            $threeds = Threed::select('compensation')->where('referee_id', $agent->referee_id)->where('date', $current_date)->latest()->first();
+            $threeds = Threed::select('compensation')->where('referee_id', $agent->referee_id)->latest()->first();
             // $pusher->trigger('threed-channel', 'App\\Events\\ThreedEvent', $threeds);
             return response()->json([
                 'status' => 200,
@@ -126,70 +124,45 @@ class TwodThreeDController extends Controller
     // Lonepyaing numbers For AM
     public function getLonePyaingsAM()
     {
-        $options = array(
-            'cluster' => env('PUSHER_APP_CLUSTER'),
-            'encrypted' => true
-        );
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            $options
-        );
         $user = auth()->user();
-        $current_date = Carbon::now('Asia/Yangon')->toDateString();
-
+        $currentDate = Carbon::now()->toDateString();
         if ($user) {
-            $agent = Agent::where('user_id', $user->id)->first();
-            $lonepyines = Lonepyine::where('referee_id', $agent->referee_id)
-                ->where('round', 'Morning')->where('date', $current_date)->latest()->take(20)->get();;
-
-            $pusher->trigger('notify-channel', 'App\\Events\\Notify', $lonepyines);
-            return response()->json([
-                'status' => 200,
-                'lonepyaings' => $lonepyines
-            ]);
-        } else {
-            return response()->json([
-                'status' => 401,
-                'message' => 'Unauthorized user!'
-            ]);
+            // $referee = Referee::where('user_id', $user)->first();
+        $agent = Agent::where('user_id', $user->id)->first();
+        $lonepyines = DB::select("SELECT aa.id, aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
+            FROM (SELECT * FROM
+             ( SELECT * FROM lonepyines where referee_id =  $agent->referee_id
+             ORDER BY id DESC LIMIT 20 )sub ORDER BY id ASC) aa LEFT join agents on
+             aa.referee_id = agents.id LEFT join lonepyinesalelists ts on
+             ts.lonepyine_id = aa.id where aa.referee_id =  $agent->referee_id and aa.date = '$currentDate' and aa.round = 'Morning'
+            group by aa.number");
         }
+        return response()->json([
+             'status' => 200,
+             'lonepyines' => $lonepyines
+        ]);
     }
 
     // Lonepyaing numbers For PM
     public function getLonePyaingsPM()
     {
-        $options = array(
-            'cluster' => env('PUSHER_APP_CLUSTER'),
-            'encrypted' => true
-        );
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            $options
-        );
-
         $user = auth()->user();
-        $current_date = Carbon::now('Asia/Yangon')->toDateString();
-
+        $currentDate = Carbon::now()->toDateString();
         if ($user) {
-            $agent = Agent::where('user_id', $user->id)->first();
-            $lonepyines = Lonepyine::where('referee_id', $agent->referee_id)
-                ->where('round', 'Evening')->where('date', $current_date)->latest()->take(20)->get();;
-
-            $pusher->trigger('notify-channel', 'App\\Events\\Notify', $lonepyines);
-            return response()->json([
-                'status' => 200,
-                'lonepyines' => $lonepyines
-            ]);
-        } else {
-            return response()->json([
-                'status' => 401,
-                'message' => 'Unauthorized user!'
-            ]);
+            // $referee = Referee::where('user_id', $user)->first();
+        $agent = Agent::where('user_id', $user->id)->first();
+        $lonepyines = DB::select("SELECT aa.id, aa.number , aa.max_amount , aa.compensation , SUM(ts.sale_amount) as sales
+            FROM (SELECT * FROM
+             ( SELECT * FROM lonepyines where referee_id =  $agent->referee_id
+             ORDER BY id DESC LIMIT 20 )sub ORDER BY id ASC) aa LEFT join agents on
+             aa.referee_id = agents.id LEFT join lonepyinesalelists ts on
+             ts.lonepyine_id = aa.id where aa.referee_id =  $agent->referee_id and aa.date = '$currentDate' and aa.round = 'Evening'
+            group by aa.number");
         }
+        return response()->json([
+             'status' => 200,
+             'lonepyines' => $lonepyines
+        ]);
     }
 
     // Store 2D Sale List
@@ -210,8 +183,8 @@ class TwodThreeDController extends Controller
                 $twod_sale_list->twod_id = $sale->twod_id;
                 $twod_sale_list->agent_id = $sale->agent_id;
                 $twod_sale_list->sale_amount = $sale->sale_amount;
-                $twod_sale_list->customer_name = $sale->customer_name;
-                $twod_sale_list->customer_phone = $sale->customer_phone;
+                $twod_sale_list->customer_name = $sale->customer_name ?? null;
+                $twod_sale_list->customer_phone = $sale->customer_phone ?? null;
 
                 $twod_sale_list->save();
             }
@@ -264,8 +237,8 @@ class TwodThreeDController extends Controller
                         $threed_sale_list->threed_id = $threed->id;
                         $threed_sale_list->agent_id = $sale->agent_id;
                         $threed_sale_list->sale_amount = $sale->sale_amount;
-                        $threed_sale_list->customer_name = $sale->customer_name;
-                        $threed_sale_list->customer_phone = $sale->customer_phone;
+                        $threed_sale_list->customer_name = $sale->customer_name ?? null;
+                        $threed_sale_list->customer_phone = $sale->customer_phone ?? null;
 
                         $threed_sale_list->save();
                     }
@@ -317,8 +290,8 @@ class TwodThreeDController extends Controller
                 $lonepyaing_sale_list->lonepyine_id = $sale->lonepyine_id;
                 $lonepyaing_sale_list->agent_id = $sale->agent_id;
                 $lonepyaing_sale_list->sale_amount = $sale->sale_amount;
-                $lonepyaing_sale_list->customer_name = $sale->customer_name;
-                $lonepyaing_sale_list->customer_phone = $sale->customer_phone;
+                $lonepyaing_sale_list->customer_name = $sale->customer_name ?? null;
+                $lonepyaing_sale_list->customer_phone = $sale->customer_phone ?? null;
 
                 $lonepyaing_sale_list->save();
             }

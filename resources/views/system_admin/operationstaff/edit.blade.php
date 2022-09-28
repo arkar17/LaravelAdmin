@@ -14,15 +14,16 @@
               <div class="form-group">
                 <!-- form-group -->
                 <label class="label">
-                  <i class="fa-solid fa-plus"></i>
-                  <span class="title">{{__('msg.Add Photo')}}</span>
-                  <input type="file" id="imgInp" name="profile_img"/>
-                  <a href="{{ asset('storage/image/'. $operation_staff->image) }}">{{ $operation_staff->image }}</a>
-                        <input type="file" class="form-control form-control-md" id="profile_img" name="profile_img">
-                    @error('profile_img')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                    <div class="preview_img mt-2"></div>
+                    <i class="fa-solid fa-plus"></i>
+                    <span class="title">Add Photo</span>
+                    <input type="file" id="imgInp" name="profile_img"/>
+
+                    <p>Profile Image</p>
+
+                    <img src="{{ asset('/image/'.$operation_staff->image) }}" alt="">
+                    {{-- <a href=">{{ $referee->image }}</a> --}}
+                        {{-- <input type="file" class="form-control form-control-md" id="profile_img" > --}}
+                    {{-- <div class="preview_img mt-2"></div> --}}
                 </label>
               </div>
 
@@ -42,21 +43,6 @@
                     @error('phone')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
-                  </div>
-                </div>
-
-                <div class="create-referee-inputs-row">
-                  <div class="create-referee-pw-container">
-                    <label for="referee-pw">{{__('msg.Password')}}</label>
-                    <input type="password" placeholder="Enter Password" name="password" id="password"  value="{{ $operation_staff->user->password}}">
-
-                    @error('password')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                  </div>
-                  <div class="create-referee-confirmpw-container">
-                    <label for="referee-confirmpw">{{__('msg.Confirm Password')}}</label>
-                    <input type="password" id="referee-confirmpw" name="confirmpassword" placeholder="Re-enter Password"/>
                   </div>
                 </div>
 

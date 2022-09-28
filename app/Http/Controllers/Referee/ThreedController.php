@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Referee;
-use App\Models\Agent;
+use Carbon\Carbon;
 
+use App\Models\Agent;
 use App\Models\Referee;
 use Illuminate\Http\Request;
 use App\Models\Threedsalelist;
@@ -11,15 +12,22 @@ use App\Http\Controllers\Controller;
 
 class ThreedController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function threeDSaleList(){
         $user = auth()->user()->id;
         $referee =Referee::where('user_id',$user)->first();
         $agents = Agent::where('id' ,'>' ,0)->where('referee_id',$referee->id)->pluck('id')->toArray();
 
+        $tdy_date=Carbon::now()->toDateString();
+
         $threeDSaleList = Threedsalelist::select('threedsalelists.id','threedsalelists.threed_id','threedsalelists.sale_amount',
         'threedsalelists.customer_name','users.name','threeds.number')
         ->whereIn('threedsalelists.agent_id',$agents)
         ->where('threedsalelists.status',1)
+        ->where('threeds.date',$tdy_date)
         ->orderBy('threedsalelists.id','desc')
         ->join('threeds','threeds.id','threedsalelists.threed_id')
         ->join('agents','agents.id','threedsalelists.agent_id')

@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\JWT;
+use Tymon\JWTAuth\JWTAuth as JWTAuthJWTAuth;
 
 class AuthController extends Controller
 {
@@ -135,6 +137,7 @@ class AuthController extends Controller
         ]);
     }
 
+
     // User Login
     public function login(Request $request)
     {
@@ -150,9 +153,21 @@ class AuthController extends Controller
             ]);
         }
 
+        $check_password = User::where('phone', $request->phone)->first();
+        if(!$check_password) {
+            return response()->json([
+                'message' => 'Unauthenticated Phone number!'
+            ]);
+        }
+        $checked =  Hash::check($request->password, $check_password->password);
+        if(!$checked) {
+            return response()->json([
+                'message' => 'Uncorrect Password'
+            ]);
+        }
+
         $input =  $request->only(['phone', 'password']);
         $token = JWTAuth::attempt($input);
-
 
         $user = auth()->user();
 
@@ -164,6 +179,63 @@ class AuthController extends Controller
             $agent->save();
         }
 
+        //$token = auth()->attempt($validator->validated());
+        if ($token) {
+            return response()->json([
+                'status' => 200,
+                'message' => 'success',
+                'token' => $token,
+                'user' => auth()->user(),
+                'expires_in' => JWTAuth::factory()->getTTL(),
+            ]);
+        } else {
+            return response()->json([
+                'status' => 401,
+                'message' => 'Unauthenticated user!'
+            ]);
+        }
+    }
+
+    //Mobile Login
+    public function mobileLogin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'phone' => 'required',
+            'password' => 'required|min:6|max:9'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'data' => $validator->errors()
+            ]);
+        }
+
+        $check_password = User::where('phone', $request->phone)->first();
+        if(!$check_password) {
+            return response()->json([
+                'message' => 'Unauthenticated Phone number!'
+            ]);
+        }
+        $checked =  Hash::check($request->password, $check_password->password);
+        if(!$checked) {
+            return response()->json([
+                'message' => 'Uncorrect Password'
+            ]);
+        }
+
+        $input =  $request->only(['phone', 'password']);
+        $token = JWTAuth::attempt($input);
+
+        $user = auth()->user();
+
+        $usr = User::find($user->id);
+
+        $agent = Agent::where('user_id', $usr->id)->first();
+        if ($agent) {
+            $agent->is_online = 1;
+            $agent->save();
+        }
 
         //$token = auth()->attempt($validator->validated());
         if ($token) {
@@ -172,6 +244,7 @@ class AuthController extends Controller
                 'message' => 'success',
                 'token' => $token,
                 'user' => auth()->user(),
+                'expires_in' => 5 * (JWTAuth::factory()->getTTL() * 24),
             ]);
         } else {
             return response()->json([
@@ -179,8 +252,6 @@ class AuthController extends Controller
                 'message' => 'Unauthenticated user!'
             ]);
         }
-
-        return $this->createNewToken($token);
     }
 
     // Request For promotion
@@ -231,7 +302,7 @@ class AuthController extends Controller
         } else {
             return response()->json([
                 'status' => 401,
-                'message' => "Your phone is not registered in our website yet."
+                'message' => "Your phone is not registered in our database yet."
             ]);
         }
     }
@@ -299,7 +370,7 @@ class AuthController extends Controller
             if ($request->hasFile('profile_image')) {
                 $file = $request->file('profile_image');
                 $imageName = uniqid() . '_' .  $file->getClientOriginalName();
-                Storage::disk('public')->put('profiles/' . $imageName, file_get_contents($file));
+                $file->move(public_path() . '/image/', $imageName);
             }
 
             $agent->user->name = $request->name;
@@ -375,7 +446,7 @@ class AuthController extends Controller
             'message' => 'Login Success',
             'access_token' => $token,
             'token_type' => 'bearer',
-            // 'expires_in' => auth()->factory()->getTTL(),
+            //'expires_in' => auth()->factory()->getTTL(),
             'user' => auth()->user()
         ]);
     }

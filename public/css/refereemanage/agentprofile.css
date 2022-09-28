@@ -272,3 +272,10 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 .agent-profile-commission-container{
     display: none;
 }
+.agent-profile-commission-edit{
+    color: white;
+    margin-left: 20px;
+    background-color: rgba(18, 179, 18, 0.863);
+    border-radius: 5px;
+    padding: 5px;
+}

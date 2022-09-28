@@ -36,6 +36,7 @@ use App\Http\Controllers\Api\WinningResult\WinningResultController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+Route::post('mobile-login', [AuthController::class, 'mobileLogin']);
 
 Route::post('checkPhone', [AuthController::class, 'checkPhone']);
 Route::post('hasPhone', [AuthController::class, 'hasPhone']);;

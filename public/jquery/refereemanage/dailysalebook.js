@@ -47,26 +47,30 @@ $(document).ready(function(){
     let dataArr = []
 
 
-    $.getJSON('http://127.0.0.1:8000/twodlist', (data, jqXHR) => {
+    $.getJSON('http://128.199.201.43/twodlist', (data, jqXHR) => {
+        console.log(data);
+            const twodListData = data.data.salesList.sort((a,b) => {
+                return parseInt(a.number) - parseInt(b.number)
+            })
+        console.log(twodListData)
         //2d 1st row
-        if(data.data.salesList.length != 0){
+        if(twodListData.length != 0){
     for(let i = 0;i <= 8;i++){
         // console.log(dataArr[i])
         $('.daily-sale-book-2dlist-1row').append(`
             <div class="daily-sale-book-2dlist-item-container">
-                <p>${i}</p>
+                <p>${twodListData[i].number}</p>
                 <div class="daily-sale-book-2dlist-item-rate">
                     <p>Rate:</p>
-                    <p>${data.data.salesList[i].compensation}</p>
-
+                    <p>${twodListData[i].compensation}</p>
                 </div>
                 <div class="daily-sale-book-2dlist-item-max">
                     <p>Max:</p>
-                    <p>${data.data.salesList[i].max_amount}</p>
+                    <p>${twodListData[i].max_amount}</p>
                 </div>
                 <div class="daily-sale-book-2dlist-item-sale">
                     <p>Sale:</p>
-                    <p>${data.data.salesList[i].sales == null? `0` : data.data.salesList[i].sales}</p>
+                    <p>${twodListData[i].sales == null? `0` : twodListData[i].sales}</p>
                 </div>
             </div>`)
     }
@@ -77,16 +81,16 @@ $(document).ready(function(){
                         <p>${i}</p>
                         <div class="daily-sale-book-2dlist-item-rate">
                             <p>Rate:</p>
-                            <p>${data.data.salesList[i].compensation}</p>
+                            <p>${twodListData[i].compensation}</p>
 
                         </div>
                         <div class="daily-sale-book-2dlist-item-max">
                             <p>Max:</p>
-                            <p>${data.data.salesList[i].max_amount}</p>
+                            <p>${twodListData[i].max_amount}</p>
                         </div>
                         <div class="daily-sale-book-2dlist-item-sale">
                             <p>Sale:</p>
-                            <p>${data.data.salesList[i].sales == null? `0` : data.data.salesList[i].sales}</p>
+                            <p>${twodListData[i].sales == null? `0` : twodListData[i].sales}</p>
                         </div>
                     </div>`)
             }
@@ -98,16 +102,16 @@ $(document).ready(function(){
                         <p>${i}</p>
                         <div class="daily-sale-book-2dlist-item-rate">
                             <p>Rate:</p>
-                            <p>${data.data.salesList[i].compensation}</p>
+                            <p>${twodListData[i].compensation}</p>
 
                         </div>
                         <div class="daily-sale-book-2dlist-item-max">
                             <p>Max:</p>
-                            <p>${data.data.salesList[i].max_amount}</p>
+                            <p>${twodListData[i].max_amount}</p>
                         </div>
                         <div class="daily-sale-book-2dlist-item-sale">
                             <p>Sale:</p>
-                            <p>${data.data.salesList[i].sales == null? `0` : data.data.salesList[i].sales}</p>
+                            <p>${twodListData[i].sales == null? `0` : twodListData[i].sales}</p>
                         </div>
                     </div>`)
             }
@@ -119,16 +123,16 @@ $(document).ready(function(){
                         <p>${i}</p>
                         <div class="daily-sale-book-2dlist-item-rate">
                             <p>Rate:</p>
-                            <p>${data.data.salesList[i].compensation}</p>
+                            <p>${twodListData[i].compensation}</p>
 
                         </div>
                         <div class="daily-sale-book-2dlist-item-max">
                             <p>Max:</p>
-                            <p>${data.data.salesList[i].max_amount}</p>
+                            <p>${twodListData[i].max_amount}</p>
                         </div>
                         <div class="daily-sale-book-2dlist-item-sale">
                             <p>Sale:</p>
-                            <p>${data.data.salesList[i].sales == null? `0` : data.data.salesList[i].sales}</p>
+                            <p>${twodListData[i].sales == null? `0` : twodListData[i].sales}</p>
                         </div>
                     </div>`)
             }
@@ -140,16 +144,16 @@ $(document).ready(function(){
                         <p>${i}</p>
                         <div class="daily-sale-book-2dlist-item-rate">
                             <p>Rate:</p>
-                            <p>${data.data.salesList[i].compensation}</p>
+                            <p>${twodListData[i].compensation}</p>
 
                         </div>
                         <div class="daily-sale-book-2dlist-item-max">
                             <p>Max:</p>
-                            <p>${data.data.salesList[i].max_amount}</p>
+                            <p>${twodListData[i].max_amount}</p>
                         </div>
                         <div class="daily-sale-book-2dlist-item-sale">
                             <p>Sale:</p>
-                            <p>${data.data.salesList[i].sales == null? `0` : data.data.salesList[i].sales}</p>
+                            <p>${twodListData[i].sales == null? `0` : twodListData[i].sales}</p>
                         </div>
                     </div>`)
             }
@@ -161,16 +165,16 @@ $(document).ready(function(){
                         <p>${i}</p>
                         <div class="daily-sale-book-2dlist-item-rate">
                             <p>Rate:</p>
-                            <p>${data.data.salesList[i].compensation}</p>
+                            <p>${twodListData[i].compensation}</p>
 
                         </div>
                         <div class="daily-sale-book-2dlist-item-max">
                             <p>Max:</p>
-                            <p>${data.data.salesList[i].max_amount}</p>
+                            <p>${twodListData[i].max_amount}</p>
                         </div>
                         <div class="daily-sale-book-2dlist-item-sale">
                             <p>Sale:</p>
-                            <p>${data.data.salesList[i].sales == null? `0` : data.data.salesList[i].sales}</p>
+                            <p>${twodListData[i].sales == null? `0` : twodListData[i].sales}</p>
                         </div>
                     </div>`)
             }
@@ -182,16 +186,16 @@ $(document).ready(function(){
                     <p>${i}</p>
                     <div class="daily-sale-book-2dlist-item-rate">
                         <p>Rate:</p>
-                        <p>${data.data.salesList[i].compensation}</p>
+                        <p>${twodListData[i].compensation}</p>
 
                     </div>
                     <div class="daily-sale-book-2dlist-item-max">
                         <p>Max:</p>
-                        <p>${data.data.salesList[i].max_amount}</p>
+                        <p>${twodListData[i].max_amount}</p>
                     </div>
                     <div class="daily-sale-book-2dlist-item-sale">
                         <p>Sale:</p>
-                        <p>${data.data.salesList[i].sales == null? `0` : data.data.salesList[i].sales}</p>
+                        <p>${twodListData[i].sales == null? `0` : twodListData[i].sales}</p>
                     </div>
                     </div>`)
             }
@@ -203,16 +207,16 @@ $(document).ready(function(){
                         <p>${i}</p>
                         <div class="daily-sale-book-2dlist-item-rate">
                             <p>Rate:</p>
-                            <p>${data.data.salesList[i].compensation}</p>
+                            <p>${twodListData[i].compensation}</p>
 
                         </div>
                         <div class="daily-sale-book-2dlist-item-max">
                             <p>Max:</p>
-                            <p>${data.data.salesList[i].max_amount}</p>
+                            <p>${twodListData[i].max_amount}</p>
                         </div>
                         <div class="daily-sale-book-2dlist-item-sale">
                             <p>Sale:</p>
-                            <p>${data.data.salesList[i].sales == null? `0` : data.data.salesList[i].sales}</p>
+                            <p>${twodListData[i].sales == null? `0` : twodListData[i].sales}</p>
                         </div>
                     </div>`)
             }
@@ -224,16 +228,16 @@ $(document).ready(function(){
                     <p>${i}</p>
                     <div class="daily-sale-book-2dlist-item-rate">
                         <p>Rate:</p>
-                        <p>${data.data.salesList[i].compensation}</p>
+                        <p>${twodListData[i].compensation}</p>
 
                     </div>
                     <div class="daily-sale-book-2dlist-item-max">
                         <p>Max:</p>
-                        <p>${data.data.salesList[i].max_amount}</p>
+                        <p>${twodListData[i].max_amount}</p>
                     </div>
                     <div class="daily-sale-book-2dlist-item-sale">
                         <p>Sale:</p>
-                        <p>${data.data.salesList[i].sales == null? `0` : data.data.salesList[i].sales}</p>
+                        <p>${twodListData[i].sales == null? `0` : twodListData[i].sales}</p>
                     </div>
                     </div>`)
             }
@@ -245,16 +249,16 @@ $(document).ready(function(){
                         <p>${i}</p>
                         <div class="daily-sale-book-2dlist-item-rate">
                             <p>Rate:</p>
-                            <p>${data.data.salesList[i].compensation}</p>
+                            <p>${twodListData[i].compensation}</p>
 
                         </div>
                         <div class="daily-sale-book-2dlist-item-max">
                             <p>Max:</p>
-                            <p>${data.data.salesList[i].max_amount}</p>
+                            <p>${twodListData[i].max_amount}</p>
                         </div>
                         <div class="daily-sale-book-2dlist-item-sale">
                             <p>Sale:</p>
-                            <p>${data.data.salesList[i].sales == null? `0` : data.data.salesList[i].sales}</p>
+                            <p>${twodListData[i].sales == null? `0` : twodListData[i].sales}</p>
                         </div>
                     </div>`)
             }
@@ -266,16 +270,16 @@ $(document).ready(function(){
                     <p>${i}</p>
                     <div class="daily-sale-book-2dlist-item-rate">
                         <p>Rate:</p>
-                        <p>${data.data.salesList[i].compensation}</p>
+                        <p>${twodListData[i].compensation}</p>
 
                     </div>
                     <div class="daily-sale-book-2dlist-item-max">
                         <p>Max:</p>
-                        <p>${data.data.salesList[i].max_amount}</p>
+                        <p>${twodListData[i].max_amount}</p>
                     </div>
                     <div class="daily-sale-book-2dlist-item-sale">
                         <p>Sale:</p>
-                        <p>${data.data.salesList[i].sales == null? `0` : data.data.salesList[i].sales}</p>
+                        <p>${twodListData[i].sales == null? `0` : twodListData[i].sales}</p>
                     </div>
                     </div>`)
             }
@@ -287,16 +291,16 @@ $(document).ready(function(){
                     <p>${i}</p>
                     <div class="daily-sale-book-2dlist-item-rate">
                         <p>Rate:</p>
-                        <p>${data.data.salesList[i].compensation}</p>
+                        <p>${twodListData[i].compensation}</p>
 
                     </div>
                     <div class="daily-sale-book-2dlist-item-max">
                         <p>Max:</p>
-                        <p>${data.data.salesList[i].max_amount}</p>
+                        <p>${twodListData[i].max_amount}</p>
                     </div>
                     <div class="daily-sale-book-2dlist-item-sale">
                         <p>Sale:</p>
-                        <p>${data.data.salesList[i].sales == null? `0` : data.data.salesList[i].sales}</p>
+                        <p>${twodListData[i].sales == null? `0` : twodListData[i].sales}</p>
                     </div>
                     </div>`)
             }
@@ -308,16 +312,16 @@ $(document).ready(function(){
                         <p>${i}</p>
                         <div class="daily-sale-book-2dlist-item-rate">
                             <p>Rate:</p>
-                            <p>-</p>
+                            <p>0</p>
 
                         </div>
                         <div class="daily-sale-book-2dlist-item-max">
                             <p>Max:</p>
-                            <p>-</p>
+                            <p>0</p>
                         </div>
                         <div class="daily-sale-book-2dlist-item-sale">
                             <p>Sale:</p>
-                            <p>-</p>
+                            <p>0</p>
                         </div>
                     </div>`)
             }
@@ -328,16 +332,16 @@ $(document).ready(function(){
                                 <p>${i}</p>
                                 <div class="daily-sale-book-2dlist-item-rate">
                                     <p>Rate:</p>
-                                    <p>-</p>
+                                    <p>0</p>
 
                                 </div>
                                 <div class="daily-sale-book-2dlist-item-max">
                                     <p>Max:</p>
-                                    <p>-</p>
+                                    <p>0</p>
                                 </div>
                                 <div class="daily-sale-book-2dlist-item-sale">
                                     <p>Sale:</p>
-                                    <p>-</p>
+                                    <p>0</p>
                                 </div>
                             </div>`)
                     }
@@ -349,16 +353,16 @@ $(document).ready(function(){
                                 <p>${i}</p>
                                 <div class="daily-sale-book-2dlist-item-rate">
                                     <p>Rate:</p>
-                                    <p>-</p>
+                                    <p>0</p>
 
                                 </div>
                                 <div class="daily-sale-book-2dlist-item-max">
                                     <p>Max:</p>
-                                    <p>-</p>
+                                    <p>0</p>
                                 </div>
                                 <div class="daily-sale-book-2dlist-item-sale">
                                     <p>Sale:</p>
-                                    <p>-</p>
+                                    <p>0</p>
                                 </div>
                             </div>`)
                     }
@@ -370,16 +374,16 @@ $(document).ready(function(){
                                 <p>${i}</p>
                                 <div class="daily-sale-book-2dlist-item-rate">
                                     <p>Rate:</p>
-                                    <p>-</p>
+                                    <p>0</p>
 
                                 </div>
                                 <div class="daily-sale-book-2dlist-item-max">
                                     <p>Max:</p>
-                                    <p>-</p>
+                                    <p>0</p>
                                 </div>
                                 <div class="daily-sale-book-2dlist-item-sale">
                                     <p>Sale:</p>
-                                    <p>-</p>
+                                    <p>0</p>
                                 </div>
                             </div>`)
                     }
@@ -391,16 +395,16 @@ $(document).ready(function(){
                                 <p>${i}</p>
                                 <div class="daily-sale-book-2dlist-item-rate">
                                     <p>Rate:</p>
-                                    <p>-</p>
+                                    <p>0</p>
 
                                 </div>
                                 <div class="daily-sale-book-2dlist-item-max">
                                     <p>Max:</p>
-                                    <p>-</p>
+                                    <p>0</p>
                                 </div>
                                 <div class="daily-sale-book-2dlist-item-sale">
                                     <p>Sale:</p>
-                                    <p>-</p>
+                                    <p>0</p>
                                 </div>
                             </div>`)
                     }
@@ -412,16 +416,16 @@ $(document).ready(function(){
                                 <p>${i}</p>
                                 <div class="daily-sale-book-2dlist-item-rate">
                                     <p>Rate:</p>
-                                    <p>-</p>
+                                    <p>0</p>
 
                                 </div>
                                 <div class="daily-sale-book-2dlist-item-max">
                                     <p>Max:</p>
-                                    <p>-</p>
+                                    <p>0</p>
                                 </div>
                                 <div class="daily-sale-book-2dlist-item-sale">
                                     <p>Sale:</p>
-                                    <p>-</p>
+                                    <p>0</p>
                                 </div>
                             </div>`)
                     }
@@ -433,16 +437,16 @@ $(document).ready(function(){
                             <p>${i}</p>
                             <div class="daily-sale-book-2dlist-item-rate">
                                 <p>Rate:</p>
-                                <p>-</p>
+                                <p>0</p>
 
                             </div>
                             <div class="daily-sale-book-2dlist-item-max">
                                 <p>Max:</p>
-                                <p>-</p>
+                                <p>0</p>
                             </div>
                             <div class="daily-sale-book-2dlist-item-sale">
                                 <p>Sale:</p>
-                                <p>-</p>
+                                <p>0</p>
                             </div>
                             </div>`)
                     }
@@ -454,16 +458,16 @@ $(document).ready(function(){
                                 <p>${i}</p>
                                 <div class="daily-sale-book-2dlist-item-rate">
                                     <p>Rate:</p>
-                                    <p>-</p>
+                                    <p>0</p>
 
                                 </div>
                                 <div class="daily-sale-book-2dlist-item-max">
                                     <p>Max:</p>
-                                    <p>-</p>
+                                    <p>0</p>
                                 </div>
                                 <div class="daily-sale-book-2dlist-item-sale">
                                     <p>Sale:</p>
-                                    <p>-</p>
+                                    <p>0</p>
                                 </div>
                             </div>`)
                     }
@@ -475,16 +479,16 @@ $(document).ready(function(){
                             <p>${i}</p>
                             <div class="daily-sale-book-2dlist-item-rate">
                                 <p>Rate:</p>
-                                <p>-</p>
+                                <p>0</p>
 
                             </div>
                             <div class="daily-sale-book-2dlist-item-max">
                                 <p>Max:</p>
-                                <p>-</p>
+                                <p>0</p>
                             </div>
                             <div class="daily-sale-book-2dlist-item-sale">
                                 <p>Sale:</p>
-                                <p>-</p>
+                                <p>0</p>
                             </div>
                             </div>`)
                     }
@@ -496,16 +500,16 @@ $(document).ready(function(){
                                 <p>${i}</p>
                                 <div class="daily-sale-book-2dlist-item-rate">
                                     <p>Rate:</p>
-                                    <p>=</p>
+                                    <p>0</p>
 
                                 </div>
                                 <div class="daily-sale-book-2dlist-item-max">
                                     <p>Max:</p>
-                                    <p>-</p>
+                                    <p>0</p>
                                 </div>
                                 <div class="daily-sale-book-2dlist-item-sale">
                                     <p>Sale:</p>
-                                    <p>-</p>
+                                    <p>0</p>
                                 </div>
                             </div>`)
                     }
@@ -517,16 +521,16 @@ $(document).ready(function(){
                             <p>${i}</p>
                             <div class="daily-sale-book-2dlist-item-rate">
                                 <p>Rate:</p>
-                                <p>-</p>
+                                <p>0</p>
 
                             </div>
                             <div class="daily-sale-book-2dlist-item-max">
                                 <p>Max:</p>
-                                <p>-</p>
+                                <p>0</p>
                             </div>
                             <div class="daily-sale-book-2dlist-item-sale">
                                 <p>Sale:</p>
-                                <p>-</p>
+                                <p>0</p>
                             </div>
                             </div>`)
                     }
@@ -538,16 +542,16 @@ $(document).ready(function(){
                             <p>${i}</p>
                             <div class="daily-sale-book-2dlist-item-rate">
                                 <p>Rate:</p>
-                                <p>-</p>
+                                <p>0</p>
 
                             </div>
                             <div class="daily-sale-book-2dlist-item-max">
                                 <p>Max:</p>
-                                <p>-</p>
+                                <p>0</p>
                             </div>
                             <div class="daily-sale-book-2dlist-item-sale">
                                 <p>Sale:</p>
-                                <p>-</p>
+                                <p>0</p>
                             </div>
                                         </div>`)
                     }
@@ -558,9 +562,13 @@ $(document).ready(function(){
 
 
 
-    $.getJSON('http://127.0.0.1:8000/lonepyinelist', (data, jqXHR) => {
-    console.log(data.data.salesList.length)
-    if(data.data.salesList.length != 0){
+    $.getJSON('http://128.199.201.43/sendlonepyineData', (data, jqXHR) => {
+    // console.log(twodListData.length)
+    const lonePyineListData = data.data.salesList.sort((a,b) => {
+        return parseInt(a.id) - parseInt(b.id)
+    })
+
+    if(lonePyineListData.length != 0){
             //lonepyine 1st row
     for(let i = 0; i<= 8;i++){
         $('.daily-sale-book-lonepyinelist-1row').append(`
@@ -568,16 +576,16 @@ $(document).ready(function(){
                 <p>${i}∞</p>
                 <div class="daily-sale-book-lonepyinelist-item-rate">
                 <p>Rate:</p>
-                <p>${data.data.salesList[i].compensation == null? `0` : data.data.salesList[i].compensation}</p>
+                <p>${lonePyineListData[i].compensation == null? `0` : lonePyineListData[i].compensation}</p>
 
             </div>
             <div class="daily-sale-book-lonepyinelist-item-max">
                 <p>Max:</p>
-                <p>${data.data.salesList[i].max_amount == null? `0` : data.data.salesList[i].max_amount}</p>
+                <p>${lonePyineListData[i].max_amount == null? `0` : lonePyineListData[i].max_amount}</p>
             </div>
             <div class="daily-sale-book-lonepyinelist-item-sale">
                 <p>Sale:</p>
-                <p>${data.data.salesList[i].sales == null? `0` : data.data.salesList[i].sales}</p>
+                <p>${lonePyineListData[i].sales == null? `0` : lonePyineListData[i].sales}</p>
             </div>
             </div>`)
     }
@@ -589,16 +597,16 @@ $(document).ready(function(){
                 <p>${i > 9 ? `∞${i.toString().split("")[1]}`: `${i}∞`}</p>
                 <div class="daily-sale-book-lonepyinelist-item-rate">
                 <p>Rate:</p>
-                <p>${data.data.salesList[i].compensation == null? `0` : data.data.salesList[i].compensation}</p>
+                <p>${lonePyineListData[i].compensation == null? `0` : lonePyineListData[i].compensation}</p>
 
             </div>
             <div class="daily-sale-book-lonepyinelist-item-max">
                 <p>Max:</p>
-                <p>${data.data.salesList[i].max_amount == null? `0` : data.data.salesList[i].max_amount}</p>
+                <p>${lonePyineListData[i].max_amount == null? `0` : lonePyineListData[i].max_amount}</p>
             </div>
             <div class="daily-sale-book-lonepyinelist-item-sale">
                 <p>Sale:</p>
-                <p>${data.data.salesList[i].sales == null? `0` : data.data.salesList[i].sales}</p>
+                <p>${lonePyineListData[i].sales == null? `0` : lonePyineListData[i].sales}</p>
             </div>
             </div>`)
     }
@@ -610,16 +618,16 @@ $(document).ready(function(){
                 <p>${i > 9 ? `∞${i.toString().split("")[1]}`: `${i}∞`}</p>
                 <div class="daily-sale-book-lonepyinelist-item-rate">
                     <p>Rate:</p>
-                    <p>${data.data.salesList[i].compensation == null? `0` : data.data.salesList[i].compensation}</p>
+                    <p>${lonePyineListData[i].compensation == null? `0` : lonePyineListData[i].compensation}</p>
 
                 </div>
                 <div class="daily-sale-book-lonepyinelist-item-max">
                     <p>Max:</p>
-                    <p>${data.data.salesList[i].max_amount == null? `0` : data.data.salesList[i].max_amount}</p>
+                    <p>${lonePyineListData[i].max_amount == null? `0` : lonePyineListData[i].max_amount}</p>
                 </div>
                 <div class="daily-sale-book-lonepyinelist-item-sale">
                     <p>Sale:</p>
-                    <p>${data.data.salesList[i].sales == null? `0` : data.data.salesList[i].sales}</p>
+                    <p>${lonePyineListData[i].sales == null? `0` : lonePyineListData[i].sales}</p>
                 </div>
             </div>`)
     }
@@ -761,36 +769,4 @@ $(document).ready(function(){
         </div>`
         )
       }
-
-
-      //2d lone pyine sale record list
-    //   for(let i = 1; i<= 3;i++){
-    //     $(".daily-sale-book-sale-record-rows-container").append(`
-    //     <div class="daily-sale-book-sale-record-row">
-    //                         <p>${i}</p>
-    //                         <p>24 Aug</p>
-    //                         <p>Agent 01</p>
-    //                         <p>Morning</p>
-    //                         <p>Lone Pyine</p>
-    //                         <div class="daily-sale-book-sale-row-numbers">
-    //                           <p>74</p>
-    //                           <p>56</p>
-    //                           <p>89</p>
-    //                         </div>
-    //                         <div class="daily-sale-book-sale-row-compensations">
-    //                           <p>74</p>
-    //                           <p>56</p>
-    //                           <p>89</p>
-    //                         </div>
-    //                         <div class="daily-sale-book-sale-row-amounts">
-    //                           <p>1000ks</p>
-    //                           <p>400ks</p>
-    //                           <p>3000ks</p>
-    //                         </div>
-    //                         <p>Accepted</p>
-    //                       </div>`)
-    //   }
-
-
-
 })

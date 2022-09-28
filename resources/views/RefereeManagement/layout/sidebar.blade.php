@@ -35,7 +35,7 @@
             <div class="side-bar-link-dropdown-container">
               <p class="side-bar-link-dropdown-header">
                 <iconify-icon icon="mdi:video-2d" class="sidebar-icon"></iconify-icon>
-                <span>2D / 3D</span>
+                <span>{{__('msg.2D')}} / {{__('msg.3D')}}</span>
                 <!-- <i class="fa-solid fa-angle-down side-bar-link-drop-down-icon"></i> -->
                 <i class="fa-solid fa-angle-left side-bar-link-drop-down-icon"></i>
               </p>

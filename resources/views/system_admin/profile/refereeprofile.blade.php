@@ -12,6 +12,7 @@
                 <strong>{{ Session::get('success') }}</strong>
             </div>
         @endif
+
         <!--main content start-->
             <!--referee profile start-->
             <div class="referee-profile-parent-container">
@@ -45,7 +46,11 @@
                 </div>
                 <div class="referee-profile-chart-container">
                     <p class="chart-label">{{__('msg.Total Sale Amount Of Agents')}}</p>
+                    @if(count($agentsaleamounts) !=10)
+                    <p>{{__('msg.Your sale list is under 10 transactions. So you can not view the chart')}}</p>
+                    @else
                     <canvas id="agchart"></canvas>
+                    @endif
                 </div>
             </div>
 
@@ -67,10 +72,11 @@
                 <tbody class="referee-profile-agent-list-rows-container">
                     @if ($results == null)
                     <div></div>
-                    @foreach ($agents as $agent)
-
+                    <?php $i=1; ?>
+                    {{-- @foreach ($agents as $agent) --}}
+                    @foreach($agents as $agent)
                     <tr class="referee-profile-agent-list-row">
-                        <td>{{$agent->id}}</td>
+                        <td>{{$i++}}</td>
                         <td>{{{$agent->name}}}</td>
                         <td>{{{$agent->phone}}}</td>
                         <td>0</td>
@@ -83,18 +89,18 @@
                     </tr>
                     @endforeach
                         @else
-
+                        <?php $i=1; ?>
                         @foreach ($results as $agent)
                         <tr class="referee-profile-agent-list-row">
 
-                            <td>{{$agent['id']}}</td>
+                            <td>{{$i++}}</td>
                             <td>{{{$agent['name']}}}</td>
                             <td>{{{$agent['phone']}}}</td>
                             <td>{{{$agent['Amount']}}}</td>
                             <td>
                              <a href="{{route('agentprofile',$agent['id'])}}">
                                 <iconify-icon icon="ant-design:exclamation-circle-outlined" class="referee-profile-agent-list-btn"></iconify-icon>
-                                <p>{{__('View Detail')}}</p>
+                                <p>{{__('msg.View Detail')}}</p>
                             </a>
                             </td>
                         </tr>
@@ -111,44 +117,22 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         $(document).ready(function() {
-            var table = $('.table');
-            $(document).on('click', '.delete-btn', function(e) {
-                e.preventDefault();
-                var id = $(this).data('id');
-                swal({
-                        text: "Are you sure you want to delete?",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            $.ajax({
-                                method: "DELETE",
-                                url: `/permission/${id}`
-                            }).done(function(res) {
-                                location.reload();
-                                console.log("deleted");
-                            })
-                        } else {
-                            swal("Your imaginary file is safe!");
-                        }
-                    });
-            })
-
             // BarChart//
 
         var agentdata= @json($agentsaleamounts);
         console.log(agentdata);
 
       const labels1 = [
-        agentdata[0].maincash,
-        agentdata[1].maincash,
-        agentdata[2].maincash,
-        agentdata[3].maincash,
-        agentdata[4].maincash,
-        agentdata[5].maincash,
-        agentdata[6].maincash,
-        agentdata[7].maincash,
+        agentdata[0].name,
+        agentdata[1].name,
+        agentdata[2].name,
+        agentdata[3].name,
+        agentdata[4].name,
+        agentdata[5].name,
+        agentdata[6].name,
+        agentdata[7].name,
+        agentdata[8].name,
+        agentdata[9].name,
 
       ];
 
@@ -158,7 +142,7 @@
           label: 'Amount',
           backgroundColor: '#EB5E28',
           borderColor: 'rgb(255, 99, 132)',
-          data: [ agentdata[0].maincash,  agentdata[1].maincash,  agentdata[2].maincash,  agentdata[3].maincash]
+          data: [ agentdata[0].maincash,  agentdata[1].maincash,agentdata[2].maincash,  agentdata[3].maincash, agentdata[4].maincash,  agentdata[5].maincash, agentdata[6].maincash,  agentdata[7].maincash, agentdata[8].maincash,  agentdata[9].maincash, ]
 
         }]
       };

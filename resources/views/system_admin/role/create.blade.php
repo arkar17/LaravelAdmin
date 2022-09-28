@@ -9,6 +9,15 @@
         <div class="create-role-parent-container">
             <h1>{{__('msg.Create')}} {{__('msg.Role')}}</h1>
             <div class="create-role-container">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li style="color: red; list-style: none;">{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <form action="{{ route('role.store') }}" method="POST">
                     @csrf
                     <div class="create-role-name-container">
@@ -27,7 +36,7 @@
                                     <div class="create-role-permission-checkboxes-container">
                                         <div class="create-role-permission-list-row-checkbox-container ">
                                                 <input type="checkbox" name="permissions[]" id="{{ $permission->name }}"
-                                                    value="{{ $permission->name }}" />
+                                                    value="{{ $permission->name }}"/>
                                                 <label for="{{ $permission->name }}">{{ $permission->name }}</label>
                                         </div>
                                     </div>

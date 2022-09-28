@@ -31,6 +31,10 @@ class RefereeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $referees=Referee::all();
@@ -149,6 +153,7 @@ class RefereeController extends Controller
         $user = User::findOrFail($id);
         $user->status = '0';//0=null,1=pending,2=accept,3=decline
         $user->request_type =null;
+        $user->operationstaff_code=null;
         $user->update();
 
         return redirect()->back()->with('success', 'Referee Decline');
@@ -183,18 +188,17 @@ class RefereeController extends Controller
 
     public function update(Request $request,$id)
     {
+        // $role=Role::where('name','referee')->first();
+        // $role_id=$role->id;
+
+        $referee = Referee::findOrFail($id);
         if($request->hasFile('profile_img')) {
             $file = $request->file('profile_img');
             $imgName = uniqid() . '_' . $file->getClientOriginalName();
             $file->move(public_path() . '/image/', $imgName);
         }else{
-            $imgName=$request->image;
+            $imgName = $referee->image;
         }
-
-        // $role=Role::where('name','referee')->first();
-        // $role_id=$role->id;
-
-        $referee = Referee::findOrFail($id);
         $user_id=$referee->user_id;
         $user = User::findOrFail($user_id);
         $user->name = $request->name;
@@ -211,17 +215,22 @@ class RefereeController extends Controller
         $user->update();
 
         $referee_code=Operationstaff::where('operationstaff_code','=',$request->operationstaff_id)->first();
+     if($referee_code==null){
+        return redirect()->back()->with('success', 'Invalid Operation Staff ID');
+     }else{
         $id=$referee_code->id;
+     }
+
 
         $referee->operationstaff_id=$id;
         // $referee->role_id=$request->role_id;
         $referee->user->password = $referee->passowrd ?? $request->password;
         $referee->image = $imgName;
         $user_status=$request->active_status;
-        if(!empty($request->avaliable_date)){
-            $referee->avaliable_date=$request->avaliable_date;
-            $referee->active_status=1;
-        }else{
+        // if(!empty($request->avaliable_date)){
+        //     $referee->avaliable_date=$request->avaliable_date;
+        //     $referee->active_status=1;
+        // }else{
             if($user_status == 1){
                 $DateTime = Carbon::now()->addDay(7);
                 $referee->avaliable_date= $DateTime;
@@ -229,8 +238,8 @@ class RefereeController extends Controller
             }else{
                 $referee->avaliable_date=null;
                 $referee->active_status=0;
-            }
-        }
+               }
+        // }
         // $referee->remark = $request->remark;
 
         $referee->update();

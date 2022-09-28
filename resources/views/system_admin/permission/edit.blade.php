@@ -21,6 +21,11 @@
                             <button type="reset" onclick="javascript:history.back()">{{__('msg.Cancel')}}</button>
                         </div>
                         </form>
+                        @if (Session::has('success'))
+                        <div id="hide">
+                            <h4 class="main-cash-alert"> {{ Session::get('success') }} <span class="closeBtn">X</span> </h4>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

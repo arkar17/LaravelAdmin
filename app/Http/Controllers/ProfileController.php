@@ -28,6 +28,7 @@ class ProfileController extends Controller
           $total+=implode(" ",$totalAmount[$i]);
         }
         return view('RefereeManagement.agentprofiles')->with(['commision'=>$commision,'agentprofiledata'=>$agentProfileData, 'agentcustomerdata'=>$agentCustomerData, 'totalamount'=>$total, 'twodnum'=>$twodnum]);
+
     }
 
     public function agentcommsionupdate(Request $request,$id){

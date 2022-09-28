@@ -1,10 +1,16 @@
-@extends('RefereeManagement.layout.app')
+@extends('system_admin.layouts.app')
 
 @section('title', 'Agent Request List')
 
 @section('content')
+
   <!--agent request list start-->
   <div class="agent-requests-parent-container">
+    @if (Session::has('success'))
+            <div id="hide">
+                <h4 class="main-cash-alert"> {{ Session::get('success') }} &nbsp;&nbsp;&nbsp;<span class="closeBtn">x</span> </h4>
+            </div>
+        @endif
     <h1>{{__('msg.Request List - Agent')}}</h1>
 
     <table class="agent-request-container">
@@ -23,13 +29,12 @@
       <tbody class="agent-request-rows-container">
         @foreach ($agentrequests as $agent )
             <tr class="agent-request-row">
-                <td>{{$agent->id}}</td>
+                <?php $i = 1 ?>
+                <td>{{$i++}}</td>
                 <td>{{$agent->name}}</td>
                 <td>{{$agent->phone}}</td>
-                {{-- <td>{{$agent->referee_id}}</td> --}}
-                <td>{{$agent->remark}}</td>
-                <a href="{{route('agentAccept',$agent->id)}}"><button class="referee-request-accept-btn">{{__('msg.Accept')}}</button></a>
-                <a href="{{route('agentDecline',$agent->id)}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
+                    <td href="{{route('agentAccept',$agent->id)}}"><button class="referee-request-accept-btn">{{__('msg.Accept')}}</button></td>
+                    <td href="{{route('agentDecline',$agent->id)}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></td>
             </tr>
         @endforeach
       </tbody>

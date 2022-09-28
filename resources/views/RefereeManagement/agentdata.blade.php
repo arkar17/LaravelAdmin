@@ -1,4 +1,4 @@
-@extends('RefereeManagement.layout.app')
+@extends('system_admin.layouts.app')
 
 @section('title', 'Agent Data')
 
@@ -20,23 +20,26 @@
                     </thead>
 
                   <tbody class="agent-data-list-rows-container">
-                   @foreach ($agentdata as $data)
-                    <tr class="agent-data-list-row">
-
-                            <td>{{$data->id}}</td>
-                            <td>{{$data->name}}</td>
-                            <td>{{$data->phone}}</td>
-                            <!-- <td>Op Staff 01</td> -->
-                            <td>{{$data->NumOfCus}}</td>
+                    @if (count($agentdata) ==null || count($agentdata) ==0)
+                        <p style="text-align: center;">{{__('msg.Not have agents data')}}</p>
+                        @else
+                        <?php $i=1;?>
+                        @foreach ($agentdata as $data)
+                                <tr class="agent-data-list-row">
+                                    <td>{{$i++}}</td>
+                                    <td>{{$data['name']}}</td>
+                                    <td>{{$data['phone']}}</td>
+                                    <!-- <td>Op Staff 01</td> -->
+                                    <td>{{$data['NumOfCus']}}</td>
                             <td>
-                            <a href="{{route('agentprofiledetail',[$data->id])}}">
-                            <iconify-icon icon="ant-design:exclamation-circle-outlined" class="agent-data-list-viewdetail-btn"></iconify-icon>
-                            {{__('msg.View Detail')}}
-                            </a >
+                                    <a href="{{route('agentprofiledetail',[$data['id']])}}">
+                                    <iconify-icon icon="ant-design:exclamation-circle-outlined" class="agent-data-list-viewdetail-btn"></iconify-icon>
+                                    {{__('msg.View Detail')}}
+                                    </a >
                             </td>
-
-                    </tr>
-                   @endforeach
+                                </tr>
+                        @endforeach
+                   @endif
                   </tbody>
                 </table>
             </div>

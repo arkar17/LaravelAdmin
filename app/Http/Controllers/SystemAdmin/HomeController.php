@@ -31,7 +31,10 @@ class HomeController extends Controller
     // {
     //     $this->middleware('auth');
     // }
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function lang($locale){
         App::setLocale($locale);
         Session::put("locale",$locale);
@@ -56,9 +59,22 @@ class HomeController extends Controller
 
     public function viewWinning(Request $request)
     {
-        $twodnumbers=DB::select('Select u.name,two.round,two.number,two.date,ts.id,ts.customer_name,ts.customer_phone,ts.datetime From agents a left join twodsalelists ts on ts.agent_id = a.id LEFT join twods two on two.id=ts.twod_id LEFT join users u on u.id=a.user_id where ts.winning_status = 1 and two.date=CURRENT_DATE;');
-        $lonepyinenumbers=DB::select('Select u.name,l.round,l.number,lps.id,l.date,lps.customer_name,lps.customer_phone,lps.datetime From agents a left join lonepyinesalelists lps on lps.agent_id = a.id LEFT join lonepyines l on l.id=lps.lonepyine_id LEFT join users u on u.id=a.user_id where lps.winning_status = 1 and l.date=CURRENT_DATE;');
-        $threednumbers=DB::select('Select u.name,t.number,ts.id,t.date,ts.customer_name,ts.customer_phone,ts.datetime From agents a left join threedsalelists ts on ts.agent_id = a.id LEFT join threeds t on t.id=ts.threed_id LEFT join users u on u.id=a.user_id where ts.winning_status = 1 and t.date=CURRENT_DATE;');
+        $date = Carbon::Now()->toDateString();
+        $time = Carbon::now()->toTimeString();
+        if($time > 16){
+            $round = "Evening";
+            }
+            else{
+            $round = "Morning";
+            }
+        $twodnumbers=DB::select("SELECT u.name,two.round,two.number,two.date,ts.id,ts.customer_name,ts.customer_phone
+                                From agents a left join twodsalelists ts on ts.agent_id = a.id
+                                LEFT join twods two on two.id=ts.twod_id
+                                LEFT join users u on u.id=a.user_id where ts.winning_status = 1
+                                and two.date='$date' and two.round='$round';");
+        $lonepyinenumbers=DB::select("SELECT u.name,l.round,l.number,lps.id,l.date,lps.customer_name,lps.customer_phone From agents a left join lonepyinesalelists lps on lps.agent_id = a.id LEFT join lonepyines l on l.id=lps.lonepyine_id LEFT join users u on u.id=a.user_id where
+        lps.winning_status = 1 and l.date='$date' and l.round='$round';");
+        $threednumbers=DB::select("SELECT u.name,t.number,ts.id,t.date,ts.customer_name,ts.customer_phone From agents a left join threedsalelists ts on ts.agent_id = a.id LEFT join threeds t on t.id=ts.threed_id LEFT join users u on u.id=a.user_id where ts.winning_status = 1 and t.date='$date';");
         return view('system_admin.winning_result', compact('twodnumbers','threednumbers','lonepyinenumbers'))->with('success', 'Winning Status is Updated successfully!');
 
     }
@@ -91,8 +107,8 @@ class HomeController extends Controller
                             ->join('twodsalelists','twodsalelists.twod_id','=','twods.id')
                             ->where('twods.number',$request->number)
                             ->where('twods.round',$round)
-                            ->where('date',$current_date)
-                            ->where('twodsalelists.status','1')->update(['twodsalelists.winning_status'=>1]);
+                            ->where('twods.date',$current_date)
+                            ->where('twodsalelists.status',1)->update(['twodsalelists.winning_status'=>1]);
                 $lonepyineno=substr($request->number, 0, 1);
                 $lonepyinelno=$request->number % 10;
 
@@ -100,14 +116,14 @@ class HomeController extends Controller
                                 ->join('lonepyinesalelists','lonepyinesalelists.lonepyine_id','=','lonepyines.id')
                                 ->where('lonepyinesalelists.status','=','1')
                                 ->where('lonepyines.round',$round)
-                                ->where('date',$current_date)
+                                ->where('lonepyines.date',$current_date)
                                 ->update(['lonepyinesalelists.winning_status'=>1]);
 
                 $lonepyinelno = DB::table('lonepyines')->where('number','LIKE','%'.$lonepyinelno)
                                 ->join('lonepyinesalelists','lonepyinesalelists.lonepyine_id','=','lonepyines.id')
                                 ->where('lonepyinesalelists.status','=','1')
                                 ->where('lonepyines.round',$round)
-                                ->where('date',$current_date)
+                                ->where('lonepyines.date',$current_date)
                                 ->update(['lonepyinesalelists.winning_status'=>1]);
             }else{
                 return redirect()->back()->with('success', 'Not a Winning Number');
@@ -118,7 +134,7 @@ class HomeController extends Controller
                 $threednum=Threed::where('number','=',$request->number)
                 ->join('threedsalelists','threedsalelists.threed_id','=','threeds.id')
                 ->where('threedsalelists.status','=','1')
-                ->where('date',$current_date)
+                ->where('threeds.date',$current_date)
                 ->update(['threedsalelists.winning_status'=>1]);
             }else{
                 return redirect()->back()->with('success', 'Not a Winning Number');
@@ -204,9 +220,16 @@ class HomeController extends Controller
             $maincash=DB::table('cashin_cashouts')
             ->where('agent_id',$value->id)
             ->select('coin_amount')->first();
+            if($maincash != null){
+                $amount=$value->sales;
+                $coin = $maincash->coin_amount + $amount;
+            }
+            else{
+                $amount=$value->sales;
+                $coin = 0 + $amount;
+            }
 
-            $amount=$value->sales;
-            $coin = $maincash->coin_amount + $amount;
+
 
             CashinCashout::where('agent_id',$value->id)->update(['coin_amount'=>$coin]);
         }
@@ -216,8 +239,14 @@ class HomeController extends Controller
             ->where('agent_id',$value->id)
             ->select('coin_amount')->first();
 
-            $amount=$value->sales;
-            $coin = $maincash->coin_amount + $amount;
+            if($maincash != null){
+                $amount=$value->sales;
+                $coin = $maincash->coin_amount + $amount;
+            }
+            else{
+                $amount=$value->sales;
+                $coin = 0 + $amount;
+            }
 
             CashinCashout::where('agent_id',$value->id)->update(['coin_amount'=>$coin]);
         }
@@ -227,8 +256,14 @@ class HomeController extends Controller
             ->where('agent_id',$value->id)
             ->select('coin_amount')->first();
 
-            $amount=$value->sales;
-            $coin = $maincash->coin_amount + $amount;
+            if($maincash != null){
+                $amount=$value->sales;
+                $coin = $maincash->coin_amount + $amount;
+            }
+            else{
+                $amount=$value->sales;
+                $coin = 0 + $amount;
+            }
 
             CashinCashout::where('agent_id',$value->id)->update(['coin_amount'=>$coin]);
         }

@@ -20,6 +20,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         if (!auth()->user()->can('view_assign_user_role')) {
@@ -54,6 +58,8 @@ class UserController extends Controller
         // if (!auth()->user()->can('create_assign_user_role')) {
         //     abort(403, 'Unauthorized Action');
         // }
+
+
         $user = new User();
         $user->name = $request->name;
         $user->phone = $request->phone;
@@ -112,7 +118,8 @@ class UserController extends Controller
 
     public function create_user()
     {
-        $users=User::where('status','!=','2')
+        $users=User::where('status','=','0')
+                    ->where('id','!=',1)
                     ->get();
                 return view('system_admin.user.create',compact('users'));
     }

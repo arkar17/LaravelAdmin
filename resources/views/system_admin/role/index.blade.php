@@ -6,11 +6,9 @@
 
     <div>
         @if (Session::has('success'))
-            <div class="alert alert-success alert-dismissible fade in">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                        aria-hidden="true">×</span></button>
-                <strong>{{ Session::get('success') }}</strong>
-            </div>
+        <div id="hide">
+            <h4 class="main-cash-alert"> {{ Session::get('success') }} <span class="closeBtn">X</span> </h4>
+        </div>
         @endif
 
 
@@ -60,31 +58,5 @@
 @endsection
 
 @push('script')
-    <script>
-        $(document).ready(function() {
-            var table = $('.table');
-            $(document).on('click', '.delete-btn', function(e) {
-                e.preventDefault();
-                var id = $(this).data('id');
-                swal({
-                        text: "Are you sure you want to delete?",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            $.ajax({
-                                method: "DELETE",
-                                url: `/role/${id}`
-                            }).done(function(res) {
-                                location.reload();
-                                console.log("deleted");
-                            })
-                        } else {
-                            swal("Your imaginary file is safe!");
-                        }
-                    });
-            })
-        })
-    </script>
+
 @endpush

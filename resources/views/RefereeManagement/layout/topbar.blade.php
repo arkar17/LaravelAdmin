@@ -24,7 +24,7 @@
       {{-- <i class="fa-regular fa-bell"></i> --}}
 
       <div class="top-bar-username-container">
-        Coin Amount :
+       {{__('msg.Coin Amount')}} :
         @if(auth()->user()->referee->main_cash != 0)
         {{auth()->user()->referee->main_cash}}
         @elseif (auth()->user()->referee->main_cash == 0 )

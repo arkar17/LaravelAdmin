@@ -19,7 +19,7 @@
             <div class="op-profile-details-parent-container">
                 <div class="op-profile-details-container">
                     <div class="op-profile-img-container">
-                        <img src="{{asset('storage/image/'.$operationstaff->image)}}" title="Referee Profile" alt=""/>
+                        <img src="{{asset('/image/'.$operationstaff->image)}}" title="Referee Profile" alt=""/>
                     </div>
 
                     <div class="op-profile-attributes-container">

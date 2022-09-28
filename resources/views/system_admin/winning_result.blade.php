@@ -37,17 +37,9 @@
     <div>
 
         @if (Session::has('success'))
-
-            <div class="alert alert-success alert-dismissible fade in">
-
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-
-                        aria-hidden="true">×</span></button>
-
-                <strong>{{ Session::get('success') }}</strong>
-
-            </div>
-
+        <div id="hide">
+            <h4 class="main-cash-alert"> {{ Session::get('success') }} <span class="closeBtn">X</span> </h4>
+        </div>
         @endif
 
         <div class="section-line"></div>
@@ -66,7 +58,7 @@
 
                     @csrf
 
-                    <select class="winningresult-select" name="type">
+                    <select class="winningresult-select" name="type" required>
 
                         <option value="">{{__('msg.Select Type')}}</option>
 
@@ -76,7 +68,7 @@
 
                     </select>
 
-                    <input type="number" name="number">
+                    <input type="number" name="number" required>
 
                     <button type="submit">{{__('msg.Submit')}}</button>
 
@@ -100,7 +92,7 @@
 
         @else
 
-        <h3 class="winners-header">Winning 2D/Lonepyine Number Lists</h3>
+        <h3 class="winners-header">Winning 2D</h3>
 
         <table class="winning-table-parent-container">
 
@@ -146,9 +138,37 @@
                 </tr>
 
                 @endforeach
+            </tbody>
+        </table>
+        @endif
 
+        @if(count($lonepyinenumbers)==0)
+
+        <div></div>
+
+        @else
+        <h3 class="winners-header">Winning Lone Pyine</h3>
+        <table class="winning-table-parent-container">
+            <tr class="table-lables" style="background-color: none">
+
+                <th>id</th>
+
+                <th>Agent Name</th>
+
+                <th>Number</th>
+
+                <th>Customer Name</th>
+
+                <th>Customer Phone</th>
+
+                <th>Round</th>
+
+                <th>Date Time</th>
+
+            </tr>
+
+            <tbody class="table-body-container">
                 @foreach ($lonepyinenumbers as $lonepyinenumber)
-
                 <tr class="table-row">
 
                     <td>LP-{{$lonepyinenumber->id}}</td>
@@ -170,7 +190,7 @@
                 @endforeach
             </tbody>
         </table>
-
+        @endif
             @if (count($threednumbers)==0)
 
             <div></div>
@@ -223,11 +243,6 @@
             </table>
 
             @endif
-
-
-        @endif
-
-
 
     </div>
 

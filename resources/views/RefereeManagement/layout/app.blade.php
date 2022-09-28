@@ -88,11 +88,12 @@
     {{-- <script src="{{ asset('js/chart.js') }}"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
 
     <script src="{{ asset('jquery/refereemanage/cashincashout.js') }}"></script>
 
    @yield('script')
-   <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+
    <script>
         //  $(".sider-bar-toggle").click(() => {
 
@@ -136,14 +137,11 @@
         });
 
         let hide = document.getElementById("hide");
-        hide.addEventListener("click", function() {
+        if(hide){
+            hide.addEventListener("click", function() {
             hide.style.display = "none";
         });
-
-        // $(".sider-bar-toggle").click(() => {
-        //     console.log("clicked")
-        // })
-
+        }
 
     </script>
   </body>

@@ -1,4 +1,4 @@
-@extends('RefereeManagement.layout.app')
+@extends('system_admin.layouts.app')
 
 @section('title', '2D Manage')
 
@@ -22,8 +22,8 @@
                         <p>{{__('msg.Rate')}}:</p>
                         <form action="{{route('3D')}}" mehtod = 'post'>
                             @csrf
-                            <input id="threed-rate-insert-input" type="number" name="number" />
-                            <button type="submit" id="threed-rate-insert-btn">Insert</button>
+                            <input id="threed-rate-insert-input" type="number" name="number" required />
+                            <button type="submit" id="threed-rate-insert-btn">{{__('msg.Insert')}}</button>
                         </form>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                       </div>
                       <div class="lonepyine-manage-numbers-labels-right-container">
                         <p>{{__('msg.Rate')}}</p>
-                        <p>{{__('mgs.Max')}}</p>
+                        <p>{{__('msg.Max')}}</p>
                       </div>
                     </div>
 
@@ -54,22 +54,22 @@
                         @for ($i = 0; $i <= 9 ; $i++)
                         <div class="lonepyine-manage-numbers-row">
                             <div class="lonepyine-manage-numbers-attributes">
-                            <p>{{$i}} &nbsp;&nbsp;<span>∞</span></p>
+                            <p>{{$i}} &nbsp;&nbsp;<span>*</span></p>
                             <p>0</p>
                             <p>0</p>
                             <p>0</p>
                             </div>
 
                             <div class="lonepyine-manage-numbers-inputs-container">
-                                <input type="number" name="lonepyine-number-rate-input" id="lonepyine-number-rate" />
-                                <input type="number" name="lonepyine-number-max-input" id="lonepyine-number-max"/>
+                                <input type="number" name="lonepyine-number-rate-input" id="lonepyine-number-rate" step="any" />
+                                <input type="number" name="lonepyine-number-max-input" id="lonepyine-number-max" step="any"/>
                             </div>
                         </div>
                         @endfor
                         @for ($i = 0; $i <= 9 ; $i++)
                         <div class="lonepyine-manage-numbers-row">
                             <div class="lonepyine-manage-numbers-attributes">
-                            <p><span>∞</span>&nbsp;&nbsp;{{$i}} </p>
+                            <p><span>*</span>&nbsp;&nbsp;{{$i}} </p>
                             <p>0</p>
                             <p>0</p>
                             <p>0</p>
@@ -83,13 +83,16 @@
                         @endfor
 
                     @else
+                    {{-- @php
+                       $lplist = sort($lonepyaing_sale_lists)
+                    @endphp --}}
                         @foreach($lonepyaing_sale_lists as $lonePyaing)
                         <div class="lonepyine-manage-numbers-row">
                             <div class="lonepyine-manage-numbers-attributes">
-                            <p>{{$lonePyaing->number}}</span></p>
-                            <p>{{$lonePyaing->compensation}}</p>
-                            <p>{{$lonePyaing->max_amount}}</p>
-                            <p>{{$lonePyaing->sales}}</p>
+                            <p>{{$lonePyaing['number']}}</span></p>
+                            <p>{{$lonePyaing['compensation']}}</p>
+                            <p>{{$lonePyaing['max_amount']}}</p>
+                            <p>{{$lonePyaing['sales']}}</p>
                             </div>
 
                             <div class="lonepyine-manage-numbers-inputs-container">
@@ -108,12 +111,12 @@
                       <div class="lonepyine-manage-rate-insert-container">
                         <p>{{__('msg.Rate')}}:</p>
                         <input id="lonepyine-rate-insert-input" type="number"/>
-                        <button type="button" id="lonepyine-rate-insert-btn">Insert</button>
+                        <button type="button" id="lonepyine-rate-insert-btn">{{__('msg.Insert')}}</button>
                       </div>
                       <div class="lonepyine-manage-max-insert-container">
                         <p>{{__('msg.Max Amount')}}:</p>
                         <input id="lonepyine-max-insert-input" type="number" />
-                        <button type="button" id="lonepyine-max-insert-btn">Insert</button>
+                        <button type="button" id="lonepyine-max-insert-btn">{{__('msg.Insert')}}</button>
                       </div>
 
                       <div class="lonepyine-manage-inserts-btns-container">

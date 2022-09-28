@@ -1,36 +1,55 @@
-@extends('RefereeManagement.layout.app')
+@extends('system_admin.layouts.app')
 
 @section('title', '2D Manage')
 
 @section('content')
+<style>
+    .daily-sale-book-access-alert{
+        color: white;
+        margin-left: 20px;
+        background-color: rgba(18, 179, 18, 0.863);
+        border-radius: 5px;
+        padding: 5px;
+    }
+    .daily-sale-book-decline-alert{
+        color: white;
+        margin-left: 20px;
+        background-color: rgba(248, 2, 2, 0.8);
+        border-radius: 5px;
+        padding: 5px;
+    }
+    #hide {
+        margin-top: 10px;
+    }
+    .closeBtn {
+        color: white;
+        cursor: pointer;
+        float: right;
+        margin-right: 20px;
+        margin-top: 2px;
+    }
+ </style>
   <!--daily sale book start-->
   <div class="daily-sale-book-parent-container">
-    {{-- <h1>Daily Sale Book</h1> --}}
-    @if (Session::has('success'))
-        <div class="alert alert-success alert-dismissible fade in" style = "color:green">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-            <strong>{{ Session::get('success') }}</strong>
-        </div>
-    @endif
-    @if (Session::has('declined'))
-        <div class="alert alert-success alert-dismissible fade in" style = "color:red">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-            <strong>{{ Session::get('declined') }}</strong>
-        </div>
-    @endif
     <h1>{{__('msg.Daily Sale Book')}}</h1>
+        @if (Session::has('success'))
+                    <div id="hide">
+                        <h4 class="daily-sale-book-access-alert">{{Session::get('success')}}<span class="closeBtn">X</span></h4>
+                    </div>
+        @endif
+        @if (Session::has('declined'))
+            <div id="hide">
+                <h4 class="daily-sale-book-decline-alert">{{Session::get('declined')}}<span class="closeBtn">X</span></h4>
+            </div>
+        @endif
 
     <div class="daily-sale-book-headers-container">
+
         <div class="daily-sale-book-categories-container">
-            <p class="daily-sale-book-category daily-sale-book-categories-active" id="2d_sale_list">2D & Lone Pyine Sale List</p>
-            <!-- <p class="daily-sale-book-category" id="lonepyine_sale_list">Lone Pyine List</p> -->
-            <p class="daily-sale-book-category" id="3d_sale_list">{{__('msg.3D List')}}</p>
+            <p class="daily-sale-book-category daily-sale-book-categories-active" id="2d_sale_list">{{__('msg.2D & Lone Pyine Sale List')}}</p>
+            <p class="daily-sale-book-category" id="3d_sale_list">{{__('msg.3D Sale List')}}</p>
 
         </div>
-        {{-- <div class="daily-sale-book-search-container">
-            <iconify-icon icon="akar-icons:search" class="daily-sale-book-search-icon"></iconify-icon>
-            <input type="text" placeholder="Search"/>
-        </div> --}}
     </div>
 
     <div class="daily-sale-book-2d-parent-container">
@@ -71,11 +90,21 @@
         <div class="daily-sale-book-charts-container">
           <div class="daily-sale-book-2d-chart-container" >
             <p>{{__('msg.Most Bet 2D Number')}}</p>
-            <canvas id="daily-sale-book-2d-chart"></canvas>
+            @if(count($twod_salelists) !=10 || count($twod_salelists) ==null)
+            <p>{{__('msg.Your sale list is under 10 transactions. So you can not view the chart')}}</p>
+            @else
+                <canvas id="daily-sale-book-2d-chart"></canvas>
+            @endif
           </div>
+
           <div class="daily-sale-book-lonepyine-chart-container">
             <p>{{__('msg.Most Bet Lone Pyine Number')}}</p>
+
+            @if(count($lp_salelists) !=10 || count($lp_salelists) ==null)
+            <p>{{__('msg.Your sale list is under 10 transactions. So you can not view the chart')}}</p>
+            @else
             <canvas id="daily-sale-book-lonepyine-chart"></canvas>
+            @endif
           </div>
         </div>
         <!--charts end-->
@@ -93,16 +122,16 @@
               <th>{{__('msg.Number')}}</th>
               <th>{{__('msg.Compensation')}}</th>
               <th>{{__('msg.Amount')}}</th>
-              <th></th>
+              <th>{{__('msg.Action')}}</th>
             </tr>
         </thead>
             <tbody class="daily-sale-book-sale-record-rows-container">
-
+                        <?php $i=1;?>
                         @foreach ($agenttwodsaleList as $agent)
 
 
                             <tr class="daily-sale-book-sale-record-row">
-                                <td>{{$agent->id}}</td>
+                                <td>{{$i++}}</td>
                                 {{-- <td>{{$agent->date}}</td> --}}
                                 <td>{{$agent->name}}</td>
                                 <td>{{$agent->round}}</td>
@@ -143,17 +172,13 @@
                                 </td>
                             </tr>
                         @endforeach
-
-
-
-
                         @foreach($agentlonepyinesalelist as $agent)
                             <tr class="daily-sale-book-sale-record-row">
                                 <td>{{$agent->id}}</td>
                                 {{-- <td>{{$agent->date}}</td> --}}
                                 <td>{{$agent->name}}</td>
                                 <td>{{$agent->round}}</td>
-                                <td>Lone Pyine</td>
+                                <td>{{__('msg.Lone Pyine')}}</td>
 
                                 <td class="daily-sale-book-sale-row-numbers">
                                     @for ($i=0; $i<=count($lp_numbergroup[$agent->name])-1; $i++)
@@ -204,40 +229,47 @@
 
 
     <div class="daily-sale-book-3d-parent-container">
+                        @if($rate == [])
+                            <p class="daily-sale-book-3d-current-rate">{{__('msg.Current Rate')}} : 0</p>
 
-      <p class="daily-sale-book-3d-current-rate">
-          Current Rate : 550
-      </p>
+                        @else
+                            @foreach($rate as $rat)
+                            <p class="daily-sale-book-3d-current-rate">{{__('msg.Current Rate')}}  : {{$rat->compensation}}</p>
+                            @endforeach
+                        @endif
 
       <div class="daily-sale-book-3d-chart-container">
-        <p>Most Bet Numbers</p>
-        <canvas id="daily-sale-book-3d-chart"></canvas>
+        <p>{{__('msg.Most Bet 3D Numbers')}}</p>
+        @if(count($threed_salelists) !=10 || count($threed_salelists) ==null)
+            <p>{{__('msg.Your sale list is under 10 transactions. So you can not view the chart')}}</p>
+        @else
+            <canvas id="daily-sale-book-3d-chart"></canvas>
+        @endif
       </div>
 
       @if(count($agentthreedsalelist) != 0)
       <!--sale record start-->
       <div class="daily-sale-book-sale-record-parent-container">
-        <h1>3d sale record list</h1>
+        <h1>{{__('msg.3D sale record list')}}</h1>
         <table class="daily-sale-book-sale-record-container">
             <thead>
           <tr class="daily-sale-book-sale-record-labels-container">
-            <p>ID</p>
+            <p>{{__('msg.ID')}}</p>
             {{-- <p>Date</p> --}}
-            <p>Agent Name</p>
-            <p>Type</p>
-            <p>Number</p>
-            <p>Compensation</p>
-            <p>Amount</p>
-            <p>Status</p>
+            <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
+            <p>{{__('msg.Type')}}</p>
+            <p>{{__('msg.Number')}}</p>
+            <p>{{__('msg.Compensation')}}</p>
+            <p>{{__('msg.Amount')}}</p>
+            <p>{{__('msg.Action')}}</p>
           </tr>
             </thead>
           <tbody class="daily-sale-book-sale-record-rows-container">
             @foreach ($agentthreedsalelist as $agent)
-                <tr class="daily-sale-book-sale-record-row">
+                <div class="daily-sale-book-sale-record-row">
                     <td>{{$agent->id}}</td>
-                    <td>24 Aug</td>
                     <td>{{$agent->name}}</td>
-                    <td>3D</td>
+                    <td>{{__('msg.3D')}}</td>
                     <td class="daily-sale-book-sale-row-numbers">
                         @for ($i=0; $i<=count($threed_numbergroup[$agent->name])-1; $i++)
                         <p>{{{ $threed_numbergroup[$agent->name][$i] }}}</p><br>
@@ -292,7 +324,6 @@
 
             <script src="{{asset('jquery/refereemanage/dailysalebook.js')}}"></script>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            {{-- <script src="{{asset('jquery/refereemanage/dailysalebook.js')}}"></script> --}}
 
 @endsection
 
@@ -321,7 +352,7 @@
       const data1 = {
         labels: labels1,
         datasets: [{
-          label: 'Most Bet 2D Number',
+          label: '{{__('msg.Most Bet 2D Number')}}',
           backgroundColor: '#EB5E28',
           borderColor: 'rgb(255, 99, 132)',
           data: [ twod_data[0].sale_amount,  twod_data[1].sale_amount,  twod_data[2].sale_amount,  twod_data[3].sale_amount,  twod_data[4].sale_amount,  twod_data[5].sale_amount,  twod_data[6].sale_amount,  twod_data[7].sale_amount, twod_data[8].sale_amount, twod_data[9].sale_amount]
@@ -353,7 +384,7 @@
       const data2 = {
         labels: labels2,
         datasets: [{
-          label: 'Most Bet Lone Pyine Number',
+          label: '{{__('msg.Most Bet Lone Pyine Number')}}',
           backgroundColor: '#EB5E28',
           borderColor: 'rgb(255, 99, 132)',
          data: [ lp_data[0].sale_amount,  lp_data[1].sale_amount,  lp_data[2].sale_amount,  lp_data[3].sale_amount,  lp_data[4].sale_amount,  lp_data[5].sale_amount,  lp_data[6].sale_amount,  lp_data[7].sale_amount, lp_data[8].sale_amount, lp_data[9].sale_amount],
@@ -388,7 +419,7 @@
       const data3 = {
         labels: labels3,
         datasets: [{
-          label: 'Most Bet 3D Number',
+          label: '{{__('msg.Most Bet 3D Number')}}',
           backgroundColor: '#EB5E28',
           borderColor: 'rgb(255, 99, 132)',
           data: [ threed_data[0].sale_amount,  threed_data[1].sale_amount,  threed_data[2].sale_amount,  threed_data[3].sale_amount,  threed_data[4].sale_amount,  threed_data[5].sale_amount,  threed_data[6].sale_amount,  threed_data[7].sale_amount, threed_data[8].sale_amount, threed_data[9].sale_amount]

@@ -15,13 +15,16 @@
      alert(data.message);
   });
 </script>
-        {{-- @if (Session::has('success'))
-        <div class="alert alert-success alert-dismissible fade in">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                    aria-hidden="true">×</span></button>
-            <strong>{{ Session::get('success') }}</strong>
-        </div>
-        @endif --}}
+
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li style="color: red; list-style: none;">{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
         <div class="create-user-parent-container">
             <h1>{{__('msg.Create User')}}</h1>
@@ -37,11 +40,13 @@
                 <div class="create-user-inputs-row">
                     <div class="create-user-name-container">
                     <label for="referee-name">{{__('msg.Name')}}</label>
-                    <input type="text" id="name" name="name" placeholder="Enter Your Name" required/>
+
+                    <input type="text" id="name" name="name" placeholder="Enter Your Name" />
+
                     </div>
                     <div class="create-user-phno-container">
                     <label for="referee-phno">{{__('msg.Phone Number')}}</label>
-                    <input type="phone" id="phone" name="phone" placeholder="Enter Your Phone Number" required/>
+                    <input type="number" id="phone" name="phone" placeholder="Enter Your Phone Number" required/>
                     </div>
                 </div>
 
@@ -54,6 +59,7 @@
                         <option value="operationstaff">{{__('msg.operationstaff')}}</option>
                         <option value="agent">{{__('msg.Agent')}}</option>
                     </select>
+                    <span class="text-danger help-inline">@error('create-user-type'){{$message}}@enderror</span>
                     </div>
 
                     <div class="create-user-opid-container">
@@ -75,7 +81,7 @@
                     </div>
                     <div class="create-user-confirmpw-container">
                     <label for="referee-confirmpw">{{__('msg.Confirm Password')}}</label>
-                    <input type="password" id="referee-confirmpw" name="confirmpasword" placeholder="Re-enter Password"/>
+                    <input type="password" id="referee-confirmpw" name="password_confirmation" placeholder="Re-enter Password"/>
                     </div>
                 </div>
 
@@ -108,10 +114,6 @@
             </form>
         </div>
 
-          {{-- <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div> --}}
-                    <!--guest list start-->
                     <div class="user-list-parent-container">
                         <h1>{{__('msg.User List')}}</h1>
                         <table class="user-list-container">
@@ -128,9 +130,12 @@
                             </thead>
 
                             <tbody class="user-list-rows-container">
-                                @foreach ($users as $user)
+                                @php
+                            $i=1;
+                            @endphp
+                            @foreach ($users as $user)
                                     <tr class="user-list-row">
-                                        <td>{{$user->id}}</td>
+                                        <td>{{$i++}}</td>
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->phone}}</td>
                                         <td>
@@ -145,7 +150,7 @@
                                             <a href="{{route('guestprofile',$user->id)}}">
                                                 <iconify-icon icon="ant-design:exclamation-circle-outlined" class="user-list-row-icon"></iconify-icon>
                                             </a>
-                                            <a href="{{route('guest.destroy',$user->id)}}">
+                                            <a href="{{route('guest.destroy',$user->id)}}" onclick="return confirm('Are you sure you want to delete this ?')">
                                                 <iconify-icon icon="akar-icons:trash-can" class="user-list-row-icon"></iconify-icon>
                                             </a>
                                         </td>

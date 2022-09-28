@@ -6,7 +6,7 @@
     <div>
         <!--Edit referee start-->
         <div class="create-referee-parent-container">
-            <h1>Edit Referee</h1>
+            <h1>{{__('msg.Edit')}} {{__('msg.referee')}}</h1>
             <form action="{{ route('referee.update' , $referee->id) }}" method="POST" enctype="multipart/form-data" class="create-referee-container">
                 @csrf
                 @method('PUT')
@@ -17,7 +17,7 @@
                     <span class="title">Add Photo</span>
                     <input type="file" id="imgInp" name="profile_img"/>
 
-                    <p>Profile Image</p>
+                    <p>{{__('msg.Profile Image')}}</p>
 
                     <img src="{{ asset('/image/'.$referee->image) }}" alt="">
                     {{-- <a href=">{{ $referee->image }}</a> --}}
@@ -39,20 +39,9 @@
                 </div>
 
                 <div class="create-referee-inputs-row">
-                    <div class="create-referee-pw-container">
-                    <label for="password">{{__('msg.Password')}}</label>
-                    <input type="password" placeholder="Enter Password" name="password" id="password"  value="{{ old('password', $referee->user->password) }}">
-                    </div>
-                    <div class="create-referee-confirmpw-container">
-                    <label for="referee-confirmpw">{{__('msg.Confirm Password')}}</label>
-                    <input type="password" id="referee-confirmpw" name="confirmpasword" placeholder="Re-enter Password"/>
-                    </div>
-
-                </div>
-
-                <div class="create-referee-inputs-row">
                     <div class="create-referee-opstaff-container">
                         <label for="referee-pw">{{__('msg.operationstaff')}}</label>
+                        {{-- <input type="text" value="{{$referee->operationstaff->operationstaff_code}}" name="operationstaff_id" disabled> --}}
                         <input list="opid" value="{{$referee->operationstaff->operationstaff_code}}" name="operationstaff_id" placeholder="Enter Operation Staff ID" id="operationstaff_id">
                         <datalist id="opid" name="operationstaff_id">
                             @foreach ($operationstaffs as $operationstaff)
@@ -103,6 +92,11 @@
                     <button type="submit">{{__('msg.Save')}}</button>
                     <button type="reset" onclick="javascript:history.back()">{{__('msg.Cancel')}}</button>
                 </div>
+                @if (Session::has('success'))
+                <div id="hide">
+                    <h4 class="main-cash-alert"> {{ Session::get('success') }} <span class="closeBtn">X</span> </h4>
+                </div>
+                @endif
 
                 </div>
 

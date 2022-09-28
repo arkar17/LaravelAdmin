@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    
     <!--
         * @Package: Multipurpose Dashboard
         * @Version: 1.0.0
