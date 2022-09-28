@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
+use Throwable;
 use Carbon\Carbon;
 use App\Models\Twod;
 use App\Models\User;
 use App\Models\Agent;
 use App\Models\Referee;
-use PDF;
+use App\Models\Lonepyine;
 use App\Models\Twodsalelist;
 use Illuminate\Http\Request;
 use App\Models\CashinCashout;
-use App\Models\Lonepyine;
 use App\Models\Threedsalelist;
 use App\Models\Lonepyinesalelist;
 use Illuminate\Support\Facades\DB;
@@ -125,7 +126,9 @@ class DashboardController extends Controller
                 and a.referee_id = '$referee->id'
                 Group By a.referee_id,a.id;
                 ");
-                //dd($tdcomission);
+    //dd($tdcomission);
+
+
 
                 //twod yaw kyay
                 $tdpaid_winning = DB::select("SELECT ( t.compensation * SUM(ts.sale_amount) ) totalSale ,re.id, ((a.commision/100)* (COALESCE(SUM(ts.sale_amount),0)) ) as Commission From agents a
@@ -193,16 +196,16 @@ class DashboardController extends Controller
 
 
             // calculating commision end
-            if($tdcomission!=0 && $thdcomission != 0 && $lpcomission != 0 || $tdcomission!=null && $thdcomission != null && $lpcomission != null){
+            if($tdcomission!=null && $thdcomission != null && $lpcomission != null){
                 $refe_totalcommision = $tdcomission[0]->Commision + $thdcomission[0]->Commision + $lpcomission[0]->Commision;
             }
-            if($tdcomission!=0 && $thdcomission != 0 && $lpcomission == 0 || $tdcomission!=null && $thdcomission != null && $lpcomission == null){
+            if($tdcomission!=null && $thdcomission != null && $lpcomission == null){
                 $refe_totalcommision = $tdcomission[0]->Commision + $thdcomission[0]->Commision + 0;
             }
-            if($tdcomission!=0 && $thdcomission == 0 && $lpcomission != 0 || $tdcomission!=null && $thdcomission == null && $lpcomission != null){
+            if($tdcomission!=null && $thdcomission == null && $lpcomission != null){
                 $refe_totalcommision = $tdcomission[0]->Commision + 0 + $lpcomission[0]->Commision;
             }
-            if($tdcomission==0 && $thdcomission != 0 && $lpcomission != 0 || $tdcomission==null && $thdcomission != null && $lpcomission != null){
+            if($tdcomission==null && $thdcomission != null && $lpcomission != null){
                 $refe_totalcommision = 0 + $thdcomission[0]->Commision + $lpcomission[0]->Commision;
             }
             else{

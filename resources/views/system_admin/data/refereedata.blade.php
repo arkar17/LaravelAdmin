@@ -26,7 +26,7 @@
                     <th>{{__('msg.Referee ID')}}</th>
                     <th>{{__('msg.Name')}}</th>
                     <th>{{__('msg.Phone Number')}}</th>
-                    <th>{{__('operationstaff')}}</th>
+                    <th>{{__('msg.Operation Staff')}}</th>
                     <th>{{__('msg.No. of Agents')}}</th>
                     <th></th>
                     {{-- <h2>Action</h2> --}}

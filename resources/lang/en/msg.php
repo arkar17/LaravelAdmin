@@ -164,6 +164,7 @@ return[
     'Referee Profile'=> 'Referee Profile',
     'DateTime'=>'DateTime',
     'Paymenthis'=>'Payment',
+    'role&permission'=>'Role & Permission'
 ];
 ?>
 

@@ -34,7 +34,7 @@
                         <th>{{__('msg.Phone Number')}}</th>
                         <th>{{__('msg.Remark')}}</th>
                         <th></th>
-                        <th></th>
+                        {{-- <th></th> --}}
 
                     </tr>
                 </thead>
@@ -45,12 +45,13 @@
                 <td>{{$operationstaff->id}}</td>
                 <td>{{$operationstaff->name}}</td>
                 <td>{{$operationstaff->phone}}</td>
-                <td>{{$operationstaff->remark}}</td>
+                <td class="referee-request-remark">{{$operationstaff->remark}}</td>
                 <td>
+                    <div class="request-btn-container">
                     <a href="{{route('operationaccept',$operationstaff->id)}}"><button class="referee-request-accept-btn">{{__('msg.Accept')}}</button></a>
-                </td>
-                <td>
-                    <a href="{{route('operationdecline',$operationstaff->id)}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
+
+                    <a  class="decline-btn" href="{{route('operationdecline',$operationstaff->id)}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
+                    </div>
                 </td>
               </tr>
               @endforeach

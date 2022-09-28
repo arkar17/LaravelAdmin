@@ -20,9 +20,9 @@
         <th>{{__('msg.Name')}}</th>
         <th>{{__('msg.Phone Number')}}</th>
         {{-- <th>Refree ID </th> --}}
-        <th>{{__('msg.Remark')}}</th>
+        {{-- <th>{{__('msg.Remark')}}</th> --}}
         <th></th>
-        <th></th>
+        {{-- <th></th> --}}
 
       </tr>
         </thead>
@@ -33,8 +33,13 @@
                 <td>{{$i++}}</td>
                 <td>{{$agent->name}}</td>
                 <td>{{$agent->phone}}</td>
-                    <td href="{{route('agentAccept',$agent->id)}}"><button class="referee-request-accept-btn">{{__('msg.Accept')}}</button></td>
-                    <td href="{{route('agentDecline',$agent->id)}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></td>
+                <td>
+                    <div class="request-btn-container">
+                        <a href="{{route('agentAccept',$agent->id)}}"><button class="referee-request-accept-btn">{{__('msg.Accept')}}</button></a>
+                        <a class="decline-btn" href="{{route('agentDecline',$agent->id)}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
+                    </div>
+                </td>
+
             </tr>
         @endforeach
       </tbody>

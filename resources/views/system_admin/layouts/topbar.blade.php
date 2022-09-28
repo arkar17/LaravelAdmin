@@ -16,8 +16,8 @@
       &nbsp;
 
       <div class="language-container">
-        <a href="locale/en">English</a>
-        <a href="locale/mm">Myanmar</a>
+        <a href={{route('locale','en')}}>English</a>
+        <a href={{route('locale','mm')}}>Myanmar</a>
       </div>
 
     </form>

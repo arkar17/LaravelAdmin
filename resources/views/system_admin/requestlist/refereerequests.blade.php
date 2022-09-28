@@ -34,7 +34,7 @@
                 <th>{{__('msg.Phone Number')}}</th>
                 <th>{{__('msg.Op Staff ID')}}</th>
                 <th>{{__('msg.Remark')}}</th>
-                <th>{{__('msg.role')}}</th>
+                {{-- <th>{{__('msg.role')}}</th> --}}
                 <th></th>
                 <th></th>
               </tr>
@@ -45,7 +45,7 @@
                 <td>{{$refereerequest->name}}</td>
                 <td>{{$refereerequest->phone}}</td>
                 <td>{{$refereerequest->operationstaff_code}}</td>
-                <td>{{$refereerequest->remark}}</td>
+                <td class="referee-request-remark">{{$refereerequest->remark}}</td>
                 <td>
                 <form action="{{route('referee_accept')}}" method="POST" enctype="multipart/form-data" >
                     @csrf
