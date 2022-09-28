@@ -48,27 +48,32 @@
                     <h1>{{$operationstaff->operationstaff_code}} {{__('msg.Referee List')}}</h1>
                 </div>
 
-                <div class="op-profile-referee-list-container">
-                    <div class="op-profile-referee-list-labels-container">
-                        <h2>{{__('msg.referee')}} {{__('msg.Code')}}</h2>
-                        <h2>{{__('msg.Name')}}</h2>
-                        <h2>{{__('msg.Phone Number')}}</h2>
-                    </div>
+                <table class="op-profile-referee-list-container">
+                    <thead>
+                    <tr class="op-profile-referee-list-labels-container">
+                        <th>{{__('msg.referee')}} {{__('msg.Code')}}</th>
+                        <th>{{__('msg.Name')}}</th>
+                        <th>{{__('msg.Phone Number')}}</th>
+                        <th></th>
+                    </tr>
+                    </thead>
 
-                    <div class="op-profile-referee-list-rows-container">
+                    <tbody class="op-profile-referee-list-rows-container">
                         @foreach ($referees as $referee)
-                        <div class="op-profile-referee-list-row">
-                            <p>{{$referee->referee_code}}</p>
-                            <p>{{$referee->user->name}}</p>
-                            <p>{{$referee->user->phone}}</p>
+                        <tr class="op-profile-referee-list-row">
+                            <td>{{$referee->referee_code}}</td>
+                            <td>{{$referee->user->name}}</td>
+                            <td>{{$referee->user->phone}}</td>
+                            <td>
                             <a href="{{route('refreeprofile',$referee->id)}}">
                                 <iconify-icon icon="ant-design:exclamation-circle-outlined" class="op-profile-referee-list-btn"></iconify-icon>
                                 <p>{{__('msg.View Detail')}}</p>
                             </a>
-                        </div>
+                            </td>
+                        </tr>
                         @endforeach
-                    </div>
-                </div>
+                    </tbody>
+                </table>
             </div>
         <!--main content end-->
     </div>

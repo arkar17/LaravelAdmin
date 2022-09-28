@@ -7,29 +7,33 @@
   <div class="agent-requests-parent-container">
     <h1>{{__('msg.Request List - Agent')}}</h1>
 
-    <div class="agent-request-container">
-      <div class="agent-requests-labels-container">
-        <h2>{{__('msg.ID')}}</h2>
-        <h2>{{__('msg.Name')}}</h2>
-        <h2>{{__('msg.Phone Number')}}</h2>
-        {{-- <h2>Refree ID </h2> --}}
-        <h2>{{__('msg.Remark')}}</h2>
+    <table class="agent-request-container">
+        <thead>
+      <tr class="agent-requests-labels-container">
+        <th>{{__('msg.ID')}}</th>
+        <th>{{__('msg.Name')}}</th>
+        <th>{{__('msg.Phone Number')}}</th>
+        {{-- <th>Refree ID </th> --}}
+        <th>{{__('msg.Remark')}}</th>
+        <th></th>
+        <th></th>
 
-      </div>
-      <div class="agent-request-rows-container">
+      </tr>
+        </thead>
+      <tbody class="agent-request-rows-container">
         @foreach ($agentrequests as $agent )
-            <div class="agent-request-row">
-                <p>{{$agent->id}}</p>
-                <p>{{$agent->name}}</p>
-                <p>{{$agent->phone}}</p>
-                {{-- <p>{{$agent->referee_id}}</p> --}}
-                <p>{{$agent->remark}}</p>
-                    <a href="{{route('agentAccept',$agent->id)}}"><button class="referee-request-accept-btn">{{__('msg.Accept')}}</button></a>
-                    <a href="{{route('agentDecline',$agent->id)}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
-            </div>
+            <tr class="agent-request-row">
+                <td>{{$agent->id}}</td>
+                <td>{{$agent->name}}</td>
+                <td>{{$agent->phone}}</td>
+                {{-- <td>{{$agent->referee_id}}</td> --}}
+                <td>{{$agent->remark}}</td>
+                <a href="{{route('agentAccept',$agent->id)}}"><button class="referee-request-accept-btn">{{__('msg.Accept')}}</button></a>
+                <a href="{{route('agentDecline',$agent->id)}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
+            </tr>
         @endforeach
-    </div>
-    </div>
+      </tbody>
+    </table>
   </div>
 <!--agent request list end-->
 

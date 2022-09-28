@@ -20,36 +20,41 @@
             <div class="referee-data-parent-container">
               <h1>{{__('msg.Data - Referee Data')}}</h1>
 
-              <div class="referee-data-list-parent-container">
-                <div class="referee-data-list-labels-container">
-                  <h2>{{__('msg.Referee ID')}}</h2>
-                  <h2>{{__('msg.Name')}}</h2>
-                  <h2>{{__('msg.Phone Number')}}</h2>
-                  <h2>{{__('operationstaff')}}</h2>
-                  <h2>{{__('msg.No. of Agents')}}</h2>
-                  {{-- <h2>Action</h2> --}}
-                </div>
+              <table class="referee-data-list-parent-container">
+                <thead>
+                    <tr class="referee-data-list-labels-container">
+                    <th>{{__('msg.Referee ID')}}</th>
+                    <th>{{__('msg.Name')}}</th>
+                    <th>{{__('msg.Phone Number')}}</th>
+                    <th>{{__('operationstaff')}}</th>
+                    <th>{{__('msg.No. of Agents')}}</th>
+                    <th></th>
+                    {{-- <h2>Action</h2> --}}
+                    </tr>
+                </thead>
 
-                <div class="referee-data-list-rows-container">
+                <tbody class="referee-data-list-rows-container">
                     @foreach ($referees as $referee)
                     {{-- @foreach ($referees as $referee) --}}
 
-                    <div class="referee-data-list-row">
-                        <p>{{$referee->referee_code}}</p>
-                        <p>{{$referee->name}}</p>
-                        <p>{{$referee->phone}}</p>
-                        <p>{{$referee->operationstaff_code}}</p>
-                        <p>{{$referee->agentcount}}</p>
+                    <tr class="referee-data-list-row">
+                        <td>{{$referee->referee_code}}</td>
+                        <td>{{$referee->name}}</td>
+                        <td>{{$referee->phone}}</td>
+                        <td>{{$referee->operationstaff_code}}</td>
+                        <td>{{$referee->agentcount}}</td>
+                        <td>
                         <a href="{{route('refreeprofile',$referee->id)}}">
                           <iconify-icon icon="ant-design:exclamation-circle-outlined" class="referee-data-list-viewdetail-btn"></iconify-icon>
                          {{__('msg.View Detail')}}
                         </a >
-                    </div>
+                        </td>
+                    </tr>
 
                     @endforeach
                     {{-- @endforeach --}}
-                </div>
-              </div>
+                </tbody>
+              </table>
             </div>
 
             <!--referee data end-->

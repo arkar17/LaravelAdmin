@@ -26,24 +26,26 @@
                     </a>
                 </div>
 
-                <div class="permissions-lists-parent-container">
-                    <div class="permissions-list-labels-container">
-                        <h2>{{__('msg.ID')}}</h2>
-                        <h2>{{__('msg.Name')}}</h2>
+                <table class="permissions-lists-parent-container">
+                    <thead>
+                        <tr class="permissions-list-labels-container">
+                            <th>{{__('msg.ID')}}</th>
+                            <th>{{__('msg.Name')}}</th>
 
-                        <h2>{{__('msg.Action')}}</h2>
-                    </div>
+                            <th>{{__('msg.Action')}}</th>
+                        </tr>
+                    </thead>
 
-                    <div class="permissions-list-rows-container">
+                    <tbody class="permissions-list-rows-container">
                         @php
                             $i = 0;
                         @endphp
                         @foreach ($permissions as $permission)
-                            <div class="permissions-list-row">
-                                <p>{{ ++$i }} </p>
-                                <p>{{ $permission->name }}</p>
+                            <tr class="permissions-list-row">
+                                <td>{{ ++$i }} </td>
+                                <td>{{ $permission->name }}</td>
 
-                                <div class="permissions-list-row-actions">
+                                <td class="permissions-list-row-actions">
                                     <!-- <a href="./roleviewdetail.html"><iconify-icon icon="ant-design:exclamation-circle-outlined" class="permissions-list-row-icon"></iconify-icon></a> -->
                                     <a href="{{ route('permission.edit', $permission->id) }}">
                                         <iconify-icon icon="akar-icons:edit" class="permissions-list-row-icon">
@@ -53,12 +55,12 @@
                                         <iconify-icon icon="fluent:delete-16-regular" class="permissions-list-row-icon">
                                         </iconify-icon>
                                     </a>
-                                </div>
+                                </td>
 
-                            </div>
+                            </tr>
                         @endforeach
-                    </div>
-                </div>
+                    </tbody>
+                </table>
             </div>
             <!--permissions end-->
         </div>

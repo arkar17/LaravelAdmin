@@ -82,37 +82,39 @@
         <!--referee list start-->
         <div class="op-list-parent-container">
           <h1>{{__('msg.Operation-Staff List')}}</h1>
-          <div class="op-list-container">
-            <div class="op-list-labels-container">
-              <h2>{{__('msg.ID')}}</h2>
-              <h2>{{__('msg.Name')}}</h2>
-              <h2>{{__('msg.Phone Number')}}</h2>
-              {{-- <h2>Image</h2> --}}
-              <h2>{{__('msg.Action')}}</h2>
+          <table class="op-list-container">
+            <thead>
+                <tr class="op-list-labels-container">
+                <th>{{__('msg.ID')}}</th>
+                <th>{{__('msg.Name')}}</th>
+                <th>{{__('msg.Phone Number')}}</th>
+                {{-- <th>Image</th> --}}
+                <th>{{__('msg.Action')}}</th>
 
-            </div>
-            <div class="op-list-rows-container">
-            @foreach ($operation_staffs as $operation_staff)
-              <div class="op-list-row">
-                <p>{{$operation_staff->operationstaff_code}}</p>
-                <p>{{$operation_staff->name}}</p>
-                <p>{{$operation_staff->phone}}</p>
-                {{-- <p>{{$operation_staff->image}}</p> --}}
-                <div class="op-list-row-actions-container">
-                <a href="{{route('operationstaffprofile',$operation_staff->id)}}">
-                  <iconify-icon icon="ant-design:exclamation-circle-outlined" class="op-list-row-icon"></iconify-icon>
-                </a>
-                <a href="{{route('operation-staff.edit',$operation_staff->id)}}">
-                  <i class="fa-regular fa-pen-to-square"></i>
-                </a>
-                {{-- <a href="{{route('operation-staff.destroy',$operation_staff->id)}}">
-                  <i class="fa-regular fa-trash-can"></i>
-                </a> --}}
-                </div>
-              </div>
-            @endforeach
-            </div>
-          </div>
+                </tr>
+            </thead>
+            <tbody class="op-list-rows-container">
+                @foreach ($operation_staffs as $operation_staff)
+                <tr class="op-list-row">
+                    <td>{{$operation_staff->operationstaff_code}}</td>
+                    <td>{{$operation_staff->name}}</td>
+                    <td>{{$operation_staff->phone}}</td>
+                    {{-- <td>{{$operation_staff->image}}</td> --}}
+                    <td class="op-list-row-actions-container">
+                    <a href="{{route('operationstaffprofile',$operation_staff->id)}}">
+                    <iconify-icon icon="ant-design:exclamation-circle-outlined" class="op-list-row-icon"></iconify-icon>
+                    </a>
+                    <a href="{{route('operation-staff.edit',$operation_staff->id)}}">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+                    {{-- <a href="{{route('operation-staff.destroy',$operation_staff->id)}}">
+                    <i class="fa-regular fa-trash-can"></i>
+                    </a> --}}
+                </td>
+                </tr>
+                @endforeach
+            </tbody>
+          </table>
 
         </div>
     </div>

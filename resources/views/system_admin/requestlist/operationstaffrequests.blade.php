@@ -28,25 +28,36 @@
         <div class="referee-requests-parent-container">
             <h1>{{__('msg.Request List - Operation Staff')}}</h1>
 
-            <div class="referee-request-container">
-              <div class="referee-requests-labels-container">
-                <h2>{{__('msg.ID')}}</h2>
-                <h2>{{__('msg.Name')}}</h2>
-                <h2>{{__('msg.Phone Number')}}</h2>
-                <h2>{{__('msg.Remark')}}</h2>
+            <table class="referee-request-container">
+                <thead>
+                    <tr class="referee-requests-labels-container">
+                        <th>{{__('msg.ID')}}</th>
+                        <th>{{__('msg.Name')}}</th>
+                        <th>{{__('msg.Phone Number')}}</th>
+                        <th>{{__('msg.Remark')}}</th>
+                        <th></th>
+                        <th></th>
 
-              </div>
+                    </tr>
+                </thead>
+                <tbody>
               @foreach ($operationstaffs as $operationstaff )
-              <div class="referee-request-row">
-                <p>{{$operationstaff->id}}</p>
-                <p>{{$operationstaff->name}}</p>
-                <p>{{$operationstaff->phone}}</p>
-                <p>{{$operationstaff->remark}}</p>
+
+              <tr class="referee-request-row">
+                <td>{{$operationstaff->id}}</td>
+                <td>{{$operationstaff->name}}</td>
+                <td>{{$operationstaff->phone}}</td>
+                <td>{{$operationstaff->remark}}</td>
+                <td>
                     <a href="{{route('operationaccept',$operationstaff->id)}}"><button class="referee-request-accept-btn">{{__('msg.Accept')}}</button></a>
+                </td>
+                <td>
                     <a href="{{route('operationdecline',$operationstaff->id)}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
-              </div>
+                </td>
+              </tr>
               @endforeach
-            </div>
+            </tbody>
+            </table>
         </div>
     </div>
 @endsection

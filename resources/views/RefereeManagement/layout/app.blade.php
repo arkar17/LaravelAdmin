@@ -94,6 +94,35 @@
    @yield('script')
    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
    <script>
+        //  $(".sider-bar-toggle").click(() => {
+
+            var OriginalWidth=$('.side-bar-container').width();
+            $(".sidebar-icon").hide()
+
+            $('.sider-bar-toggle').click(function () {
+
+            width = $(".side-bar-container").width();
+            if (OriginalWidth == width){
+                $(".side-bar-container").animate({ width: '100' });
+                $(".main-content-container").animate({marginLeft: '-=120px'})
+                $(".top-bar-container").animate({left:"-=120px"})
+                $(".sidebar-icon").show()
+                $(".side-bar-links-container span").hide()
+            }
+
+            else {
+                $(".side-bar-container").animate({ width: OriginalWidth });
+                $(".main-content-container").animate({marginLeft: '+=120px'})
+                $(".top-bar-container").animate({left:"+=120px"})
+                $(".sidebar-icon").hide()
+                $(".side-bar-links-container span").show()
+            }
+
+
+        })
+
+
+
         var pusher = new Pusher('{{env("MIX_PUSHER_APP_KEY")}}', {
         cluster: '{{env("PUSHER_APP_CLUSTER")}}',
         encrypted: true
@@ -110,6 +139,12 @@
         hide.addEventListener("click", function() {
             hide.style.display = "none";
         });
+
+        // $(".sider-bar-toggle").click(() => {
+        //     console.log("clicked")
+        // })
+
+
     </script>
   </body>
 </html>

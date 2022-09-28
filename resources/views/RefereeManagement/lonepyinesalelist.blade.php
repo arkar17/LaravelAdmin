@@ -64,28 +64,30 @@
                     </a>
         {{-- </div> --}}
 
-        <div class="twod-sale-list-details-parent-container">
-        <div class="twod-sale-list-details-labels-container">
-            <p>{{__('msg.ID')}}</p>
-            <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
-            <p>{{__('msg.Customer')}} {{__('msg.Name')}}</p>
-            <p>{{__('msg.Number')}}</p>
-            <p>{{__('msg.Amount')}}</p>
-        </div>
+        <table class="twod-sale-list-details-parent-container">
+            <thead>
+            <tr class="twod-sale-list-details-labels-container">
+                <th>{{__('msg.ID')}}</th>
+                <th>{{__('msg.Agent')}} {{__('msg.Name')}}</th>
+                <th>{{__('msg.Customer')}} {{__('msg.Name')}}</th>
+                <th>{{__('msg.Number')}}</th>
+                <th>{{__('msg.Amount')}}</th>
+            </tr>
+            </thead>
 
-        <div class="twod-sale-details-rows-container">
-            @foreach ($lonepyineSaleList as $lonepyinesalelist)
-                <div class="twod-sale-details-row">
-                    <p>{{$lonepyinesalelist->id}}</p>
-                    <p>{{$lonepyinesalelist->name}}</p>
-                    <p>{{$lonepyinesalelist->customer_name}}</p>
-                    <p>{{$lonepyinesalelist->number}}</p>
-                    <p>{{$lonepyinesalelist->sale_amount}}</p>
-                </div>
-            @endforeach
+            <tbody class="twod-sale-details-rows-container">
+                @foreach ($lonepyineSaleList as $lonepyinesalelist)
+                    <tr class="twod-sale-details-row">
+                        <td>{{$lonepyinesalelist->id}}</td>
+                        <td>{{$lonepyinesalelist->name}}</td>
+                        <td>{{$lonepyinesalelist->customer_name}}</td>
+                        <td>{{$lonepyinesalelist->number}}</td>
+                        <td>{{$lonepyinesalelist->sale_amount}}</td>
+                    </tr>
+                @endforeach
 
-        </div>
-        </div>
+            </tbody>
+        </table>
     </div>
     <!--2d sale list end-->
 

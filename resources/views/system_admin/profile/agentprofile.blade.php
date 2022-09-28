@@ -62,31 +62,33 @@
 
                 </div>
 
-                <div class="agent-profile-customer-list-container">
-                    <div class="agent-profile-customer-list-labels-container">
-                        <h2>{{__('msg.ID')}}</h2>
-                        <h2>{{__('msg.Name')}}</h2>
-                        <h2>{{__('msg.Phone Number')}}</h2>
-                        <h2>{{__('msg.Sale Amount')}}</h2>
-                    </div>
+                <table class="agent-profile-customer-list-container">
+                    <thead>
+                        <tr class="agent-profile-customer-list-labels-container">
+                            <th>{{__('msg.ID')}}</th>
+                            <th>{{__('msg.Name')}}</th>
+                            <th>{{__('msg.Phone Number')}}</th>
+                            <th>{{__('msg.Sale Amount')}}</th>
+                        </tr>
+                    </thead>
                     <?php
                     $i=1;
                     ?>
-                    <div class="agent-profile-customer-list-rows-container">
+                    <tbody class="agent-profile-customer-list-rows-container">
                         @if ($results == null)
 
                         @else
                             @foreach ($results as $result)
-                            <div class="agent-profile-customer-list-row">
-                                <p>{{$i++}}</p>
-                                <p>{{$result['customer_name']}}</p>
-                                <p>{{$result['customer_phone']}}</p>
-                                <p>{{$result['Amount']}}</p>
-                            </div>
+                            <tr class="agent-profile-customer-list-row">
+                                <td>{{$i++}}</td>
+                                <td>{{$result['customer_name']}}</td>
+                                <td>{{$result['customer_phone']}}</td>
+                                <td>{{$result['Amount']}}</td>
+                            </tr>
                             @endforeach
                         @endif
-                    </div>
-                </div>
+                    </tbody>
+                </table>
             </div>
 
         </div>

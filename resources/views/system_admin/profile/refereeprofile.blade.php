@@ -53,48 +53,55 @@
 
             </div>
 
-            <div class="referee-profile-agent-list-parent-container">
-                <div class="agent-profile-customer-list-labels-container">
-                    <h2>{{__('msg.ID')}}</h2>
-                    <h2>{{__('msg.Name')}}</h2>
-                    <h2>{{__('msg.Phone Number')}}</h2>
-                    <h2>{{__('msg.Sale Amount')}}</h2>
-                    <h2>{{__('msg.Action')}}</h2>
-                </div>
-                <div class="referee-profile-agent-list-rows-container">
+            <table class="referee-profile-agent-list-parent-container">
+                {{-- sadkfhdsofudsfgdui --}}
+                <thead>
+                <tr class="agent-profile-customer-list-labels-container">
+                    <th>{{__('msg.ID')}}</th>
+                    <th>{{__('msg.Name')}}</th>
+                    <th>{{__('msg.Phone Number')}}</th>
+                    <th>{{__('msg.Sale Amount')}}</th>
+                    <th>{{__('msg.Action')}}</th>
+                </tr>
+                </thead>
+                <tbody class="referee-profile-agent-list-rows-container">
                     @if ($results == null)
                     <div></div>
                     @foreach ($agents as $agent)
 
-                    <div class="referee-profile-agent-list-row">
-                        <p>{{$agent->id}}</p>
-                        <p>{{{$agent->name}}}</p>
-                        <p>{{{$agent->phone}}}</p>
-                        <p>0</p>
+                    <tr class="referee-profile-agent-list-row">
+                        <td>{{$agent->id}}</td>
+                        <td>{{{$agent->name}}}</td>
+                        <td>{{{$agent->phone}}}</td>
+                        <td>0</td>
+                        <td>
                          <a href="{{route('agentprofile',$agent->id)}}">
                             <iconify-icon icon="ant-design:exclamation-circle-outlined" class="referee-profile-agent-list-btn"></iconify-icon>
                             <p>{{__('msg.View Detail')}}</p>
                         </a>
-                    </div>
+                        </td>
+                    </tr>
                     @endforeach
                         @else
 
                         @foreach ($results as $agent)
-                        <div class="referee-profile-agent-list-row">
+                        <tr class="referee-profile-agent-list-row">
 
-                            <p>{{$agent['id']}}</p>
-                            <p>{{{$agent['name']}}}</p>
-                            <p>{{{$agent['phone']}}}</p>
-                            <p>{{{$agent['Amount']}}}</p>
+                            <td>{{$agent['id']}}</td>
+                            <td>{{{$agent['name']}}}</td>
+                            <td>{{{$agent['phone']}}}</td>
+                            <td>{{{$agent['Amount']}}}</td>
+                            <td>
                              <a href="{{route('agentprofile',$agent['id'])}}">
                                 <iconify-icon icon="ant-design:exclamation-circle-outlined" class="referee-profile-agent-list-btn"></iconify-icon>
                                 <p>{{__('View Detail')}}</p>
                             </a>
-                        </div>
+                            </td>
+                        </tr>
                         @endforeach
                     @endif
-                </div>
-            </div>
+                </tbody>
+            </table>
         <!--main content end-->
     </div>
 @endsection

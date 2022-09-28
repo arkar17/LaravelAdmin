@@ -13,13 +13,15 @@
       &nbsp;
       &nbsp;
       &nbsp;
-      <a href="locale/en">English</a> |
+    <div class="language-container">
+      <a href="locale/en">English</a>
       <a href="locale/mm">Myanmar</a>
+    </div>
       {{-- <i class="fa-regular fa-bell"></i> --}}
 
     </form>
 
-      <i class="fa-regular fa-bell"></i>
+      {{-- <i class="fa-regular fa-bell"></i> --}}
 
       <div class="top-bar-username-container">
         Coin Amount :
@@ -32,9 +34,9 @@
         &nbsp;
         &nbsp;
         &nbsp;
-        <a class="side-bar-link" href="{{route('porfile-referee')}}">
-        <i class="fa-regular fa-user"></i>
-        <p>{{auth()->user()->name}}</p>
+        <a class="profile-link" href="{{route('porfile-referee')}}">
+            <i class="fa-regular fa-user"></i>
+            <p>{{auth()->user()->name}}</p>
         </a>
 
     </div>

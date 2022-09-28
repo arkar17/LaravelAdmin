@@ -26,8 +26,8 @@
                 <h1>{{__('msg.Agent Profile')}}</h1>
 
                 <div class="agent-profile-filters-container">
-                    <input id="agent-profile-filter-fromdate" type="date" placeholder="From Date" />
-                    <input id="agent-profile-filter-todate" type="date" placeholder="To Date" />
+                    {{-- <input id="agent-profile-filter-fromdate" type="date" placeholder="From Date" />
+                    <input id="agent-profile-filter-todate" type="date" placeholder="To Date" /> --}}
 
                     <button class="agent-profile-filter-btn">
                         <iconify-icon icon="ant-design:search-outlined" class="agent-data-filter-btn-icon"></iconify-icon>
@@ -98,31 +98,33 @@
                             <h1>{{__('msg.Agent')}} {{$agentprofiledata->name}}'s {{__('msg.Customer List')}}</h1>
                         </div>
 
-                        <div class="agent-profile-agent-list-container">
-                            <div class="agent-profile-agent-list-labels-container">
-                                <h2>{{__('msg.ID')}}</h2>
-                                <h2>{{__('msg.Name')}}</h2>
-                                <h2>{{__('msg.Phone Number')}}</h2>
-                                <h2>{{__('msg.Number')}}</h2>
-                                <h2>{{__('msg.Compensation')}}</h2>
-                                <h2>{{__('msg.Amount')}}</h2>
-                            </div>
+                        <table class="agent-profile-agent-list-container">
+                            <thead>
+                            <tr class="agent-profile-agent-list-labels-container">
+                                <th>{{__('msg.ID')}}</th>
+                                <th>{{__('msg.Name')}}</th>
+                                <th>{{__('msg.Phone Number')}}</th>
+                                <th>{{__('msg.Number')}}</th>
+                                <th>{{__('msg.Compensation')}}</th>
+                                <th>{{__('msg.Amount')}}</th>
+                            </tr>
+                            </thead>
 
-                            <div class="agent-profile-agent-list-rows-container">
+                            <tbody class="agent-profile-agent-list-rows-container">
                                 {{-- @for ($i=0; $i<=count($twodnum)-1; $i++) --}}
                                     @foreach ($agentcustomerdata as $data)
-                                        <div class="agent-profile-agent-list-row">
-                                            <p>{{$data->id}}</p>
-                                            <p>{{$data->customer_name}}</p>
-                                            <p>{{$data->customer_phone}}</p>
-                                            <p>{{$data->number}}</p>
-                                            <p>{{$data->compensation}}</p>
-                                            <p>{{$data->sale_amount}}ks</p>
-                                        </div>
+                                        <tr class="agent-profile-agent-list-row">
+                                            <td>{{$data->id}}</td>
+                                            <td>{{$data->customer_name}}</td>
+                                            <td>{{$data->customer_phone}}</td>
+                                            <td>{{$data->number}}</td>
+                                            <td>{{$data->compensation}}</td>
+                                            <td>{{$data->sale_amount}}ks</td>
+                                        </tr>
                                     @endforeach
                                 {{-- @endfor --}}
-                            </div>
-                        </div>
+                                    </tbody>
+                        </table>
                     </form>
                 </div>
 

@@ -9,16 +9,22 @@
     @endhasanyrole
     </div>
 
+
+
     <div class="top-bar-right-container">
-        <a href={{route('locale','en')}}>English</a> |
-        <a href={{route('locale','mm')}}>Myanmar</a>
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit" class="logout-btn">{{__('msg.logout')}}</button>
-    </form>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="logout-btn">{{__('msg.logout')}}</button>
+        </form>
+        <div class="language-container">
+            <a href={{route('locale','en')}}>English</a>
+            <a href={{route('locale','mm')}}>Myanmar</a>
+        </div>
+
+
 
     <div class="top-bar-username-container">
-        <a class="side-bar-link" href="{{route('porfile-admin')}}">
+        <a class="profile-link" href="{{route('porfile-admin')}}">
             <i class="fa-regular fa-user"></i>
             <p>{{auth()->user()->name}}</p>
         </a>

@@ -35,50 +35,52 @@
             {{-- <a href="{{route('export_excel')}}">Export excel</a>
             <a href="{{route('export_pdf')}}">Export pdf</a> --}}
 
-            <div class="referee-list-container">
-            <div class="referee-list-labels-container">
-                <h2>{{__('msg.ID')}}</h2>
-                <h2>{{__('msg.Name')}}</h2>
-                <h2>{{__('msg.Phone Number')}}</h2>
-                <h2>{{__('msg.Opstaff Code')}}</h2>
-                <h2>{{__('msg.role')}}</h2>
-                <h2>{{__('msg.Active Status')}}</h2>
-                {{-- <h2>Image</h2> --}}
-                <h2>{{__('msg.Action')}}</h2>
+            <table class="referee-list-container">
+                <thead>
+                <tr class="referee-list-labels-container">
+                    <th>{{__('msg.ID')}}</th>
+                    <th>{{__('msg.Name')}}</th>
+                    <th>{{__('msg.Phone Number')}}</th>
+                    <th>{{__('msg.Opstaff Code')}}</th>
+                    <th>{{__('msg.role')}}</th>
+                    <th>{{__('msg.Active Status')}}</th>
+                    {{-- <th>Image</th> --}}
+                    <th>{{__('msg.Action')}}</th>
 
-            </div>
+                </tr>
+                </thead>
 
-            <div class="referee-list-rows-container">
-                @foreach ($referees as $referee)
-                    <div class="referee-list-row">
-                        <p>{{$referee->referee_code}}</p>
-                        <p>{{$referee->user->name}}</p>
-                        <p>{{$referee->user->phone}}</p>
-                        <p>{{$referee->operationstaff->operationstaff_code}}</p>
-                        <p>role {{$referee->role_id}}</p>
-                            @if ($referee->active_status == 1)
-                            <p class="text-success">Active</p>
-                            @else
-                            <p class="text-secondary">Inactive</p>
-                            @endif
-                        {{-- <p>
-                            <img src="{{asset('storage/image/'.$referee->image)}}">
-                        </p> --}}
-                        <div class="referee-list-row-actions-container">
-                            <a href="{{route('refreeprofile',$referee->id)}}">
-                                <iconify-icon icon="ant-design:exclamation-circle-outlined" class="referee-list-row-icon"></iconify-icon>
-                            </a>
-                            <a href="{{route('referee.edit',$referee->id)}}">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </a>
-                            <a href="{{route('referee.destroy',$referee->id)}}" onclick="return confirm('Are you sure you want to delete this ?')">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </a>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-            </div>
+                <tbody class="referee-list-rows-container">
+                    @foreach ($referees as $referee)
+                        <tr class="referee-list-row">
+                            <td>{{$referee->referee_code}}</td>
+                            <td>{{$referee->user->name}}</td>
+                            <td>{{$referee->user->phone}}</td>
+                            <td>{{$referee->operationstaff->operationstaff_code}}</td>
+                            <td>role {{$referee->role_id}}</td>
+                                @if ($referee->active_status == 1)
+                                <td class="text-success">Active</td>
+                                @else
+                                <td class="text-secondary">Inactive</td>
+                                @endif
+                            {{-- <p>
+                                <img src="{{asset('storage/image/'.$referee->image)}}">
+                            </p> --}}
+                            <td class="referee-list-row-actions-container">
+                                <a href="{{route('refreeprofile',$referee->id)}}">
+                                    <iconify-icon icon="ant-design:exclamation-circle-outlined" class="referee-list-row-icon"></iconify-icon>
+                                </a>
+                                <a href="{{route('referee.edit',$referee->id)}}">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+                                <a href="{{route('referee.destroy',$referee->id)}}" onclick="return confirm('Are you sure you want to delete this ?')">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
 
         </div>
     </div>

@@ -61,7 +61,7 @@
 }
 
 .dashboard-2d-chart-container, .dashboard-lonepyine-container{
-    width: 570px;
+    width: 480px;
     padding: 20px;
     border: 2px solid #3C3C3C;
     border-radius: 5px;
@@ -169,4 +169,18 @@
     border-radius: 5px;
     background-color: white;
     margin-left: 10px;
+}
+
+@media screen and (max-width:1400px){
+    .dashboard-bar-charts-parent-container{
+        flex-direction: column;
+    }
+
+    .dashboard-gradient-registeration-container, .dashboard-gradient-traffic-container, .dashboard-gradient-referee-container, .dashboard-gradient-sale-container{
+        width: 160px;
+    }
+
+   .dashboard-lonepyine-container{
+    margin-top: 30px;
+   }
 }

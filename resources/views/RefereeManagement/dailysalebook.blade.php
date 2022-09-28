@@ -5,7 +5,7 @@
 @section('content')
   <!--daily sale book start-->
   <div class="daily-sale-book-parent-container">
-    <h1>Daily Sale Book</h1>
+    {{-- <h1>Daily Sale Book</h1> --}}
     @if (Session::has('success'))
         <div class="alert alert-success alert-dismissible fade in" style = "color:green">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
@@ -82,119 +82,122 @@
         @if(count($agenttwodsaleList) != 0 ||  count($agentlonepyinesalelist) != 0 )
       <div class="daily-sale-book-sale-record-parent-container">
           <h1>{{__('msg.2D & Lone Pyine Sale Record')}}</h1>
-          <div class="daily-sale-book-sale-record-container">
-            <div class="daily-sale-book-sale-record-labels-container">
-              <p>{{__('msg.ID')}}</p>
-              {{-- <p>Date</p> --}}
-              <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
-              <p>{{__('msg.Round')}}</p>
-              <p>{{__('msg.Type')}}</p>
-              <p>{{__('msg.Number')}}</p>
-              <p>{{__('msg.Compensation')}}</p>
-              <p>{{__('msg.Amount')}}</p>
-              <p></p>
-            </div>
-            <div class="daily-sale-book-sale-record-rows-container">
+          <table class="daily-sale-book-sale-record-container">
+            <thead>
+            <tr class="daily-sale-book-sale-record-labels-container">
+              <th>{{__('msg.ID')}}</th>
+              {{-- <th>Date</th> --}}
+              <th>{{__('msg.Agent')}} {{__('msg.Name')}}</th>
+              <th>{{__('msg.Round')}}</th>
+              <th>{{__('msg.Type')}}</th>
+              <th>{{__('msg.Number')}}</th>
+              <th>{{__('msg.Compensation')}}</th>
+              <th>{{__('msg.Amount')}}</th>
+              <th></th>
+            </tr>
+        </thead>
+            <tbody class="daily-sale-book-sale-record-rows-container">
 
                         @foreach ($agenttwodsaleList as $agent)
 
 
-                            <div class="daily-sale-book-sale-record-row">
-                                <p>{{$agent->id}}</p>
-                                {{-- <p>{{$agent->date}}</p> --}}
-                                <p>{{$agent->name}}</p>
-                                <p>{{$agent->round}}</p>
-                                <p>{{__('msg.2D')}}</p>
-                                <div class="daily-sale-book-sale-row-numbers">
+                            <tr class="daily-sale-book-sale-record-row">
+                                <td>{{$agent->id}}</td>
+                                {{-- <td>{{$agent->date}}</td> --}}
+                                <td>{{$agent->name}}</td>
+                                <td>{{$agent->round}}</td>
+                                <td>{{__('msg.2D')}}</td>
+                                <td class="daily-sale-book-sale-row-numbers">
                                     @for ($i=0; $i<=count($numbergroup[$agent->name])-1; $i++)
-                                    <p>{{{ $numbergroup[$agent->name][$i] }}}</p>
+                                    <p>{{{ $numbergroup[$agent->name][$i] }}}</p><br>
                                     @endfor
-                                </div>
-                                <div class="daily-sale-book-sale-row-compensations">
+                                </td>
+                                <td class="daily-sale-book-sale-row-compensations">
                                     @for ($i=0; $i<=count($compengroup[$agent->name])-1; $i++)
-                                    <p>{{{ $compengroup[$agent->name][$i] }}}</p>
+                                    <p>{{{ $compengroup[$agent->name][$i] }}}</p><br>
                                     @endfor
-                                </div>
-                                <div class="daily-sale-book-sale-row-amounts">
+                                </td>
+                                <td class="daily-sale-book-sale-row-amounts">
                                     @for ($i=0; $i<=count($salegroup[$agent->name])-1; $i++)
-                                    <p>{{{ $salegroup[$agent->name][$i] }}}</p>
+                                    <p>{{{ $salegroup[$agent->name][$i] }}}</p><br>
                                     @endfor
-                                </div>
+                                </td>
 
-                                <div class="daily-sale-book-row-btn-container">
-                                <form action="{{route('acceptTwod')}}" mehtod = 'post'>
-                                    @csrf
-                                    @for ($i=0; $i<=count($idgroup[$agent->name])-1; $i++)
-                                   <input type="text" hidden name="id[]" id="" value ="{{{ $idgroup[$agent->name][$i] }}}">
-                                    @endfor
-                                        <button class="daily-sale-book-accept-btn">{{__('msg.Accept')}}</button>
-                                </form>
-                                <form action="{{route('declineTwod')}}" mehtod = 'post'>
-                                    @csrf
-                                    @for ($i=0; $i<=count($idgroup[$agent->name])-1; $i++)
-                                   <input type="text" hidden name="id[]" id="" value ="{{{ $idgroup[$agent->name][$i] }}}">
-                                    @endfor
+                                <td class="daily-sale-book-row-btn-container">
+                                    <form action="{{route('acceptTwod')}}" mehtod = 'post'>
+                                        @csrf
+                                        @for ($i=0; $i<=count($idgroup[$agent->name])-1; $i++)
+                                    <input type="text" hidden name="id[]" id="" value ="{{{ $idgroup[$agent->name][$i] }}}">
+                                        @endfor
+                                            <button class="daily-sale-book-accept-btn">{{__('msg.Accept')}}</button>
+                                    </form>
+                                    <form action="{{route('declineTwod')}}" mehtod = 'post'>
+                                        @csrf
+                                        @for ($i=0; $i<=count($idgroup[$agent->name])-1; $i++)
+                                    <input type="text" hidden name="id[]" id="" value ="{{{ $idgroup[$agent->name][$i] }}}">
+                                        @endfor
 
-                                        <button class="daily-sale-book-decline-btn">{{__('msg.Decline')}}</button>
+                                            <button class="daily-sale-book-decline-btn">{{__('msg.Decline')}}</button>
 
-                                </form>
-                            </div>
-                            </div>
+                                    </form>
+                                </td>
+                            </tr>
                         @endforeach
 
 
 
 
                         @foreach($agentlonepyinesalelist as $agent)
-                            <div class="daily-sale-book-sale-record-row">
-                                <p>{{$agent->id}}</p>
-                                {{-- <p>{{$agent->date}}</p> --}}
-                                <p>{{$agent->name}}</p>
-                                <p>{{$agent->round}}</p>
-                                <p>Lone Pyine</p>
+                            <tr class="daily-sale-book-sale-record-row">
+                                <td>{{$agent->id}}</td>
+                                {{-- <td>{{$agent->date}}</td> --}}
+                                <td>{{$agent->name}}</td>
+                                <td>{{$agent->round}}</td>
+                                <td>Lone Pyine</td>
 
-                                <div class="daily-sale-book-sale-row-numbers">
+                                <td class="daily-sale-book-sale-row-numbers">
                                     @for ($i=0; $i<=count($lp_numbergroup[$agent->name])-1; $i++)
-                                    <p>{{{ $lp_numbergroup[$agent->name][$i] }}}</p>
+                                    <p>{{{ $lp_numbergroup[$agent->name][$i] }}}</p><br>
                                     @endfor
-                                </div>
-                                <div class="daily-sale-book-sale-row-compensations">
+                                </td>
+                                <td class="daily-sale-book-sale-row-compensations">
                                     @for ($i=0; $i<=count($lp_compengroup[$agent->name])-1; $i++)
-                                    <p>{{{ $lp_compengroup[$agent->name][$i] }}}</p>
+                                    <p>{{{ $lp_compengroup[$agent->name][$i] }}}</p><br>
                                     @endfor
-                                </div>
-                                <div class="daily-sale-book-sale-row-amounts">
+                                </td>
+                                <td class="daily-sale-book-sale-row-amounts">
                                     @for ($i=0; $i<=count($lp_salegroup[$agent->name])-1; $i++)
-                                    <p>{{{ $lp_salegroup[$agent->name][$i] }}}</p>
+                                    <p>{{{ $lp_salegroup[$agent->name][$i] }}}</p><br>
                                     @endfor
-                                </div>
+                                </td>
+                                <td class="daily-sale-book-row-btn-container">
+                                    <form action="{{route('acceptlp')}}" mehtod = 'post'>
+                                        @csrf
+                                        @for ($i=0; $i<=count($lp_idgroup[$agent->name])-1; $i++)
+                                    <input type="text" hidden name="id[]" id="" value ="{{{ $lp_idgroup[$agent->name][$i] }}}">
+                                        @endfor
 
-                                <form action="{{route('acceptlp')}}" mehtod = 'post'>
-                                    @csrf
-                                    @for ($i=0; $i<=count($lp_idgroup[$agent->name])-1; $i++)
-                                   <input type="text" hidden name="id[]" id="" value ="{{{ $lp_idgroup[$agent->name][$i] }}}">
-                                    @endfor
 
-                                    <div class="daily-sale-book-row-btn-container">
-                                        <button class="daily-sale-book-accept-btn">Accept</button>
+                                            <button class="daily-sale-book-accept-btn">Accept</button>
 
-                                    </div>
-                                </form>
-                                <form action="{{route('declinelp')}}" mehtod = 'post'>
-                                    @csrf
-                                    @for ($i=0; $i<=count($lp_idgroup[$agent->name])-1; $i++)
-                                   <input type="text" hidden name="id[]" id="" value ="{{{ $lp_idgroup[$agent->name][$i] }}}">
-                                    @endfor
 
-                                    <div class="daily-sale-book-row-btn-container">
-                                        <button class="daily-sale-book-decline-btn">Decline</button>
-                                    </div>
-                                </form>
-                            </div>
+                                    </form>
+                                    <form action="{{route('declinelp')}}" mehtod = 'post'>
+                                        @csrf
+                                        @for ($i=0; $i<=count($lp_idgroup[$agent->name])-1; $i++)
+                                    <input type="text" hidden name="id[]" id="" value ="{{{ $lp_idgroup[$agent->name][$i] }}}">
+                                        @endfor
+
+
+                                            <button class="daily-sale-book-decline-btn">Decline</button>
+
+                                    </form>
+                                </td>
+                            </tr>
                         @endforeach
-            </div>
+            </tbody>
 
-          </div>
+          </table>
         </div>
         @endif
     </div>
@@ -215,8 +218,9 @@
       <!--sale record start-->
       <div class="daily-sale-book-sale-record-parent-container">
         <h1>3d sale record list</h1>
-        <div class="daily-sale-book-sale-record-container">
-          <div class="daily-sale-book-sale-record-labels-container">
+        <table class="daily-sale-book-sale-record-container">
+            <thead>
+          <tr class="daily-sale-book-sale-record-labels-container">
             <p>ID</p>
             {{-- <p>Date</p> --}}
             <p>Agent Name</p>
@@ -225,57 +229,60 @@
             <p>Compensation</p>
             <p>Amount</p>
             <p>Status</p>
-          </div>
-          <div class="daily-sale-book-sale-record-rows-container">
+          </tr>
+            </thead>
+          <tbody class="daily-sale-book-sale-record-rows-container">
             @foreach ($agentthreedsalelist as $agent)
-                <div class="daily-sale-book-sale-record-row">
-                    <p>{{$agent->id}}</p>
-                    <p>24 Aug</p>
-                    <p>{{$agent->name}}</p>
-                    <p>3D</p>
-                    <div class="daily-sale-book-sale-row-numbers">
+                <tr class="daily-sale-book-sale-record-row">
+                    <td>{{$agent->id}}</td>
+                    <td>24 Aug</td>
+                    <td>{{$agent->name}}</td>
+                    <td>3D</td>
+                    <td class="daily-sale-book-sale-row-numbers">
                         @for ($i=0; $i<=count($threed_numbergroup[$agent->name])-1; $i++)
-                        <p>{{{ $threed_numbergroup[$agent->name][$i] }}}</p>
+                        <p>{{{ $threed_numbergroup[$agent->name][$i] }}}</p><br>
                         @endfor
-                    </div>
-                    <div class="daily-sale-book-sale-row-compensations">
+                    </td>
+                    <td class="daily-sale-book-sale-row-compensations">
                         @for ($i=0; $i<=count($threed_compengroup[$agent->name])-1; $i++)
-                        <p>{{{ $threed_compengroup[$agent->name][$i] }}}</p>
+                        <p>{{{ $threed_compengroup[$agent->name][$i] }}}</p><br>
                         @endfor
-                    </div>
-                    <div class="daily-sale-book-sale-row-amounts">
+                    </td>
+                    <td class="daily-sale-book-sale-row-amounts">
                         @for ($i=0; $i<=count($threed_salegroup[$agent->name])-1; $i++)
-                        <p>{{{ $threed_salegroup[$agent->name][$i] }}}</p>
+                        <p>{{{ $threed_salegroup[$agent->name][$i] }}}</p><br>
                         @endfor
-                    </div>
+                    </td>
 
-                    <form action="{{route('acceptThreed')}}" mehtod = 'post'>
-                        @csrf
-                        @for ($i=0; $i<=count($threed_idgroup[$agent->name])-1; $i++)
-                       <input type="text" hidden name="id[]" id="" value ="{{{ $threed_idgroup[$agent->name][$i] }}}">
-                        @endfor
+                    <td class="daily-sale-book-row-btn-container">
+                        <form action="{{route('acceptThreed')}}" mehtod = 'post'>
+                            @csrf
+                            @for ($i=0; $i<=count($threed_idgroup[$agent->name])-1; $i++)
+                        <input type="text" hidden name="id[]" id="" value ="{{{ $threed_idgroup[$agent->name][$i] }}}">
+                            @endfor
 
-                        <div class="daily-sale-book-row-btn-container">
-                            <button class="daily-sale-book-accept-btn">Accept</button>
 
-                        </div>
-                    </form>
-                    <form action="{{route('declineThreed')}}" mehtod = 'post'>
-                        @csrf
-                        @for ($i=0; $i<=count($threed_idgroup[$agent->name])-1; $i++)
-                       <input type="text" hidden name="id[]" id="" value ="{{{ $threed_idgroup[$agent->name][$i] }}}">
-                        @endfor
+                                <button class="daily-sale-book-accept-btn">Accept</button>
 
-                        <div class="daily-sale-book-row-btn-container">
-                            <button class="daily-sale-book-decline-btn">Decline</button>
-                        </div>
-                    </form>
-                </div>
+
+                        </form>
+                        <form action="{{route('declineThreed')}}" mehtod = 'post'>
+                            @csrf
+                            @for ($i=0; $i<=count($threed_idgroup[$agent->name])-1; $i++)
+                        <input type="text" hidden name="id[]" id="" value ="{{{ $threed_idgroup[$agent->name][$i] }}}">
+                            @endfor
+
+
+                                <button class="daily-sale-book-decline-btn">Decline</button>
+
+                        </form>
+                    </td>
+                </tr>
             @endforeach
 
-          </div>
+          </tbody>
 
-        </div>
+        </table>
       </div>
       @endif
       <!--sale record end-->

@@ -33,15 +33,15 @@
                 </datalist>
                 </div>
 
-                <div class="twod-sale-list-filters-date-parent-container">
+                {{-- <div class="twod-sale-list-filters-date-parent-container">
                 <p>{{__('msg.Date')}}</p>
                 <div class="twod-sale-list-filters-date-container">
                     <input type="date" placeholder="From Date"/>
                     <input type="date" placeholder="To Date"/>
                 </div>
-                </div>
+                </div> --}}
 
-                <div class="twod-sale-list-filters-round-container">
+                {{-- <div class="twod-sale-list-filters-round-container">
                 <p>{{__('msg.Round')}}</p>
 
                 <select>
@@ -49,7 +49,7 @@
                     <option value="Morning">Morning</option>
                     <option value="Evening">Evening</option>
                 </select>
-                </div>
+                </div> --}}
 
                 <button type="submit" class="twod-sale-list-filters-btn">
                 <iconify-icon icon="akar-icons:search" class="twod-sale-list-filter-icon" ></iconify-icon>
@@ -62,27 +62,29 @@
             </a>
         {{-- </div> --}}
 
-        <div class="twod-sale-list-details-parent-container">
-            <div class="twod-sale-list-details-labels-container">
-            <p>{{__('ID')}}</p>
-            <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
-            <p>{{__('msg.Customer')}} {{__('msg.Name')}}</p>
-            <p>{{__('msg.Number')}}</p>
-            <p>{{__('msg.Amount')}}</p>
-            </div>
+        <table class="twod-sale-list-details-parent-container">
+            <thead>
+            <tr class="twod-sale-list-details-labels-container">
+                <th>{{__('ID')}}</th>
+                <th>{{__('msg.Agent')}} {{__('msg.Name')}}</th>
+                <th>{{__('msg.Customer')}} {{__('msg.Name')}}</th>
+                <th>{{__('msg.Number')}}</th>
+                <th>{{__('msg.Amount')}}</th>
+            </tr>
+            </thead>
 
-            <div class="twod-sale-details-rows-container">
+            <tbody class="twod-sale-details-rows-container">
                 @foreach ($threeDSaleList as $threedsalelist)
-                    <div class="twod-sale-details-row">
-                        <p>{{$threedsalelist->id}}</p>
-                        <p>{{$threedsalelist->name}}</p>
-                        <p>{{$threedsalelist->customer_name}}</p>
-                        <p>{{$threedsalelist->number}}</p>
-                        <p>{{$threedsalelist->sale_amount}}ks</p>
-                    </div>
+                    <tr class="twod-sale-details-row">
+                        <td>{{$threedsalelist->id}}</td>
+                        <td>{{$threedsalelist->name}}</td>
+                        <td>{{$threedsalelist->customer_name}}</td>
+                        <td>{{$threedsalelist->number}}</td>
+                        <td>{{$threedsalelist->sale_amount}}ks</td>
+                    </tr>
                 @endforeach
-            </div>
-        </div>
+            </tbody>
+        </table>
         </div>
         <!--2d sale list end-->
 

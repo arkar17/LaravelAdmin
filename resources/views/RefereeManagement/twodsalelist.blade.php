@@ -67,28 +67,30 @@
                     </a>
               {{-- </div> --}}
 
-              <div class="twod-sale-list-details-parent-container">
-                <div class="twod-sale-list-details-labels-container">
-                  <p>{{__('msg.ID')}}</p>
-                  <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
-                  <p>{{__('msg.Customer')}} {{__('msg.Name')}}</p>
-                  <p>{{__('msg.Number')}}</p>
-                  <p>{{__('msg.Amount')}}</p>
-                </div>
+              <table class="twod-sale-list-details-parent-container">
+                <thead>
+                <tr class="twod-sale-list-details-labels-container">
+                  <th>{{__('msg.ID')}}</th>
+                  <th>{{__('msg.Agent')}} {{__('msg.Name')}}</th>
+                  <th>{{__('msg.Customer')}} {{__('msg.Name')}}</th>
+                  <th>{{__('msg.Number')}}</th>
+                  <th>{{__('msg.Amount')}}</th>
+                </tr>
+            </thead>
 
-                <div class="twod-sale-details-rows-container">
+                <tbody class="twod-sale-details-rows-container">
                     @foreach ($twoDSaleList as $twodsalelist)
-                        <div class="twod-sale-details-row">
-                            <p>{{$twodsalelist->id}}</p>
-                            <p>{{$twodsalelist->name}}</p>
-                            <p>{{$twodsalelist->customer_name}}</p>
-                            <p>{{$twodsalelist->number}}</p>
-                            <p>{{$twodsalelist->sale_amount}}</p>
-                        </div>
+                        <tr class="twod-sale-details-row">
+                            <td>{{$twodsalelist->id}}</td>
+                            <td>{{$twodsalelist->name}}</td>
+                            <td>{{$twodsalelist->customer_name}}</td>
+                            <td>{{$twodsalelist->number}}</td>
+                            <td>{{$twodsalelist->sale_amount}}</td>
+                        </tr>
                     @endforeach
 
-                </div>
-              </div>
+                </tbody>
+              </table>
             </div>
             <!--2d sale list end-->
 
