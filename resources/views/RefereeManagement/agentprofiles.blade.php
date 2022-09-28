@@ -115,14 +115,16 @@
                                 <th>{{__('msg.ID')}}</th>
                                 <th>{{__('msg.Name')}}</th>
                                 <th>{{__('msg.Phone Number')}}</th>
-                                <th>{{__('msg.View Detail')}}</th>
+                                <th>{{__('msg.Number')}}</th>
+                                <th>{{__('msg.Compensation')}}</th>
+                                <th>{{__('msg.Amount')}}</th>
                             </tr>
                             </thead>
 
                             <tbody class="agent-profile-agent-list-rows-container">
 
                                 @if ($agentCustomerData ==null)
-                                    <p style="text-align: center;">{{__('msg.You not have customer')}}</p>
+                                    <tr><th style="text-align: center;">{{__('msg.You not have customer')}}</th></tr>
                                 @else
                                 <?php $i=1;?>
 
@@ -131,9 +133,9 @@
                                             <td>{{$i++}}</td>
                                             <td>{{$data['customer_name']}}</td>
                                             <td>{{$data['customer_phone']}}</td>
-                                            <td>
-                                            <a  href="{{route('seedetail',[$data['customer_phone'],$data['customer_name']])}}">See Detail</a>
-                                            </td>
+                                            <td>{{$data['number']}}</td>
+                                            <td>{{$data['compensation']}}</td>
+                                            <td>{{$data['Amount']}}</td>
 
                                         </tr>
                                     @endforeach
