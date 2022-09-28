@@ -109,6 +109,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 30px 20px;
+    text-align: center;
 }
 
 .twod-manage-numbers-attributes p:nth-child(1){
@@ -231,6 +232,10 @@
 }
 
 @media screen and (max-width:1400px){
+
+    .twod-manage-numbers-inputs-container input{
+        width: 110px;
+    }
     .twod-manage-rate-insert-container{
         width: 230px;
     }

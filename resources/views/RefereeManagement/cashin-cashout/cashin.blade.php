@@ -12,7 +12,7 @@
         }
 
         .mc-inp {
-            width: 250px;
+            width: 200px;
             padding: 3px;
             outline: none;
             border: 2px solid #D9DEED;

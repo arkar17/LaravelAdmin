@@ -222,7 +222,7 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 
 .agent-profile-agent-list-row a{
     font-size: 16px;
-    color: white;
+    /* color: white;
     padding: 10px 12px;
     border: none;
     background-color: var(--primary-color);
@@ -230,7 +230,7 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
     display: flex;
     align-items: center;
     text-decoration: none;
-    /* width: 150px; */
+    width: 150px; */
 }
 
 .agent-profile-agent-list-row a p{

@@ -109,7 +109,7 @@
 .lonepyine-manage-numbers-labels-left-container{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-bottom: 10px;
     padding-top: 30px;
 }
@@ -168,6 +168,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    text-align: center;
     padding: 30px 20px;
 }
 
@@ -296,6 +297,9 @@
 }
 
 @media screen and (max-width:1400px){
+    .lonepyine-manage-numbers-inputs-container input{
+        width: 110px;
+    }
     .lonepyine-manage-rate-insert-container{
         width: 230px;
     }

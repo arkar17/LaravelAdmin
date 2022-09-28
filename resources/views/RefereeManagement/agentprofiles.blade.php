@@ -131,7 +131,9 @@
                                             <td>{{$i++}}</td>
                                             <td>{{$data['customer_name']}}</td>
                                             <td>{{$data['customer_phone']}}</td>
-                                            <td href="{{route('seedetail',[$data['customer_phone'],$data['customer_name']])}}">See Detail</td>
+                                            <td>
+                                            <a  href="{{route('seedetail',[$data['customer_phone'],$data['customer_name']])}}">See Detail</a>
+                                            </td>
 
                                         </tr>
                                     @endforeach
