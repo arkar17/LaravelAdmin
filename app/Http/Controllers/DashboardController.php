@@ -117,7 +117,7 @@ class DashboardController extends Controller
             // calculating commision start
 
             //twod commision
-                $tdcomission = DB::select("SELECT COALESCE(SUM(ts.sale_amount),0), a.commision ,a.referee_id, (  (a.commision/100) * COALESCE(SUM(ts.sale_amount),0) ) as Commision
+                $tdcomission = DB::select("SELECT SUM(ts.sale_amount), a.commision ,a.referee_id, (  (a.commision/100) * SUM(ts.sale_amount) ) as Commision
                 FROM agents a
                 left join twodsalelists ts on a.id = ts.agent_id
                 left join twods t on t.id = ts.twod_id
@@ -131,7 +131,7 @@ class DashboardController extends Controller
 
 
                 //twod yaw kyay
-                $tdpaid_winning = DB::select("SELECT ( t.compensation * SUM(ts.sale_amount) ) totalSale ,re.id, ((a.commision/100)* (COALESCE(SUM(ts.sale_amount),0)) ) as Commission From agents a
+                $tdpaid_winning = DB::select("SELECT ( t.compensation * SUM(ts.sale_amount) ) totalSale ,re.id, ((a.commision/100)* ((SUM(ts.sale_amount)) ) as Commission From agents a
                 left join referees re on re.id = a.referee_id
                 join twodsalelists ts on ts.agent_id = a.id
                 join twods t on t.id = ts.twod_id where ts.status = 1 and t.date = '$current_date' and ts.winning_status =1 and a.referee_id = '$referee->id' Group By re.id,t.id;");
