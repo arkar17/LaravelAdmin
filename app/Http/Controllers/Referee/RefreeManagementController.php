@@ -405,7 +405,7 @@ class RefreeManagementController extends Controller
         'threed_salelists','agenttwodsaleList','agenttwodsalenumber', 'acceptstatus', 'agentlonepyinesalelist','agentthreedsalelist','idgroup','lp_idgroup','threed_idgroup','rate'));
     }
     public function update(Request $request){
-        // dd($request->agent_id)->toArray();
+        dd($request->agent_id)->toArray();
         $currenDate = Carbon::now()->toDateString();
         $time = Carbon::Now()->toTimeString();
         foreach($request->id as $re){
