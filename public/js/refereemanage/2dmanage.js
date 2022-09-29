@@ -115,7 +115,10 @@ $(document).ready(function(){
         max = []
 
         // location.reload(true)
-        window.location.href = window.location.href
+        // window.location.href = window.location.href
+        setTimeout(function(){
+            window.location.reload();
+         }, 2000);
     });
 
 
