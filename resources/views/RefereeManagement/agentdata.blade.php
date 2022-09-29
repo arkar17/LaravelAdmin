@@ -32,7 +32,7 @@
                                     <!-- <td>Op Staff 01</td> -->
                                     <td>{{$data['NumOfCus']}}</td>
                             <td>
-                                    <a href="{{route('agentprofiledetail',[$data['id']])}}">
+                                    <a href="{{route('agentprofiledetail',$data['id'])}}">
                                     <iconify-icon icon="ant-design:exclamation-circle-outlined" class="agent-data-list-viewdetail-btn"></iconify-icon>
                                     {{__('msg.View Detail')}}
                                     </a >
