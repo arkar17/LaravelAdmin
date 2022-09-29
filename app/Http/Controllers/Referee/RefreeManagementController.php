@@ -484,8 +484,10 @@ class RefreeManagementController extends Controller
                 );
                 $user = auth()->user()->id;
                 $referee =Referee::where('user_id',$user)->first();
+                $agent = Agent::where('user_id', $user)->first();
                 $data = 'Accept!';
                 $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
+                $pusher->trigger('agentAccept:noti.'.$agent->id, 'App\\Events\\AcceptNotiAgent',  $data);
         return redirect()->back()->with('accept', 'Accepted!');
     }
     public function lpupdate(Request $request){
@@ -565,9 +567,11 @@ class RefreeManagementController extends Controller
                 $options
                 );
                 $user = auth()->user()->id;
+                $agent = Agent::where('user_id', $user)->first();
                 $referee =Referee::where('user_id',$user)->first();
                 $data = 'Accept!';
                 $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
+                $pusher->trigger('agentAccept:noti.'.$agent->id, 'App\\Events\\AcceptNotiAgent',  $data);
                 return redirect()->back()->with('accept', 'Accepted!');
 
     }
@@ -617,8 +621,10 @@ class RefreeManagementController extends Controller
                 );
                 $user = auth()->user()->id;
                 $referee =Referee::where('user_id',$user)->first();
+                $agent = Agent::where('user_id', $user)->first();
                 $data = 'Accept!';
                 $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
+                $pusher->trigger('agentAccept:noti.'.$agent->id, 'App\\Events\\AcceptNotiAgent',  $data);
 
         return redirect()->back()->with('accept', 'Accepted!');
 
@@ -633,6 +639,22 @@ class RefreeManagementController extends Controller
             $twoDSalesList = Twodsalelist::where('id',$re)
             ->update(["status" => 2]);
         }
+        $options = array(
+            'cluster' => env('PUSHER_APP_CLUSTER'),
+            'encrypted' => true
+            );
+            $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+            );
+            $user = auth()->user()->id;
+            $referee =Referee::where('user_id',$user)->first();
+            $agent = Agent::where('user_id', $user)->first();
+            $data = 'Declined!';
+            $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
+            $pusher->trigger('agentAccept:noti.'.$agent->id, 'App\\Events\\AcceptNotiAgent',  $data);
         return redirect()->back()->with('declined', 'Declined!');
     }
     public function declinelp(Request $request){
@@ -640,6 +662,22 @@ class RefreeManagementController extends Controller
             $lpSalesList = Lonepyinesalelist::where('id',$re)
             ->update(["status" => 2]);
         }
+        $options = array(
+            'cluster' => env('PUSHER_APP_CLUSTER'),
+            'encrypted' => true
+            );
+            $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+            );
+            $user = auth()->user()->id;
+            $referee =Referee::where('user_id',$user)->first();
+            $agent = Agent::where('user_id', $user)->first();
+            $data = 'Declined!';
+            $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
+            $pusher->trigger('agentAccept:noti.'.$agent->id, 'App\\Events\\AcceptNotiAgent',  $data);
         return redirect()->back()->with('declined', 'Declined!');
     }
     public function declineThreed(Request $request){
@@ -647,6 +685,22 @@ class RefreeManagementController extends Controller
             $lpSalesList = Threedsalelist::where('id',$re)
             ->update(["status" => 2]);
         }
+        $options = array(
+            'cluster' => env('PUSHER_APP_CLUSTER'),
+            'encrypted' => true
+            );
+            $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+            );
+            $user = auth()->user()->id;
+            $referee =Referee::where('user_id',$user)->first();
+            $agent = Agent::where('user_id', $user)->first();
+            $data = 'Declined!';
+            $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
+            $pusher->trigger('agentAccept:noti.'.$agent->id, 'App\\Events\\AcceptNotiAgent',  $data);
         return redirect()->back()->with('declined', 'Declined!');
     }
 
