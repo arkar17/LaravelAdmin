@@ -179,8 +179,8 @@
 }
 
 .cashin-list-lables-container{
-    display: flex;
-    align-items: center;
+    /* display: flex; */
+    /* align-items: center; */
     margin-bottom: 10px;
 }
 
@@ -188,7 +188,7 @@
     font-weight: 600;
 }
 
-.cashin-list-lables-container p:nth-child(1){
+/* .cashin-list-lables-container p:nth-child(1){
     margin-left: 15px;
 }
 .cashin-list-lables-container p:nth-child(2){
@@ -208,7 +208,7 @@
 }
 .cashin-list-lables-container p:nth-child(7){
     margin-left: 90px;
-}
+} */
 
 .cashin-list-rows-container{
     height: 300px;
@@ -216,10 +216,8 @@
 }
 
 .cashin-list-row{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
+    /* display: flex; */
+    padding: 20px 0;
     background-color: #E5E5E5;
 }
 
@@ -227,7 +225,7 @@
     background-color: #F6F6F6;
 }
 
-.cashin-list-row p:nth-child(1){
+/* .cashin-list-row p:nth-child(1){
     width: 15px;
 }
 .cashin-list-row p:nth-child(2){
@@ -247,4 +245,25 @@
 }
 .cashin-list-row p:nth-child(7){
     width: 80px;
+} */
+
+@media screen and (max-width:1400px){
+    .cashin-agent-inputs-parent-container{
+        width: 700px;
+    }
+    .cashin-agent-phno-container input{
+        width: 150px;
+    }
+
+    .cashin-agent-coin-container input{
+        width: 150px;
+    }
+
+    .cashin-agent-status-container select{
+        width: 150px;
+    }
+
+    .cashin-agent-payment-container input{
+        width: 150px;
+    }
 }

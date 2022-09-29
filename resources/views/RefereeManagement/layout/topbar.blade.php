@@ -13,9 +13,11 @@
       &nbsp;
       &nbsp;
       &nbsp;
-
-      <a href={{route('locale','en')}}>English</a> |
-    <a href={{route('locale','mm')}}>Myanmar</a>
+    <div class="language-container">
+      <a href="locale/en">English</a>
+      <a href="locale/mm">Myanmar</a>
+    </div>
+      {{-- <i class="fa-regular fa-bell"></i> --}}
 
     </form>
 
@@ -32,9 +34,9 @@
         &nbsp;
         &nbsp;
         &nbsp;
-        <a class="side-bar-link" href="{{route('porfile-referee')}}">
-        <i class="fa-regular fa-user"></i>
-        <p>{{auth()->user()->name}}</p>
+        <a class="profile-link" href="{{route('porfile-referee')}}">
+            <i class="fa-regular fa-user"></i>
+            <p>{{auth()->user()->name}}</p>
         </a>
 
     </div>

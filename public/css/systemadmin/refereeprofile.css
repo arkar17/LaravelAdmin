@@ -156,11 +156,11 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 }
 
 .referee-profile-agent-list-labels-container{
-    display: flex;
+    /* display: flex; */
     margin-bottom: 10px;
 }
 
-.referee-profile-agent-list-labels-container h2:nth-child(1){
+/* .referee-profile-agent-list-labels-container h2:nth-child(1){
     margin-left: 10px;
 }
 .referee-profile-agent-list-labels-container h2:nth-child(2){
@@ -171,21 +171,21 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 }
 .referee-profile-agent-list-labels-container h2:nth-child(4){
     margin-left: 140px;
-}
+} */
 
 .referee-profile-agent-list-rows-container{
 
 }
 
 .referee-profile-agent-list-row{
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 15px 25px;
+    justify-content: space-between; */
+    padding: 15px 0;
     background-color: #E5E5E5;
 }
 
-.referee-profile-agent-list-row p:nth-child(1){
+/* .referee-profile-agent-list-row p:nth-child(1){
     width: 10px;
 
 }
@@ -200,7 +200,7 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 .referee-profile-agent-list-row p:nth-child(4){
     width: 80px;
 
-}
+} */
 
 .referee-profile-agent-list-row:nth-child(2n){
     background-color: #F6F6F6;
@@ -209,14 +209,15 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 .referee-profile-agent-list-row a{
     font-size: 16px;
     color: white;
-    padding: 10px 12px;
+    padding: 10px;
     border: none;
     background-color: var(--primary-color);
     border-radius: 5px;
     display: flex;
     align-items: center;
     text-decoration: none;
-    /* width: 150px; */
+    width: 120px;
+    margin: auto;
 }
 
 .referee-profile-agent-list-row a p{
@@ -411,12 +412,12 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 }
 
 .agent-profile-customer-list-labels-container{
-    display: flex;
+    /* display: flex; */
     margin-bottom: 10px;
 }
 
-.agent-profile-customer-list-labels-container h2:nth-child(1){
-    /* margin-left: 20px; */
+/* .agent-profile-customer-list-labels-container h2:nth-child(1){
+    margin-left: 20px;
 }
 .agent-profile-customer-list-labels-container h2:nth-child(2){
     margin-left: 190px;
@@ -426,21 +427,21 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 }
 .agent-profile-customer-list-labels-container h2:nth-child(4){
     margin-left: 240px;
-}
+} */
 
 .agent-profile-customer-list-rows-container{
 
 }
 
 .agent-profile-customer-list-row{
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 15px 25px;
+    justify-content: space-between; */
+    padding: 15px 0;
     background-color: #E5E5E5;
 }
 
-.agent-profile-customer-list-row p:nth-child(1){
+/* .agent-profile-customer-list-row p:nth-child(1){
     width: 10px;
 
 }
@@ -455,7 +456,7 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 .agent-profile-customer-list-row p:nth-child(4){
     width: 80px;
 
-}
+} */
 
 .agent-profile-customer-list-row:nth-child(2n){
     background-color: #F6F6F6;
@@ -644,11 +645,11 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 }
 
 .op-profile-referee-list-labels-container{
-    display: flex;
+    /* display: flex; */
     margin-bottom: 10px;
 }
 
-.op-profile-referee-list-labels-container h2:nth-child(1){
+/* .op-profile-referee-list-labels-container h2:nth-child(1){
     margin-left: 20px;
 }
 .op-profile-referee-list-labels-container h2:nth-child(2){
@@ -656,7 +657,7 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 }
 .op-profile-referee-list-labels-container h2:nth-child(3){
     margin-left: 300px;
-}
+} */
 /* .op-profile-referee-list-labels-container h2:nth-child(4){
     margin-left: 140px;
 } */
@@ -666,14 +667,14 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 }
 
 .op-profile-referee-list-row{
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 15px 25px;
+    justify-content: space-between; */
+    padding: 15px 0;
     background-color: #E5E5E5;
 }
 
-.op-profile-referee-list-row p:nth-child(1){
+/* .op-profile-referee-list-row p:nth-child(1){
     width: 10px;
 
 }
@@ -688,7 +689,7 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 .op-profile-referee-list-row p:nth-child(4){
     width: 80px;
 
-}
+} */
 
 .op-profile-referee-list-row:nth-child(2n){
     background-color: #F6F6F6;
@@ -704,7 +705,8 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
     display: flex;
     align-items: center;
     text-decoration: none;
-    /* width: 150px; */
+    width: 120px;
+    margin: auto;
 }
 
 .op-profile-referee-list-row a p{

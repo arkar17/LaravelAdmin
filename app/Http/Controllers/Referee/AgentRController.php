@@ -169,15 +169,5 @@ class AgentRController extends Controller
         return Excel::download(new ExportlonepyineSalesList, 'lone_Pyine_list.xlsx');
     }
 
-    public function seedetailcus($customer_phone,$customer_name){
-        //$cusname =Twodsalelist::select('customer_name')->where('customer_phone',$customer_phone)->first();
-        $twods = Twodsalelist::where('customer_phone',$customer_phone)->where('status',1)->with('twod','agent.user')->get();
-        //dd($twods->toArray());
-        $threeds = Threedsalelist::where('customer_phone',$customer_phone)->where('status',1)->with('threed','agent.user')->get();
-        $lonepyines = Lonepyinesalelist::where('customer_phone',$customer_phone)->where('status',1)->with('lonepyine','agent.user')->get();
-        //dd($twod->toArray());
-        return view('RefereeManagement.agentcustomerseedetail')->with(['twods'=>$twods,'threeds'=>$threeds,'lonepyines'=>$lonepyines,'cusname'=>$customer_name]);
-    }
-
 
 }

@@ -116,46 +116,49 @@
 
                     <div class="user-list-parent-container">
                         <h1>{{__('msg.User List')}}</h1>
-                        <div class="user-list-container">
-                        <div class="user-list-labels-container">
-                            <h2>{{__('msg.No')}}</h2>
-                            <h2>{{__('msg.Name')}}</h2>
-                            <h2>{{__('msg.Phone Number')}}</h2>
-                            <h2>{{__('msg.Promote')}}</h2>
-                            {{-- <h2>Action</h2> --}}
+                        <table class="user-list-container">
+                            <thead>
+                                <tr class="user-list-labels-container">
+                                    <th>{{__('msg.ID')}}</th>
+                                    <th>{{__('msg.Name')}}</th>
+                                    <th>{{__('msg.Phone Number')}}</th>
+                                    <th>{{__('msg.Promote')}}</th>
+                                    <th></th>
+                                    {{-- <h2>Action</h2> --}}
 
-                        </div>
+                                </tr>
+                            </thead>
 
-                        <div class="user-list-rows-container">
-                            @php
+                            <tbody class="user-list-rows-container">
+                                @php
                             $i=1;
                             @endphp
                             @foreach ($users as $user)
-                                <div class="user-list-row">
-                                    <p>{{$i++}}</p>
-                                    <p>{{$user->name}}</p>
-                                    <p>{{$user->phone}}</p>
-                                    <div>
-                                        <a href="{{route('promoteos',$user->id)}}">
-                                           {{__('msg.operationstaff')}}
-                                        </a>
-                                        {{-- <a href="{{route('promoterf',$user->id)}}">
-                                            user
-                                        </a> --}}
-                                    </div>
-                                    <div class="user-list-row-actions-container">
-                                        <a href="{{route('guestprofile',$user->id)}}">
-                                            <iconify-icon icon="ant-design:exclamation-circle-outlined" class="user-list-row-icon"></iconify-icon>
-                                        </a>
-                                        <a href="{{route('guest.destroy',$user->id)}}" onclick="return confirm('Are you sure you want to delete this ?')">
-                                            <iconify-icon icon="akar-icons:trash-can" class="user-list-row-icon"></iconify-icon>
-                                        </a>
-                                    </div>
-                                </div>
-                            @endforeach
+                                    <tr class="user-list-row">
+                                        <td>{{$i++}}</td>
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->phone}}</td>
+                                        <td>
+                                            <a href="{{route('promoteos',$user->id)}}">
+                                            {{__('msg.operationstaff')}}
+                                            </a>
+                                            {{-- <a href="{{route('promoterf',$user->id)}}">
+                                                user
+                                            </a> --}}
+                                        </td>
+                                        <td class="user-list-row-actions-container">
+                                            <a href="{{route('guestprofile',$user->id)}}">
+                                                <iconify-icon icon="ant-design:exclamation-circle-outlined" class="user-list-row-icon"></iconify-icon>
+                                            </a>
+                                            <a href="{{route('guest.destroy',$user->id)}}" onclick="return confirm('Are you sure you want to delete this ?')">
+                                                <iconify-icon icon="akar-icons:trash-can" class="user-list-row-icon"></iconify-icon>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
 
-                        </div>
-                        </div>
+                            </tbody>
+                        </table>
 
                     </div>
                 <div class="card-body">

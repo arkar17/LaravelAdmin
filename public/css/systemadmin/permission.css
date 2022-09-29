@@ -26,12 +26,12 @@
 }
 
 .permissions-list-labels-container{
-    display: flex;
-    align-items: center;
+    /* display: flex;
+    align-items: center; */
     margin-bottom: 10px;
 }
 
-.permissions-list-labels-container h2:nth-child(1){
+/* .permissions-list-labels-container h2:nth-child(1){
     margin-left: 10px;
 }
 .permissions-list-labels-container h2:nth-child(2){
@@ -39,29 +39,29 @@
 }
 .permissions-list-labels-container h2:nth-child(3){
     margin-left: 770px;
-}
+} */
 /* .permissions-list-labels-container h2:nth-child(4){
     margin-left: 330px;
 } */
 
 .permissions-list-row{
-    padding: 14px 20px;
+    padding: 14px 0;
     background-color: #E5E5E5;
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; */
 }
 
 .permissions-list-row:nth-child(2n){
     background-color: #F6F6F6;
 }
 
-.permissions-list-row p:nth-child(1){
+/* .permissions-list-row p:nth-child(1){
     width: 10px;
 }
 .permissions-list-row p:nth-child(2){
     width: 600px;
-}
+} */
 /* .permissions-list-row p:nth-child(3){
     width: 80px;
 } */
@@ -69,6 +69,7 @@
 .permissions-list-row-actions{
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .permissions-list-row-actions a{

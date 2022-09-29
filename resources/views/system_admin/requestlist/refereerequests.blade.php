@@ -26,41 +26,50 @@
         <div class="referee-requests-parent-container">
             <h1>{{__('msg.Request List - Referee')}}</h1>
 
-            <div class="referee-request-container">
-              <div class="referee-requests-labels-container">
-                <h2>{{__('msg.ID')}}</h2>
-                <h2>{{__('msg.Name')}}</h2>
-                <h2>{{__('msg.Phone Number')}}</h2>
-                <h2>{{__('msg.Op Staff ID')}}</h2>
-                <h2>{{__('msg.Remark')}}</h2>
-              </div>
+            <table class="referee-request-container">
+                <thead>
+              <tr class="referee-requests-labels-container">
+                <th>{{__('msg.ID')}}</th>
+                <th>{{__('msg.Name')}}</th>
+                <th>{{__('msg.Phone Number')}}</th>
+                <th>{{__('msg.Op Staff ID')}}</th>
+                <th>{{__('msg.Remark')}}</th>
+                {{-- <th>{{__('msg.role')}}</th> --}}
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
               @foreach ($refereerequests as $refereerequest)
-              <div class="referee-request-row">
-                <p>{{$refereerequest->id}}</p>
-                <p>{{$refereerequest->name}}</p>
-                <p>{{$refereerequest->phone}}</p>
-                <p>{{$refereerequest->operationstaff_code}}</p>
-                <p>{{$refereerequest->remark}}</p>
+              <tr class="referee-request-row">
+                <td>{{$refereerequest->id}}</td>
+                <td>{{$refereerequest->name}}</td>
+                <td>{{$refereerequest->phone}}</td>
+                <td>{{$refereerequest->operationstaff_code}}</td>
+                <td class="referee-request-remark">{{$refereerequest->remark}}</td>
+                <td>
                 <form action="{{route('referee_accept')}}" method="POST" enctype="multipart/form-data" >
                     @csrf
-                <input type="hidden" name="user_id" value="{{$refereerequest->id}}" >
-                <input type="text" name="operationstaff_code" value="{{$refereerequest->operationstaff_code}}" >
-                <input type="hidden" name="remark" value="{{$refereerequest->remark}}">
-                {{-- <p>
-                    <select name="role_id" class="referee-request-role-select">
-                        <option value=" ">Assign Role</option>
-                        @foreach ($roles as $role)
-                        <option value="{{$role->id}}">{{$role->name}}</option>
-                        @endforeach
-                    </select>
-                </p> --}}
-                <button type="submit" class="referee-request-accept-btn" onclick="return confirm('Are you sure to accept?')">{{__('msg.Accept')}}</button>
+                    <input type="hidden" name="user_id" value="{{$refereerequest->id}}" >
+                    <input type="text" name="operationstaff_code" value="{{$refereerequest->operationstaff_code}}" >
+                    <input type="hidden" name="remark" value="{{$refereerequest->remark}}">
+                    {{-- <p>
+                        <select name="role_id" class="referee-request-role-select">
+                            <option value=" ">Assign Role</option>
+                            @foreach ($roles as $role)
+                            <option value="{{$role->id}}">{{$role->name}}</option>
+                            @endforeach
+                        </select>
+                    </p> --}}
+                    <button type="submit" class="referee-request-accept-btn" onclick="return confirm('Are you sure to accept?')">{{__('msg.Accept')}}</button>
                 {{-- <a href="{{route('referee_accept',$refereerequest->id)}}"><button class="referee-request-accept-btn">Accept</button></a> --}}
                 </form>
+                </td>
+                <td>
                 <a href="{{route('referee_decline',[$refereerequest->id])}}" onclick="return confirm('Are you sure to decline?')"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
-              </div>
+                </td>
+            </tr>
               @endforeach
-            </div>
+            </table>
         </div>
     </div>
 @endsection

@@ -25,6 +25,7 @@
         </div>
 
         <div class="twod-manage-numbers-rows-container">
+
         </div>
 
         <div class="twod-manage-inserts-parent-container">

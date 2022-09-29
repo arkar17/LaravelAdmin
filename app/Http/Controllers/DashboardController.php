@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
+use Throwable;
 use Carbon\Carbon;
 use App\Models\Twod;
 use App\Models\User;
 use App\Models\Agent;
 use App\Models\Referee;
-use PDF;
+use App\Models\Lonepyine;
 use App\Models\Twodsalelist;
 use Illuminate\Http\Request;
 use App\Models\CashinCashout;
-use App\Models\Lonepyine;
 use App\Models\Threedsalelist;
 use App\Models\Lonepyinesalelist;
 use Illuminate\Support\Facades\DB;
@@ -116,7 +117,7 @@ class DashboardController extends Controller
             // calculating commision start
 
             //twod commision
-                $tdcomission = DB::select("SELECT COALESCE(SUM(ts.sale_amount),0), a.commision ,a.referee_id, (  (a.commision/100) * COALESCE(SUM(ts.sale_amount),0) ) as Commision
+                $tdcomission = DB::select("SELECT SUM(ts.sale_amount), a.commision ,a.referee_id, ((a.commision/100) * SUM(ts.sale_amount) ) as Commision
                 FROM agents a
                 left join twodsalelists ts on a.id = ts.agent_id
                 left join twods t on t.id = ts.twod_id
@@ -125,24 +126,22 @@ class DashboardController extends Controller
                 and a.referee_id = '$referee->id'
                 Group By a.referee_id,a.id;
                 ");
-                //dd($tdcomission);
+    //dd($tdcomission[0]->Commision);
 
                 //twod yaw kyay
-                $tdpaid_winning = DB::select("SELECT ( t.compensation * SUM(ts.sale_amount) ) totalSale ,re.id, ((a.commision/100)* (COALESCE(SUM(ts.sale_amount),0)) ) as Commission From agents a
+                $tdpaid_winning = DB::select("SELECT ( t.compensation * SUM(ts.sale_amount) ) totalSale ,re.id, ((a.commision/100)* SUM(ts.sale_amount)) as Commission From agents a
                 left join referees re on re.id = a.referee_id
                 join twodsalelists ts on ts.agent_id = a.id
                 join twods t on t.id = ts.twod_id where ts.status = 1 and t.date = '$current_date' and ts.winning_status =1 and a.referee_id = '$referee->id' Group By re.id,t.id;");
-                //dd($paid_winning);
+                //dd($tdpaid_winning);
                 if(count($tdpaid_winning) !=0 && count($tdcomission) !=0){
                     $twodprofit = $twod_total - ($tdcomission[0]->Commision + $tdpaid_winning[0]->totalSale);
                 }else{
                     $twodprofit=0;
                 }
 
-
-
                 //threed commision
-                $thdcomission = DB::select("SELECT COALESCE(SUM(ts.sale_amount),0), a.commision ,a.referee_id, (  (a.commision/100) * COALESCE(SUM(ts.sale_amount),0) ) as Commision
+                $thdcomission = DB::select("SELECT SUM(ts.sale_amount), a.commision ,a.referee_id, (  (a.commision/100) * SUM(ts.sale_amount) ) as Commision
                 FROM agents a
                 left join threedsalelists ts on a.id = ts.agent_id
                 left join threeds t on t.id = ts.threed_id
@@ -151,9 +150,9 @@ class DashboardController extends Controller
                 and a.referee_id = '$referee->id'
                 Group By a.referee_id,a.id;
                 ");
-                //dd($thdcomission);
+                //dd($thdcomission[0]->Commision);
 
-                $thdpaid_winning = DB::select("SELECT ( t.compensation * SUM(ts.sale_amount) ) totalSale ,re.id, ((a.commision/100)* (COALESCE(SUM(ts.sale_amount),0)) ) as Commission From agents a
+                $thdpaid_winning = DB::select("SELECT ( t.compensation * SUM(ts.sale_amount) ) totalSale ,re.id, ((a.commision/100)* SUM(ts.sale_amount)) as Commission From agents a
                 left join referees re on re.id = a.referee_id
                 join threedsalelists ts on ts.agent_id = a.id
                 join threeds t on t.id = ts.threed_id
@@ -169,7 +168,7 @@ class DashboardController extends Controller
                 //dd($threedprofit);
 
                 //loonpyine commision
-                $lpcomission = DB::select("SELECT COALESCE(SUM(ts.sale_amount),0), a.commision ,a.referee_id, (  (a.commision/100) * COALESCE(SUM(ts.sale_amount),0) ) as Commision
+                $lpcomission = DB::select("SELECT SUM(ts.sale_amount), a.commision ,a.referee_id, (  (a.commision/100) * SUM(ts.sale_amount) ) as Commision
                 FROM agents a
                 left join lonepyinesalelists ts on a.id = ts.agent_id
                 left join lonepyines t on t.id = ts.lonepyine_id
@@ -180,7 +179,7 @@ class DashboardController extends Controller
                 ");
                 //dd($comission);
 
-                $lppaid_winning = DB::select("SELECT ( t.compensation * SUM(ts.sale_amount) ) totalSale ,re.id, ((a.commision/100)* (COALESCE(SUM(ts.sale_amount),0)) ) as Commission From agents a
+                $lppaid_winning = DB::select("SELECT ( t.compensation * SUM(ts.sale_amount) ) totalSale ,re.id, ((a.commision/100)* SUM(ts.sale_amount))  as Commission From agents a
                 left join referees re on re.id = a.referee_id
                 join lonepyinesalelists ts on ts.agent_id = a.id
                 join lonepyines t on t.id = ts.lonepyine_id where ts.status = 1 and t.date = '$current_date' and ts.winning_status =1 and a.referee_id = '$referee->id' Group By re.id,t.id;");
@@ -196,13 +195,13 @@ class DashboardController extends Controller
             if($tdcomission!=null && $thdcomission != null && $lpcomission != null){
                 $refe_totalcommision = $tdcomission[0]->Commision + $thdcomission[0]->Commision + $lpcomission[0]->Commision;
             }
-            elseif($tdcomission!=null && $thdcomission != null && $lpcomission == null){
+            else if($tdcomission!=null && $thdcomission != null && $lpcomission == null){
                 $refe_totalcommision = $tdcomission[0]->Commision + $thdcomission[0]->Commision + 0;
             }
-            elseif($tdcomission!=null && $thdcomission == null && $lpcomission != null){
+            else if($tdcomission!=null && $thdcomission == null && $lpcomission != null){
                 $refe_totalcommision = $tdcomission[0]->Commision + 0 + $lpcomission[0]->Commision;
             }
-            elseif($tdcomission==null && $thdcomission == null && $lpcomission != null){
+            else if($tdcomission==null && $thdcomission != null && $lpcomission != null){
                 $refe_totalcommision = 0 + $thdcomission[0]->Commision + $lpcomission[0]->Commision;
             }
             else{

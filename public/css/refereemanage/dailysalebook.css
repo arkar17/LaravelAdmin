@@ -299,7 +299,7 @@
 }
 
 .daily-sale-book-charts-container div{
-    width: 550px;
+    width: 480px;
     padding: 20px;
 }
 
@@ -312,14 +312,14 @@
 }
 
 .daily-sale-book-sale-record-labels-container{
-    display: flex;
-    align-items: center;
+    /* display: flex;
+    align-items: center; */
     font-weight: 600;
     padding-top: 30px;
     border-top: 2px solid #E5E5E5;
 }
 
-.daily-sale-book-sale-record-labels-container p:nth-child(1){
+/* .daily-sale-book-sale-record-labels-container p:nth-child(1){
     margin-left: 5px;
 }
 .daily-sale-book-sale-record-labels-container p:nth-child(2){
@@ -345,7 +345,7 @@
 }
 .daily-sale-book-sale-record-labels-container p:nth-child(9){
     margin-left: 100px;
-}
+} */
 
 .daily-sale-book-sale-record-rows-container{
     height: 300px;
@@ -353,18 +353,18 @@
 }
 
 .daily-sale-book-sale-record-row{
-    padding: 15px 10px;
+    padding: 15px 0;
     background-color: #E5E5E5;
-    display: flex;
+    /* display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: space-between; */
 }
 
 .daily-sale-book-sale-record-row:nth-child(2n){
     background-color: #F6F6F6;
 }
 
-.daily-sale-book-sale-record-row >  p:nth-child(1){
+/* .daily-sale-book-sale-record-row >  p:nth-child(1){
     width: 20px;
 }
 .daily-sale-book-sale-record-row > p:nth-child(2){
@@ -390,10 +390,10 @@
 
 .daily-sale-book-sale-row-amounts{
     width: 100px;
-}
+} */
 
 .daily-sale-book-sale-row-numbers p, .daily-sale-book-sale-row-compensations p, .daily-sale-book-sale-row-amounts p{
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .daily-sale-book-row-btn-container{
@@ -420,4 +420,47 @@
 
 .daily-sale-book-3d-labels-container{
 
+}
+
+@media screen and (max-width:1400px){
+    .daily-sale-book-charts-container{
+        flex-direction: column;
+    }
+
+    .daily-sale-book-2dlist-container{
+        padding: 20px 5px;
+    }
+
+    .daily-sale-book-2dlist-item-container > p:nth-child(1){
+        width: 60px;
+    }
+
+    .daily-sale-book-2dlist-item-rate p, .daily-sale-book-2dlist-item-max p, .daily-sale-book-2dlist-item-sale p{
+        font-size: 9px;
+    }
+
+    .daily-sale-book-lonepyinelist-container{
+        padding: 20px 5px;
+    }
+
+    .daily-sale-book-lonepyinelist-item-container > p:nth-child(1){
+        width: 60px;
+    }
+
+    .daily-sale-book-lonepyinelist-item-rate p, .daily-sale-book-lonepyinelist-item-max p, .daily-sale-book-lonepyinelist-item-sale p{
+        font-size: 9px;
+    }
+
+    .daily-sale-book-accept-btn, .daily-sale-book-decline-btn, .daily-sale-book-accepted-btn{
+        padding: 8px 2px;
+    }
+
+    .daily-sale-book-row-btn-container{
+        flex-direction: column;
+    }
+
+    .daily-sale-book-decline-btn{
+        margin-left: 0;
+        margin-top: 10px;
+    }
 }

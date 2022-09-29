@@ -23,32 +23,34 @@
                 </a>
               </div>
 
-              <div class="roles-lists-parent-container">
-                <div class="roles-list-labels-container">
-                  <h2>{{__('msg.ID')}}</h2>
-                  <h2>{{__('msg.Name')}}</h2>
-                  <h2>{{__('msg.Date')}}</h2>
-                  <h2>{{__('msg.Action')}}</h2>
-                </div>
+              <table class="roles-lists-parent-container">
+                <thead>
+                <tr class="roles-list-labels-container">
+                  <th>{{__('msg.ID')}}</th>
+                  <th>{{__('msg.Name')}}</th>
+                  <th>{{__('msg.Date')}}</th>
+                  <th>{{__('msg.Action')}}</th>
+                </tr>
+                </thead>
 
-                <div class="roles-list-rows-container">
+                <tbody class="roles-list-rows-container">
                     @php
                     $i = 0;
                     @endphp
                     @foreach ($roles as $role)
-                  <div class="roles-list-row">
-                    <p>{{$i++}}</p>
-                    <p>{{$role->name}}</p>
-                    <p> {{date('d.m.y',strtotime($role->created_at))}}</p>
-                    <div class="roles-list-row-actions">
+                  <tr class="roles-list-row">
+                    <td>{{$i++}}</td>
+                    <td>{{$role->name}}</td>
+                    <td> {{date('d.m.y',strtotime($role->created_at))}}</td>
+                    <td class="roles-list-row-actions">
                       <a href="{{route('role.show',$role->id)}}"><iconify-icon icon="ant-design:exclamation-circle-outlined" class="roles-list-row-icon"></iconify-icon></a>
                       <a href="{{ route('role.edit', $role->id) }}"><iconify-icon icon="akar-icons:edit" class="roles-list-row-icon"></iconify-icon></a>
-                      <a href="{{route('role.destroy',$role->id)}}" onclick="return confirm('Are you sure you want to delete this ?')"><iconify-icon icon="fluent:delete-16-regular" class="roles-list-row-icon"></iconify-icon></a>
-                    </div>
-                  </div>
+                      {{-- <a href="{{route('role.destroy',$role->id)}}"><iconify-icon icon="fluent:delete-16-regular" class="roles-list-row-icon"></iconify-icon></a> --}}
+                    </td>
+                </tr>
                   @endforeach
-                </div>
-              </div>
+                </tbody>
+              </table>
             </div>
             <!--roles end-->
 

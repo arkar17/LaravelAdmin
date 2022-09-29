@@ -24,32 +24,34 @@
             </a>
         {{-- </div> --}}
 
-        <div class="twod-sale-list-details-parent-container">
-            <div class="twod-sale-list-details-labels-container">
-            <p>{{__('ID')}}</p>
-            <p>{{__('msg.Agent')}} {{__('msg.Name')}}</p>
-            <p>{{__('msg.Customer')}} {{__('msg.Name')}}</p>
-            <p>{{__('msg.Number')}}</p>
-            <p>{{__('msg.Amount')}}</p>
-            </div>
+        <table class="twod-sale-list-details-parent-container">
+            <thead>
+            <tr class="twod-sale-list-details-labels-container">
+                <th>{{__('ID')}}</th>
+                <th>{{__('msg.Agent')}} {{__('msg.Name')}}</th>
+                <th>{{__('msg.Customer')}} {{__('msg.Name')}}</th>
+                <th>{{__('msg.Number')}}</th>
+                <th>{{__('msg.Amount')}}</th>
+            </tr>
+            </thead>
 
-            <div class="twod-sale-details-rows-container">
+            <tbody class="twod-sale-details-rows-container">
                 @if (count($threeDSaleList) ==0 || count($threeDSaleList) ==null)
                     <p style="text-align: center;">{{__('msg.Today is not sold any number')}}</p>
                 @else
                     <?php $i=1;?>
                     @foreach ($threeDSaleList as $threedsalelist)
-                        <div class="twod-sale-details-row">
-                            <p>{{$i++}}</p>
-                            <p>{{$threedsalelist->name}}</p>
-                            <p>{{$threedsalelist->customer_name}}</p>
-                            <p>{{$threedsalelist->number}}</p>
-                            <p>{{$threedsalelist->sale_amount}}ks</p>
-                        </div>
+                        <tr class="twod-sale-details-row">
+                            <td>{{$i++}}</td>
+                            <td>{{$threedsalelist->name}}</td>
+                            <td>{{$threedsalelist->customer_name}}</td>
+                            <td>{{$threedsalelist->number}}</td>
+                            <td>{{$threedsalelist->sale_amount}}ks</td>
+                        </tr>
                     @endforeach
                 @endif
-            </div>
-        </div>
+            </tbody>
+        </table>
         </div>
         <!--2d sale list end-->
 @endsection

@@ -55,6 +55,25 @@ button{
     cursor: pointer;
 }
 
+table{
+    width: 100%;
+    text-align: center;
+    border: none;
+    table-layout: fixed;
+}
+
+tbody{
+    display: block;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+tr{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
 .active{
     background-color: var(--side-bar-link-active-color);
 }
@@ -91,7 +110,7 @@ z-index: 1;
     left: 0;
     top: 0;
     bottom: 0;
-    width: 270px;
+    width: 230px;
     overflow-y: scroll;
 }
 
@@ -101,7 +120,8 @@ z-index: 1;
     text-align: center;
     font-size: 36px;
     font-weight: 700;
-    margin: 25px 0 25px 25px;
+    /* margin: 25px 0 25px 25px; */
+    margin-top: 25px;
     color: white;
 }
 
@@ -186,7 +206,7 @@ z-index: 1;
 
 .main-content-container{
     background-color: #ffffff;
-    margin-left: 270px;
+    margin-left: 220px;
     /* width: calc(100%-270px); */
 }
 
@@ -201,7 +221,7 @@ z-index: 1;
     position: fixed;
     top: 0;
     right: 0;
-    left: 270px;
+    left: 230px;
     z-index: 100;
 }
 
@@ -274,7 +294,7 @@ z-index: 1;
 .main-content-parent-container{
     /* background-color: #FF7F2B; */
     /* display: grid; */
-    grid-template-columns: 1fr;
+    /* grid-template-columns: 1fr; */
     padding: 0 25px;
     max-width: 1250px;
     margin: auto;
@@ -295,4 +315,71 @@ z-index: 1;
     background-color: var(--primary-color);
     color: white;
     margin-left: 20px;
+}
+
+.language-container{
+    display: flex;
+    align-items: center;
+    margin: 0 40px;
+}
+
+.language-container a{
+    display: inline-block;
+    padding: 5px 10px;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-decoration: none;
+
+}
+
+.language-container a:nth-child(2){
+    margin-left: 10px;
+}
+
+.profile-link{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.sidebar-icon{
+    font-size: 25px;
+}
+
+@media screen and (max-width:1600px){
+    p, a{
+        font-size: 14px;
+        /* white-space: nowrap; */
+    }
+
+    a{
+        white-space: nowrap;
+    }
+
+
+    h1{
+        font-size: 16px;
+    }
+
+    h2{
+        font-size: 14px;
+
+    }
+
+    label{
+        font-size: 14px;
+
+    }
+
+    button{
+        font-size: 14px;
+
+    }
+
+    th, td{
+        font-size: 14px;
+    }
+
+
 }

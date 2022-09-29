@@ -144,7 +144,7 @@
                 <th>{{__('msg.Main Cash')}}</th>
                 <th>{{__('msg.DateTime')}}</th>
             </tr>
-            <tbody>
+
                 @php
                     $i = 1;
                 @endphp
@@ -155,7 +155,7 @@
                         <td>{{ $main_cash_history->updated_at }}</td>
                     </tr>
                 @endforeach
-            </tbody>
+
 
         </table>
 

@@ -183,8 +183,8 @@ class TwodThreeDController extends Controller
                 $twod_sale_list->twod_id = $sale->twod_id;
                 $twod_sale_list->agent_id = $sale->agent_id;
                 $twod_sale_list->sale_amount = $sale->sale_amount;
-                $twod_sale_list->customer_name = $sale->customer_name;
-                $twod_sale_list->customer_phone = $sale->customer_phone;
+                $twod_sale_list->customer_name = $sale->customer_name ?? null;
+                $twod_sale_list->customer_phone = $sale->customer_phone ?? null;
 
                 $twod_sale_list->save();
             }
@@ -237,8 +237,8 @@ class TwodThreeDController extends Controller
                         $threed_sale_list->threed_id = $threed->id;
                         $threed_sale_list->agent_id = $sale->agent_id;
                         $threed_sale_list->sale_amount = $sale->sale_amount;
-                        $threed_sale_list->customer_name = $sale->customer_name;
-                        $threed_sale_list->customer_phone = $sale->customer_phone;
+                        $threed_sale_list->customer_name = $sale->customer_name ?? null;
+                        $threed_sale_list->customer_phone = $sale->customer_phone ?? null;
 
                         $threed_sale_list->save();
                     }
@@ -290,8 +290,8 @@ class TwodThreeDController extends Controller
                 $lonepyaing_sale_list->lonepyine_id = $sale->lonepyine_id;
                 $lonepyaing_sale_list->agent_id = $sale->agent_id;
                 $lonepyaing_sale_list->sale_amount = $sale->sale_amount;
-                $lonepyaing_sale_list->customer_name = $sale->customer_name;
-                $lonepyaing_sale_list->customer_phone = $sale->customer_phone;
+                $lonepyaing_sale_list->customer_name = $sale->customer_name ?? null;
+                $lonepyaing_sale_list->customer_phone = $sale->customer_phone ?? null;
 
                 $lonepyaing_sale_list->save();
             }

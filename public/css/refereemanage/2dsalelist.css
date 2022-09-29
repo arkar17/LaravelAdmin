@@ -115,14 +115,14 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 }
 
 .twod-sale-list-details-parent-container{
-    padding: 15px 40px;
+    padding: 15px 0;
     border: 2px solid #E5E5E5;
     border-radius: 5px;
     margin-top: 30px;
 }
 
 .twod-sale-list-details-labels-container{
-    display: flex;
+    /* display: flex; */
     margin-bottom: 10px;
 }
 
@@ -131,7 +131,7 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
     font-weight: 600;
 }
 
-.twod-sale-list-details-labels-container p:nth-child(1){
+/* .twod-sale-list-details-labels-container p:nth-child(1){
     margin-left: 10px;
 }
 .twod-sale-list-details-labels-container p:nth-child(2){
@@ -145,7 +145,7 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 }
 .twod-sale-list-details-labels-container p:nth-child(5){
     margin-left: 140px;
-}
+} */
 
 .twod-sale-details-rows-container{
     height: 290px;
@@ -153,10 +153,10 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 }
 
 .twod-sale-details-row{
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 12px 20px;
+    justify-content: space-between; */
+    padding: 12px 0;
     background-color: #E5E5E5;
 }
 
@@ -164,7 +164,7 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
     background-color: #F6F6F6;
 }
 
-.twod-sale-details-row p:nth-child(1){
+/* .twod-sale-details-row p:nth-child(1){
     width: 10px;
 }
 .twod-sale-details-row p:nth-child(2){
@@ -178,7 +178,7 @@ input[value="0000-00-00"]::-webkit-datetime-edit {
 }
 .twod-sale-details-row p:nth-child(5){
     width: 80px;
-}
+} */
 
 .twod-sale-export-btn{
     display: inline-block;

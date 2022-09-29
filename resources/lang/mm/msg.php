@@ -57,7 +57,7 @@ return[
      'Data - Referee Data'=>'ဒိုင်အချက်အလက်',
      'Data - Referee Data - Referee Profile'=>'ဒိုင်အချက်အလက်-ဒိုင်ကိုယ်ရေးရာဇဝင်',
      'Referee ID'=>'ဒိုင်အမှတ်စဉ်',
-     'View Detail'=>'အသေးစိတ်ကြည့်မည်',
+     'View Detail'=>'အသေးစိတ်',
      'Select Type'=>'အမျိုးအစားရွေးချယ်ပါ',
      'Request List'=>'တောင်းဆိုစာရင်း',
      '2D Manage'=>'နှစ်လုံး စီမံခန့်ခွဲမှု',
@@ -165,6 +165,7 @@ return[
     'Referee Profile'=>'ဒိုင်ပရိုဖိုင်',
     'DateTime'=>'အချိန်',
     'Paymenthis'=>'အကြွေး',
+    'role&permission'=>'လုပ်ပိုင်ခွင့်အဆင့်နှင့်ခွင့်ပြုချက်'
 ];
 ?>
 

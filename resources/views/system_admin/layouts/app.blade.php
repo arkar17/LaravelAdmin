@@ -164,6 +164,33 @@
 
     @stack('script')
 
+    <script>
+        var OriginalWidth=$('.side-bar-container').width();
+            $(".sidebar-icon").hide()
+
+            $('.sider-bar-toggle').click(function () {
+
+                width = $(".side-bar-container").width();
+                if (OriginalWidth == width){
+                    $(".side-bar-container").animate({ width: '100' });
+                    $(".main-content-container").animate({marginLeft: '-=130px'})
+                    $(".top-bar-container").animate({left:"-=130px"})
+                    $(".sidebar-icon").show()
+                    $(".side-bar-links-container span").hide()
+                }
+
+                else {
+                    $(".side-bar-container").animate({ width: OriginalWidth });
+                    $(".main-content-container").animate({marginLeft: '+=130px'})
+                    $(".top-bar-container").animate({left:"+=130px"})
+                    $(".sidebar-icon").hide()
+                    $(".side-bar-links-container span").show()
+                }
+
+
+            })
+    </script>
+
     @hasanyrole('referee')
         <script>
             var pusher = new Pusher('{{ env('MIX_PUSHER_APP_KEY') }}', {

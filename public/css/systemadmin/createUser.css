@@ -6,12 +6,12 @@
 }
 
 .user-list-labels-container{
-    display: flex;
-    align-items: center;
+    /* display: flex;
+    align-items: center; */
     margin-bottom: 17px;
 }
 
-.user-list-labels-container h2:nth-child(1){
+/* .user-list-labels-container h2:nth-child(1){
      margin-left: 5px;
 }
 .user-list-labels-container h2:nth-child(2){
@@ -22,7 +22,7 @@
 }
 .user-list-labels-container h2:nth-child(4){
      margin-left: 190px;
-}
+} */
 
 
 .user-list-rows-container{
@@ -31,18 +31,18 @@
 }
 
 .user-list-row{
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; */
     background-color: #E5E5E5;
-    padding: 12px 10px;
+    padding: 12px 0;
 }
 
 .user-list-row:nth-child(2n){
     background-color: #F6F6F6;
 }
 
-.user-list-row p:nth-child(1){
+/* .user-list-row p:nth-child(1){
     width: 20px;
 }
 .user-list-row p:nth-child(2){
@@ -53,11 +53,18 @@
 }
 .user-list-row p:nth-child(4){
     width: 130px;
-}
+} */
 
 .user-list-row-actions-container{
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+
+.user-list-row-actions-container a{
+    /* color: black; */
+    display: inline-block;
+
 }
 
 .user-list-row-actions-container a:nth-child(2){
@@ -168,4 +175,18 @@
     border: 2px solid #3C3C3C;
     border-radius: 5px;
     margin-left: 10px;
+}
+
+@media screen and (max-width:1400px) {
+    .create-user-name-container input, .create-user-phno-container input{
+        width: 300px;
+    }
+
+    .create-user-type-container select, .create-user-opid-container input, .create-user-rfid-container input{
+        width: 300px;
+    }
+
+    .create-user-pw-container input, .create-user-confirmpw-container input{
+        width: 300px;
+    }
 }

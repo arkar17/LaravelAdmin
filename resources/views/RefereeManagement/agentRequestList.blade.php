@@ -13,26 +13,37 @@
         @endif
     <h1>{{__('msg.Request List - Agent')}}</h1>
 
-    <div class="agent-request-container">
+    <table class="agent-request-container">
+        <thead>
+      <tr class="agent-requests-labels-container">
+        <th>{{__('msg.ID')}}</th>
+        <th>{{__('msg.Name')}}</th>
+        <th>{{__('msg.Phone Number')}}</th>
+        {{-- <th>Refree ID </th> --}}
+        {{-- <th>{{__('msg.Remark')}}</th> --}}
+        <th></th>
+        {{-- <th></th> --}}
 
-      <div class="agent-requests-labels-container">
-        <h2>{{__('msg.ID')}}</h2>
-        <h2>{{__('msg.Name')}}</h2>
-        <h2>{{__('msg.Phone Number')}}</h2>
-      </div>
-      <div class="agent-request-rows-container">
+      </tr>
+        </thead>
+      <tbody class="agent-request-rows-container">
         @foreach ($agentrequests as $agent )
-            <div class="agent-request-row">
+            <tr class="agent-request-row">
                 <?php $i = 1 ?>
-                <p>{{$i++}}</p>
-                <p>{{$agent->name}}</p>
-                <p>{{$agent->phone}}</p>
-                    <a href="{{route('agentAccept',$agent->id)}}"><button class="referee-request-accept-btn">{{__('msg.Accept')}}</button></a>
-                    <a href="{{route('agentDecline',$agent->id)}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
-            </div>
+                <td>{{$i++}}</td>
+                <td>{{$agent->name}}</td>
+                <td>{{$agent->phone}}</td>
+                <td>
+                    <div class="request-btn-container">
+                        <a href="{{route('agentAccept',$agent->id)}}"><button class="referee-request-accept-btn">{{__('msg.Accept')}}</button></a>
+                        <a class="decline-btn" href="{{route('agentDecline',$agent->id)}}"><button class="referee-request-decline-btn">{{__('msg.Decline')}}</button></a>
+                    </div>
+                </td>
+
+            </tr>
         @endforeach
-    </div>
-    </div>
+      </tbody>
+    </table>
   </div>
 <!--agent request list end-->
 

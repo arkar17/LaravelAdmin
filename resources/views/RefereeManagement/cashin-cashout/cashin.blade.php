@@ -12,7 +12,7 @@
         }
 
         .mc-inp {
-            width: 250px;
+            width: 200px;
             padding: 3px;
             outline: none;
             border: 2px solid #D9DEED;
@@ -215,6 +215,13 @@
                     <button type="reset" class="cashin-cancel-btn">{{ __('msg.Cancel') }}</button>
                 </div>
 
+                    {{-- <div class="cashin-agent-payment-container">
+                        <p>{{ __('msg.Remaining Amount') }}</p>
+                        <input type="number" placeholder="" name="remaining_amount" class="inputRemainingAmount1"
+                            class="@error('payment')
+                          alert-border
+                      @enderror"
+                            disabled /> --}}
 
                 @if (Session::has('cash-in'))
                     <div id="hide">
@@ -233,48 +240,45 @@
             </form>
             <div class="cashin-list-parent-container">
                 <h1>{{ __('msg.Cash In List') }}</h1>
-                <div class="cashin-list-container">
-                    <div class="cashin-list-lables-container">
-                        <p>{{ __('msg.ID') }}</p>
-                        <p>{{ __('msg.Agent') }} {{ __('msg.Name') }}</p>
-                        <p>{{ __('msg.Phone Number') }}</p>
-                        <p>{{ __('msg.Coin Amount') }}</p>
-                        <p>{{ __('msg.Status') }}</p>
-                        <p>{{ __('msg.Payment') }}</p>
-                        <p>{{ __('msg.Remaining Amount') }}</p>
+                <table class="cashin-list-container">
+                    <thead>
+                    <tr class="cashin-list-lables-container">
+                        <th>{{ __('msg.ID') }}</th>
+                        <th>{{ __('msg.Agent') }} {{ __('msg.Name') }}</th>
+                        <th>{{ __('msg.Phone Number') }}</th>
+                        <th>{{ __('msg.Coin Amount') }}</th>
+                        <th>{{ __('msg.Status') }}</th>
+                        <th>{{ __('msg.Payment') }}</th>
+                        <th>{{ __('msg.Remaining Amount') }}</th>
+                        <th></th>
+                    </tr>
                         {{-- <p>Action</p> --}}
-                    </div>
+                    </thead>
 
-                    <div class="cashin-list-rows-container">
-
+                    <tbody class="cashin-list-rows-container">
                         @foreach ($cashin_cashouts as $cashin_cashout)
-                            <div class="cashin-list-row">
-                                <p>{{ $cashin_cashout->id }}</p>
-                                <p>{{ $cashin_cashout->agent->user->name }}</p>
-                                <p>{{ $cashin_cashout->agent->user->phone }}</p>
-                                <p>{{ $cashin_cashout->coin_amount }}</p>
+                            <tr class="cashin-list-row">
+                                <td>{{ $cashin_cashout->id }}</td>
+                                <td>{{ $cashin_cashout->agent->user->name }}</td>
+                                <td>{{ $cashin_cashout->agent->user->phone }}</td>
+                                <td>{{ $cashin_cashout->coin_amount }}</td>
                                 @if ($cashin_cashout->payment >= $cashin_cashout->coin_amount)
-                                    <p style="color: rgb(107, 153, 37)">{{ __('msg.Fully Paid') }}</p>
+                                    <td style="color: rgb(107, 153, 37)">{{ __('msg.Fully Paid') }}</td>
                                 @else
-                                    <p style="color: red">{{ __('msg.Credit') }}</p>
+                                    <td style="color: red">{{__('msg.Credit')}}</td>
                                 @endif
 
-                                <p>{{ $cashin_cashout->payment }}</p>
-                                <p>{{ $cashin_cashout->remaining_amount }}</p>
-                                <p><a href="{{ route('cashin.edit', $cashin_cashout->id) }}">Edit</a></p>
+                                <td>{{ $cashin_cashout->payment }}</td>
+                                <td>{{ $cashin_cashout->remaining_amount }}</td>
+                                <td><a href="{{ route('cashin.edit', $cashin_cashout->id) }}">Edit</a></td>
 
-                            </div>
+                            </tr>
                         @endforeach
 
-                    </div>
-                </div>
+                    </tbody>
+                </table>
             </div>
         </div>
-
-
-
-
-
         <div class="cashout-parent-container">
             <form action="{{ route('cashout.store') }}" method="POST" class="cashin-agent-inputs-parent-container">
                 @csrf
@@ -339,32 +343,38 @@
 
 
             <div class="cashin-list-parent-container">
-                <h1>{{ __('msg.Cash Out List') }}</h1>
-                <div class="cashin-list-container">
-                    <div class="cashin-list-lables-container">
-                        <p>{{ __('msg.ID') }}</p>
-                        <p>{{ __('msg.Agent') }} {{ __('msg.Name') }}</p>
-                        <p>{{ __('msg.Phone Number') }}</p>
-                        <p>{{ __('msg.Coin Amount') }}</p>
-                        <p>{{ __('msg.Withdraw') }} {{ __('msg.Amount') }}</p>
+                <h1>{{__('msg.Cash Out List')}}</h1>
+                <table class="cashin-list-container">
+                    <thead>
+                    <tr class="cashin-list-lables-container">
+                        <th>{{__('msg.ID')}}</th>
+                        <th>{{__('msg.Agent')}} {{__('msg.Name')}}</th>
+                        <th>{{__('msg.Phone Number')}}</th>
+                        <th>{{__('msg.Coin Amount')}}</th>
+                        <th>{{__('msg.Withdraw')}} {{__('msg.Amount')}}</th>
 
-                    </div>
+                    </tr>
+                    </thead>
 
-                    <div class="cashin-list-rows-container">
+                    <tbody class="cashin-list-rows-container">
                         @foreach ($cashin_cashouts as $cashin_cashout)
-                            <div class="cashin-list-row">
-                                <p>{{ $cashin_cashout->id }}</p>
-                                <p>{{ $cashin_cashout->agent->user->name }}</p>
-                                <p>{{ $cashin_cashout->agent->user->phone }}</p>
-                                <p>{{ $cashin_cashout->coin_amount }}</p>
-                                <p>{{ $cashin_cashout->withdraw }}</p>
-                            </div>
+                            <tr class="cashin-list-row">
+                                <td>{{ $cashin_cashout->id }}</td>
+                                <td>{{ $cashin_cashout->agent->user->name }}</td>
+                                <td>{{ $cashin_cashout->agent->user->phone }}</td>
+                                <td>{{ $cashin_cashout->coin_amount }}</td>
+                                <td>{{ $cashin_cashout->withdraw }}</td>
+                            </tr>
                         @endforeach
 
-                    </div>
-                </div>
+                    </tbody>
+                </table>
             </div>
         </div>
+
+
+
+
 
 
     </div>

@@ -15,8 +15,10 @@
       &nbsp;
       &nbsp;
 
-      <a href={{route('locale','en')}}>English</a> |
-    <a href={{route('locale','mm')}}>Myanmar</a>
+      <div class="language-container">
+        <a href={{route('locale','en')}}>English</a>
+        <a href={{route('locale','mm')}}>Myanmar</a>
+      </div>
 
     </form>
 
@@ -33,7 +35,7 @@
         &nbsp;
         &nbsp;
         &nbsp;
-        <a class="side-bar-link" href="{{route('porfile-referee')}}">
+        <a class="profile-link" href="{{route('porfile-referee')}}">
         <i class="fa-regular fa-user"></i>
         <p>{{auth()->user()->name}}</p>
         </a>
@@ -49,19 +51,19 @@
       <p class="top-bar-label">{{__('msg.system')}}</p>
     </div>
 
+
+
     <div class="top-bar-right-container">
-      <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit" class="logout-btn">{{__('msg.logout')}}</button>
-      </form>
-      &nbsp;
-      &nbsp;
-      &nbsp;
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="logout-btn">{{__('msg.logout')}}</button>
+        </form>
+        <div class="language-container">
+            <a href={{route('locale','en')}}>English</a>
+            <a href={{route('locale','mm')}}>Myanmar</a>
+        </div>
 
-      <a href={{route('locale','en')}}>English</a> |
-    <a href={{route('locale','mm')}}>Myanmar</a>
 
-    </form>
 
       {{-- <i class="fa-regular fa-bell"></i> --}}
 
@@ -69,7 +71,7 @@
         &nbsp;
         &nbsp;
         &nbsp;
-        <a class="side-bar-link" href="{{route('porfile-admin')}}">
+        <a class="profile-link" href="{{route('porfile-admin')}}">
         <i class="fa-regular fa-user"></i>
         <p>{{auth()->user()->name}}</p>
         </a>
