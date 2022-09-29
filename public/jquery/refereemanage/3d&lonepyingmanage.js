@@ -89,7 +89,7 @@ $(document).ready(function(){
         rate = []
         max = []
 
-        window.location.reload()
+        window.location.reload(true)
 
     })
 
