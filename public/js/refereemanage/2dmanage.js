@@ -114,7 +114,8 @@ $(document).ready(function(){
         rate = []
         max = []
 
-        // window.location.reload(true)
+        // location.reload(true)
+        window.location.href = window.location.href
     });
 
 
