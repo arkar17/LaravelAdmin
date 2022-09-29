@@ -41,14 +41,36 @@
                         </div>
                         <div class="agent-profile-attribute">
                             <h3>{{__('msg.Total Sale Amount')}}</h3>
-                            <p>{{$sum}}</p>
+                            @if($sum == null || $sum ==0)
+                                <p>0 {{__('msg.ks')}}</p>
+                            @else
+                                <p>{{$sum}} {{__('msg.ks')}}</p>
+
+                            @endif
+                        </div>
+                        <div class="agent-profile-attribute">
+                            <h3>{{__('msg.Commision')}}</h3>
+                            @if ($agent->commision == null)
+                                <p>0 {{__('msg.percent')}}</p>
+                            @else
+                            <p>{{$agent->commision}} {{__('msg.percent')}}</p>
+                            @endif
+
                         </div>
                     </div>
                 </div>
                 <div class="agent-profile-chart-container">
+                    <p class="chart-label">{{__('msg.Total Sale Amount Of Customers')}}</p>
+                    @if (count($twocus)!=3 || count($threecus)!=3 || count($lpcus)!=3)
+                        <p style="text-align: center;">{{__('msg.Your sale list 2D, 3D and Lone pyine in one of the three is less transactions. So you can not view the chart')}}</p>
+                    @else
+                        <canvas id="cuschart"></canvas>
+                    @endif
+                </div>
+                {{-- <div class="agent-profile-chart-container">
                     <p class="chart-label">{{__('msg.Total Sale Amount')}}{{__('msg.Customers')}} </p>
                     <canvas id="cuschart"></canvas>
-                </div>
+                </div> --}}
             </div>
             <div class="agent-profile-customer-list-parent-container">
                 <div class="agent-profile-customer-list-header">
@@ -68,6 +90,7 @@
                             <th>{{__('msg.ID')}}</th>
                             <th>{{__('msg.Name')}}</th>
                             <th>{{__('msg.Phone Number')}}</th>
+                            <th>{{__('msg.Date')}}</th>
                             <th>{{__('msg.Sale Amount')}}</th>
                         </tr>
                     </thead>
@@ -83,6 +106,7 @@
                                 <td>{{$i++}}</td>
                                 <td>{{$result['customer_name']}}</td>
                                 <td>{{$result['customer_phone']}}</td>
+                                <td>{{date('d-m-Y', strtotime($result['created_at']))}}</td>
                                 <td>{{$result['Amount']}}</td>
                             </tr>
                             @endforeach
