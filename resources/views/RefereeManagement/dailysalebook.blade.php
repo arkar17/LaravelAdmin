@@ -157,6 +157,7 @@
                                         @csrf
                                         @for ($i=0; $i<=count($idgroup[$agent->name])-1; $i++)
                                     <input type="text" hidden name="id[]" id="" value ="{{{ $idgroup[$agent->name][$i] }}}">
+                                    <input type="text" hidden name="agent_id" id="" value ="{{$agent->id}}">
                                         @endfor
                                             <button class="daily-sale-book-accept-btn">{{__('msg.Accept')}}</button>
                                     </form>
@@ -164,6 +165,7 @@
                                         @csrf
                                         @for ($i=0; $i<=count($idgroup[$agent->name])-1; $i++)
                                     <input type="text" hidden name="id[]" id="" value ="{{{ $idgroup[$agent->name][$i] }}}">
+                                    <input type="text" hidden name="agent_id" id="" value ="{{$agent->id}}">
                                         @endfor
 
                                             <button class="daily-sale-book-decline-btn">{{__('msg.Decline')}}</button>
@@ -200,6 +202,7 @@
                                         @csrf
                                         @for ($i=0; $i<=count($lp_idgroup[$agent->name])-1; $i++)
                                     <input type="text" hidden name="id[]" id="" value ="{{{ $lp_idgroup[$agent->name][$i] }}}">
+                                    <input type="text" hidden name="agent_id" id="" value ="{{$agent->id}}">
                                         @endfor
 
 
@@ -211,6 +214,7 @@
                                         @csrf
                                         @for ($i=0; $i<=count($lp_idgroup[$agent->name])-1; $i++)
                                     <input type="text" hidden name="id[]" id="" value ="{{{ $lp_idgroup[$agent->name][$i] }}}">
+                                    <input type="text" hidden name="agent_id" id="" value ="{{$agent->id}}">
                                         @endfor
 
 
@@ -291,6 +295,7 @@
                             @csrf
                             @for ($i=0; $i<=count($threed_idgroup[$agent->name])-1; $i++)
                         <input type="text" hidden name="id[]" id="" value ="{{{ $threed_idgroup[$agent->name][$i] }}}">
+                        <input type="text" hidden name="agent_id" id="" value ="{{$agent->id}}">
                             @endfor
 
 
@@ -302,6 +307,7 @@
                             @csrf
                             @for ($i=0; $i<=count($threed_idgroup[$agent->name])-1; $i++)
                         <input type="text" hidden name="id[]" id="" value ="{{{ $threed_idgroup[$agent->name][$i] }}}">
+                        <input type="text" hidden name="agent_id" id="" value ="{{$agent->id}}">
                             @endfor
 
 

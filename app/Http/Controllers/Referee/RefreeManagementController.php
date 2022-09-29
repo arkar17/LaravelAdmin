@@ -405,6 +405,7 @@ class RefreeManagementController extends Controller
         'threed_salelists','agenttwodsaleList','agenttwodsalenumber', 'acceptstatus', 'agentlonepyinesalelist','agentthreedsalelist','idgroup','lp_idgroup','threed_idgroup','rate'));
     }
     public function update(Request $request){
+        // dd($request->agent_id)->toArray();
         $currenDate = Carbon::now()->toDateString();
         $time = Carbon::Now()->toTimeString();
         foreach($request->id as $re){
@@ -484,10 +485,9 @@ class RefreeManagementController extends Controller
                 );
                 $user = auth()->user()->id;
                 $referee =Referee::where('user_id',$user)->first();
-                $agent = Agent::where('user_id', $user)->first();
                 $data = 'Accept!';
                 $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
-                $pusher->trigger('agentAccept:noti.'.$agent->id, 'App\\Events\\AcceptNotiAgent',  $data);
+                $pusher->trigger('agentAccept-noti.'.$request->agent_id, 'App\\Events\\AcceptNotiAgent',  $data);
         return redirect()->back()->with('accept', 'Accepted!');
     }
     public function lpupdate(Request $request){
@@ -567,11 +567,10 @@ class RefreeManagementController extends Controller
                 $options
                 );
                 $user = auth()->user()->id;
-                $agent = Agent::where('user_id', $user)->first();
                 $referee =Referee::where('user_id',$user)->first();
                 $data = 'Accept!';
                 $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
-                $pusher->trigger('agentAccept:noti.'.$agent->id, 'App\\Events\\AcceptNotiAgent',  $data);
+                $pusher->trigger('agentAccept-noti.'.$request->agent_id, 'App\\Events\\AcceptNotiAgent',  $data);
                 return redirect()->back()->with('accept', 'Accepted!');
 
     }
@@ -621,10 +620,9 @@ class RefreeManagementController extends Controller
                 );
                 $user = auth()->user()->id;
                 $referee =Referee::where('user_id',$user)->first();
-                $agent = Agent::where('user_id', $user)->first();
                 $data = 'Accept!';
                 $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
-                $pusher->trigger('agentAccept:noti.'.$agent->id, 'App\\Events\\AcceptNotiAgent',  $data);
+                $pusher->trigger('agentAccept-noti.'.$request->agent_id, 'App\\Events\\AcceptNotiAgent',  $data);
 
         return redirect()->back()->with('accept', 'Accepted!');
 
@@ -651,10 +649,9 @@ class RefreeManagementController extends Controller
             );
             $user = auth()->user()->id;
             $referee =Referee::where('user_id',$user)->first();
-            $agent = Agent::where('user_id', $user)->first();
             $data = 'Declined!';
             $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
-            $pusher->trigger('agentAccept:noti.'.$agent->id, 'App\\Events\\AcceptNotiAgent',  $data);
+            $pusher->trigger('agentAccept:noti.'.$request->agent_id, 'App\\Events\\AcceptNotiAgent',  $data);
         return redirect()->back()->with('declined', 'Declined!');
     }
     public function declinelp(Request $request){
@@ -674,10 +671,10 @@ class RefreeManagementController extends Controller
             );
             $user = auth()->user()->id;
             $referee =Referee::where('user_id',$user)->first();
-            $agent = Agent::where('user_id', $user)->first();
+            // $agent = Agent::where('user_id', $user)->first();
             $data = 'Declined!';
             $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
-            $pusher->trigger('agentAccept:noti.'.$agent->id, 'App\\Events\\AcceptNotiAgent',  $data);
+            $pusher->trigger('agentAccept:noti.'.$request->agent_id, 'App\\Events\\AcceptNotiAgent',  $data);
         return redirect()->back()->with('declined', 'Declined!');
     }
     public function declineThreed(Request $request){
@@ -697,10 +694,10 @@ class RefreeManagementController extends Controller
             );
             $user = auth()->user()->id;
             $referee =Referee::where('user_id',$user)->first();
-            $agent = Agent::where('user_id', $user)->first();
+            // $agent = Agent::where('user_id', $user)->first();
             $data = 'Declined!';
             $pusher->trigger('accepted-channel.'.$referee->id, 'App\\Events\\AcceptedSMS',  $data);
-            $pusher->trigger('agentAccept:noti.'.$agent->id, 'App\\Events\\AcceptNotiAgent',  $data);
+            $pusher->trigger('agentAccept-noti.'.$request->agent_id, 'App\\Events\\AcceptNotiAgent',  $data);
         return redirect()->back()->with('declined', 'Declined!');
     }
 

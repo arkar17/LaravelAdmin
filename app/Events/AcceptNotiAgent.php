@@ -31,6 +31,6 @@ class AcceptNotiAgent
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('agentAccept:noti');
+        return new PrivateChannel('agentAccept-noti');
     }
 }
