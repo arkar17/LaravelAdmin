@@ -456,7 +456,7 @@ class RefreeManagementController extends Controller
         }
             else{
                 $amtForA = DB::select("SELECT t.round,a.id,(SUM(ts.sale_amount)) as SalesAmount,a.commision,
-            (cio.coin_amount + (a.commision/100)*SUM(ts.sale_amount) - SUM(ts.sale_amount)) as UpdateAmt
+                (cio.coin_amount + (a.commision/100)*SUM(ts.sale_amount) - SUM(ts.sale_amount)) as UpdateAmt
                 FROM twodsalelists ts
                 left join twods t on t.id = ts.twod_id
                 left join agents a ON a.id = ts.agent_id
@@ -519,14 +519,13 @@ class RefreeManagementController extends Controller
         }
 
         if($time > 12){
-
-            $amtForA = DB::select("SELECT a.id, (SUM(ls.sale_amount)) as SalesAmount,a.commision,
-            (cio.coin_amount + (a.commision/100)*  SUM(ls.sale_amount)) - (SUM(ls.sale_amount)) as UpdateAmt
-            FROM lonepyinesalelists ls
-            left join agents a ON a.id = ls.agent_id
-            left join lonepyines l on l.id = ls.lonepyine_id
-            left join cashin_cashouts cio on ls.agent_id = cio.agent_id
-            where l.round = 'Evening' and ls.status = '3' and l.date = '$currenDate'
+            $amtForA = DB::select("SELECT t.round,a.id,(SUM(ts.sale_amount)) as SalesAmount,a.commision,
+            (cio.coin_amount + (a.commision/100)*SUM(ts.sale_amount) - SUM(ts.sale_amount)) as UpdateAmt
+            FROM lonepyinesalelists ts
+            left join lonepyines t on t.id = ts.lonepyine_id
+            left join agents a ON a.id = ts.agent_id
+            left join cashin_cashouts cio on ts.agent_id = cio.agent_id
+            where t.round = 'Evening' and ts.status = '3' and t.date = '$currenDate'
             group by a.id");
             $amtforR = DB::select("Select (COALESCE(SUM(ls.sale_amount),0) + COALESCE(re.main_cash,0) - (a.commision/100)* (COALESCE(SUM(ls.       sale_amount),0))) totalSale ,re.id
             From agents a left join referees re on re.id = a.referee_id
@@ -543,13 +542,13 @@ class RefreeManagementController extends Controller
             }
         }
             else{
-                $amtForA = DB::select("SELECT a.id,(SUM(ls.sale_amount)) as SalesAmount,a.commision,
-                (cio.coin_amount + (a.commision/100)*  (SUM(ls.sale_amount) - SUM(ls.sale_amount))) as UpdateAmt
-                FROM lonepyinesalelists ls
-                left join agents a on a.id = ls.agent_id
-                left join lonepyines l on l.id = ls.lonepyine_id
-                left join cashin_cashouts cio on ls.agent_id = cio.agent_id
-                where l.round = 'Morning' and ls.status = '3' and l.date = '$currenDate'
+                $amtForA = DB::select("SELECT t.round,a.id,(SUM(ts.sale_amount)) as SalesAmount,a.commision,
+                (cio.coin_amount + (a.commision/100)*SUM(ts.sale_amount) - SUM(ts.sale_amount)) as UpdateAmt
+                FROM lonepyinesalelists ts
+                left join lonepyines t on t.id = ts.lonepyine_id
+                left join agents a ON a.id = ts.agent_id
+                left join cashin_cashouts cio on ts.agent_id = cio.agent_id
+                where t.round = 'Morning' and ts.status = '3' and t.date = '$currenDate'
                 group by a.id");
                 $amtforR = DB::select("SELECT (COALESCE(SUM(ls.sale_amount),0) + COALESCE(re.main_cash,0)) totalSale ,re.id
                 From agents a left join referees re on re.id = a.referee_id
