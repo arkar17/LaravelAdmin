@@ -15,7 +15,6 @@ class Export3DSalesList implements FromCollection, WithHeadings
     */
     public function headings():array{
         return [
-            'No',
             'Agent Name',
             'Customer Name',
             'Number','Amount'
@@ -26,7 +25,7 @@ class Export3DSalesList implements FromCollection, WithHeadings
         $user = auth()->user()->id;
         $referee =Referee::where('user_id',$user)->first();
         $agents = Agent::where('id' ,'>' ,0)->where('referee_id',$referee->id)->pluck('id')->toArray();
-        return Threedsalelist::select('threedsalelists.id','users.name','threedsalelists.customer_name','threeds.number',
+        return Threedsalelist::select('users.name','threedsalelists.customer_name','threeds.number',
                                       'threedsalelists.sale_amount')
         ->whereIn('threedsalelists.agent_id',$agents)
         ->where('threedsalelists.status',1)

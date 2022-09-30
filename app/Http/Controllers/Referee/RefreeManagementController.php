@@ -207,9 +207,23 @@ class RefreeManagementController extends Controller
             and aa.date = '$currenDate'
             and aa.round = 'Morning'
             group by aa.number");
-            //  $twoD_sale_lists = json_decode(json_encode ( $twoD_sale ) , true);
-            //  $twoD_sale_lists = collect($twoD_sale)->sortBy('id')->toArray();
-            }
+            // $twoD_sale_lists = DB::select("SELECT o.id,o.number , o.max_amount , o.compensation, max(o.id),o.number,SUM(c.sale_amount) as sales
+            //                             FROM
+
+            //                                 twods o
+            //                             LEFT JOIN
+            //                                 twodsalelists c
+            //                             ON
+            //                                 o.id= c.twod_id
+            //                             AND  c.status = 1
+            //                             WHERE  o.referee_id = '$referee->id'
+            //                             AND o.date = '$currenDate'
+            //                             AND o.round = 'Morning'
+            //                             GROUP BY
+            //                                 o.number
+            //                             Order BY o.id DESC
+            //                                 limit 100");
+                                             }
         }
         $options = array(
             'cluster' => env('PUSHER_APP_CLUSTER'),
@@ -230,10 +244,10 @@ class RefreeManagementController extends Controller
         ]);
     }
 
-    public function SendToAgentsAndReferee1()
-    {
-        return view('test');
-    }
+    // public function SendToAgentsAndReferee1()
+    // {
+    //     return view('test');
+    // }
 
 
 

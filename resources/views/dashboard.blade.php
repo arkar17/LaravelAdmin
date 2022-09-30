@@ -87,7 +87,9 @@
           <div class="dashboard-gradient-registeration-container">
               <iconify-icon icon="lucide:user-plus" class="dashboard-registeration-icon"></iconify-icon>
               <p class="dashboard-gradient-label">{{__('msg.Total Sale Amount')}}</p>
-              <p class="dashboard-gradient-stat">{{$sum}}</p>
+              @foreach($sum as $total)
+              <p class="dashboard-gradient-stat">{{$total['Amount']}}</p>
+              @endforeach
           </div>
           <div class="dashboard-gradient-traffic-container">
               <iconify-icon icon="tabler:activity-heartbeat" class="dashboard-traffic-icon"></iconify-icon>
