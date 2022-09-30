@@ -61,7 +61,7 @@
                 </div>
                 <div class="agent-profile-chart-container">
                     <p class="chart-label">{{__('msg.Total Sale Amount Of Customers')}}</p>
-                    @if (count($twocus)!=3 || count($threecus)!=3 || count($lpcus)!=3)
+                    @if (count($twocus)<3 || count($threecus)<3 || count($lpcus)<3)
                         <p style="text-align: center;">{{__('msg.Your sale list 2D, 3D and Lone pyine in one of the three is less transactions. So you can not view the chart')}}</p>
                     @else
                         <canvas id="cuschart"></canvas>
@@ -119,22 +119,17 @@
 
         <!--main content end-->
     </div>
-@endsection
-
-@push('script')
-@section('script')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         $(document).ready(function() {
 
  // BarChart//
-
  var twodata= @json($twocus);
 var threedata=@json($threecus);
 var lonepyinedata=@json($lpcus);
 console.log(twodata);
 console.log(threedata);
 console.log(lonepyinedata);
+
 
       const labels1 = [
         twodata[0].customer_name,
@@ -171,5 +166,4 @@ console.log(lonepyinedata);
       );
         })
     </script>
-    @endsection
-@endpush
+@endsection

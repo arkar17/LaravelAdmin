@@ -33,7 +33,7 @@
     <div class="dashboard-bar-charts-parent-container">
       <div class="dashboard-2d-chart-container">
         <p class="chart-label">{{__('msg.Most Bet 2D Number')}}</p>
-        @if(count($twod_salelists) !=10)
+        @if(count($twod_salelists) < 10)
         <p>{{__('msg.Your sale list is under 10 transactions. So you can not view the chart')}}</p>
         @else
         <canvas id="2dchart"></canvas>
@@ -42,7 +42,7 @@
 
       <div class="dashboard-lonepyine-container">
         <p class="chart-label">{{__('msg.Most Bet Lone Pyine Number')}}</p>
-        @if(count($lp_salelists) !=10)
+        @if(count($lp_salelists) < 10)
         <p>{{__('msg.Your sale list is under 10 transactions. So you can not view the chart')}}</p>
         @else
         <canvas id="lonepyinechart"></canvas>
@@ -51,7 +51,7 @@
     </div>
     <div class="dashboard-lonepyine-container">
         <p class="chart-label">{{__('msg.Total Sale Amount Of Referee')}}</p>
-        @if(count($refereesaleamounts) !=10)
+        @if(count($refereesaleamounts) < 10)
         <p>{{__('msg.Your sale list is under 10 transactions. So you can not view the chart')}}</p>
         @else
         <canvas id="refereechart"></canvas>
@@ -278,18 +278,13 @@
 </script>
 @endhasanyrole
 
-@endsection
-
-
-@section('script')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @hasanyrole('system_admin')
 <script>
 
     $(document).ready(function(){
         // Most Bet 2D Number
         var twod_data = @json($twod_salelists);
-        // console.log(twod_data);
+        console.log(twod_data);
 
         var lp_data =  @json($lp_salelists);
         // console.log(lp_data);
