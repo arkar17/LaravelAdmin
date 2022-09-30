@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\twodbetlist;
 use PDF;
 use Throwable;
 use Carbon\Carbon;
@@ -29,7 +30,7 @@ class DashboardController extends Controller
         $user = Auth::user();
         $tdy_date=Carbon::now()->toDateString();
         $time=Carbon::now()->toTimeString();
-        if($time>12){
+        if($time>16){
             $round='Evening';
         }else{
             $round='Morning';
@@ -58,7 +59,7 @@ class DashboardController extends Controller
                                                 ->where('twods.round',$round)
                                                 ->groupBy('twods.number')
                                                 ->limit(10)->get();
-                $lp_salelists = Lonepyinesalelist::select('number', DB::raw('SUM(lonepyinesalelists.sale_amount)sale_amount'))
+                $lp_salelists = Lonepyinesalelist::select('lonepyines.number', DB::raw('SUM(lonepyinesalelists.sale_amount)sale_amount'))
                                                 ->orderBy('lonepyinesalelists.sale_amount', 'DESC')
                                                 ->join('lonepyines', 'lonepyines.id', 'lonepyinesalelists.lonepyine_id')
                                                 ->where('lonepyines.date',$tdy_date)
@@ -89,7 +90,7 @@ class DashboardController extends Controller
                 else{
                     $twod_total +=$twod_salelist->sale_amount;
                 }
-
+                // dd($twod_salelist);
 
                 $threed_salelist = Threedsalelist::where('status', '1')->whereIn('agent_id', $agents)->with('threed')->whereHas('threed', function ($q) use ($current_date) {
                     $q->where('date', $current_date);
@@ -113,9 +114,60 @@ class DashboardController extends Controller
                     $lonepyine_total += $lonepyine_salelist->sale_amount;
                 }
 
+            // $twodtotal = (int)Twodsalelist::Select('twods.referee_id',DB::raw('SUM(twodsalelists.sale_amount)as sales'))
+            // ->join('twods','twods.id','twodsalelists.twod_id')
+            // ->where('twodsalelists.status', '=', '1')->gorupBy('twods.referee_id')->get();
+            $twodtotal =  Twodsalelist::select('twods.referee_id',DB::raw('sum(twodsalelists.sale_amount) as Amount'))
+                ->join('twods','twods.id','twodsalelists.twod_id')
+                ->where('twods.date',$current_date)
+                ->where('twods.referee_id',$referee->id)
+                ->groupBy('twods.referee_id')
+                ->get()->toArray();
+                // dd($twodtotal);
+            $lonepyinetotal =  Lonepyinesalelist::select('lonepyines.referee_id',DB::raw('sum(lonepyinesalelists.sale_amount) as Amount'))
+                ->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')
+                ->where('lonepyines.date',$current_date)
+                ->where('lonepyines.referee_id',$referee->id)
+                ->groupBy('lonepyines.referee_id')
+                ->get()->toArray();
+
+            $threedtotal =  Threedsalelist::select('threeds.referee_id',DB::raw('sum(threedsalelists.sale_amount)as Amount'))
+                ->join('threeds','threeds.id','threedsalelists.threed_id')
+                ->where('threeds.date',$current_date)
+                ->where('threeds.referee_id',$referee->id)
+                ->groupBy('threeds.referee_id')
+                ->get()->toArray();
+
+            $output = array_merge($twodtotal,$lonepyinetotal,$threedtotal);
 
 
-            $sum = $twod_total+$threed_total+$lonepyine_total;
+            // dd($output);
+
+            // if(!$twodtotal){
+            //     $output = array_merge($lonepyinetotal,$threedtotal);
+            // }
+            // if(!$lonepyinetotal){
+            //     $output = array_merge($twodtotal,$threedtotal);
+            // }
+            // if(!$threedtotal){
+            //     $output = array_merge($twodtotal,$lonepyinetotal);
+            // }
+            // else{
+            //     $output = array_merge($twodtotal,$lonepyinetotal,$threedtotal);
+            // }
+
+            //  dd($output);
+
+            $sum = array_reduce($output, function($carry, $item){
+                if(!isset($carry[$item['referee_id']])){
+                $carry[$item['referee_id']] = ['Amount'=>$item['Amount']];
+                } else {
+                $carry[$item['referee_id']]['Amount'] += $item['Amount'];
+                }
+                return $carry;
+                });
+                // dd($sum);
+            // $sum = $twod_total+$threed_total+$lonepyine_total;
             // calculating commision start
 
             //twod commision

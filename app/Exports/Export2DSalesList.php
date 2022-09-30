@@ -19,7 +19,6 @@ class Export2DSalesList implements FromCollection, WithHeadings
 
     public function headings():array{
         return [
-            'No',
             'Agent Name',
             'Customer Name',
             'Number','Amount'
@@ -31,8 +30,7 @@ class Export2DSalesList implements FromCollection, WithHeadings
         $referee =Referee::where('user_id',$user)->first();
         $agents = Agent::where('id' ,'>' ,0)->where('referee_id',$referee->id)->pluck('id')->toArray();
 
-          return Twodsalelist::select('twodsalelists.id','twodsalelists.twod_id','twodsalelists.sale_amount',
-            'twodsalelists.customer_name','users.name','twods.number')
+          return Twodsalelist::select('users.name','twodsalelists.customer_name','twods.number','twodsalelists.sale_amount')
             ->whereIn('twodsalelists.agent_id',$agents)
             ->where('twodsalelists.status',1)
             ->orderBy('twodsalelists.id','desc')
