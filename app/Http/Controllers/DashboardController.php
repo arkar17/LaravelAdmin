@@ -29,7 +29,7 @@ class DashboardController extends Controller
         $user = Auth::user();
         $tdy_date=Carbon::now()->toDateString();
         $time=Carbon::now()->toTimeString();
-        if($time>12){
+        if($time>16){
             $round='Evening';
         }else{
             $round='Morning';
@@ -52,7 +52,6 @@ class DashboardController extends Controller
                 $sum = $twodtotal + $threedtotal + $lonepyinetotal;
 
                 $twod_salelists = Twodsalelist::select('number', 'sale_amount')
-                                                ->orderBy('sale_amount', 'DESC')
                                                 ->join('twods', 'twods.id', 'twodsalelists.twod_id')
                                                 ->where('twods.date',$tdy_date)
                                                 ->where('twods.round',$round)
