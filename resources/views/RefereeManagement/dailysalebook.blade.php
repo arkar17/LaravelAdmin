@@ -329,128 +329,122 @@
 
 
             <script src="{{asset('jquery/refereemanage/dailysalebook.js')}}"></script>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
 
+                $(document).ready(function(){
+                    var twod_data = @json($twod_salelists);
+                    console.log(twod_data);
+                    var lp_data =  @json($lp_salelists);
+                    console.log(lp_data);
+                    var threed_data = @json($threed_salelists);
+                    console.log(threed_data);
+                    const labels1 = [
+                    twod_data[0].number,
+                    twod_data[1].number,
+                    twod_data[2].number,
+                    twod_data[3].number,
+                    twod_data[4].number,
+                    twod_data[5].number,
+                    twod_data[6].number,
+                    twod_data[7].number,
+                    twod_data[8].number,
+                    twod_data[9].number
+                  ];
+                  const data1 = {
+                    labels: labels1,
+                    datasets: [{
+                      label: '{{__('msg.Most Bet 2D Number')}}',
+                      backgroundColor: '#EB5E28',
+                      borderColor: 'rgb(255, 99, 132)',
+                      data: [ twod_data[0].sale_amount,  twod_data[1].sale_amount,  twod_data[2].sale_amount,  twod_data[3].sale_amount,  twod_data[4].sale_amount,  twod_data[5].sale_amount,  twod_data[6].sale_amount,  twod_data[7].sale_amount, twod_data[8].sale_amount, twod_data[9].sale_amount]
+
+                    }]
+                  };
+                  const config1 = {
+                    type: 'bar',
+                    data: data1,
+                    options: {}
+                  };
+                  const twodChart = new Chart(
+                    document.getElementById('daily-sale-book-2d-chart'),
+                    config1
+                  );
+
+                  const labels2 = [
+                    lp_data[0].number,
+                    lp_data[1].number,
+                    lp_data[2].number,
+                    lp_data[3].number,
+                    lp_data[4].number,
+                    lp_data[5].number,
+                    lp_data[6].number,
+                    lp_data[7].number,
+                    lp_data[8].number,
+                    lp_data[9].number,
+                  ];
+                  const data2 = {
+                    labels: labels2,
+                    datasets: [{
+                      label: '{{__('msg.Most Bet Lone Pyine Number')}}',
+                      backgroundColor: '#EB5E28',
+                      borderColor: 'rgb(255, 99, 132)',
+                     data: [ lp_data[0].sale_amount,  lp_data[1].sale_amount,  lp_data[2].sale_amount,  lp_data[3].sale_amount,  lp_data[4].sale_amount,  lp_data[5].sale_amount,  lp_data[6].sale_amount,  lp_data[7].sale_amount, lp_data[8].sale_amount, lp_data[9].sale_amount],
+
+                    }]
+                  };
+                  const config2 = {
+                    type: 'bar',
+                    data: data2,
+                    options: {}
+                  };
+
+                  const lonepyineChart = new Chart(
+                    document.getElementById('daily-sale-book-lonepyine-chart'),
+                    config2
+                  );
+
+
+                  const labels3 = [
+                    threed_data[0].number,
+                    threed_data[1].number,
+                    threed_data[2].number,
+                    threed_data[3].number,
+                    threed_data[4].number,
+                    threed_data[5].number,
+                    threed_data[6].number,
+                    threed_data[7].number,
+                    threed_data[8].number,
+                    threed_data[9].number
+                  ];
+
+                  const data3 = {
+                    labels: labels3,
+                    datasets: [{
+                      label: '{{__('msg.Most Bet 3D Number')}}',
+                      backgroundColor: '#EB5E28',
+                      borderColor: 'rgb(255, 99, 132)',
+                      data: [ threed_data[0].sale_amount,  threed_data[1].sale_amount,  threed_data[2].sale_amount,  threed_data[3].sale_amount,  threed_data[4].sale_amount,  threed_data[5].sale_amount,  threed_data[6].sale_amount,  threed_data[7].sale_amount, threed_data[8].sale_amount, threed_data[9].sale_amount]
+
+                    }]
+                  };
+
+                  const config3 = {
+                    type: 'bar',
+                    data: data3,
+                    options: {}
+                  };
+
+
+
+                  const threeChart = new Chart(
+                    document.getElementById('daily-sale-book-3d-chart'),
+                    config3
+                  );
+                })
+            </script>
 @endsection
 
 @section('script')
-<script>
-
-    $(document).ready(function(){
-        var twod_data = @json($twod_salelists);
-        console.log(twod_data);
-        var lp_data =  @json($lp_salelists);
-        console.log(lp_data);
-        var threed_data = @json($threed_salelists);
-        console.log(threed_data);
-        const labels1 = [
-        twod_data[0].number,
-        twod_data[1].number,
-        twod_data[2].number,
-        twod_data[3].number,
-        twod_data[4].number,
-        twod_data[5].number,
-        twod_data[6].number,
-        twod_data[7].number,
-        twod_data[8].number,
-        twod_data[9].number
-      ];
-      const data1 = {
-        labels: labels1,
-        datasets: [{
-          label: '{{__('msg.Most Bet 2D Number')}}',
-          backgroundColor: '#EB5E28',
-          borderColor: 'rgb(255, 99, 132)',
-          data: [ twod_data[0].sale_amount,  twod_data[1].sale_amount,  twod_data[2].sale_amount,  twod_data[3].sale_amount,  twod_data[4].sale_amount,  twod_data[5].sale_amount,  twod_data[6].sale_amount,  twod_data[7].sale_amount, twod_data[8].sale_amount, twod_data[9].sale_amount]
-
-        }]
-      };
-      const config1 = {
-        type: 'bar',
-        data: data1,
-        options: {}
-      };
-      const twodChart = new Chart(
-        document.getElementById('daily-sale-book-2d-chart'),
-        config1
-      );
-
-      const labels2 = [
-        lp_data[0].number,
-        lp_data[1].number,
-        lp_data[2].number,
-        lp_data[3].number,
-        lp_data[4].number,
-        lp_data[5].number,
-        lp_data[6].number,
-        lp_data[7].number,
-        lp_data[8].number,
-        lp_data[9].number,
-      ];
-      const data2 = {
-        labels: labels2,
-        datasets: [{
-          label: '{{__('msg.Most Bet Lone Pyine Number')}}',
-          backgroundColor: '#EB5E28',
-          borderColor: 'rgb(255, 99, 132)',
-         data: [ lp_data[0].sale_amount,  lp_data[1].sale_amount,  lp_data[2].sale_amount,  lp_data[3].sale_amount,  lp_data[4].sale_amount,  lp_data[5].sale_amount,  lp_data[6].sale_amount,  lp_data[7].sale_amount, lp_data[8].sale_amount, lp_data[9].sale_amount],
-
-        }]
-      };
-      const config2 = {
-        type: 'bar',
-        data: data2,
-        options: {}
-      };
-
-      const lonepyineChart = new Chart(
-        document.getElementById('daily-sale-book-lonepyine-chart'),
-        config2
-      );
-
-
-      const labels3 = [
-        threed_data[0].number,
-        threed_data[1].number,
-        threed_data[2].number,
-        threed_data[3].number,
-        threed_data[4].number,
-        threed_data[5].number,
-        threed_data[6].number,
-        threed_data[7].number,
-        threed_data[8].number,
-        threed_data[9].number
-      ];
-
-      const data3 = {
-        labels: labels3,
-        datasets: [{
-          label: '{{__('msg.Most Bet 3D Number')}}',
-          backgroundColor: '#EB5E28',
-          borderColor: 'rgb(255, 99, 132)',
-          data: [ threed_data[0].sale_amount,  threed_data[1].sale_amount,  threed_data[2].sale_amount,  threed_data[3].sale_amount,  threed_data[4].sale_amount,  threed_data[5].sale_amount,  threed_data[6].sale_amount,  threed_data[7].sale_amount, threed_data[8].sale_amount, threed_data[9].sale_amount]
-
-        }]
-      };
-
-      const config3 = {
-        type: 'bar',
-        data: data3,
-        options: {}
-      };
-
-
-
-      const threeChart = new Chart(
-        document.getElementById('daily-sale-book-3d-chart'),
-        config3
-      );
-})
-
-
-
-
-</script>
 
 @endsection
 
