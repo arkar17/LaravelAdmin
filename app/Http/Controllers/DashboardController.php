@@ -121,6 +121,7 @@ class DashboardController extends Controller
                 ->join('twods','twods.id','twodsalelists.twod_id')
                 ->where('twods.date',$current_date)
                 ->where('twods.referee_id',$referee->id)
+                ->where('twodsalelists.status',1)
                 ->groupBy('twods.referee_id')
                 ->get()->toArray();
                 // dd($twodtotal);
@@ -128,6 +129,7 @@ class DashboardController extends Controller
                 ->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')
                 ->where('lonepyines.date',$current_date)
                 ->where('lonepyines.referee_id',$referee->id)
+                ->where('lonepyinesalelists.status',1)
                 ->groupBy('lonepyines.referee_id')
                 ->get()->toArray();
 
@@ -135,6 +137,7 @@ class DashboardController extends Controller
                 ->join('threeds','threeds.id','threedsalelists.threed_id')
                 ->where('threeds.date',$current_date)
                 ->where('threeds.referee_id',$referee->id)
+                ->where('threedsalelists.status',1)
                 ->groupBy('threeds.referee_id')
                 ->get()->toArray();
 
