@@ -229,7 +229,7 @@ class TwodThreeDController extends Controller
             $agent = Agent::where('user_id', $user->id)->with('referee')->first();
             $referee = Referee::where('user_id', $agent->referee->user_id)->with('user')->first();
             $current_date = Carbon::now('Asia/Yangon')->toDateString();
-            $threeds = Threed::where('referee_id', $agent->referee_id)->where('date', $current_date)->latest()->take(1000)->get();
+            $threeds = Threed::where('referee_id', $agent->referee_id)->latest()->take(1000)->get();
             foreach ($sale_lists->threeDSalesList as $sale) {
                 foreach ($threeds as $threed) {
                     if ($threed->number == $sale->threed_number) {
