@@ -95,22 +95,18 @@
 
         <!--main content end-->
     </div>
-@endsection
 
-@push('script')
-@section('script')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         $(document).ready(function() {
 
  // BarChart//
 
- var twodata= @json($twocus);
-var threedata=@json($threecus);
-var lonepyinedata=@json($lpcus);
-console.log(twodata);
-console.log(threedata);
-console.log(lonepyinedata);
+    var twodata= @json($twocus);
+    var threedata=@json($threecus);
+    var lonepyinedata=@json($lpcus);
+    console.log(twodata);
+    console.log(threedata);
+    console.log(lonepyinedata);
 
       const labels1 = [
         twodata[0].customer_name,
@@ -129,7 +125,7 @@ console.log(lonepyinedata);
           label: 'Amount',
           backgroundColor: '#EB5E28',
           borderColor: 'rgb(255, 99, 132)',
-          data: [ twodata[0].maincash,twodata[1].maincash,twodata[2].maincash,twodata[3].maincash,lonepyinedata[0].maincash,lonepyinedata[1].maincash,lonepyinedata[2].maincash,threedata[0].maincash,threedata[1].maincash]
+          data: [ twodata[0].maincash,twodata[1].maincash,twodata[2].maincash,lonepyinedata[0].maincash,lonepyinedata[1].maincash,lonepyinedata[2].maincash,threedata[0].maincash,threedata[1].maincash,threedata[2].maincash]
 
         }]
       };
@@ -147,5 +143,12 @@ console.log(lonepyinedata);
       );
         })
     </script>
+
+@endsection
+
+@push('script')
+@section('script')
+
+
     @endsection
 @endpush

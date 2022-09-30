@@ -122,6 +122,8 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
     Route::get('winning-3ds', [WinningResultController::class, 'winningThreeds']);
+    Route::get('winning-2ds', [WinningResultController::class, 'winningTwods']);
+    
 
 
     Route::get('/tDList', [ApiTwoDManageController::class, 'getTwoDs']);

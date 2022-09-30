@@ -51,17 +51,19 @@ class DashboardController extends Controller
                 $lonepyinetotal = (int)Lonepyinesalelist::where('status', '=', '1')->sum('sale_amount');
                 $sum = $twodtotal + $threedtotal + $lonepyinetotal;
 
-                $twod_salelists = Twodsalelist::select('number', 'sale_amount')
-                                                ->orderBy('sale_amount', 'DESC')
+                $twod_salelists = Twodsalelist::select('twods.number', DB::raw('SUM(twodsalelists.sale_amount)sale_amount'))
+                                                ->orderBy('twodsalelists.sale_amount', 'DESC')
                                                 ->join('twods', 'twods.id', 'twodsalelists.twod_id')
                                                 ->where('twods.date',$tdy_date)
                                                 ->where('twods.round',$round)
+                                                ->groupBy('twods.number')
                                                 ->limit(10)->get();
-                $lp_salelists = Lonepyinesalelist::select('number', 'sale_amount')
-                                                ->orderBy('sale_amount', 'DESC')
+                $lp_salelists = Lonepyinesalelist::select('number', DB::raw('SUM(lonepyinesalelists.sale_amount)sale_amount'))
+                                                ->orderBy('lonepyinesalelists.sale_amount', 'DESC')
                                                 ->join('lonepyines', 'lonepyines.id', 'lonepyinesalelists.lonepyine_id')
                                                 ->where('lonepyines.date',$tdy_date)
                                                 ->where('lonepyines.round',$round)
+                                                ->groupBy('lonepyines.number')
                                                 ->limit(10)->get();
                 $refereesaleamounts = DB::select("Select (SUM(ts.sale_amount)+SUM(tr.sale_amount)+SUM(ls.sale_amount))maincash ,re.id From agents a LEFT join referees re on re.id = a.referee_id left join twodsalelists ts on ts.agent_id = a.id and ts.status = 1 left join threedsalelists tr on tr.agent_id = a.id and tr.status = 1 left join lonepyinesalelists ls on ls.agent_id = a.id and ls.status = 1 Group By re.id ORDER BY maincash DESC;");
 
@@ -212,11 +214,13 @@ class DashboardController extends Controller
 
 
             $referee =Referee::where('user_id',$user->id)->first();
-            $refe_twod_salelists = Twodsalelist::select('number', 'sale_amount')->orderBy('sale_amount', 'DESC')->where('twods.date',$tdy_date)->where('twodsalelists.status',1)
-            ->join('agents','twodsalelists.agent_id','agents.id')->where('agents.referee_id',$referee->id)->join('twods', 'twods.id', 'twodsalelists.twod_id')->limit(10)->get();
+            $refe_twod_salelists = Twodsalelist::select('twods.number',DB::raw('SUM(twodsalelists.sale_amount)sale_amount'))->where('twods.date',$tdy_date)->where('twodsalelists.status',1)->join('agents','twodsalelists.agent_id','agents.id')->where('agents.referee_id',$referee->id)
+            ->join('twods', 'twods.id', 'twodsalelists.twod_id')->where('twods.round',$round)
+            ->groupBy('twods.number')->orderBy('twodsalelists.sale_amount', 'DESC')->limit(10)->get();
 
-            $refe_lp_salelists = Lonepyinesalelist::select('number', 'sale_amount')->orderBy('sale_amount', 'DESC')->where('lonepyines.date',$tdy_date)->where('lonepyinesalelists.status',1)
-            ->join('agents','lonepyinesalelists.agent_id','agents.id')->where('agents.referee_id',$referee->id)->join('lonepyines', 'lonepyines.id', 'lonepyinesalelists.lonepyine_id')->limit(10)->get();
+            $refe_lp_salelists = Lonepyinesalelist::select('lonepyines.number', DB::raw('SUM(lonepyinesalelists.sale_amount)sale_amount'))->where('lonepyines.date',$tdy_date)->where('lonepyinesalelists.status',1)->where('lonepyines.round',$round)
+            ->join('agents','lonepyinesalelists.agent_id','agents.id')->where('agents.referee_id',$referee->id)
+            ->join('lonepyines', 'lonepyines.id', 'lonepyinesalelists.lonepyine_id')->groupBy('lonepyines.number')->orderBy('lonepyinesalelists.sale_amount', 'DESC')->limit(10)->get();
 
             $Declined_twoDList = Twodsalelist::select('twods.number','twods.max_amount','users.name',DB::raw('SUM(twodsalelists.sale_amount)as sales'))
             ->join('twods','twods.id','twodsalelists.twod_id')
