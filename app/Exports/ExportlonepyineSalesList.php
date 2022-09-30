@@ -15,7 +15,6 @@ class ExportlonepyineSalesList implements FromCollection, WithHeadings
     */
     public function headings():array{
         return [
-            'No',
             'Agent Name',
             'Customer Name',
             'Number','Amount'
@@ -26,7 +25,7 @@ class ExportlonepyineSalesList implements FromCollection, WithHeadings
         $user = auth()->user()->id;
         $referee =Referee::where('user_id',$user)->first();
         $agents = Agent::where('id' ,'>' ,0)->where('referee_id',$referee->id)->pluck('id')->toArray();
-        return Lonepyinesalelist::select('lonepyinesalelists.id','users.name','lonepyinesalelists.customer_name','lonepyines.number','lonepyinesalelists.sale_amount',
+        return Lonepyinesalelist::select('users.name','lonepyinesalelists.customer_name','lonepyines.number','lonepyinesalelists.sale_amount',
         )
         ->whereIn('lonepyinesalelists.agent_id',$agents)
         ->where('lonepyinesalelists.status',1)

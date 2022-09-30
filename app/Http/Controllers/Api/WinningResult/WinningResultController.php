@@ -186,4 +186,12 @@ class WinningResultController extends Controller
             'threeds' => $threeds
         ]);
     }
+
+    public function winningTwods() {
+        $twods = WinningNumber::where('type', '2d')->get();
+        return response()->json([
+            'status' => 200,
+            'twods' => $twods
+        ]);
+    }
 }
