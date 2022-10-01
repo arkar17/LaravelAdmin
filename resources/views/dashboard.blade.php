@@ -87,9 +87,13 @@
           <div class="dashboard-gradient-registeration-container">
               <iconify-icon icon="lucide:user-plus" class="dashboard-registeration-icon"></iconify-icon>
               <p class="dashboard-gradient-label">{{__('msg.Total Sale Amount')}}</p>
+              @if($sum != null || $sum != 0)
               @foreach($sum as $total)
               <p class="dashboard-gradient-stat">{{$total['Amount']}}</p>
               @endforeach
+              @else
+              <p class="dashboard-gradient-stat">0</p>
+              @endif
           </div>
           <div class="dashboard-gradient-traffic-container">
               <iconify-icon icon="tabler:activity-heartbeat" class="dashboard-traffic-icon"></iconify-icon>
@@ -99,15 +103,23 @@
           <div class="dashboard-gradient-referee-container">
               <iconify-icon icon="majesticons:users-line" class="dashboard-referee-icon"></iconify-icon>
               <p class="dashboard-gradient-label">{{__('msg.Total Commision')}}</p>
+              @if($sum != null || $sum != 0)
               @foreach($sum as $total)
               <p class="dashboard-gradient-stat">{{$total['Commission']}}</p>
               @endforeach
+              @else
+              <p class="dashboard-gradient-stat">0</p>
+              @endif
           </div>
           <div class="dashboard-gradient-sale-container">
               <iconify-icon icon="bi:currency-dollar" class="dashboard-sale-icon"></iconify-icon>
               <p class="dashboard-gradient-label">{{__('msg.Total Profit')}}</p>
-
+              @if($profit != null || $profit != 0)
               <p class="dashboard-gradient-stat">{{$profit}}</p>
+              @else
+              <p class="dashboard-gradient-stat">0</p>
+              @endif
+
           </div>
       </div>
 
