@@ -95,7 +95,7 @@
         <h3 class="winners-header">Winning 2D</h3>
 
         <table class="winning-table-parent-container">
-
+        <thead>
             <tr class="table-lables" style="background-color: none">
 
                 <th>id</th>
@@ -114,7 +114,7 @@
 
             </tr>
 
-
+        </thead>
             <tbody class="table-body-container">
                 <?php $a=1;?>
                 @foreach ($twodnumbers as $twodnumber)
@@ -149,6 +149,7 @@
         @else
         <h3 class="winners-header">Winning Lone Pyine</h3>
         <table class="winning-table-parent-container">
+            <thead>
             <tr class="table-lables" style="background-color: none">
 
                 <th>id</th>
@@ -166,7 +167,7 @@
                 <th>Date Time</th>
 
             </tr>
-
+            </thead>
             <tbody class="table-body-container">
                 <?php $i=1;?>
                 @foreach ($lonepyinenumbers as $lonepyinenumber)
@@ -201,7 +202,7 @@
             <h3>Winning 3D Number Lists</h3>
 
             <table class="winning-table-parent-container">
-
+                <thead>
                 <tr class="table-lables" style="background-color: none">
 
                     <th>id</th>
@@ -217,11 +218,11 @@
                     <th>Date Time</th>
 
                 </tr>
-
+                </thead>
             <tbody class="table-body-container">
                 <?php $b=1;?>
                 @foreach ($threednumbers as $threednumber)
-               
+
                 <tr class="table-row">
 
                     <td>{{$b++}}</td>
@@ -237,7 +238,7 @@
                     <td>{{$threednumber->date}}</td>
 
                 </tr>
-               
+
                 @endforeach
             </tbody>
 
