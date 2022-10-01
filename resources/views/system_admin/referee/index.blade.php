@@ -35,7 +35,7 @@
             <table class="referee-list-container">
                 <thead>
                 <tr class="referee-list-labels-container">
-                    <th>{{__('msg.ID')}}</th>
+                    <th>{{__('msg.Code')}}</th>
                     <th>{{__('msg.Name')}}</th>
                     <th>{{__('msg.Phone Number')}}</th>
                     <th>{{__('msg.Opstaff Code')}}</th>
@@ -54,7 +54,9 @@
                             <td>{{$referee->user->name}}</td>
                             <td>{{$referee->user->phone}}</td>
                             <td>{{$referee->operationstaff->operationstaff_code}}</td>
-                            <td>role {{$referee->role_id}}</td>
+                            <td>
+                               {{($referee->user->getRoleNames())}}
+                            </td>
                                 @if ($referee->active_status == 1)
                                 <td class="text-success">Active</td>
                                 @else

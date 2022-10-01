@@ -83,7 +83,7 @@
           <table class="op-list-container">
             <thead>
                 <tr class="op-list-labels-container">
-                <th>{{__('msg.ID')}}</th>
+                <th>{{__('msg.Code')}}</th>
                 <th>{{__('msg.Name')}}</th>
                 <th>{{__('msg.Phone Number')}}</th>
                 {{-- <th>Image</th> --}}
