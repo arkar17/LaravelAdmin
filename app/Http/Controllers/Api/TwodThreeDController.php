@@ -236,6 +236,7 @@ class TwodThreeDController extends Controller
                         $threed_sale_list = new Threedsalelist();
                         $threed_sale_list->threed_id = $threed->id;
                         $threed_sale_list->agent_id = $sale->agent_id;
+                        $threed_sale_list->date = $current_date; 
                         $threed_sale_list->sale_amount = $sale->sale_amount;
                         $threed_sale_list->customer_name = $sale->customer_name ?? null;
                         $threed_sale_list->customer_phone = $sale->customer_phone ?? null;

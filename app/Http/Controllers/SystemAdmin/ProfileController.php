@@ -38,15 +38,16 @@ class ProfileController extends Controller
                             LEFT JOIN users u on u.id = a.user_id
                             where re.id='$referee_id' Group By a.id,u.name,u.phone;");
 
-        $twod_salelist=DB::select("SELECT a.id,u.name,u.phone,COALESCE(SUM(td.sale_amount),0)Amount from agents a
+        $twod_salelist=DB::select("SELECT a.id,u.name,u.phone,SUM(td.sale_amount)-(SUM(td.sale_amount)*(a.commision/100))Amount from agents a
                         left join twodsalelists td on a.id=td.agent_id and td.status=1
                         join referees re on a.referee_id=re.id
                         LEFT JOIN users u on u.id = a.user_id
                         where a.referee_id='$referee_id'
                         group BY a.id;");
+
          $twod = json_decode(json_encode ( $twod_salelist ) , true);
 
-        $threed_salelist=DB::select("SELECT a.id,u.name,u.phone,COALESCE(SUM(td.sale_amount),0)Amount from agents a
+        $threed_salelist=DB::select("SELECT a.id,u.name,u.phone,SUM(td.sale_amount)-(SUM(td.sale_amount)*(a.commision/100))Amount from agents a
                         left join threedsalelists td on a.id=td.agent_id and td.status=1
                         join referees re on a.referee_id=re.id
                         LEFT JOIN users u on u.id = a.user_id
@@ -54,7 +55,7 @@ class ProfileController extends Controller
                         group BY a.id;");
         $threed=json_decode(json_encode ( $threed_salelist ) , true);
 
-        $lonepyine_salelists=DB::select("SELECT a.id,u.name,u.phone,COALESCE(SUM(td.sale_amount),0)Amount from agents a
+        $lonepyine_salelists=DB::select("SELECT a.id,u.name,u.phone,SUM(td.sale_amount)-(SUM(td.sale_amount)*(a.commision/100))Amount from agents a
                         left join lonepyinesalelists td on a.id=td.agent_id and td.status=1
                         join referees re on a.referee_id=re.id
                         LEFT JOIN users u on u.id = a.user_id
@@ -83,7 +84,6 @@ class ProfileController extends Controller
     public function agentprofile($id)
     {
         $date=Carbon::now()->toDateString();
-
         $time=Carbon::now()->toTimeString();
         if($time>16){
             $round='Evening';

@@ -59,6 +59,21 @@ class HomeController extends Controller
 
     public function viewWinning(Request $request)
     {
+        $current_day=Carbon::now()->format('d');
+        $current_month_days=Carbon::now()->daysInMonth;
+
+        if($current_day == 16){
+            if($current_month_days == 30){
+                $threed_date=Carbon::now()->subDays(14);
+            }elseif($current_month_days == 31){
+                $threed_date=Carbon::now()->subDays(15);
+            }
+        }elseif($current_day == 1){
+            $threed_date=Carbon::now()->subDays(15);
+        }else{
+            return redirect()->back()->with('success', '3D winning number can only add on 1 and 16 day of a month');
+        }
+
         $date = Carbon::Now()->toDateString();
         $time = Carbon::now()->toTimeString();
         if($time > 16){
@@ -74,7 +89,13 @@ class HomeController extends Controller
                                 and two.date='$date' and two.round='$round';");
         $lonepyinenumbers=DB::select("SELECT u.name,l.round,l.number,lps.id,l.date,lps.customer_name,lps.customer_phone From agents a left join lonepyinesalelists lps on lps.agent_id = a.id LEFT join lonepyines l on l.id=lps.lonepyine_id LEFT join users u on u.id=a.user_id where
         lps.winning_status = 1 and l.date='$date' and l.round='$round';");
-        $threednumbers=DB::select("SELECT u.name,t.number,ts.id,t.date,ts.customer_name,ts.customer_phone From agents a left join threedsalelists ts on ts.agent_id = a.id LEFT join threeds t on t.id=ts.threed_id LEFT join users u on u.id=a.user_id where ts.winning_status = 1 and t.date='$date';");
+
+        $threednumbers=DB::select("SELECT u.name,t.number,ts.id,t.date,ts.customer_name,ts.customer_phone 
+                                    From agents a left join threedsalelists ts on ts.agent_id = a.id 
+                                    LEFT join threeds t on t.id=ts.threed_id 
+                                    LEFT join users u on u.id=a.user_id 
+                                    where ts.winning_status = 1 and WHERE t.date BETWEEN '$date' AND '$threed_date';");
+                                    dd($threednumbers);
         return view('system_admin.winning_result', compact('twodnumbers','threednumbers','lonepyinenumbers'))->with('success', 'Winning Status is Updated successfully!');
 
     }
@@ -129,12 +150,26 @@ class HomeController extends Controller
                 return redirect()->back()->with('success', 'Not a Winning Number');
             }
         }elseif($request->type=='3d'){
+            $current_day=Carbon::now()->format('d');
+            $current_month_days=Carbon::now()->daysInMonth;
+
+            if($current_day == 16){
+                if($current_month_days == 30){
+                    $threed_date=Carbon::now()->subDays(14);
+                }elseif($current_month_days == 31){
+                    $threed_date=Carbon::now()->subDays(15);
+                }
+            }elseif($current_day == 1){
+                $threed_date=Carbon::now()->subDays(15);
+            }else{
+                return redirect()->back()->with('success', '3D winning number can only add on 1 and 16 day of a month');
+            }
             $threednum=Threed::where('number','=',$request->number)->first();
             if(!empty($threednum->id)){
                 $threednum=Threed::where('number','=',$request->number)
                 ->join('threedsalelists','threedsalelists.threed_id','=','threeds.id')
                 ->where('threedsalelists.status','=','1')
-                ->where('threeds.date',$current_date)
+                ->whereBetween('threeds.date', [$threed_date, $current_date])
                 ->update(['threedsalelists.winning_status'=>1]);
             }else{
                 return redirect()->back()->with('success', 'Not a Winning Number');

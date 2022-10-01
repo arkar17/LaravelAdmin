@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Referee;
 
+use Carbon\Carbon;
 use App\Models\Twod;
 use App\Models\User;
 use App\Models\Agent;
@@ -57,7 +58,7 @@ class AgentRController extends Controller
         // return view('data.refereedata',compact('agent'));
     }
     public function agentprofile($id)
-    {
+    { $tdy_date=Carbon::now()->toDateString();
         //$agentProfileData = User::select('id','name','phone')->where('id',$id)->get();
         $agentProfileData = Agent::select('agents.id','agents.image','users.name','users.phone')->join('users','users.id','agents.user_id')->where('agents.id',$id)->first();
 
@@ -76,6 +77,7 @@ class AgentRController extends Controller
                         ->join('twods','twods.id','twodsalelists.twod_id')
                         ->where('twodsalelists.agent_id',$id)
                         ->where('twodsalelists.status',1)
+                        ->where('twods.date',$tdy_date)
                         ->groupBy('twodsalelists.id')
                         ->get()->toArray();
         //dd($twod_salelists);
@@ -84,6 +86,7 @@ class AgentRController extends Controller
                         ->join('threeds','threeds.id','threedsalelists.threed_id')
                         ->where('threedsalelists.agent_id',$id)
                         ->where('threedsalelists.status',1)
+                        ->where('threeds.date',$tdy_date)
                         ->groupBy('threedsalelists.id')
                         ->get()->toArray();
 
@@ -92,6 +95,7 @@ class AgentRController extends Controller
                         ->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')
                         ->where('lonepyinesalelists.agent_id',$id)
                         ->where('lonepyinesalelists.status',1)
+                        ->where('lonepyines.date',$tdy_date)
                         ->groupBy('lonepyinesalelists.id')
                         ->get()->toArray();
 
@@ -112,24 +116,30 @@ class AgentRController extends Controller
 
         $twod=Twodsalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(twodsalelists.sale_amount)as Amount'))
                     ->join('agents','agents.id','twodsalelists.agent_id')
+                    ->join('twods','twods.id','twodsalelists.twod_id')
                     ->where('agents.id',$id)
                     ->where('twodsalelists.status',1)
+                    ->where('twods.date',$tdy_date)
                     ->groupBy('agents.referee_id')
                     ->join('users','users.id','agents.user_id')
                     ->get()->toArray();
 
         $threed=Threedsalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(threedsalelists.sale_amount)as Amount'))
                     ->join('agents','agents.id','threedsalelists.agent_id')
+                    ->join('threeds','threeds.id','threedsalelists.threed_id')
                     ->where('agents.id',$id)
                     ->where('threedsalelists.status',1)
+                    ->where('threeds.date',$tdy_date)
                     ->groupBy('agents.referee_id')
                     ->join('users','users.id','agents.user_id')
                     ->get()->toArray();
 
         $lonepyine=Lonepyinesalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(lonepyinesalelists.sale_amount)as Amount'))
                     ->join('agents','agents.id','lonepyinesalelists.agent_id')
+                    ->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')
                     ->where('agents.id',$id)
                     ->where('lonepyinesalelists.status',1)
+                    ->where('lonepyines.date',$tdy_date)
                     ->groupBy('agents.referee_id')
                     ->join('users','users.id','agents.user_id')
                     ->get()->toArray();
