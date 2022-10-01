@@ -528,10 +528,6 @@ class DashboardController extends Controller
                         $profit = 0;
 
                }
-
-
-
-
             $referee =Referee::where('user_id',$user->id)->first();
             $refe_twod_salelists = Twodsalelist::select('twods.number',DB::raw('SUM(twodsalelists.sale_amount)sale_amount'))->where('twods.date',$tdy_date)->where('twodsalelists.status',1)->join('agents','twodsalelists.agent_id','agents.id')->where('agents.referee_id',$referee->id)
             ->join('twods', 'twods.id', 'twodsalelists.twod_id')->where('twods.round',$round)

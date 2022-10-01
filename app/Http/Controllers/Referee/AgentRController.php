@@ -61,17 +61,6 @@ class AgentRController extends Controller
     { $tdy_date=Carbon::now()->toDateString();
         //$agentProfileData = User::select('id','name','phone')->where('id',$id)->get();
         $agentProfileData = Agent::select('agents.id','agents.image','users.name','users.phone')->join('users','users.id','agents.user_id')->where('agents.id',$id)->first();
-
-        // $agentCustomerDatatd = DB::select("Select ts.id, ts.customer_name,
-        // ts.customer_phone, t.number, t.compensation, ts.sale_amount from twodsalelists ts left join twods t on ts.twod_id = t.id  where ts.agent_id = $id and ts.status =1;");
-
-
-        // $agentCustomerDatathd = DB::select("Select ts.id, ts.customer_name,
-        // ts.customer_phone, t.number, t.compensation, ts.sale_amount from threedsalelists ts left join threeds t on ts.threed_id = t.id  where ts.agent_id = $id and ts.status =1;");
-
-        // $agentCustomerDatalone = DB::select("Select ts.id, ts.customer_name,
-        // ts.customer_phone, t.number, t.compensation, ts.sale_amount from lonepyinesalelists ts left join lonepyines t on ts.lonepyine_id = t.id  where ts.agent_id = $id and ts.status =1;");
-        //dd($agentCustomerDatalone);
         $twod_salelists=Twodsalelist::select('agents.id','twods.number','twods.compensation','twodsalelists.customer_name','twodsalelists.customer_phone',DB::raw('SUM(twodsalelists.sale_amount)as Amount'))
                         ->join('agents','agents.id','twodsalelists.agent_id')
                         ->join('twods','twods.id','twodsalelists.twod_id')
@@ -86,7 +75,7 @@ class AgentRController extends Controller
                         ->join('threeds','threeds.id','threedsalelists.threed_id')
                         ->where('threedsalelists.agent_id',$id)
                         ->where('threedsalelists.status',1)
-                        ->where('threeds.date',$tdy_date)
+                        ->where('threedsalelists.date',$tdy_date)
                         ->groupBy('threedsalelists.id')
                         ->get()->toArray();
 
@@ -112,8 +101,6 @@ class AgentRController extends Controller
 
         $commision = Agent::select('commision')->where('id',$id)->first();
         $twodnum = Twod::select('number', 'compensation')->where('referee_id',$id)->get()->toArray();
-
-
         $twod=Twodsalelist::select('agents.id','users.name','users.phone','agents.referee_id',
                     DB::raw('( SUM(twodsalelists.sale_amount ) - ((agents.commision/100) * SUM(twodsalelists.sale_amount) )) As Amount'),
                     DB::raw('(((agents.commision/100) * SUM(twodsalelists.sale_amount) )) As Commision')
@@ -135,7 +122,7 @@ class AgentRController extends Controller
                     ->join('threeds','threeds.id','threedsalelists.threed_id')
                     ->where('agents.id',$id)
                     ->where('threedsalelists.status',1)
-                    ->where('threeds.date',$tdy_date)
+                    ->where('threedsalelists.date',$tdy_date)
                     ->groupBy('agents.referee_id')
                     ->join('users','users.id','agents.user_id')
                     ->get()->toArray();
