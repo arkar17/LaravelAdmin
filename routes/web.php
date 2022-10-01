@@ -191,8 +191,9 @@ Route::group(['middleware' => 'role:referee'], function(){
     Route::get('pdf/customerdata_export/{id}', [ExportController::class, 'customer_createPDF'])->name('customer.export_pdf');
     Route::get('/porfile-admin',[HomeController::class, 'adminprofile'])->name('porfile-admin');
     Route::get('create_user', [UserController::class, 'create_user']);
-    Route::get('winningstatus',[HomeController::class, 'viewWinning'])->name('winningstatus');
-    Route::post('add_winningstatus',[HomeController::class, 'winningstatus'])->name('add_winningstatus');
+    Route::get('winningstatus',[DashboardController::class, 'viewWinning'])->name('winningstatus');
+    
+    Route::post('add_winningstatus',[DashboardController::class, 'winningstatus'])->name('add_winningstatus');
 });
 
 });

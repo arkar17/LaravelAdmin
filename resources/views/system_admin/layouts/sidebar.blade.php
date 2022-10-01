@@ -93,7 +93,7 @@
 
           </div>
         </div>
-        <a class="side-bar-link" href="/winningstatus">
+        <a class="side-bar-link" href="{{route('winningstatus')}}">
             <iconify-icon icon="akar-icons:crown" class="sidebar-icon"></iconify-icon>
             <span>{{__('msg.winning_number')}}</span>
         </a>

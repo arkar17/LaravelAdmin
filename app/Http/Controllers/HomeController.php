@@ -84,6 +84,7 @@ class HomeController extends Controller
     }
     public function winningstatus(Request $request)
     {
+        dd('gsdfgdf');
         $date = Carbon::Now()->toDateString();
         $user=auth()->user()->id;
         $time = Carbon::now()->toTimeString();

@@ -116,12 +116,12 @@
 
 
             <tbody class="table-body-container">
-
+                <?php $a=1;?>
                 @foreach ($twodnumbers as $twodnumber)
 
                 <tr class="table-row">
 
-                    <td>2D-{{$twodnumber->id}}</td>
+                    <td>{{$a++}}</td>
 
                     <td>{{$twodnumber->name}}</td>
 
@@ -168,10 +168,11 @@
             </tr>
 
             <tbody class="table-body-container">
+                <?php $i=1;?>
                 @foreach ($lonepyinenumbers as $lonepyinenumber)
                 <tr class="table-row">
 
-                    <td>LP-{{$lonepyinenumber->id}}</td>
+                    <td>{{$i++}}</td>
 
                     <td>{{$lonepyinenumber->name}}</td>
 
@@ -217,13 +218,13 @@
 
                 </tr>
 
-
-
+            <tbody class="table-body-container">
+                <?php $b=1;?>
                 @foreach ($threednumbers as $threednumber)
-                <tbody class="table-body-container">
+               
                 <tr class="table-row">
 
-                    <td>2D-{{$threednumber->id}}</td>
+                    <td>{{$b++}}</td>
 
                     <td>{{$threednumber->name}}</td>
 
@@ -236,9 +237,9 @@
                     <td>{{$threednumber->date}}</td>
 
                 </tr>
-                </tbody>
-
+               
                 @endforeach
+            </tbody>
 
             </table>
 

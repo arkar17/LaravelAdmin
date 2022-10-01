@@ -38,15 +38,16 @@ class ProfileController extends Controller
                             LEFT JOIN users u on u.id = a.user_id
                             where re.id='$referee_id' Group By a.id,u.name,u.phone;");
 
-        $twod_salelist=DB::select("SELECT a.id,u.name,u.phone,COALESCE(SUM(td.sale_amount),0)Amount from agents a
+        $twod_salelist=DB::select("SELECT a.id,u.name,u.phone,SUM(td.sale_amount)-(SUM(td.sale_amount)*(a.commision/100))Amount from agents a
                         left join twodsalelists td on a.id=td.agent_id and td.status=1
                         join referees re on a.referee_id=re.id
                         LEFT JOIN users u on u.id = a.user_id
                         where a.referee_id='$referee_id'
                         group BY a.id;");
+
          $twod = json_decode(json_encode ( $twod_salelist ) , true);
 
-        $threed_salelist=DB::select("SELECT a.id,u.name,u.phone,COALESCE(SUM(td.sale_amount),0)Amount from agents a
+        $threed_salelist=DB::select("SELECT a.id,u.name,u.phone,SUM(td.sale_amount)-(SUM(td.sale_amount)*(a.commision/100))Amount from agents a
                         left join threedsalelists td on a.id=td.agent_id and td.status=1
                         join referees re on a.referee_id=re.id
                         LEFT JOIN users u on u.id = a.user_id
@@ -54,7 +55,7 @@ class ProfileController extends Controller
                         group BY a.id;");
         $threed=json_decode(json_encode ( $threed_salelist ) , true);
 
-        $lonepyine_salelists=DB::select("SELECT a.id,u.name,u.phone,COALESCE(SUM(td.sale_amount),0)Amount from agents a
+        $lonepyine_salelists=DB::select("SELECT a.id,u.name,u.phone,SUM(td.sale_amount)-(SUM(td.sale_amount)*(a.commision/100))Amount from agents a
                         left join lonepyinesalelists td on a.id=td.agent_id and td.status=1
                         join referees re on a.referee_id=re.id
                         LEFT JOIN users u on u.id = a.user_id
@@ -83,7 +84,6 @@ class ProfileController extends Controller
     public function agentprofile($id)
     {
         $date=Carbon::now()->toDateString();
-
         $time=Carbon::now()->toTimeString();
         if($time>16){
             $round='Evening';
@@ -129,19 +129,15 @@ class ProfileController extends Controller
 
         $sum=0;
         foreach($output as $op){
-
             $sum+=$op['Amount'];
         }
         $commisions=0;
         foreach($output as $op){
-
         $commisions+=$op['Commision'];
         }
-
-
-        $threecus=DB::select("SELECT (SUM(tr.sale_amount))maincash ,a.id,tr.customer_name From agents a left join threedsalelists tr on tr.agent_id = a.id left join threeds td on tr.threed_id=td.id where a.id='$id' and tr.status=1 and td.date='$date' Group By a.id,tr.customer_name ORDER BY maincash DESC;");
-        $twocus=DB::select("SELECT (SUM(ts.sale_amount))maincash ,a.id,ts.customer_name From agents a left join twodsalelists ts on ts.agent_id = a.id left join twods td on ts.twod_id=td.id where ts.status = 1 and a.id='$id' and td.date='$date' and td.round='$round' Group By a.id,ts.customer_name ORDER BY maincash DESC;");
-        $lpcus=DB::select("SELECT (SUM(ls.sale_amount))maincash ,a.id,ls.customer_name From agents a left join lonepyinesalelists ls on ls.agent_id = a.id left join lonepyines l on ls.lonepyine_id=l.id where ls.status = 1 and a.id='$id' and l.date='$date' and l.round='$round' Group By a.id,ls.customer_name ORDER BY maincash DESC;");
+        $twocus=DB::select("Select (SUM(ts.sale_amount))maincash ,a.id,ts.customer_name From agents a left join referees re on re.id = a.referee_id left join twodsalelists ts on ts.agent_id = a.id and ts.status = 1 WHERE a.id=$id Group By a.id,ts.customer_name ORDER BY maincash DESC limit 3;");
+        $threecus=DB::select("Select (SUM(tr.sale_amount))maincash ,a.id,tr.customer_name From agents a left join referees re on re.id = a.referee_id left join threedsalelists tr on tr.agent_id = a.id and tr.status = 1 WHERE a.id=$id Group By a.id,tr.customer_name ORDER BY maincash DESC limit 3;");
+        $lpcus=DB::select("Select (SUM(ls.sale_amount))maincash ,a.id,ls.customer_name From agents a left join referees re on re.id = a.referee_id left join lonepyinesalelists ls on ls.agent_id = a.id and ls.status = 1 WHERE a.id=$id Group By a.id,ls.customer_name ORDER BY maincash DESC limit 3;");
         //$cussaleamounts= DB::select("Select (SUM(ts.sale_amount)+SUM(tr.sale_amount)+SUM(ls.sale_amount))maincash ,a.id,ts.customer_name,tr.customer_name,ls.customer_name From agents a left join referees re on re.id = a.referee_id left join twodsalelists ts on ts.agent_id = a.id and ts.status = 1 left join threedsalelists tr on tr.agent_id = a.id and tr.status = 1 left join lonepyinesalelists ls on ls.agent_id = a.id and ls.status = 1 WHERE a.id=$id Group By a.id,ts.customer_name,tr.customer_name,ls.customer_name;");
         //$agent=Agent::findOrFail($id);
         $twod_salelists=Twodsalelist::select('agents.id','twodsalelists.customer_name','twodsalelists.created_at','twodsalelists.customer_phone',DB::raw('SUM(twodsalelists.sale_amount)as Amount'))
