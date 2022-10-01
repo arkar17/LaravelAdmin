@@ -140,25 +140,31 @@ class ProfileController extends Controller
         $lpcus=DB::select("Select (SUM(ls.sale_amount))maincash ,a.id,ls.customer_name From agents a left join referees re on re.id = a.referee_id left join lonepyinesalelists ls on ls.agent_id = a.id and ls.status = 1 WHERE a.id=$id Group By a.id,ls.customer_name ORDER BY maincash DESC limit 3;");
         //$cussaleamounts= DB::select("Select (SUM(ts.sale_amount)+SUM(tr.sale_amount)+SUM(ls.sale_amount))maincash ,a.id,ts.customer_name,tr.customer_name,ls.customer_name From agents a left join referees re on re.id = a.referee_id left join twodsalelists ts on ts.agent_id = a.id and ts.status = 1 left join threedsalelists tr on tr.agent_id = a.id and tr.status = 1 left join lonepyinesalelists ls on ls.agent_id = a.id and ls.status = 1 WHERE a.id=$id Group By a.id,ts.customer_name,tr.customer_name,ls.customer_name;");
         //$agent=Agent::findOrFail($id);
-        $twod_salelists=Twodsalelist::select('agents.id','twodsalelists.customer_name','twodsalelists.created_at','twodsalelists.customer_phone',DB::raw('SUM(twodsalelists.sale_amount)as Amount'))
+        $twod_salelists=Twodsalelist::select('agents.id','twodsalelists.customer_name','twodsalelists.created_at','twodsalelists.customer_phone',
+                        DB::raw('SUM(twodsalelists.sale_amount)as Amount'))
                         ->join('agents','agents.id','twodsalelists.agent_id')
                         ->where('agent_id',$id)
                         ->where('status',1)
                         ->groupBy('customer_name','customer_phone')
+                        ->orderBy('twodsalelists.created_at','DESC')
                         ->get()->toArray();
 
-        $threed_salelists=Threedsalelist::select('agents.id','threedsalelists.customer_name','threedsalelists.created_at','threedsalelists.customer_phone',DB::raw('SUM(threedsalelists.sale_amount)as Amount'))
+        $threed_salelists=Threedsalelist::select('agents.id','threedsalelists.customer_name','threedsalelists.created_at','threedsalelists.customer_phone',
+                        DB::raw('SUM(threedsalelists.sale_amount)as Amount'))
                         ->join('agents','agents.id','threedsalelists.agent_id')
                         ->where('agent_id',$id)
                         ->where('status',1)
                         ->groupBy('customer_name','customer_phone')
+                        ->orderBy('threedsalelists.created_at','DESC')
                         ->get()->toArray();
 
-        $lonepyine_salelists=Lonepyinesalelist::select('agents.id','lonepyinesalelists.customer_name','lonepyinesalelists.created_at','lonepyinesalelists.customer_phone',DB::raw('SUM(lonepyinesalelists.sale_amount)as Amount'))
+        $lonepyine_salelists=Lonepyinesalelist::select('agents.id','lonepyinesalelists.customer_name','lonepyinesalelists.created_at','lonepyinesalelists.customer_phone',
+                        DB::raw('SUM(lonepyinesalelists.sale_amount)as Amount'))
                         ->join('agents','agents.id','lonepyinesalelists.agent_id')
                         ->where('agent_id',$id)
                         ->where('status',1)
                         ->groupBy('customer_name','customer_phone')
+                        ->orderBy('lonepyinesalelists.created_at','DESC')
                         ->get()->toArray();
 
         $output = array_merge($twod_salelists,$threed_salelists,$lonepyine_salelists);

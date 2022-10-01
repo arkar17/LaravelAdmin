@@ -86,7 +86,7 @@
 
                     <div class="export-btns-container">
                         <a href="{{route('customer.export_excel',$agent->id)}}">Export excel </a>
- 
+
                         <a href="{{route('customer.export_pdf',$agent->id)}}">Export pdf</a>
                     </div>
 
@@ -95,7 +95,7 @@
                 <table class="agent-profile-customer-list-container">
                     <thead>
                         <tr class="agent-profile-customer-list-labels-container">
-                            <th>{{__('msg.ID')}}</th>
+                            <th>{{__('msg.No')}}</th>
                             <th>{{__('msg.Name')}}</th>
                             <th>{{__('msg.Phone Number')}}</th>
                             <th>{{__('msg.Date')}}</th>

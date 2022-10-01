@@ -26,7 +26,7 @@
               <table class="roles-lists-parent-container">
                 <thead>
                 <tr class="roles-list-labels-container">
-                  <th>{{__('msg.ID')}}</th>
+                  <th>{{__('msg.No')}}</th>
                   <th>{{__('msg.Name')}}</th>
                   <th>{{__('msg.Date')}}</th>
                   <th>{{__('msg.Action')}}</th>
@@ -35,7 +35,7 @@
 
                 <tbody class="roles-list-rows-container">
                     @php
-                    $i = 0;
+                    $i = 1;
                     @endphp
                     @foreach ($roles as $role)
                   <tr class="roles-list-row">

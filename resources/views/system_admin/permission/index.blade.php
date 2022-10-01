@@ -27,7 +27,7 @@
                 <table class="permissions-lists-parent-container">
                     <thead>
                         <tr class="permissions-list-labels-container">
-                            <th>{{__('msg.ID')}}</th>
+                            <th>{{__('msg.No')}}</th>
                             <th>{{__('msg.Name')}}</th>
 
                             <th>{{__('msg.Action')}}</th>
@@ -36,7 +36,7 @@
 
                     <tbody class="permissions-list-rows-container">
                         @php
-                            $i = 0;
+                            $i = 1;
                         @endphp
                         @foreach ($permissions as $permission)
                             <tr class="permissions-list-row">
