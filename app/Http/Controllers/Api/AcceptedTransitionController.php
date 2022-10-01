@@ -70,9 +70,9 @@ class AcceptedTransitionController extends Controller
         if ($user) {
             $agent =  Agent::where('user_id', $user->id)->first();
             $accepted_threed_lists = Threedsalelist::where('status', '1')
-                ->where('agent_id', $agent->id)->with('threed')->whereHas('threed', function ($q) use ($current_date) {
-                    $q->where('date', $current_date);
-                })->get();
+                ->where('agent_id', $agent->id)
+                ->where('date', $current_date)
+                ->with('threed')->get();
             return response()->json([
                 'status' => 200,
                 'accepted_threed_lists' => $accepted_threed_lists
@@ -94,9 +94,8 @@ class AcceptedTransitionController extends Controller
         if ($user) {
             $agent =  Agent::where('user_id', $user->id)->first();
             $accepted_threed_lists = Threedsalelist::where('status', '1')
-                ->where('agent_id', $agent->id)->with('threed')->whereHas('threed', function ($q) use ($current_date) {
-                    $q->where('date', $current_date);
-                })->get();
+                ->where('date', $current_date)
+                ->where('agent_id', $agent->id)->with('threed')->get();
             return response()->json([
                 'status' => 200,
                 'accepted_threed_lists' => $accepted_threed_lists
