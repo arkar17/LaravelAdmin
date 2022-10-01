@@ -502,7 +502,7 @@ class DashboardController extends Controller
             ->where('twods.date',$current_date)
             ->where('twodsalelists.status',2)
             ->groupBy('twods.number')
-            ->having('twods.max_amount','<=',DB::raw('SUM(twodsalelists.sale_amount)'))
+            // ->having('twods.max_amount','<=',DB::raw('SUM(twodsalelists.sale_amount)'))
             ->get();
 
             $Declined_lonepyineList = Lonepyinesalelist::select('lonepyines.number','lonepyines.max_amount','users.name',DB::raw('SUM(lonepyinesalelists.sale_amount)as sales'))
@@ -513,7 +513,7 @@ class DashboardController extends Controller
                         ->where('lonepyines.date',$current_date)
                         ->where('lonepyinesalelists.status',2)
                         ->groupBy('lonepyines.number')
-                        ->having('lonepyines.max_amount','<=',DB::raw('SUM(lonepyinesalelists.sale_amount)'))
+                        // ->having('lonepyines.max_amount','<=',DB::raw('SUM(lonepyinesalelists.sale_amount)'))
                         ->get();
                         return view('dashboard', compact( 'sum', 'agents', 'refe_twod_salelists',
                         'refe_lp_salelists', 'Declined_lonepyineList', 'Declined_twoDList','profit'));
