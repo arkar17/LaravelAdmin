@@ -126,29 +126,29 @@ class RefreeManagementController extends Controller
 
     public function twoDmanage()
     {
-        $user = auth()->user()->id;
-        $referee = Referee::where('user_id', $user)->first();
-        $currenDate = Carbon::now()->toDateString();
-        $twoD_lists = DB::select("SELECT aa.id,aa.number , aa.max_amount , aa.compensation
-        from (SELECT * FROM ( SELECT * FROM twods t where referee_id = '$referee->id' ORDER BY id DESC LIMIT 100 )sub ORDER BY id ASC) aa
-        LEFT join agents on aa.referee_id = agents.id
-        LEFT join twodsalelists ts on ts.twod_id = aa.id
-        and ts.status = 1
-        where aa.referee_id = '$referee->id'
-        and aa.date = '$currenDate'
-        and aa.round = 'Evening'
-        group by aa.number");
+        // $user = auth()->user()->id;
+        // $referee = Referee::where('user_id', $user)->first();
+        // $currenDate = Carbon::now()->toDateString();
+        // $twoD_lists = DB::select("SELECT aa.id,aa.number , aa.max_amount , aa.compensation
+        // from (SELECT * FROM ( SELECT * FROM twods t where referee_id = '$referee->id' ORDER BY id DESC LIMIT 100 )sub ORDER BY id ASC) aa
+        // LEFT join agents on aa.referee_id = agents.id
+        // LEFT join twodsalelists ts on ts.twod_id = aa.id
+        // and ts.status = 1
+        // where aa.referee_id = '$referee->id'
+        // and aa.date = '$currenDate'
+        // and aa.round = 'Evening'
+        // group by aa.number");
     // dd($twoD_lists);
-        $twoD_sale_lists = DB::select("SELECT aa.number, SUM(ts.sale_amount) as sales
-        from twods aa
-        RIGHT join agents on aa.referee_id = agents.id
-        RIGHT join twodsalelists ts on ts.twod_id = aa.id
-        and ts.status = 1
-        where aa.referee_id = '$referee->id'
-        and aa.date = '$currenDate'
-        and aa.round = 'Evening'
-        group by aa.number");
-        dd($twoD_sale_lists);
+        // $twoD_sale_lists = DB::select("SELECT aa.number, SUM(ts.sale_amount) as sales
+        // from twods aa
+        // RIGHT join agents on aa.referee_id = agents.id
+        // RIGHT join twodsalelists ts on ts.twod_id = aa.id
+        // and ts.status = 1
+        // where aa.referee_id = '$referee->id'
+        // and aa.date = '$currenDate'
+        // and aa.round = 'Evening'
+        // group by aa.number");
+        // dd($twoD_sale_lists);
 
         // $output = array_column($twoD_sale_lists, 'number','sales');
         // foreach ($twoD_lists as &$r) {

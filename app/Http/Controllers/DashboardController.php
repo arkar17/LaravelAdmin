@@ -466,16 +466,24 @@ class DashboardController extends Controller
                 return $carry;
                 });
 
-            foreach($sum as $ss){
-                if($winningAmt == null){
-                    $profit = $ss['Amount'] - 0;
-                }
-                else{
-                    foreach($winningAmt as $profit){
-                        $profit = $ss['Amount'] - $profit['Winning'];
+            if($sum != null && $winningAmt != null)
+                {
+                    foreach($sum as $ss){
+                        if($winningAmt == null){
+                            $profit = $ss['Amount'] - 0;
+                        }
+                        else{
+                            foreach($winningAmt as $profit){
+                                $profit = $ss['Amount'] - $profit['Winning'];
+                            }
+                        }
                     }
                 }
-            }
+                else{
+
+                        $profit = 0;
+
+               }
 
 
 
