@@ -26,10 +26,11 @@
         <div class="dashboard-gradient-sale-container">
             <iconify-icon icon="bi:currency-dollar" class="dashboard-sale-icon"></iconify-icon>
             <p class="dashboard-gradient-label">{{__('msg.Total Sale Amount')}}</p>
+            <?php $a=0; ?>
                 @if($sum != null || $sum != 0)
-                @foreach($sum as $total)
-                <p class="dashboard-gradient-stat">{{$total['Amount']}}</p>
-                @endforeach
+
+                <p class="dashboard-gradient-stat">{{$sum}}</p>
+
                 @else
                 <p class="dashboard-gradient-stat">0</p>
                 @endif

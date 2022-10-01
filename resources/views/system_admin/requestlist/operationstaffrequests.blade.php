@@ -29,7 +29,7 @@
             <table class="referee-request-container">
                 <thead>
                     <tr class="referee-requests-labels-container">
-                        <th>{{__('msg.ID')}}</th>
+                        <th>{{__('msg.No')}}</th>
                         <th>{{__('msg.Name')}}</th>
                         <th>{{__('msg.Phone Number')}}</th>
                         <th>{{__('msg.Remark')}}</th>
@@ -39,10 +39,11 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php $i=1; ?>
               @foreach ($operationstaffs as $operationstaff )
 
               <tr class="referee-request-row">
-                <td>{{$operationstaff->id}}</td>
+                <td>{{$i++}}</td>
                 <td>{{$operationstaff->name}}</td>
                 <td>{{$operationstaff->phone}}</td>
                 <td class="referee-request-remark">{{$operationstaff->remark}}</td>

@@ -324,7 +324,7 @@ class DashboardController extends Controller
                         ->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')
                         ->join('agents','lonepyinesalelists.agent_id','agents.id')
                         ->where('lonepyinesalelists.status',1)
-                        ->groupBy('lonepyines.referee_id')
+                        ->groupBy('lonepyines.referee_id','lonepyinesalelists.agent_id')
                         ->get()->toArray();
             // dd($lonepyinetotal);
             $threedtotal =  Threedsalelist::select('threeds.referee_id','agents.id',
@@ -334,21 +334,25 @@ class DashboardController extends Controller
                             ->join('threeds','threeds.id','threedsalelists.threed_id')
                             ->join('agents','threedsalelists.agent_id','agents.id')
                             ->where('threedsalelists.status',1)
-                            ->groupBy('threeds.referee_id')
+                            ->groupBy('threeds.referee_id','threedsalelists.agent_id')
                             ->get()->toArray();
             // dd($threedtotal);
             $output = array_merge($twodtotal,$lonepyinetotal,$threedtotal);
 
 
-            $sum = array_reduce($output, function($carry, $item){
+            $ss = array_reduce($output, function($carry, $item){
                 if(!isset($carry[$item['referee_id']])){
-                $carry[$item['referee_id']] = ['Amount'=>$item['Amount'], 'Commission'=>$item['Commission']];
+                $carry[$item['referee_id']] = ['Amount'=>$item['Amount'], 'Commission'=>$item['Commission'],'referee_id'=>$item['referee_id']];
                 } else {
                 $carry[$item['referee_id']]['Amount'] += $item['Amount'];
                 $carry[$item['referee_id']]['Commission'] += $item['Commission'];
                 }
                 return $carry;
                 });
+                $sum=0;
+                foreach($ss as $s){
+                    $sum+=$s['Amount'];
+                }
 
                 $twod_salelists = Twodsalelist::select('twods.number', DB::raw('SUM(twodsalelists.sale_amount)sale_amount'))
                                                 ->orderBy('sale_amount', 'DESC')
