@@ -633,13 +633,13 @@ class RefreeManagementController extends Controller
             left join agents a ON a.id = tds.agent_id
             left join threeds td on td.id = tds.threed_id
             left join cashin_cashouts cio on tds.agent_id = cio.agent_id
-            where tds.status = '3' and td.date = '$currenDate'
+            where tds.status = '3' and tds.date = '$currenDate'
             group by tds.agent_id");
             $amtforR = DB::select("Select (COALESCE(SUM(tds.sale_amount),0) + COALESCE(re.main_cash,0) - (a.commision/100)*  (COALESCE(SUM(tds.sale_amount),0)) ) totalSale ,re.id
             From agents a left join referees re on re.id = a.referee_id
             left join threedsalelists tds on tds.agent_id = a.id
             left join threeds td on td.id = tds.threed_id
-            where tds.status = 3 and td.date = '$currenDate'
+            where tds.status = 3 and tds.date = '$currenDate'
             Group By re.id");
             foreach($amtforR as $amtR){
                 //  dd($amtR->totalSale);
