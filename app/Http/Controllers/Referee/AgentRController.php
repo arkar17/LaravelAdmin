@@ -75,7 +75,7 @@ class AgentRController extends Controller
                         ->join('threeds','threeds.id','threedsalelists.threed_id')
                         ->where('threedsalelists.agent_id',$id)
                         ->where('threedsalelists.status',1)
-                        ->where('threeds.date',$tdy_date)
+                        ->where('threedsalelists.date',$tdy_date)
                         ->groupBy('threedsalelists.id')
                         ->get()->toArray();
 
