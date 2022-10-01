@@ -20,7 +20,7 @@
                     </thead>
 
                   <tbody class="agent-data-list-rows-container">
-                    @if (count($agentdata) ==null || count($agentdata) ==0)
+                    @if ($agentdata ==null || $agentdata ==0)
                         <p style="text-align: center;">{{__('msg.Not have agents data')}}</p>
                         @else
                         <?php $i=1;?>

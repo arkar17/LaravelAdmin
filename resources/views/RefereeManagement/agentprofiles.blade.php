@@ -83,7 +83,15 @@
                                 @if ($commision->commision == null)
                                     <p>0 {{__('msg.percent')}}</p>
                                 @else
-                                <p>{{$commision->commision}} {{__('msg.percent')}}</p>
+                                <p>{{$commision->commision}} {{__('msg.percent')}}  &nbsp; ( &nbsp;
+                                    @if($commisions == null || $commisions ==0)
+                                    0 {{__('msg.ks')}}
+                                @else
+                                    {{$commisions}} {{__('msg.ks')}}
+
+                                @endif
+                                 &nbsp; )
+                                </p>
                                 @endif
 
                             </div>

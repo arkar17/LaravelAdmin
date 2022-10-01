@@ -91,37 +91,54 @@ class ProfileController extends Controller
             $round='Morning';
         }
         $agent=Agent::findOrFail($id);
-        $twod=Twodsalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(twodsalelists.sale_amount)as Amount'))
-                    ->join('agents','agents.id','twodsalelists.agent_id')
-                    ->where('agents.id',$id)
-                    ->where('twodsalelists.status',1)
-                    ->groupBy('agents.referee_id')
-                    ->join('users','users.id','agents.user_id')
-                    ->get()->toArray();
 
-        $threed=Threedsalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(threedsalelists.sale_amount)as Amount'))
-                    ->join('agents','agents.id','threedsalelists.agent_id')
-                    ->where('agents.id',$id)
-                    ->where('threedsalelists.status',1)
-                    ->groupBy('agents.referee_id')
-                    ->join('users','users.id','agents.user_id')
-                    ->get()->toArray();
+        $twod=Twodsalelist::select('agents.id','users.name','users.phone','agents.referee_id',
+        DB::raw('( SUM(twodsalelists.sale_amount ) - ((agents.commision/100) * SUM(twodsalelists.sale_amount) )) As Amount'),
+        DB::raw('(((agents.commision/100) * SUM(twodsalelists.sale_amount) )) As Commision')
+        )
+        ->join('agents','agents.id','twodsalelists.agent_id')
+        ->where('agents.id',$id)
+        ->where('twodsalelists.status',1)
+        ->groupBy('agents.referee_id')
+        ->join('users','users.id','agents.user_id')
+        ->get()->toArray();
 
-        $lonepyine=Lonepyinesalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(lonepyinesalelists.sale_amount)as Amount'))
-                    ->join('agents','agents.id','lonepyinesalelists.agent_id')
-                    ->where('agents.id',$id)
-                    ->where('lonepyinesalelists.status',1)
-                    ->groupBy('agents.referee_id')
-                    ->join('users','users.id','agents.user_id')
-                    ->get()->toArray();
+        $threed=Threedsalelist::select('agents.id','users.name','users.phone','agents.referee_id',
+                DB::raw('( SUM(threedsalelists.sale_amount ) - ((agents.commision/100) * SUM(threedsalelists.sale_amount) )) As Amount'),
+                DB::raw('( ((agents.commision/100) * SUM(threedsalelists.sale_amount) )) As Commision')
+                )
+                ->join('agents','agents.id','threedsalelists.agent_id')
+                ->where('agents.id',$id)
+                ->where('threedsalelists.status',1)
+                ->groupBy('agents.referee_id')
+                ->join('users','users.id','agents.user_id')
+                ->get()->toArray();
+
+        $lonepyine=Lonepyinesalelist::select('agents.id','users.name','users.phone','agents.referee_id',
+                DB::raw('( SUM(lonepyinesalelists.sale_amount ) - ((agents.commision/100) * SUM(lonepyinesalelists.sale_amount) )) As Amount'),
+                DB::raw('(((agents.commision/100) * SUM(lonepyinesalelists.sale_amount) )) As Commision')
+                )
+                ->join('agents','agents.id','lonepyinesalelists.agent_id')
+                ->where('agents.id',$id)
+                ->where('lonepyinesalelists.status',1)
+                ->groupBy('agents.referee_id')
+                ->join('users','users.id','agents.user_id')
+                ->get()->toArray();
 
         $output = array_merge($twod,$threed,$lonepyine);
 
         $sum=0;
-            foreach($output as $op){
+        foreach($output as $op){
 
-                $sum+=$op['Amount'];
-            }
+            $sum+=$op['Amount'];
+        }
+        $commisions=0;
+        foreach($output as $op){
+
+        $commisions+=$op['Commision'];
+        }
+
+
         $threecus=DB::select("SELECT (SUM(tr.sale_amount))maincash ,a.id,tr.customer_name From agents a left join threedsalelists tr on tr.agent_id = a.id left join threeds td on tr.threed_id=td.id where a.id='$id' and tr.status=1 and td.date='$date' Group By a.id,tr.customer_name ORDER BY maincash DESC;");
         $twocus=DB::select("SELECT (SUM(ts.sale_amount))maincash ,a.id,ts.customer_name From agents a left join twodsalelists ts on ts.agent_id = a.id left join twods td on ts.twod_id=td.id where ts.status = 1 and a.id='$id' and td.date='$date' and td.round='$round' Group By a.id,ts.customer_name ORDER BY maincash DESC;");
         $lpcus=DB::select("SELECT (SUM(ls.sale_amount))maincash ,a.id,ls.customer_name From agents a left join lonepyinesalelists ls on ls.agent_id = a.id left join lonepyines l on ls.lonepyine_id=l.id where ls.status = 1 and a.id='$id' and l.date='$date' and l.round='$round' Group By a.id,ls.customer_name ORDER BY maincash DESC;");
@@ -158,7 +175,7 @@ class ProfileController extends Controller
             return $carry;
             });
 
-        return view('system_admin.profile.agentprofile',compact('agent','sum','results','twod_salelists','threed_salelists','lonepyine_salelists','twocus','threecus','lpcus'));
+        return view('system_admin.profile.agentprofile',compact('agent','sum','results','twod_salelists','threed_salelists','lonepyine_salelists','twocus','threecus','lpcus','commisions'));
     }
 
     public function guestprofile($id)

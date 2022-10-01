@@ -110,7 +110,10 @@ class AgentRController extends Controller
         $twodnum = Twod::select('number', 'compensation')->where('referee_id',$id)->get()->toArray();
 
 
-        $twod=Twodsalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(twodsalelists.sale_amount)as Amount'))
+        $twod=Twodsalelist::select('agents.id','users.name','users.phone','agents.referee_id',
+                    DB::raw('( SUM(twodsalelists.sale_amount ) - ((agents.commision/100) * SUM(twodsalelists.sale_amount) )) As Amount'),
+                    DB::raw('(((agents.commision/100) * SUM(twodsalelists.sale_amount) )) As Commision')
+                    )
                     ->join('agents','agents.id','twodsalelists.agent_id')
                     ->where('agents.id',$id)
                     ->where('twodsalelists.status',1)
@@ -118,7 +121,10 @@ class AgentRController extends Controller
                     ->join('users','users.id','agents.user_id')
                     ->get()->toArray();
 
-        $threed=Threedsalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(threedsalelists.sale_amount)as Amount'))
+        $threed=Threedsalelist::select('agents.id','users.name','users.phone','agents.referee_id',
+                    DB::raw('( SUM(threedsalelists.sale_amount ) - ((agents.commision/100) * SUM(threedsalelists.sale_amount) )) As Amount'),
+                    DB::raw('( ((agents.commision/100) * SUM(threedsalelists.sale_amount) )) As Commision')
+                    )
                     ->join('agents','agents.id','threedsalelists.agent_id')
                     ->where('agents.id',$id)
                     ->where('threedsalelists.status',1)
@@ -126,7 +132,10 @@ class AgentRController extends Controller
                     ->join('users','users.id','agents.user_id')
                     ->get()->toArray();
 
-        $lonepyine=Lonepyinesalelist::select('agents.id','users.name','users.phone','agents.referee_id',DB::raw('SUM(lonepyinesalelists.sale_amount)as Amount'))
+        $lonepyine=Lonepyinesalelist::select('agents.id','users.name','users.phone','agents.referee_id',
+                    DB::raw('( SUM(lonepyinesalelists.sale_amount ) - ((agents.commision/100) * SUM(lonepyinesalelists.sale_amount) )) As Amount'),
+                    DB::raw('(((agents.commision/100) * SUM(lonepyinesalelists.sale_amount) )) As Commision')
+                    )
                     ->join('agents','agents.id','lonepyinesalelists.agent_id')
                     ->where('agents.id',$id)
                     ->where('lonepyinesalelists.status',1)
@@ -141,12 +150,19 @@ class AgentRController extends Controller
 
                 $sum+=$op['Amount'];
             }
+         $commisions=0;
+            foreach($output as $op){
+
+               $commisions+=$op['Commision'];
+             }
+       // dd($commisions);
+
 
 
       $twocus=DB::select("Select (SUM(ts.sale_amount))maincash ,a.id,ts.customer_name From agents a left join referees re on re.id = a.referee_id left join twodsalelists ts on ts.agent_id = a.id and ts.status = 1 WHERE a.id=$id Group By a.id,ts.customer_name ORDER BY maincash DESC limit 3;");
       $threecus=DB::select("Select (SUM(tr.sale_amount))maincash ,a.id,tr.customer_name From agents a left join referees re on re.id = a.referee_id left join threedsalelists tr on tr.agent_id = a.id and tr.status = 1 WHERE a.id=$id Group By a.id,tr.customer_name ORDER BY maincash DESC limit 3;");
       $lpcus=DB::select("Select (SUM(ls.sale_amount))maincash ,a.id,ls.customer_name From agents a left join referees re on re.id = a.referee_id left join lonepyinesalelists ls on ls.agent_id = a.id and ls.status = 1 WHERE a.id=$id Group By a.id,ls.customer_name ORDER BY maincash DESC limit 3;");
-      return view('RefereeManagement.agentprofiles')->with(['twocus'=>$twocus,'threecus'=>$threecus,'lpcus'=>$lpcus,'commision'=>$commision,'agentprofiledata'=>$agentProfileData,'agentCustomerData'=>$agentCustomerData, 'sum'=>$sum, 'twodnum'=>$twodnum]);
+      return view('RefereeManagement.agentprofiles')->with(['twocus'=>$twocus,'threecus'=>$threecus,'lpcus'=>$lpcus,'commision'=>$commision,'agentprofiledata'=>$agentProfileData,'agentCustomerData'=>$agentCustomerData, 'sum'=>$sum, 'twodnum'=>$twodnum, 'commisions'=>$commisions]);
     }
 
     public function agentcommsionupdate(Request $request,$id){

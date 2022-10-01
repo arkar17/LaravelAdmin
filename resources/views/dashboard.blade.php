@@ -99,12 +99,15 @@
           <div class="dashboard-gradient-referee-container">
               <iconify-icon icon="majesticons:users-line" class="dashboard-referee-icon"></iconify-icon>
               <p class="dashboard-gradient-label">{{__('msg.Total Commision')}}</p>
-              <p class="dashboard-gradient-stat">{{$refe_totalcommision}}</p>
+              @foreach($sum as $total)
+              <p class="dashboard-gradient-stat">{{$total['Commission']}}</p>
+              @endforeach
           </div>
           <div class="dashboard-gradient-sale-container">
               <iconify-icon icon="bi:currency-dollar" class="dashboard-sale-icon"></iconify-icon>
               <p class="dashboard-gradient-label">{{__('msg.Total Profit')}}</p>
-              <p class="dashboard-gradient-stat">{{$totalprofit}}</p>
+
+              <p class="dashboard-gradient-stat">{{$profit}}</p>
           </div>
       </div>
 
