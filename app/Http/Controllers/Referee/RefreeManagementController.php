@@ -284,6 +284,12 @@ class RefreeManagementController extends Controller
 
     // dailysalebook start
     public function dailysalebook(){
+        $time=Carbon::now()->toTimeString();
+        if($time>12){
+            $round='Evening';
+        }else{
+            $round='Morning';
+        }
         $agents = Agent::get();
         //dd($agents->toArray());
         $user = auth()->user()->id;
@@ -297,6 +303,7 @@ class RefreeManagementController extends Controller
                                 ->orderBy('twodsalelists.id','desc')
                                 ->where('twods.referee_id',$referee->id)
                                 ->where('twodsalelists.status',0)
+                                ->where('twods.round',$round)
                                 ->where('twods.referee_id',$referee->id)
                                 ->get();
         $agenttwodsalenumber = Twodsalelist::select('twodsalelists.id','twodsalelists.agent_id','twodsalelists.sale_amount','twodsalelists.status','twods.number',
@@ -306,6 +313,7 @@ class RefreeManagementController extends Controller
         ->join('users','users.id','agents.user_id')
         ->where('twods.referee_id',$referee->id)
         ->where('twodsalelists.status',0)
+        ->where('twods.round',$round)
         ->where('twods.referee_id',$referee->id)
         ->get();
                             //dd($agenttwodsalenumber->toArray());
@@ -318,6 +326,7 @@ class RefreeManagementController extends Controller
                             ->orderBy('lonepyinesalelists.id','desc')
                             ->where('lonepyines.referee_id',$referee->id)
                             ->where('lonepyinesalelists.status',0)
+                            ->where('lonepyines.round',$round)
                             ->get();
                             //dd($agentlonepyinesalelist->toArray());
 
@@ -328,6 +337,7 @@ class RefreeManagementController extends Controller
         ->join('users','users.id','agents.user_id')
         ->where('lonepyines.referee_id',$referee->id)
         ->where('lonepyinesalelists.status',0)
+        ->where('lonepyines.round',$round)
         ->get();
                         //dd($agentlonepyinesalelist->toArray());
 
