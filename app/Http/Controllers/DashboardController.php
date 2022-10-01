@@ -438,7 +438,7 @@ class DashboardController extends Controller
                         ->where('lonepyines.date',$current_date)
                         ->where('lonepyines.referee_id',$referee->id)
                         ->where('lonepyinesalelists.status',1)
-                        ->groupBy('lonepyines.referee_id')
+                        ->groupBy('lonepyines.referee_id','lonepyinesalelists.agent_id')
                         ->get()->toArray();
             // dd($lonepyinetotal);
             $threedtotal =  Threedsalelist::select('threeds.referee_id','agents.id',
@@ -450,7 +450,7 @@ class DashboardController extends Controller
                             ->where('threedsalelists.date',$current_date)
                             ->where('threeds.referee_id',$referee->id)
                             ->where('threedsalelists.status',1)
-                            ->groupBy('threeds.referee_id')
+                            ->groupBy('threeds.referee_id','threedsalelists.agent_id')
                             ->get()->toArray();
             // dd($threedtotal);
             $output = array_merge($twodtotal,$lonepyinetotal,$threedtotal);
@@ -549,7 +549,7 @@ class DashboardController extends Controller
             ->where('twods.date',$current_date)
             ->where('twodsalelists.status',2)
             ->groupBy('twods.number')
-            ->having('twods.max_amount','<=',DB::raw('SUM(twodsalelists.sale_amount)'))
+            // ->having('twods.max_amount','<=',DB::raw('SUM(twodsalelists.sale_amount)'))
             ->get();
 
             $Declined_lonepyineList = Lonepyinesalelist::select('lonepyines.number','lonepyines.max_amount','users.name',DB::raw('SUM(lonepyinesalelists.sale_amount)as sales'))
@@ -560,7 +560,7 @@ class DashboardController extends Controller
                         ->where('lonepyines.date',$current_date)
                         ->where('lonepyinesalelists.status',2)
                         ->groupBy('lonepyines.number')
-                        ->having('lonepyines.max_amount','<=',DB::raw('SUM(lonepyinesalelists.sale_amount)'))
+                        // ->having('lonepyines.max_amount','<=',DB::raw('SUM(lonepyinesalelists.sale_amount)'))
                         ->get();
                         return view('dashboard', compact( 'sum', 'agents', 'refe_twod_salelists',
                         'refe_lp_salelists', 'Declined_lonepyineList', 'Declined_twoDList','profit'));
@@ -580,7 +580,7 @@ class DashboardController extends Controller
                             ->where('twods.date',$current_date)
                             ->where('twodsalelists.status',2)
                             ->groupBy('twods.number')
-                            ->having('twods.max_amount','<=',DB::raw('SUM(twodsalelists.sale_amount)'))
+                            // ->having('twods.max_amount','<=',DB::raw('SUM(twodsalelists.sale_amount)'))
                             ->get();
         $pdf = PDF::loadView('RefereeManagement.twoddecline_pdf',compact('Declined_twoDList'));
         return $pdf->download('twod_declinelists.pdf');
@@ -601,7 +601,7 @@ class DashboardController extends Controller
                                                 ->where('lonepyines.date',$current_date)
                                                 ->where('lonepyinesalelists.status',2)
                                                 ->groupBy('lonepyines.number')
-                                                ->having('lonepyines.max_amount','<=',DB::raw('SUM(lonepyinesalelists.sale_amount)'))
+                                                // ->having('lonepyines.max_amount','<=',DB::raw('SUM(lonepyinesalelists.sale_amount)'))
                                                 ->get();
         $pdf = PDF::loadView('RefereeManagement.lonepyinedecline_pdf',compact('Declined_lonepyineList'));
         return $pdf->download('lonepyine_declinelists.pdf');
