@@ -49,6 +49,8 @@ class LoginController extends Controller
     }
     protected function authenticated(Request $request, $user)
     {
+        $role_name=$user->getRoleNames()->toArray();
+
         if( $user->hasAnyRole(['referee'])){
 
             $referee=Referee::where('user_id',$user->id)->first();
@@ -60,7 +62,18 @@ class LoginController extends Controller
                 Auth::logout();
                 return redirect()->back()->with('message','Referee Account is expired !');
             }
+        }elseif($user->request_type=='agent'){
+            Auth::logout();
+            return redirect()->back()->with('message','Agent Cannot Login');
         }
+        elseif($user->request_type=='operationstaff'){
+            Auth::logout();
+            return redirect()->back()->with('message','Operationstaff Cannot Login');
+        }elseif($role_name!=['system_admin']){
+            Auth::logout();
+            return redirect()->back()->with('message','Guest User Cannot Login');
+        }
+
     }
 
     public function logout(Request $request) {

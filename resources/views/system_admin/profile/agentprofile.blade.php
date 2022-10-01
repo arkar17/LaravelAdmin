@@ -78,7 +78,7 @@
 
                     <div class="export-btns-container">
                         <a href="{{route('customer.export_excel',$agent->id)}}">Export excel </a>
-
+ 
                         <a href="{{route('customer.export_pdf',$agent->id)}}">Export pdf</a>
                     </div>
 
