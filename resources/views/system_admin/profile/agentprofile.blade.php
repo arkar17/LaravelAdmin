@@ -51,10 +51,18 @@
                         <div class="agent-profile-attribute">
                             <h3>{{__('msg.Commision')}}</h3>
                             @if ($agent->commision == null)
-                                <p>0 {{__('msg.percent')}}</p>
-                            @else
-                            <p>{{$agent->commision}} {{__('msg.percent')}}</p>
-                            @endif
+                            <p>0 {{__('msg.percent')}}</p>
+                                @else
+                                <p>{{$agent->commision}} {{__('msg.percent')}}  &nbsp; ( &nbsp;
+                                    @if($commisions == null || $commisions ==0)
+                                    0 {{__('msg.ks')}}
+                                @else
+                                    {{$commisions}} {{__('msg.ks')}}
+
+                                @endif
+                                &nbsp; )
+                        </p>
+                        @endif
 
                         </div>
                     </div>

@@ -369,158 +369,124 @@ class DashboardController extends Controller
                     $lonepyine_total += $lonepyine_salelist->sale_amount;
                 }
 
-            // $twodtotal = (int)Twodsalelist::Select('twods.referee_id',DB::raw('SUM(twodsalelists.sale_amount)as sales'))
-            // ->join('twods','twods.id','twodsalelists.twod_id')
-            // ->where('twodsalelists.status', '=', '1')->gorupBy('twods.referee_id')->get();
-            $twodtotal =  Twodsalelist::select('twods.referee_id',DB::raw('sum(twodsalelists.sale_amount) as Amount'))
-                ->join('twods','twods.id','twodsalelists.twod_id')
-                ->where('twods.date',$current_date)
-                ->where('twods.referee_id',$referee->id)
-                ->where('twodsalelists.status',1)
-                ->groupBy('twods.referee_id')
-                ->get()->toArray();
-                // dd($twodtotal);
-            $lonepyinetotal =  Lonepyinesalelist::select('lonepyines.referee_id',DB::raw('sum(lonepyinesalelists.sale_amount) as Amount'))
-                ->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')
-                ->where('lonepyines.date',$current_date)
-                ->where('lonepyines.referee_id',$referee->id)
-                ->where('lonepyinesalelists.status',1)
-                ->groupBy('lonepyines.referee_id')
-                ->get()->toArray();
 
-            $threedtotal =  Threedsalelist::select('threeds.referee_id',DB::raw('sum(threedsalelists.sale_amount)as Amount'))
-                ->join('threeds','threeds.id','threedsalelists.threed_id')
-                ->where('threeds.date',$current_date)
-                ->where('threeds.referee_id',$referee->id)
-                ->where('threedsalelists.status',1)
-                ->groupBy('threeds.referee_id')
-                ->get()->toArray();
-
+            $twodtotal =  Twodsalelist::select('twods.referee_id','agents.id',
+                          DB::raw('SUM(twodsalelists.sale_amount )'),
+                          DB::raw('(agents.commision/100) * SUM(twodsalelists.sale_amount) as Commission'),
+                          DB::raw('( SUM(twodsalelists.sale_amount ) - ((agents.commision/100) * SUM(twodsalelists.sale_amount) )) As Amount'  ))
+                        ->join('twods','twods.id','twodsalelists.twod_id')
+                        ->join('agents','twodsalelists.agent_id','agents.id')
+                        ->where('twods.date',$current_date)
+                        ->where('twods.referee_id',$referee->id)
+                        ->where('twodsalelists.status',1)
+                        ->groupBy('twods.referee_id','twodsalelists.agent_id')
+                        ->get()->toArray();
+            // dd($twodtotal);
+            $lonepyinetotal =  Lonepyinesalelist::select('lonepyines.referee_id','agents.id',
+                          DB::raw('(agents.commision/100) * SUM(lonepyinesalelists.sale_amount) as Commission'),
+                          DB::raw('SUM(lonepyinesalelists.sale_amount )'),
+                          DB::raw('( SUM(lonepyinesalelists.sale_amount ) - ((agents.commision/100) * SUM(lonepyinesalelists.sale_amount) )) As Amount'  ))
+                        ->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')
+                        ->join('agents','lonepyinesalelists.agent_id','agents.id')
+                        ->where('lonepyines.date',$current_date)
+                        ->where('lonepyines.referee_id',$referee->id)
+                        ->where('lonepyinesalelists.status',1)
+                        ->groupBy('lonepyines.referee_id')
+                        ->get()->toArray();
+            // dd($lonepyinetotal);
+            $threedtotal =  Threedsalelist::select('threeds.referee_id','agents.id',
+                          DB::raw('SUM(threedsalelists.sale_amount )'),
+                          DB::raw('(agents.commision/100) * SUM(threedsalelists.sale_amount) as Commission'),
+                          DB::raw('( SUM(threedsalelists.sale_amount ) - ((agents.commision/100) * SUM(threedsalelists.sale_amount) )) As Amount'  ))
+                            ->join('threeds','threeds.id','threedsalelists.threed_id')
+                            ->join('agents','threedsalelists.agent_id','agents.id')
+                            ->where('threedsalelists.date',$current_date)
+                            ->where('threeds.referee_id',$referee->id)
+                            ->where('threedsalelists.status',1)
+                            ->groupBy('threeds.referee_id')
+                            ->get()->toArray();
+            // dd($threedtotal);
             $output = array_merge($twodtotal,$lonepyinetotal,$threedtotal);
 
 
-            // dd($output);
-
-            // if(!$twodtotal){
-            //     $output = array_merge($lonepyinetotal,$threedtotal);
-            // }
-            // if(!$lonepyinetotal){
-            //     $output = array_merge($twodtotal,$threedtotal);
-            // }
-            // if(!$threedtotal){
-            //     $output = array_merge($twodtotal,$lonepyinetotal);
-            // }
-            // else{
-            //     $output = array_merge($twodtotal,$lonepyinetotal,$threedtotal);
-            // }
-
-            //  dd($output);
-
             $sum = array_reduce($output, function($carry, $item){
                 if(!isset($carry[$item['referee_id']])){
-                $carry[$item['referee_id']] = ['Amount'=>$item['Amount']];
+                $carry[$item['referee_id']] = ['Amount'=>$item['Amount'], 'Commission'=>$item['Commission']];
                 } else {
                 $carry[$item['referee_id']]['Amount'] += $item['Amount'];
+                $carry[$item['referee_id']]['Commission'] += $item['Commission'];
                 }
                 return $carry;
                 });
-                // dd($sum);
-            // $sum = $twod_total+$threed_total+$lonepyine_total;
-            // calculating commision start
 
-            //twod commision
-                $tdcomission = DB::select("SELECT SUM(ts.sale_amount), a.commision ,a.referee_id, ((a.commision/100) * SUM(ts.sale_amount) ) as Commision
-                FROM agents a
-                left join twodsalelists ts on a.id = ts.agent_id
-                left join twods t on t.id = ts.twod_id
-                where ts.status = 1
-                and t.date = '$current_date'
-                and a.referee_id = '$referee->id'
-                Group By a.referee_id,a.id;
-                ");
-    //dd($tdcomission[0]->Commision);
 
-                //twod yaw kyay
-                $tdpaid_winning = DB::select("SELECT ( t.compensation * SUM(ts.sale_amount) ) totalSale ,re.id, ((a.commision/100)* SUM(ts.sale_amount)) as Commission From agents a
-                left join referees re on re.id = a.referee_id
-                join twodsalelists ts on ts.agent_id = a.id
-                join twods t on t.id = ts.twod_id where ts.status = 1 and t.date = '$current_date' and ts.winning_status =1 and a.referee_id = '$referee->id' Group By re.id,t.id;");
-                //dd($tdpaid_winning);
-                if(count($tdpaid_winning) !=0 && count($tdcomission) !=0){
-                    $twodprofit = $twod_total - ($tdcomission[0]->Commision + $tdpaid_winning[0]->totalSale);
-                }else{
-                    $twodprofit=0;
+
+            $winningAmttwod = Twodsalelist::select('twods.referee_id',
+                            DB::raw('(twods.compensation) * SUM(twodsalelists.sale_amount) as Winning'))
+                            ->join('twods','twods.id','twodsalelists.twod_id')
+                            ->join('agents','twodsalelists.agent_id','agents.id')
+                            ->where('twods.date',$current_date)
+                            ->where('twods.referee_id',$referee->id)
+                            ->where('twodsalelists.status',1)
+                            ->where('twodsalelists.winning_status',1)
+                            ->groupBy('twods.referee_id','twods.number')
+                            ->get()->toArray();
+            //dd($winningAmttwod);
+            $winningAmtlp = Lonepyinesalelist::select('lonepyines.referee_id',
+                            DB::raw('(lonepyines.compensation) * SUM(lonepyinesalelists.sale_amount) as Winning'))
+                            ->join('lonepyines','lonepyines.id','lonepyinesalelists.lonepyine_id')
+                            ->join('agents','lonepyinesalelists.agent_id','agents.id')
+                            ->where('lonepyines.date',$current_date)
+                            ->where('lonepyines.referee_id',$referee->id)
+                            ->where('lonepyinesalelists.status',1)
+                            ->where('lonepyinesalelists.winning_status',1)
+                            ->groupBy('lonepyines.referee_id','lonepyines.number')
+                            ->get()->toArray();
+            // dd($winningAmtlp);
+
+            $winningAmtthreed = Threedsalelist::select('threeds.referee_id',
+                            DB::raw('(threeds.compensation) * SUM(threedsalelists.sale_amount) as Winning'))
+                            ->join('threeds','threeds.id','threedsalelists.threed_id')
+                            ->join('agents','threedsalelists.agent_id','agents.id')
+                            ->where('threedsalelists.date',$current_date)
+                            ->where('threeds.referee_id',$referee->id)
+                            ->where('threedsalelists.status',1)
+                            ->where('threedsalelists.winning_status',1)
+                            ->groupBy('threeds.referee_id','threeds.number')
+                            ->get()->toArray();
+
+            $winning = array_merge($winningAmttwod,$winningAmtlp,$winningAmtthreed);
+
+
+            $winningAmt = array_reduce($winning, function($carry, $item){
+                if(!isset($carry[$item['referee_id']])){
+                $carry[$item['referee_id']] = ['Winning'=>$item['Winning']];
+                } else {
+                $carry[$item['referee_id']]['Winning'] += $item['Winning'];
                 }
+                return $carry;
+                });
 
-                //threed commision
-                $thdcomission = DB::select("SELECT SUM(ts.sale_amount), a.commision ,a.referee_id, (  (a.commision/100) * SUM(ts.sale_amount) ) as Commision
-                FROM agents a
-                left join threedsalelists ts on a.id = ts.agent_id
-                left join threeds t on t.id = ts.threed_id
-                where ts.status = 1
-                and t.date = '$current_date'
-                and a.referee_id = '$referee->id'
-                Group By a.referee_id,a.id;
-                ");
-                //dd($thdcomission[0]->Commision);
-
-                $thdpaid_winning = DB::select("SELECT ( t.compensation * SUM(ts.sale_amount) ) totalSale ,re.id, ((a.commision/100)* SUM(ts.sale_amount)) as Commission From agents a
-                left join referees re on re.id = a.referee_id
-                join threedsalelists ts on ts.agent_id = a.id
-                join threeds t on t.id = ts.threed_id
-                where ts.status = 1 and t.date = '$current_date'
-                and ts.winning_status =1 and a.referee_id = '$referee->id' Group By re.id,t.id;");
-
-                if(count($thdpaid_winning) !=0 && count($thdcomission) !=0){
-                    $threedprofit = $threed_total - ($thdcomission[0]->Commision + $thdpaid_winning[0]->totalSale);
-                }else{
-                    $threedprofit=0;
+            if($sum != null && $winningAmt != null)
+                {
+                    foreach($sum as $ss){
+                        if($winningAmt == null){
+                            $profit = $ss['Amount'] - 0;
+                        }
+                        else{
+                            foreach($winningAmt as $profit){
+                                $profit = $ss['Amount'] - $profit['Winning'];
+                            }
+                        }
+                    }
                 }
+                else{
 
-                //dd($threedprofit);
+                        $profit = 0;
 
-                //loonpyine commision
-                $lpcomission = DB::select("SELECT SUM(ts.sale_amount), a.commision ,a.referee_id, (  (a.commision/100) * SUM(ts.sale_amount) ) as Commision
-                FROM agents a
-                left join lonepyinesalelists ts on a.id = ts.agent_id
-                left join lonepyines t on t.id = ts.lonepyine_id
-                where ts.status = 1
-                and t.date = '$current_date'
-                and a.referee_id = '$referee->id'
-                Group By a.referee_id,a.id;
-                ");
-                //dd($comission);
-
-                $lppaid_winning = DB::select("SELECT ( t.compensation * SUM(ts.sale_amount) ) totalSale ,re.id, ((a.commision/100)* SUM(ts.sale_amount))  as Commission From agents a
-                left join referees re on re.id = a.referee_id
-                join lonepyinesalelists ts on ts.agent_id = a.id
-                join lonepyines t on t.id = ts.lonepyine_id where ts.status = 1 and t.date = '$current_date' and ts.winning_status =1 and a.referee_id = '$referee->id' Group By re.id,t.id;");
-
-                if(count($lppaid_winning) !=0 && count($lpcomission) !=0){
-                    $loonpyineprofit = $lonepyine_total - ($lpcomission[0]->Commision + $lppaid_winning[0]->totalSale);
-                }else{
-                    $loonpyineprofit=0;
-                }
+               }
 
 
-            // calculating commision end
-            if($tdcomission!=null && $thdcomission != null && $lpcomission != null){
-                $refe_totalcommision = $tdcomission[0]->Commision + $thdcomission[0]->Commision + $lpcomission[0]->Commision;
-            }
-            else if($tdcomission!=null && $thdcomission != null && $lpcomission == null){
-                $refe_totalcommision = $tdcomission[0]->Commision + $thdcomission[0]->Commision + 0;
-            }
-            else if($tdcomission!=null && $thdcomission == null && $lpcomission != null){
-                $refe_totalcommision = $tdcomission[0]->Commision + 0 + $lpcomission[0]->Commision;
-            }
-            else if($tdcomission==null && $thdcomission != null && $lpcomission != null){
-                $refe_totalcommision = 0 + $thdcomission[0]->Commision + $lpcomission[0]->Commision;
-            }
-            else{
-                $refe_totalcommision = 0;
-            }
-
-            $totalprofit  = $twodprofit+$threedprofit+$loonpyineprofit;
 
 
             $referee =Referee::where('user_id',$user->id)->first();
@@ -553,10 +519,9 @@ class DashboardController extends Controller
                         ->groupBy('lonepyines.number')
                         ->having('lonepyines.max_amount','<=',DB::raw('SUM(lonepyinesalelists.sale_amount)'))
                         ->get();
-                        return view('dashboard', compact('refe_totalcommision','totalprofit', 'sum', 'agents', 'refe_twod_salelists',
-                        'refe_lp_salelists', 'Declined_lonepyineList', 'Declined_twoDList'));
+                        return view('dashboard', compact( 'sum', 'agents', 'refe_twod_salelists',
+                        'refe_lp_salelists', 'Declined_lonepyineList', 'Declined_twoDList','profit'));
                     }
-
     }
 
     public function twoddecline_pdf () {

@@ -55,7 +55,6 @@ class LoginController extends Controller
 
             $referee=Referee::where('user_id',$user->id)->first();
             $r_status=$referee->active_status;
-
             if($r_status==1){
                 Auth::login($user);
             }else{

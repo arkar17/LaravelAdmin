@@ -126,6 +126,37 @@ class RefreeManagementController extends Controller
 
     public function twoDmanage()
     {
+        // $user = auth()->user()->id;
+        // $referee = Referee::where('user_id', $user)->first();
+        // $currenDate = Carbon::now()->toDateString();
+        // $twoD_lists = DB::select("SELECT aa.id,aa.number , aa.max_amount , aa.compensation
+        // from (SELECT * FROM ( SELECT * FROM twods t where referee_id = '$referee->id' ORDER BY id DESC LIMIT 100 )sub ORDER BY id ASC) aa
+        // LEFT join agents on aa.referee_id = agents.id
+        // LEFT join twodsalelists ts on ts.twod_id = aa.id
+        // and ts.status = 1
+        // where aa.referee_id = '$referee->id'
+        // and aa.date = '$currenDate'
+        // and aa.round = 'Evening'
+        // group by aa.number");
+    // dd($twoD_lists);
+        // $twoD_sale_lists = DB::select("SELECT aa.number, SUM(ts.sale_amount) as sales
+        // from twods aa
+        // RIGHT join agents on aa.referee_id = agents.id
+        // RIGHT join twodsalelists ts on ts.twod_id = aa.id
+        // and ts.status = 1
+        // where aa.referee_id = '$referee->id'
+        // and aa.date = '$currenDate'
+        // and aa.round = 'Evening'
+        // group by aa.number");
+        // dd($twoD_sale_lists);
+
+        // $output = array_column($twoD_sale_lists, 'number','sales');
+        // foreach ($twoD_lists as &$r) {
+        //     $r->sales = $output[$r->number] ?? 'N/A';
+        //     }
+
+
+
 
         return view('RefereeManagement.twoDManage');
     }
@@ -253,6 +284,12 @@ class RefreeManagementController extends Controller
 
     // dailysalebook start
     public function dailysalebook(){
+        $time=Carbon::now()->toTimeString();
+        if($time>12){
+            $round='Evening';
+        }else{
+            $round='Morning';
+        }
         $agents = Agent::get();
         //dd($agents->toArray());
         $user = auth()->user()->id;
@@ -266,6 +303,7 @@ class RefreeManagementController extends Controller
                                 ->orderBy('twodsalelists.id','desc')
                                 ->where('twods.referee_id',$referee->id)
                                 ->where('twodsalelists.status',0)
+                                ->where('twods.round',$round)
                                 ->where('twods.referee_id',$referee->id)
                                 ->get();
         $agenttwodsalenumber = Twodsalelist::select('twodsalelists.id','twodsalelists.agent_id','twodsalelists.sale_amount','twodsalelists.status','twods.number',
@@ -275,6 +313,7 @@ class RefreeManagementController extends Controller
         ->join('users','users.id','agents.user_id')
         ->where('twods.referee_id',$referee->id)
         ->where('twodsalelists.status',0)
+        ->where('twods.round',$round)
         ->where('twods.referee_id',$referee->id)
         ->get();
                             //dd($agenttwodsalenumber->toArray());
@@ -287,6 +326,7 @@ class RefreeManagementController extends Controller
                             ->orderBy('lonepyinesalelists.id','desc')
                             ->where('lonepyines.referee_id',$referee->id)
                             ->where('lonepyinesalelists.status',0)
+                            ->where('lonepyines.round',$round)
                             ->get();
                             //dd($agentlonepyinesalelist->toArray());
 
@@ -297,6 +337,7 @@ class RefreeManagementController extends Controller
         ->join('users','users.id','agents.user_id')
         ->where('lonepyines.referee_id',$referee->id)
         ->where('lonepyinesalelists.status',0)
+        ->where('lonepyines.round',$round)
         ->get();
                         //dd($agentlonepyinesalelist->toArray());
 
@@ -602,13 +643,13 @@ class RefreeManagementController extends Controller
             left join agents a ON a.id = tds.agent_id
             left join threeds td on td.id = tds.threed_id
             left join cashin_cashouts cio on tds.agent_id = cio.agent_id
-            where tds.status = '3' and td.date = '$currenDate'
+            where tds.status = '3' and tds.date = '$currenDate'
             group by tds.agent_id");
             $amtforR = DB::select("Select (COALESCE(SUM(tds.sale_amount),0) + COALESCE(re.main_cash,0) - (a.commision/100)*  (COALESCE(SUM(tds.sale_amount),0)) ) totalSale ,re.id
             From agents a left join referees re on re.id = a.referee_id
             left join threedsalelists tds on tds.agent_id = a.id
             left join threeds td on td.id = tds.threed_id
-            where tds.status = 3 and td.date = '$currenDate'
+            where tds.status = 3 and tds.date = '$currenDate'
             Group By re.id");
             foreach($amtforR as $amtR){
                 //  dd($amtR->totalSale);

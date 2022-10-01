@@ -74,7 +74,6 @@
            Export 2D Declined List
     </a>
     <table class="twod-sale-list-details-parent-container">
-        sldksahduoisagiaudgogu
         <thead>
         <tr class="twod-sale-list-details-labels-container">
           <th>{{__('msg.ID')}}</th>
