@@ -137,6 +137,7 @@ class DashboardController extends Controller
             }else{
                 return redirect()->back()->with('success', '3D winning number can only add on 1 and 16 day of a month');
             }
+
             $threednum=Threed::where('number','=',$request->number)->first();
             if(!empty($threednum->id)){
                 $threednum=Threed::where('number','=',$request->number)
