@@ -1,5 +1,10 @@
    <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
         <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <style>
@@ -11,40 +16,42 @@
                     text-align: left;
                     }
             th{
-                    color: #0b0bbb;
-                    font-size: 1em;
+                    color: #1a1a1d;
             }
             table {
                     width: 100%;
                     border-collapse: collapse;
                     }
+            h5{
+                font-family:serif;
+                }
         </style>
     </head>
     <body>
-        <div class="role-view-detail-parent-container">
-            <h2>Customers' Data</h2>
-            <div>
-                <center>
-                <table>
-                    <th>ID</th>
-                    <th>Agent Name</th>
-                    <th>Customer Name</th>
-                    <th>Customer Phone</th>
-                    <th>Sale Amount</th>
+        <div class="container mt-5">
+            <h5 class="text-center mb-3">Customers' Data</h5>
+                <table class="table table-bordered mb-5">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th>ID</th>
+                            <th>Agent Name</th>
+                            <th>Customer Name</th>
+                            <th>Customer Phone</th>
+                            <th>Sale Amount</th>
+                        </tr>
+                    </thead>
                     <?php $i=1; ?>
-                @foreach ($results as $result)
-                    <tr>
-                        <td>{{$i++}}</td>
-                        <td>{{$result['name']}}</td>
-                        <td>{{$result['customer_name']}}</td>
-                        <td>{{$result['customer_phone']}}</td>
-                        <td>{{$result['Amount']}}</td>
+                    @foreach ($results as $result)
+                        <tr>
+                            <td>{{$i++}}</td>
+                            <td>{{$result['name']}}</td>
+                            <td>{{$result['customer_name']}}</td>
+                            <td>{{$result['customer_phone']}}</td>
+                            <td>{{$result['Amount']}}</td>
 
-                    </tr>
-                @endforeach
+                        </tr>
+                    @endforeach
                 </table>
-                </center>
-            </div>
         </div>
     </body>
     <!-- JavaScript Bundle with Popper -->
